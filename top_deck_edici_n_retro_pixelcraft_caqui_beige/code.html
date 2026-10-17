@@ -1,0 +1,962 @@
+<!DOCTYPE html><html lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Top Deck - Gran Carpeta Pixel Art &amp; MTG Tavern Vault</title>
+<!-- Google Pixel Fonts & Monospace -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Silkscreen:wght@400;700&amp;family=VT323&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 with Container Queries & Forms -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "pixel-bg": "#f7eed8",
+          "pixel-bg-alt": "#eedec5",
+          "pixel-wood": "#5a3a23",
+          "pixel-wood-dark": "#362013",
+          "pixel-wood-light": "#8b5c3b",
+          "pixel-gold": "#d97706",
+          "pixel-gold-bright": "#f59e0b",
+          "pixel-gold-dark": "#92400e",
+          "pixel-amber": "#e67e22",
+          "pixel-parchment": "#fff9ee",
+          "pixel-parchment-dark": "#efe2c8",
+          "pixel-border": "#3c2415",
+          "pixel-text": "#2b1810",
+          "pixel-text-muted": "#6b5443",
+          "pixel-green": "#16a34a",
+          "pixel-blue": "#2563eb",
+          "pixel-red": "#dc2626"
+        },
+        fontFamily: {
+          pixel: ["'Press Start 2P'", "cursive"],
+          silk: ["'Silkscreen'", "sans-serif"],
+          vt: ["'VT323'", "monospace"],
+          mono: ["'JetBrains Mono'", "monospace"]
+        }
+      }
+    }
+  };
+</script>
+<style>
+  /* 8-BIT / 16-BIT RETRO PIXEL UTILITIES */
+  * {
+    image-rendering: pixelated;
+  }
+
+  /* Scanlines Overlay sutil en tono cálido */
+  .crt-overlay::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(60, 36, 21, 0) 50%, rgba(60, 36, 21, 0.08) 50%);
+    background-size: 100% 4px;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.65;
+  }
+
+  /* Pixel Hard Shadows & Borders (PixelCraft Style) con marrón oscuro #3c2415 */
+  .pixel-box {
+    border: 3px solid #3c2415;
+    box-shadow: 4px 4px 0px #3c2415;
+  }
+  .pixel-box-sm {
+    border: 2px solid #3c2415;
+    box-shadow: 2px 2px 0px #3c2415;
+  }
+  .pixel-box-gold {
+    border: 3px solid #3c2415;
+    box-shadow: 4px 4px 0px #d97706;
+  }
+  .pixel-btn {
+    border: 3px solid #3c2415;
+    box-shadow: 4px 4px 0px #3c2415;
+    transition: transform 0.06s ease, box-shadow 0.06s ease;
+  }
+  .pixel-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0px #3c2415;
+  }
+  .pixel-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0px #3c2415;
+  }
+
+  /* Retro RPG Dialog Window Texture - Marfil Pergamino y marco Caqui/Madera */
+  .rpg-window {
+    background: #fff9ee;
+    border: 4px solid #d97706;
+    outline: 4px solid #3c2415;
+    box-shadow: 8px 8px 0px rgba(60, 36, 21, 0.65);
+  }
+
+  .rpg-window-inner {
+    border: 2px solid #c8b497;
+  }
+
+  /* 3D Card Flip CSS */
+  .card-3d-wrap {
+    perspective: 1000px;
+  }
+  .card-3d-inner {
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .card-face {
+    backface-visibility: hidden;
+    position: absolute;
+    inset: 0;
+  }
+  .card-back {
+    transform: rotateY(180deg);
+  }
+
+  /* Custom Pixel Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #efe2c8;
+    border: 2px solid #3c2415;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d97706;
+    border: 2px solid #3c2415;
+  }
+
+  /* Pixel Grid Background en Beige / Caqui Claro */
+  .pixel-grid-bg {
+    background-color: #f7eed8;
+    background-image: 
+      linear-gradient(to right, #ebdcb9 2px, transparent 2px),
+      linear-gradient(to bottom, #ebdcb9 2px, transparent 2px);
+    background-size: 24px 24px;
+  }
+
+  /* Blinking RPG Cursor */
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .blink-cursor {
+    animation: blink 0.8s infinite;
+  }
+</style>
+</head>
+<body class="pixel-grid-bg text-[#2b1810] min-h-screen flex flex-col font-mono antialiased crt-overlay selection:bg-[#f59e0b] selection:text-[#2b1810]">
+<!-- ================= TOP NAV BAR: ARCADE / RPG GUILD HEADER (CAQUI CLARO) ================= -->
+<header class="w-full bg-[#eedec5] border-b-4 border-[#3c2415] px-4 py-3 sticky top-0 z-40 shadow-[0_4px_0_#3c2415]">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+<!-- Left: Top Deck Pixel Logo + Subtitle -->
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-3 group" href="#">
+<div class="w-12 h-12 bg-[#faebd7] border-2 border-[#3c2415] p-1 shadow-[2px_2px_0_#3c2415] flex items-center justify-center group-hover:bg-[#f59e0b]/20 transition-colors">
+<img alt="Top Deck Vault Logo" class="h-10 w-10 object-contain drop-shadow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRxSn3A3iG0MNmWctzPvFCx2BXDJ7ccOnWTYQWpW_6OdCHY6wTwba-7QrUNwW1g84TY40qV4uPUGCgfmkCrlk0D72yxcenVwxmxkh53DsD3RO7po-gE-cMNEhN-vmC2TgWEr0_84sbekEW-S7rAyDJcqkoKK4Hpmid8mj7RENtt0LSGYZWGLFWWrt_x9f7paYRsIW847dHO5RJfcVP4mZLyGu2Woh6pBkiLnrfhQMu9xBtRhF_v371qPLPpnPvmoysdA">
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-sm sm:text-base text-[#92400e] drop-shadow-[1px_1px_0_#fff] tracking-wider">TOP DECK</span>
+<span class="bg-[#d97706] text-white font-pixel text-[8px] px-1.5 py-0.5 border border-[#3c2415] shadow-[1px_1px_0_#3c2415]">VER 1.6</span>
+</div>
+<span class="font-silk text-[10px] text-[#6b5443] uppercase tracking-widest mt-0.5">COMPETITIVIDAD Y COLECCIONISMO</span>
+</div>
+</a>
+<!-- Game Selector (Retro 8-bit Select) -->
+
+</div>
+<!-- Center: Retro RPG Navigation Menu -->
+<nav class="hidden md:flex items-center gap-2 font-pixel text-[10px]">
+<a class="px-2.5 py-1.5 text-[#5a4231] hover:text-[#b45309] hover:bg-[#faebd7] border border-transparent hover:border-[#3c2415] transition-all" href="#">
+        MERCADO
+      </a>
+<!-- Active Tab: Bóveda de Álbumes -->
+<a class="px-3 py-1.5 bg-[#f59e0b] text-[#2b1810] font-pixel border-2 border-[#3c2415] shadow-[3px_3px_0_#3c2415] flex items-center gap-1.5 font-bold" href="#">
+<span class="">📖</span>
+<span class="">BÓVEDA DE CARTAS<br></span>
+</a>
+<a class="px-2.5 py-1.5 text-[#5a4231] hover:text-[#b45309] hover:bg-[#faebd7] border border-transparent hover:border-[#3c2415] transition-all" href="#">
+        TORNEOS FNM
+      </a>
+
+</nav>
+<!-- Right: Stats & Cart Arcade Buttons -->
+<div class="flex items-center gap-2">
+<!-- Player Level Badge -->
+<div class="hidden sm:flex items-center bg-[#fff9ee] border-2 border-[#3c2415] px-2 py-1 font-pixel text-[9px] text-[#2b1810] shadow-[2px_2px_0_#3c2415]">
+<span class="text-[#16a34a] mr-1.5 font-bold">LV.42</span>
+<span class="text-[#b45309]">EXP: 9999</span>
+</div>
+<!-- Loot Cart Button -->
+<button class="pixel-btn bg-[#f59e0b] hover:bg-[#fbbf24] text-[#2b1810] font-pixel text-[10px] px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold">
+<span class="">🎒</span>
+<span class="hidden sm:inline">BOTÍN</span>
+<span class="bg-[#3c2415] text-[#fbbf24] px-1.5 py-0.5 text-[9px] border border-[#d97706] shadow-inner font-mono font-bold">3 ($142.50)</span>
+</button>
+<!-- Account Button -->
+<button class="pixel-btn bg-[#faebd7] hover:bg-[#efe0c7] text-[#2b1810] font-pixel text-[10px] p-2 flex items-center justify-center cursor-pointer" title="Ficha de Jugador">
+<span class="">👤</span>
+</button>
+</div>
+</div>
+</header>
+<!-- ================= SUB-BAR: RETRO RPG FILTER QUEST BAR (BEIGE/CAQUI) ================= -->
+<section class="bg-[#f0e2cb] border-b-4 border-[#3c2415] px-4 py-2.5 z-30">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+<!-- Search RPG Console -->
+<div class="flex-1 min-w-[280px] max-w-lg">
+<div class="flex items-center bg-[#fff9ee] border-2 border-[#3c2415] px-3 py-1.5 shadow-[2px_2px_0_#3c2415]">
+<span class="font-pixel text-[#d97706] text-xs mr-2">🔍</span>
+<input class="bg-transparent w-full text-[#2b1810] placeholder:text-[#8a725e] font-pixel text-[10px] border-none p-0 focus:ring-0 uppercase tracking-wider" placeholder="BUSCAR CARTA O REGLA..." type="text" value="DUSKMOURN &amp; MODERN STAPLES">
+<span class="font-pixel text-[8px] bg-[#eedec5] px-1.5 py-0.5 border border-[#3c2415] text-[#5a4231]">[ENTER]</span>
+</div>
+</div>
+<!-- Mana Orbs Pixel Badges -->
+<div class="flex items-center gap-1.5 bg-[#e4d3ba] border-2 border-[#3c2415] px-2 py-1 shadow-[2px_2px_0_#3c2415]">
+  <span class="font-pixel text-[9px] text-[#5a4231] font-bold flex items-center gap-1">🎮 JUEGO:</span>
+  <div class="relative">
+    <select class="bg-[#fff9ee] hover:bg-[#faebd7] border-2 border-[#3c2415] text-[#2b1810] font-pixel text-[9px] uppercase py-1 px-2 pr-6 focus:ring-0 focus:border-[#d97706] shadow-[1px_1px_0_#3c2415] cursor-pointer font-bold tracking-wider">
+      <option value="mtg" selected="">MAGIC: THE GATHERING</option>
+      <option value="pkm">POKÉMON TCG</option>
+      <option value="ygo">YU-GI-OH!</option>
+      <option value="op">ONE PIECE CARD GAME</option>
+      <option value="lorcana">DISNEY LORCANA</option>
+      <option value="swu">STAR WARS: UNLIMITED</option>
+    </select>
+  </div>
+</div><button id="toggleFiltersBtn" onclick="const panel = document.getElementById('advancedFiltersPanel'); const isOpen = !panel.classList.contains('hidden'); if(isOpen){ panel.classList.add('hidden'); this.querySelector('.arrow-icon').textContent='▼'; this.classList.remove('bg-[#d97706]'); } else { panel.classList.remove('hidden'); this.querySelector('.arrow-icon').textContent='▲'; this.classList.add('bg-[#d97706]'); }" class="pixel-btn bg-[#f59e0b] hover:bg-[#fbbf24] text-[#2b1810] font-pixel text-[9px] px-2.5 py-1 border-2 border-[#3c2415] shadow-[2px_2px_0_#3c2415] flex items-center gap-1.5 cursor-pointer font-bold transition-all" title="Alternar Filtros Avanzados">
+  <span class="">⚡</span>
+  <span class="">FILTROS TCG</span>
+  <span class="arrow-icon text-[8px]">▼</span>
+</button>
+<!-- Format Tabs / Status -->
+
+</div>
+</section>
+<!-- ================= MAIN ARCHIVAL BINDER STAGE IN RETRO PIXEL ART (CAQUI CLARO) ================= -->
+<main class="flex-1 relative px-3 sm:px-6 py-6 flex flex-col items-center justify-start">
+<!-- RPG Banner Header -->
+<div class="w-full max-w-7xl mb-4 bg-[#fcf3dd] border-4 border-[#3c2415] p-3 sm:p-4 shadow-[4px_4px_0_#3c2415] hidden" id="advancedFiltersPanel">
+  <!-- Top Row: Section Label + Status & Modal Inspect & Pagination -->
+  <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-2 border-[#3c2415] mb-3">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 bg-[#f59e0b] text-[#2b1810] border-2 border-[#3c2415] flex items-center justify-center font-pixel text-xs shadow-[1px_1px_0_#3c2415]">
+        ⚡
+      </div>
+      <span class="font-pixel text-[11px] text-[#92400e] uppercase tracking-wider font-bold">FILTROS AVANZADOS TCG</span>
+      <span class="font-pixel text-[8px] bg-[#eedec5] text-[#5a4231] px-1.5 py-0.5 border border-[#3c2415]">CATÁLOGO BÓVEDA</span>
+    <button onclick="document.getElementById('advancedFiltersPanel').classList.add('hidden'); const btn = document.getElementById('toggleFiltersBtn'); if(btn){ btn.querySelector('.arrow-icon').textContent='▼'; btn.classList.remove('bg-[#d97706]'); }" class="pixel-btn bg-[#faebd7] hover:bg-[#efe0c7] text-[#2b1810] font-bold px-2 py-1 flex items-center justify-center cursor-pointer font-pixel text-[9px] border-2 border-[#3c2415]" title="Ocultar Filtros">✕</button></div>
+    <div class="flex items-center gap-2 font-pixel text-[9px]">
+      <span class="bg-[#fff9ee] border-2 border-[#3c2415] text-[#2b1810] px-2.5 py-1 shadow-[2px_2px_0_#3c2415] font-bold">
+        PÁG 04/28 • 18 CARTAS
+      </span>
+      <button class="pixel-btn bg-[#f59e0b] hover:bg-[#fbbf24] text-[#2b1810] font-bold px-3 py-1 flex items-center gap-1.5 cursor-pointer font-pixel text-[9px]" onclick="openCardInspect()">
+        <span class="">👁️</span>
+        <span class="">MODAL INSPECT</span>
+      </button>
+    <button onclick="document.getElementById('advancedFiltersPanel').classList.add('hidden'); const btn = document.getElementById('toggleFiltersBtn'); if(btn){ btn.querySelector('.arrow-icon').textContent='▼'; btn.classList.remove('bg-[#d97706]'); }" class="pixel-btn bg-[#faebd7] hover:bg-[#efe0c7] text-[#2b1810] font-bold px-2 py-1 flex items-center justify-center cursor-pointer font-pixel text-[9px] border-2 border-[#3c2415]" title="Ocultar Filtros">✕</button></div>
+  </div>
+
+  <!-- Advanced Filters Grid (DracoStore MTG Style) -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-[9px] font-pixel">
+    <!-- Filter 1: Expansión / Set -->
+    <div class="flex flex-col gap-1">
+      <label class="text-[#6b5443] font-bold text-[8px] uppercase tracking-wider">EXPANSIÓN / SET</label>
+      <div class="relative">
+        <select class="w-full bg-[#faebd7] hover:bg-[#fff9ee] border-2 border-[#3c2415] text-[8px] text-[#2b1810] font-pixel py-1.5 px-2 pr-6 focus:ring-0 focus:border-[#d97706] shadow-[2px_2px_0_#3c2415] cursor-pointer truncate font-bold">
+          <option value="all">TODAS LAS EXP.</option>
+          <option selected="" value="dsk">DUSKMOURN (DSK)</option>
+          <option value="blb">BLOOMBURROW (BLB)</option>
+          <option value="mh3">MODERN HORIZONS 3</option>
+          <option value="otj">OUTLAWS THUNDER J.</option>
+          <option value="mkm">MURDERS AT KARLOV</option>
+          <option value="ltr">LORD OF THE RINGS</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filter 2: Tipo de Carta -->
+    <div class="flex flex-col gap-1">
+      <label class="text-[#6b5443] font-bold text-[8px] uppercase tracking-wider">TIPO DE CARTA</label>
+      <div class="relative">
+        <select class="w-full bg-[#faebd7] hover:bg-[#fff9ee] border-2 border-[#3c2415] text-[8px] text-[#2b1810] font-pixel py-1.5 px-2 pr-6 focus:ring-0 focus:border-[#d97706] shadow-[2px_2px_0_#3c2415] cursor-pointer truncate font-bold">
+          <option value="all" selected="">TODOS LOS TIPOS</option>
+          <option value="creature">CRIATURA</option>
+          <option value="instant">INSTANTÁNEO</option>
+          <option value="sorcery">CONJURO</option>
+          <option value="enchantment">ENCANTAMIENTO</option>
+          <option value="artifact">ARTEFACTO</option>
+          <option value="planeswalker">PLANESWALKER</option>
+          <option value="land">TIERRA</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filter 3: Rareza -->
+    <div class="flex flex-col gap-1">
+      <label class="text-[#6b5443] font-bold text-[8px] uppercase tracking-wider">RAREZA</label>
+      <div class="relative">
+        <select class="w-full bg-[#faebd7] hover:bg-[#fff9ee] border-2 border-[#3c2415] text-[8px] text-[#2b1810] font-pixel py-1.5 px-2 pr-6 focus:ring-0 focus:border-[#d97706] shadow-[2px_2px_0_#3c2415] cursor-pointer truncate font-bold">
+          <option value="all" selected="">CUALQUIER RAREZA</option>
+          <option value="m">MÍTICA (MYTHIC)</option>
+          <option value="r">RARA (RARE)</option>
+          <option value="u">INFRECUENTE (UNC)</option>
+          <option value="c">COMÚN (COMMON)</option>
+          <option value="sp">SPECIAL GUESTS</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filter 4: Condición -->
+    <div class="flex flex-col gap-1">
+      <label class="text-[#6b5443] font-bold text-[8px] uppercase tracking-wider">CONDICIÓN</label>
+      <div class="relative">
+        <select class="w-full bg-[#faebd7] hover:bg-[#fff9ee] border-2 border-[#3c2415] text-[8px] text-[#2b1810] font-pixel py-1.5 px-2 pr-6 focus:ring-0 focus:border-[#d97706] shadow-[2px_2px_0_#3c2415] cursor-pointer truncate font-bold">
+          <option value="all">CUALQUIER ESTADO</option>
+          <option selected="" value="nm">NEAR MINT (NM)</option>
+          <option value="lp">LIGHTLY PLAYED (LP)</option>
+          <option value="mp">MODERATELY PLAYED (MP)</option>
+          <option value="hp">HEAVILY PLAYED (HP)</option>
+          <option value="dmg">DAMAGED</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filter 5: Acabado -->
+    <div class="flex flex-col gap-1">
+      <label class="text-[#6b5443] font-bold text-[8px] uppercase tracking-wider">ACABADO</label>
+      <div class="relative">
+        <select class="w-full bg-[#faebd7] hover:bg-[#fff9ee] border-2 border-[#3c2415] text-[8px] text-[#2b1810] font-pixel py-1.5 px-2 pr-6 focus:ring-0 focus:border-[#d97706] shadow-[2px_2px_0_#3c2415] cursor-pointer truncate font-bold">
+          <option value="all" selected="">TODOS LOS ACABADOS</option>
+          <option value="foil">FOIL TRADICIONAL</option>
+          <option value="nofoil">NO FOIL</option>
+          <option value="etched">ETCHED FOIL</option>
+          <option value="borderless">BORDERLESS / EXTENDED</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filter 6: Idioma -->
+    <div class="flex flex-col gap-1">
+      <label class="text-[#6b5443] font-bold text-[8px] uppercase tracking-wider">IDIOMA</label>
+      <div class="relative">
+        <select class="w-full bg-[#faebd7] hover:bg-[#fff9ee] border-2 border-[#3c2415] text-[8px] text-[#2b1810] font-pixel py-1.5 px-2 pr-6 focus:ring-0 focus:border-[#d97706] shadow-[2px_2px_0_#3c2415] cursor-pointer truncate font-bold">
+          <option value="all">TODOS</option>
+          <option selected="" value="en">INGLÉS (EN)</option>
+          <option value="es">ESPAÑOL (ES)</option>
+          <option value="jp">JAPONÉS (JP)</option>
+        </select>
+      </div>
+    </div>
+  <div class="flex flex-col gap-1 col-span-2 sm:col-span-3 lg:col-span-6 mt-1 pt-2 border-t border-[#3c2415]/40">
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <div class="flex items-center gap-2">
+      <label class="text-[#6b5443] font-bold text-[8px] uppercase tracking-wider flex items-center gap-1">
+        <span class="">🔮</span> IDENTIDAD DE MANÁ (COLOR):
+      </label>
+      <div class="flex items-center gap-1 bg-[#e4d3ba] border-2 border-[#3c2415] p-1 shadow-[2px_2px_0_#3c2415]">
+        <button class="w-6 h-6 border border-[#3c2415] bg-[#fffadc] text-[#292212] font-pixel text-[9px] font-bold flex items-center justify-center shadow-[1px_1px_0_#3c2415] hover:translate-y-[-1px]" title="Blanco (White)">W</button>
+        <button class="w-6 h-6 border border-[#3c2415] bg-[#1b75bb] text-white font-pixel text-[9px] font-bold flex items-center justify-center shadow-[1px_1px_0_#3c2415] hover:translate-y-[-1px]" title="Azul (Blue)">U</button>
+        <button class="w-6 h-6 border-2 border-[#d97706] bg-[#22130c] text-[#fbbf24] font-pixel text-[9px] font-bold flex items-center justify-center shadow-[1px_1px_0_#d97706] scale-110" title="Negro (Black - Seleccionado)">B</button>
+        <button class="w-6 h-6 border border-[#3c2415] bg-[#d32f2f] text-white font-pixel text-[9px] font-bold flex items-center justify-center shadow-[1px_1px_0_#3c2415] hover:translate-y-[-1px]" title="Rojo (Red)">R</button>
+        <button class="w-6 h-6 border border-[#3c2415] bg-[#2e7d32] text-white font-pixel text-[9px] font-bold flex items-center justify-center shadow-[1px_1px_0_#3c2415] hover:translate-y-[-1px]" title="Verde (Green)">G</button>
+        <button class="w-6 h-6 border border-[#3c2415] bg-[#786e65] text-white font-pixel text-[9px] font-bold flex items-center justify-center shadow-[1px_1px_0_#3c2415] hover:translate-y-[-1px]" title="Incoloro (Colorless)">C</button>
+      </div>
+    </div>
+    <div class="flex items-center gap-1.5">
+      <span class="text-[#6b5443] font-bold text-[7px] uppercase">COINCIDENCIA:</span>
+      <button class="px-1.5 py-0.5 bg-[#f59e0b] text-[#2b1810] border border-[#3c2415] font-pixel text-[7px] font-bold shadow-[1px_1px_0_#3c2415]">EXACTA</button>
+      <button class="px-1.5 py-0.5 bg-[#faebd7] hover:bg-[#fff9ee] text-[#5a4231] border border-[#3c2415] font-pixel text-[7px] font-bold shadow-[1px_1px_0_#3c2415]">CONTIENE</button>
+    </div>
+  </div>
+</div></div>
+
+  <!-- Bottom Action & Quick Filter Pills -->
+  <div class="mt-3 pt-2.5 border-t border-[#3c2415]/40 flex flex-wrap items-center justify-between gap-2">
+    <div class="flex items-center gap-1.5 flex-wrap">
+      <span class="font-pixel text-[7px] text-[#6b5443] uppercase font-bold mr-1">PRESETS:</span>
+      <button class="px-2 py-0.5 bg-[#faebd7] hover:bg-[#fff9ee] border border-[#3c2415] font-pixel text-[7px] text-[#2b1810] shadow-[1px_1px_0_#3c2415]">⚡ MODERN STAPLES</button>
+      <button class="px-2 py-0.5 bg-[#faebd7] hover:bg-[#fff9ee] border border-[#3c2415] font-pixel text-[7px] text-[#2b1810] shadow-[1px_1px_0_#3c2415]">💀 DUSKMOURN FOILS</button>
+      <button class="px-2 py-0.5 bg-[#faebd7] hover:bg-[#fff9ee] border border-[#3c2415] font-pixel text-[7px] text-[#2b1810] shadow-[1px_1px_0_#3c2415]">💎 RESERVED LIST</button>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="pixel-btn bg-[#faebd7] hover:bg-[#efe0c7] text-[#5a4231] font-pixel text-[8px] px-2.5 py-1 border-2 border-[#3c2415] flex items-center gap-1 cursor-pointer font-bold">
+        <span class="">🔄</span>
+        <span class="">LIMPIAR FILTROS</span>
+      </button>
+      <button class="pixel-btn bg-[#f59e0b] hover:bg-[#fbbf24] text-[#2b1810] font-pixel text-[8px] px-3 py-1 border-2 border-[#3c2415] flex items-center gap-1 cursor-pointer font-bold shadow-[2px_2px_0_#3c2415]" onclick="document.getElementById('advancedFiltersPanel').classList.add('hidden'); const btn = document.getElementById('toggleFiltersBtn'); if(btn){ btn.querySelector('.arrow-icon').textContent='▼'; btn.classList.remove('bg-[#d97706]'); }">
+        <span class="">⚔️</span>
+        <span class="">APLICAR</span>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- THE RETRO PIXEL BINDER (CARPETA DE TABERNA EN CUERO CAQUI CLARO) -->
+<div class="w-full max-w-7xl relative bg-[#d6be96] border-4 border-[#3c2415] p-3 sm:p-5 shadow-[8px_8px_0_#3c2415] rounded-sm">
+<!-- Gold Pixel Corners (NES Style) -->
+<div class="absolute -top-2 -left-2 w-4 h-4 bg-[#f59e0b] border-2 border-[#3c2415]"></div>
+<div class="absolute -top-2 -right-2 w-4 h-4 bg-[#f59e0b] border-2 border-[#3c2415]"></div>
+<div class="absolute -bottom-2 -left-2 w-4 h-4 bg-[#f59e0b] border-2 border-[#3c2415]"></div>
+<div class="absolute -bottom-2 -right-2 w-4 h-4 bg-[#f59e0b] border-2 border-[#3c2415]"></div>
+<!-- Binder Spine Rings (Pixelated Metallic Blocks) -->
+<div class="hidden lg:flex flex-col justify-around items-center absolute top-10 bottom-10 left-1/2 -translate-x-1/2 w-8 z-30 pointer-events-none">
+<div class="w-8 h-4 bg-[#efe2c8] border-2 border-[#3c2415] shadow-[2px_2px_0_#8b7355]"></div>
+<div class="w-8 h-4 bg-[#efe2c8] border-2 border-[#3c2415] shadow-[2px_2px_0_#8b7355]"></div>
+<div class="w-8 h-4 bg-[#efe2c8] border-2 border-[#3c2415] shadow-[2px_2px_0_#8b7355]"></div>
+<div class="w-8 h-4 bg-[#efe2c8] border-2 border-[#3c2415] shadow-[2px_2px_0_#8b7355]"></div>
+</div>
+<!-- Double Page Spread Grid (Parchment Tone Caqui) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 bg-[#fdf5e6] p-3 sm:p-4 border-2 border-[#3c2415] shadow-inner">
+<!-- ================= LEFT PAGE (9 Cards) ================= -->
+<div class="grid grid-cols-3 gap-2.5 sm:gap-3 z-20">
+<!-- Card 1 (Active inspect trigger) -->
+<div class="bg-[#faebd7] border-2 border-[#d97706] p-1 flex flex-col justify-between cursor-pointer shadow-[3px_3px_0_#3c2415] hover:scale-105 transition-transform" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Unholy Annex" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDifSVUatqowW52ISZ0CkIk0pw4P_AebmnLwMl_6ZkFZskPqNi_7xgit0Z5_-NzgZson7BRd5i0zi8N7XkEdxFgRPXKfwgWq3jG4GtIFPcXHXefFJuKDHoBJjN5f1OKuYfsBY5ih_X3mArr8OPxQO9VgNk7lwUc34aVjRPKZizs9Yuz3LKxUDCzqieMgGAT1Zb5W09zlD2WjW-Br2s4oYUeH2V-jfIAPM4eh904in0KxkXQLOdJVgfY">
+<span class="absolute top-0.5 right-0.5 bg-[#f59e0b] text-[#2b1810] font-pixel text-[7px] px-1 border border-[#3c2415] font-bold">3D</span>
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Unholy Annex</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$34.00</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#16a34a] font-bold">NM FOIL</span>
+<span class="">DSK#100</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="The One Ring" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAPbCZPR1KiCujFNn6aoObIaxRmGunOX7_KBHs0maYc8k4Td2IN6L4eihDXE2IK8YDre2P4G_1kiTpUeuySEpwQmcUPpYoZbLfI7ut7WOihDxGZQt6NbMqftiIZHWJbknDePMiufxiP9K02w3EQF-QATPwr5yfR_I2nXvRsPDtFmzF-_VBn3zBT4YTK-3ZqDVkAQ66LeY8OaytQBO-V70r813QDvJKrxQGT4_OhkxTJBoZ2cRCLFzY">
+<span class="absolute top-0.5 right-0.5 bg-[#f59e0b] text-[#2b1810] font-pixel text-[7px] px-1 border border-[#3c2415] font-bold">M</span>
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">The One Ring</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$98.50</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#16a34a] font-bold">FOIL NM</span>
+<span class="">LTR#246</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Sheoldred" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHvt6FPWxuJjdCOMTAuGRbt5jky1YaHEa3frpRcKHojdCVPF0bk2MWt_oJcCW0BUC91JTBRHGv4QuJcBt3TzBfCqM3OlyxuUeFN--sMLAN1Q1vOP8RSuEZyesSnKUT8Zo0zgNyNvdYJE9dWB901A_dwL9da7AubNyEAeoVikL1mlrXQtD3N7RoERq2xoAdt0tbIcQsw_bx1tkJYOxEz64kL44IMrNYOgeUVF_hag3XX1WMfwYWwDYE">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Sheoldred</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$74.00</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="">NM REG</span>
+<span class="">DMU#107</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Ragavan" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVj6zBz-4uzTtdmYi4oklC68JE3hV4U41p48BniNflCkZWZUTuZ8xGvxdFYM77w7jML9TKupngP2y1E599hy_Iv7Modfymdy5n5fqwzf-zQLsTlaWPh4egsSAkRPOxrwIbkCGS_e3lCVvP2QJBslwFdLTW6nNfslfVTlJNnFNvwwZivdOj_W8cyAnTF-TRyN63X0K6LtIy2qrlsfN7jSwYn1UV_pmPrE5zSkff_0VYblrhJSBV46oD">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Ragavan</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$42.25</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="">EX+ REG</span>
+<span class="">MH2#138</span>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Force of Will" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBszyd3k4biXlozb7ETXCY5rZkbChk6U2Ya06vBUyMdqOkIWpy4-aE6F1VF0bxj92dgjZMhssedLSOaTmTPQkm61avb45xDybfs4AwZYSsVLesxvUGx7HQwjGC4jN8uKsKdhhrhHC4613Zpj-l-tErwWDD6p9preXu-FNZ3GOdeFF6yqdD3XYAcjvyNG3gxcOtmrfND3p7JC-PRMTCPb2246AEtWHKfdCVUp6MkQKsuMWXe_RTsyftj">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Force of Will</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$68.00</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#16a34a] font-bold">NM FOIL</span>
+<span class="">DMR#048</span>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Cyclonic Rift" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh4RtIT7eehDW25f_8KeMM_fJqyCP4-yQ4aVjWLI2ngo6br7n6fuy9nAeVzHfTVXxBae3oyDUCX5XjK9_iWVYhmXBr1mzzJSg_2IUXDY6DF2dvIVShe8-IRxM9iwDS0hYWUMwGMv3a-IHbSxxqJg84vFCVrZ1o4p-enWtZ9V4FC1wUqX50tzqwnQrft9k--RI4Nl_qgr7PJeyZX0ZUlczngwm-27vzpbMZXEW9habA2qkWEMzPDR7H">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Cyclonic Rift</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$36.50</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="">NM REG</span>
+<span class="">CMM#078</span>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Demonic Tutor" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJkimfutgA5odXI83zwDgykN3GBSOfrUO08-_3CeUxi0HmPkKPubLrnxeKqSn-9BWogEceLccQzFhy-jBunDHx8FdeqU6_aDERxel1nUQxQ8al1m5SzgzDOX26xpD-d7-Nn1oXmF-i8xgB1EPMUs8KaOvS2k4qgEZY1TuAI57HfsLThXdrjtZWTnKlQhSJszsVy5fpnc7eCviI9cu6jkwyysXQZzAt8qqQeI8rpWncjhedt0BP1QSV">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Demonic Tutor</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$44.00</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#d97706] font-bold">ETCHED NM</span>
+<span class="">CMM#150</span>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Mana Crypt" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1OuvorYF1bA6MWrzd78t9akaFnxrib_ZazxsnUToPJFq28WR9cCzY0mqjrFq66TRHntaKOFwbGu11wcvv9EB5bveV_gX9TF3abG-pdXfW0lLjzxCKhDF_YHxfYsUDh-E1yZbB_oS6dfbb3SXd5gzMD2YiWFlyAMPzumwHTLqr8VrPl4jTDHpRyb0WiOY6xkShDqJvLbC8BbmApXnpUxkNLVtK9tUcwdL6S-bpJl-fWmgP5pSfBfzR">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Mana Crypt</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$185.0</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#d97706] font-bold">FOIL SP</span>
+<span class="">2XM#270</span>
+</div>
+</div>
+<!-- Card 9 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Sol Ring" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2HJzfXPZC-xQRXkllEUvMfOLZ2K88MNGo3tnwG-aNQjNiJuUVQ3gQ6ErT_umi4BVT-1EJ449QsmCBaVSzmmHaGIANY9hImAIx0S1ktbe3b3juInoEvUlJoE8N-CiSlj7cAatbx1gkqgJltg636uhQjjYMv48GD2DZjyrAx2WRP4zDO0b10iDTpNkJjH31JIU7Bxafb1c2QQTSrDGMyuPqVxTbjM5jczqbIQRYsEt_9uj860l5LXKz">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Sol Ring</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$21.00</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="">NM FOIL</span>
+<span class="">CC1#07</span>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT PAGE (9 Cards) ================= -->
+<div class="grid grid-cols-3 gap-2.5 sm:gap-3 z-20">
+<!-- Card 10: Black Lotus -->
+<div class="bg-[#faebd7] border-2 border-[#d97706] p-1 flex flex-col justify-between cursor-pointer shadow-[3px_3px_0_#3c2415] hover:scale-105 transition-transform" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Black Lotus" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN2I3zFyFvROaXWDd0hUR3PatqR0oGnM0iV6PA6mPzSC2jot4txq21zqqGRo1_I8C1E_IoXnP-2c8DCHh4i-eqhsMSIB6B0YNt65V93pPLmf_rqZmgRsNk4fOOwN-uL_uTAnk9cidLp0YZT8xvfHsyFsVK01pVMLAcWoQftWzHFN3OUyU7WD4_lgob__LbvDzptWh2abKQUfvqXoiUkffHTMJGpCcjT9IpYF39odTBej_CDn-dHnj3">
+<span class="absolute top-0.5 right-0.5 bg-[#f59e0b] text-[#2b1810] font-pixel text-[7px] px-1 border border-[#3c2415] font-bold">VAULT</span>
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#b45309]">Black Lotus</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$5.4K</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#d97706] font-bold">GRADED 9</span>
+<span class="">VMA#04</span>
+</div>
+</div>
+<!-- Card 11 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Mox Diamond" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSGGiPfXe2A83XW5LUJ7_WxZfqkBrtu1Tt6o8G524LrvQy2H0Xm9YYsilVgdUlXjlvrbvWfFFTJ2nD1d7PitDV4EBRZu_DwpkSM4VZC4zrBVuAQi_sHkrJiK5RCol2tccQ_22G80WMmBjGPqaUtdLTO4mTQzUfQ523ihRCliFipig9dII6_U_qjL2cd43MwDQL98fMnpVzf2mBLrxp0wxU8rYWypPu8pTO4x5hatnK8VnmD1vk-QAK">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Mox Diamond</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$620.0</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#d97706] font-bold">RESERVED</span>
+<span class="">STH#136</span>
+</div>
+</div>
+<!-- Card 12 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Orcish Bowmasters" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE41mFJPKOTvDPVNRpkjb8fnblSZ0hNmMXs7mGWdItJRakO2ezjj5GRMGBj6R9jDRwwOy7-szm_8l-KtVklyN-LbtmK1Z2oRAGQIzJhXkOa-0iU5FyPFosLDxYbVXfId646SWrZZgcjCKJGHCorBBlBoFs0AvVHlUQoxEbnz5_cSCE27W2kXxQLhH_uA_fg8Ax-AlzXSSOFtlNFaZBHBg-xOQEdOOLxYljYt6eJvD_dhdH_GIXdv0a">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Bowmasters</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$46.00</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="">NM REG</span>
+<span class="">LTR#103</span>
+</div>
+</div>
+<!-- Card 13 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Meathook Massacre II" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlK4dcfwjdeJjDxLNGN0rmKkIMpQyyM58goeHoTMFcz46s6Z6fge1B8j4CFKt1pibD5GbP09101i3jshqdmEndfA0ZhYDWQq0nrbAvGsshPPVF9mCN-GVATZ0rUJ-B9Ud_OQHeXNlEUf9m1-XmdSdES4rAQlfWTA2VSNRSYdaZeOWYWVtMW9qRJcsRzdJvlNTEMJ9kbZPAmokH2WzSMAHgONfARKXrI96UrxvRVY8joPyncL9zOXBp">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Meathook II</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$29.00</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#16a34a] font-bold">FOIL EXT</span>
+<span class="">DSK#217</span>
+</div>
+</div>
+<!-- Card 14 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Overlord of the Hauntwoods" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTXk0y2Ud0MYYMHYhPFLQaK7NTYGUUnw9b9Xl8LNKAo0agUkS5Bb_Fs2HPUojV8Wx3SBfxit2cygwYC4bCr-6Pn0M7q3FT590y30v5cuFSx8fKPYF6oVswCn3371Paxp4B6hxjWPHCGbzq9U_pgHTylQ9bFLcqcUL0dwSzzjQadNDIkPbLb3Yarlg33mU-ZDxelxIZlJ4sRnQ_dPFf5dBLKIBplbGKds6MXTcFEfPOsnQRbZ-2Z_0h">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Overlord Haunt</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$26.50</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="">BORDERLESS</span>
+<span class="">DSK#194</span>
+</div>
+</div>
+<!-- Card 15 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Ancient Tomb" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAYONVGEWLG4t6jsmIQXnaM1LPGePeIj7b8tPK7ycg9PW107a7OoHCYYhmYqLHiHcHRJ9ak5OnTOogMEBncaNWRRNdnf9l-jlrYDo5GvTy6rYk69Jv6cu_0vwT_LHjvTYKDgLWqVOGwjtzKKpBk-DES0n36W3AZQFoeKG4r1M-2dwtcvJ1Ae0C2JSYAeP23q59rflgQrU2ACFQxdvHpWHaVSgJVhKxvgGi555Rvuj3wzSvVmFlPLRA">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Ancient Tomb</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$95.00</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#d97706] font-bold">EXP FOIL</span>
+<span class="">ZNE#01</span>
+</div>
+</div>
+<!-- Card 16 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Urza's Saga" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArDSXfFJ1jkrYuTBL7fa2GcHAx8A4e_Ib0Z-L3P0Ile0ffpXgAuCiCGkQRoAvn9S6NSiGu784CVpBRKzYJKgkbcRPzkoG1nAO59oc6VkuRIlB5H3N8toxIpwQsf9lR2xyRDVJ5YuYtEhgz-IeWVE8kWEKrpIlcWhKhbpVwvDmHfPC1gmFO3CZzRMrDxXsG9_J_sQ4QhyU-vGWlUA6-OBprSfc7GKuXZB4r_TtOwJqNLzezOaKWohIU">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Urza's Saga</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$41.00</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="">NM SKETCH</span>
+<span class="">MH2#259</span>
+</div>
+</div>
+<!-- Card 17 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Chrome Mox" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoGjuHxnYlVWAYb9KgqrQ2mB09_1ZACZKOFhqVnUR8wjeI_8IMFP76nn72x6PM6JohugLTSgDJulqSCAK8WsDEEuTpQWXokP4XjUYSp3S-EPdYx-Q8rr3ASVjBON15sCBNHq6dWMhJeoNUkHY5OeiA-gMxC7enxcnQ-XMLZDyfHibGzk5pZfjTTbzbma4OcPQaqKCxv4eEqe4meSUZizweDUgLcVp8dJBIDgFSjixQaBLqMgoWX_UX">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Chrome Mox</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$110.0</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#d97706] font-bold">BORDERLESS</span>
+<span class="">2XM#240</span>
+</div>
+</div>
+<!-- Card 18 -->
+<div class="bg-[#faebd7] border-2 border-[#3c2415] p-1 flex flex-col justify-between cursor-pointer shadow-[2px_2px_0_#3c2415] hover:border-[#d97706] hover:scale-105 transition-all" onclick="openCardInspect()">
+<div class="relative w-full aspect-[63/88] overflow-hidden bg-black border border-[#3c2415]">
+<img alt="Screaming Nemesis" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrNeqG0asP-R5ZJQxi3xbo7MAmmwaZO_d5XFaXhtCYCqLgg3MmB9yWTbcfEWX8Wf7j0yF_hFK9wVfd9k_iKFIblQFbY3g2eU6kfhPFmnYXunaVJPISaO8kWO2yhjEsnaRlGV64RXtB04ILfFfPS9uuJIT-r4gMms6JjO5X6L9FdkAIi4R2v41W0jzzCSxDjEJZ_qko6wm-CDIizaL33YlcwfFzGm1XDrf8Tm2Xfg-hQ2SU8z3b84EN">
+</div>
+<div class="mt-1 flex items-center justify-between font-silk text-[10px]">
+<span class="truncate font-bold text-[#2b1810]">Nemesis</span>
+<span class="font-pixel text-[9px] text-[#b45309] font-bold ml-1">$19.50</span>
+</div>
+<div class="flex justify-between text-[8px] font-pixel text-[#6b5443]">
+<span class="text-[#16a34a] font-bold">NM FOIL</span>
+<span class="">DSK#157</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Binder Pagination & Live Sync Strip (Caqui Tostado) -->
+<div class="mt-3 pt-3 border-t-2 border-[#3c2415] flex flex-wrap justify-between items-center gap-3 font-pixel text-[9px]">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-[#16a34a] inline-block border border-[#3c2415] animate-pulse"></span>
+<span class="text-[#2b1810] font-bold">SYNC LIVE: SCRYFALL &amp; TOP DECK VAULT</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="pixel-btn bg-[#faebd7] hover:bg-[#fff9ee] text-[#b45309] font-bold px-3 py-1.5 flex items-center gap-1 cursor-pointer">
+<span class="">◀</span> <span class="">PAG ANT</span>
+</button>
+<span class="bg-[#3c2415] text-[#faebd7] px-2 py-1 border border-[#3c2415] font-bold">04 / 28</span>
+<button class="pixel-btn bg-[#faebd7] hover:bg-[#fff9ee] text-[#b45309] font-bold px-3 py-1.5 flex items-center gap-1 cursor-pointer">
+<span class="">PAG SIG</span> <span class="">▶</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- ================= RETRO RPG DIALOG MODAL: CARD INSPECTOR (BEIGE / CAQUI CLARO) ================= -->
+<div class="fixed inset-0 z-50 bg-[#2b1810]/70 backdrop-blur-sm items-center justify-center p-2 sm:p-4 overflow-y-auto hidden" id="cardInspectModal">
+<div class="rpg-window max-w-5xl w-full relative overflow-hidden flex flex-col lg:flex-row my-auto">
+<!-- Retro Corner Blocks -->
+<div class="absolute top-0 left-0 w-3 h-3 bg-[#f59e0b] border border-[#3c2415] z-30"></div>
+<div class="absolute top-0 right-0 w-3 h-3 bg-[#f59e0b] border border-[#3c2415] z-30"></div>
+<div class="absolute bottom-0 left-0 w-3 h-3 bg-[#f59e0b] border border-[#3c2415] z-30"></div>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-[#f59e0b] border border-[#3c2415] z-30"></div>
+<!-- Close Button (Pixel Cross) -->
+<button class="absolute top-3 right-3 z-40 w-8 h-8 bg-[#dc2626] hover:bg-[#ef4444] text-white font-pixel text-xs border-2 border-[#3c2415] shadow-[2px_2px_0_#3c2415] flex items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5" onclick="closeCardInspect()" title="Cerrar ventana">
+      ✕
+    </button>
+<!-- LEFT COLUMN: 3D RETRO CARD VIEWER (CAQUI PERGAMINO) -->
+<div class="w-full lg:w-1/2 bg-[#f4ead5] p-4 sm:p-6 flex flex-col items-center justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-[#3c2415] relative">
+<!-- Header of Viewer -->
+<div class="w-full flex items-center justify-between mb-2 z-10">
+<span class="font-silk text-xs text-[#6b5443] font-bold">GROSOR OFICIAL MTG</span>
+</div>
+<!-- 3D Interactive Card Stage -->
+<div class="w-full flex-1 flex items-center justify-center relative min-h-[360px] py-3">
+<div class="card-3d-wrap w-[250px] h-[350px] sm:w-[280px] sm:h-[390px] cursor-grab active:cursor-grabbing select-none" id="card3dStage">
+<div class="card-3d-inner w-full h-full relative border-4 border-[#3c2415] shadow-[8px_8px_0_#3c2415]" id="cardInnerMesh" style="transition: transform 0.1s ease-out; transform: rotateY(360deg);">
+<!-- Card Front (Unholy Annex) -->
+<div class="card-face w-full h-full bg-black overflow-hidden">
+<img alt="Unholy Annex MTG Card" class="w-full h-full object-cover pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDifSVUatqowW52ISZ0CkIk0pw4P_AebmnLwMl_6ZkFZskPqNi_7xgit0Z5_-NzgZson7BRd5i0zi8N7XkEdxFgRPXKfwgWq3jG4GtIFPcXHXefFJuKDHoBJjN5f1OKuYfsBY5ih_X3mArr8OPxQO9VgNk7lwUc34aVjRPKZizs9Yuz3LKxUDCzqieMgGAT1Zb5W09zlD2WjW-Br2s4oYUeH2V-jfIAPM4eh904in0KxkXQLOdJVgfY">
+</div>
+<!-- Card Back (Authentic MTG Card Back via IMAGE_7) -->
+<div class="card-face card-back w-full h-full bg-[#120803] overflow-hidden">
+<img alt="MTG Card Back" class="w-full h-full object-cover pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0GZ-lIeBR_De8L8j2qYyxI3nteBfYQI7ak8Ev1d1faocLpOgPxc1H_XrX5fWnCzffd24h5HvTNJbBs06RO6WCCUAULEwWIsIYFi15x2XopqQHc-do6DF3d00AIBT28fQ7xaHsky0dg7lYpt4UzpGnDJTQYsed-UKlS5kkl2IKdRh2XUNpSxVJtLiNwVdR1ey4rZN4qkqJ60qLkOmiQG4ier1FlLKtuokaXTBHMUbIEreXeNaNMInueN0e5hN-zayVtw">
+</div>
+</div>
+</div>
+</div>
+<!-- Retro Controller Controls -->
+<div class="w-full space-y-2 mt-2 z-10 font-pixel text-[9px]">
+<p class="text-center text-[#6b5443] text-[8px] flex items-center justify-center gap-1 font-bold">
+<span class="">🕹️</span> <span class="">ARRASTRA PARA ROTAR • CLIC VOLTEAR</span>
+</p>
+<div class="grid gap-2 grid-cols-1">
+<button class="pixel-btn bg-[#faebd7] hover:bg-[#fff9ee] text-[#2b1810] font-bold p-2 border-2 border-[#3c2415] text-center flex items-center justify-center gap-1 cursor-pointer" id="btnFlipCard">
+<span class="">🔄</span> <span class="">VOLTEAR CARTA</span>
+</button>
+
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: RPG STATS & DIALOG WINDOW (MARFIL PERGAMINO) -->
+<div class="w-full lg:w-1/2 p-4 sm:p-6 flex flex-col justify-between bg-[#fff9ee]">
+<div>
+<!-- Set & Title -->
+<div class="border-b-2 border-[#3c2415] pb-3">
+<div class="flex items-center justify-between mb-1">
+<span class="font-pixel text-[8px] text-[#b45309] uppercase tracking-wider font-bold">DUSKMOURN: HOUSE OF HORROR</span>
+<div class="bg-[#3c2415] text-[#fbbf24] border-2 border-[#3c2415] px-2 py-0.5 font-pixel text-[10px] shadow-[2px_2px_0_#3c2415]">
+              2B // 3BB
+            </div>
+</div>
+<h2 class="font-pixel text-sm sm:text-base text-[#2b1810] tracking-wide leading-relaxed font-bold">
+            UNHOLY ANNEX // RITUAL CHAMBER
+          </h2>
+<p class="font-silk text-xs text-[#b45309] mt-1 font-bold">ENCHANTMENT — ROOM</p>
+</div>
+<!-- Oracle / Rules Text Box (Caqui Suave & Contraste Marrón Oscuro) -->
+<div class="my-3 bg-[#efe2c8] border-2 border-[#3c2415] p-3 relative shadow-[3px_3px_0_#3c2415]">
+<span class="bg-[#f59e0b] text-[#2b1810] font-pixel text-[7px] px-1.5 py-0.5 border border-[#3c2415] absolute -top-2 right-3 font-bold z-10 shadow-[1px_1px_0_#3c2415]">ORACLE TEXT</span>
+<p class="font-mono text-xs text-[#22130c] leading-relaxed font-medium">
+            At the beginning of your end step, you lose 2 life and draw a card unless you control a Demon.
+          </p>
+<div class="mt-2 pt-2 border-t border-[#d8c5a4]">
+<p class="font-mono text-xs text-[#22130c] leading-relaxed font-medium">
+<strong class="text-[#b45309] font-pixel text-[9px]">RITUAL CHAMBER (3BB):</strong> When you unlock this door, create a 6/6 black Demon creature token with flying.
+            </p>
+</div>
+</div>
+<!-- Condition Matrix (8-Bit Pressable Buttons) -->
+<div class="space-y-2 mb-3">
+<label class="block font-pixel text-[9px] text-[#6b5443] uppercase font-bold">
+            ESTADO DE LA CARTA (CONDITION):
+          </label>
+<div class="grid grid-cols-3 gap-2 grid-cols-1">
+<!-- NM Selected: Ámbar cálido del logo Top Deck -->
+<button class="condition-btn pixel-btn bg-[#f59e0b] text-[#2b1810] p-2 border-2 border-[#3c2415] text-center cursor-pointer shadow-[3px_3px_0_#3c2415]">
+<div class="font-pixel text-[9px] font-bold">NEAR MINT</div>
+<div class="font-pixel text-[10px] mt-0.5 font-black text-[#2b1810]">$34.00</div>
+</button>
+<button class="condition-btn pixel-btn bg-[#faebd7] hover:bg-[#fff9ee] text-[#2b1810] p-2 border-2 border-[#3c2415] text-center cursor-pointer shadow-[2px_2px_0_#3c2415]">
+<div class="font-pixel text-[8px] font-bold">EXCELLENT</div>
+<div class="font-pixel text-[9px] text-[#b45309] mt-0.5 font-bold">$29.50</div>
+</button>
+<button class="condition-btn pixel-btn bg-[#faebd7] hover:bg-[#fff9ee] text-[#2b1810] p-2 border-2 border-[#3c2415] text-center cursor-pointer shadow-[2px_2px_0_#3c2415]">
+<div class="font-pixel text-[8px] font-bold">GOOD (GD)</div>
+<div class="font-pixel text-[9px] text-[#b45309] mt-0.5 font-bold">$22.00</div>
+</button>
+</div>
+</div>
+<!-- Finish & Language Dropdowns -->
+<div class="grid grid-cols-2 gap-2 mb-3">
+<div>
+<label class="block font-pixel text-[8px] text-[#6b5443] uppercase mb-1 font-bold">ACABADO:</label>
+<select class="w-full bg-[#faebd7] border-2 border-[#3c2415] text-[9px] text-[#2b1810] font-pixel py-1.5 px-2 focus:ring-0 focus:border-[#d97706] shadow-[2px_2px_0_#3c2415] font-bold">
+<option selected="">FOIL TRADICIONAL</option>
+<option>NON-FOIL ESTÁNDAR</option>
+<option>SHOWCASE BORDERLESS</option>
+</select>
+</div>
+<div>
+<label class="block font-pixel text-[8px] text-[#6b5443] uppercase mb-1 font-bold">IDIOMA:</label>
+<select class="w-full bg-[#faebd7] border-2 border-[#3c2415] text-[9px] text-[#2b1810] font-pixel py-1.5 px-2 focus:ring-0 focus:border-[#d97706] shadow-[2px_2px_0_#3c2415] font-bold">
+<option selected="">INGLÉS (EN)</option>
+<option>ESPAÑOL (ES)</option>
+<option>JAPONÉS (JP)</option>
+</select>
+</div>
+</div>
+<!-- Format Legality Chips -->
+<div class="flex flex-wrap items-center gap-1.5 font-pixel text-[8px]"><span class="text-[#dc2626] font-bold flex items-center gap-1"><span class="w-2 h-2 bg-[#dc2626] inline-block border border-[#3c2415] animate-pulse"></span>ILEGAL EN:</span><span class="bg-[#ffdad6] border border-[#ba1a1a] text-[#ba1a1a] font-bold px-1.5 py-0.5 shadow-[1px_1px_0_#3c2415]">PAUPER</span><span class="bg-[#ffdad6] border border-[#ba1a1a] text-[#ba1a1a] font-bold px-1.5 py-0.5 shadow-[1px_1px_0_#3c2415]">PIONEER</span></div>
+</div>
+<!-- Action Strip & Primary Buy Button -->
+<div class="mt-4 pt-3 border-t-2 border-[#3c2415] flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-col">
+<span class="font-pixel text-[8px] text-[#6b5443] font-bold">STOCK EN BÓVEDA</span>
+<div class="flex items-center gap-1 mt-0.5 font-pixel text-[9px] text-[#16a34a] font-bold">
+<span class="w-2 h-2 bg-[#16a34a] inline-block border border-[#3c2415]"></span> 3 DISPONIBLES
+          </div>
+<span class="font-pixel text-xl text-[#b45309] font-black mt-1 drop-shadow-[1px_1px_0_#fff]">$34.00</span>
+</div>
+<div class="flex items-center gap-2">
+<!-- Stepper -->
+<div class="flex items-center border-2 border-[#3c2415] bg-[#faebd7] shadow-[2px_2px_0_#3c2415]">
+<button class="px-2 py-1 text-[#b45309] font-pixel text-xs hover:bg-[#fff9ee] active:bg-[#d8c5a4] font-bold">-</button>
+<span class="px-2 font-pixel text-xs text-[#2b1810] font-bold">1</span>
+<button class="px-2 py-1 text-[#b45309] font-pixel text-xs hover:bg-[#fff9ee] active:bg-[#d8c5a4] font-bold">+</button>
+</div>
+<!-- Pixel Arcade Buy Button (Ámbar dorado vibrante del logo) -->
+<button class="pixel-btn bg-[#f59e0b] hover:bg-[#fbbf24] active:bg-[#d97706] text-[#2b1810] font-pixel text-[10px] px-4 py-2.5 flex items-center gap-2 cursor-pointer font-bold" onclick="addToCartMock(this)">
+<span class="">⚔️</span>
+<span class="">AÑADIR A MI BARAJA</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= RETRO GUILD FOOTER (CAQUI CLARO / MARFIL) ================= -->
+<footer class="w-full bg-[#eedec5] border-t-4 border-[#3c2415] py-6 px-4 lg:px-10 flex flex-col md:flex-row justify-between items-center gap-4 text-[#6b5443] font-pixel text-[9px] z-30">
+<div class="flex flex-col items-center md:items-start text-center md:text-left max-w-xl">
+<div class="flex items-center gap-2 mb-2">
+<img alt="Top Deck" class="h-6 w-6 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRxSn3A3iG0MNmWctzPvFCx2BXDJ7ccOnWTYQWpW_6OdCHY6wTwba-7QrUNwW1g84TY40qV4uPUGCgfmkCrlk0D72yxcenVwxmxkh53DsD3RO7po-gE-cMNEhN-vmC2TgWEr0_84sbekEW-S7rAyDJcqkoKK4Hpmid8mj7RENtt0LSGYZWGLFWWrt_x9f7paYRsIW847dHO5RJfcVP4mZLyGu2Woh6pBkiLnrfhQMu9xBtRhF_v371qPLPpnPvmoysdA">
+<span class="font-pixel text-xs text-[#92400e] font-bold">TOP DECK VAULT</span>
+
+</div>
+<p class="font-silk text-xs leading-relaxed text-[#5a4231]">
+      © 2024 Top Deck MTG Vault. Inspirado en la estética PixelCraft 16-bit. Magic: The Gathering es marca registrada de Wizards of the Coast LLC.
+    </p>
+</div>
+<div class="flex flex-wrap justify-center md:justify-end gap-3 text-[9px]">
+<a class="hover:text-[#b45309] underline font-bold" href="#">TÉRMINOS</a>
+<a class="hover:text-[#b45309] underline font-bold" href="#">BUYLIST</a>
+<a class="hover:text-[#b45309] underline font-bold" href="#">TABERNA</a>
+<a class="hover:text-[#b45309] underline font-bold" href="#">GUÍA ESTADOS (NM/EX)</a>
+<a class="hover:text-[#b45309] underline font-bold" href="#">SOPORTE GREMIO</a>
+</div>
+</footer>
+<!-- ================= SCRIPT LOGIC ================= -->
+<script>
+  function openCardInspect() {
+    const modal = document.getElementById('cardInspectModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeCardInspect() {
+    const modal = document.getElementById('cardInspectModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCardInspect();
+  });
+
+  document.getElementById('cardInspectModal').addEventListener('click', (e) => {
+    if (e.target.id === 'cardInspectModal') closeCardInspect();
+  });
+
+  // 3D Card Interactive Logic
+  const cardMesh = document.getElementById('cardInnerMesh');
+  const cardStage = document.getElementById('card3dStage');
+  let isFlipped = false;
+  let currentRotationY = 0;
+  let isDragging = false;
+  let startX = 0;
+
+  function updateCardTransform() {
+    cardMesh.style.transform = `rotateY(${currentRotationY}deg)`;
+  }
+
+  document.getElementById('btnFlipCard').addEventListener('click', () => {
+    isFlipped = !isFlipped;
+    currentRotationY = isFlipped ? 180 : 0;
+    updateCardTransform();
+  });
+
+  document.getElementById('btnSpinCard').addEventListener('click', () => {
+    currentRotationY += 360;
+    cardMesh.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
+    updateCardTransform();
+    setTimeout(() => {
+      cardMesh.style.transition = 'transform 0.1s ease-out';
+    }, 800);
+  });
+
+  cardStage.addEventListener('pointerdown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    cardMesh.style.transition = 'none';
+  });
+
+  window.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+    const deltaX = e.clientX - startX;
+    startX = e.clientX;
+    currentRotationY += deltaX * 0.9;
+    updateCardTransform();
+  });
+
+  window.addEventListener('pointerup', () => {
+    if (isDragging) {
+      isDragging = false;
+      cardMesh.style.transition = 'transform 0.25s ease-out';
+    }
+  });
+
+  // Condition Matrix Click
+  document.querySelectorAll('.condition-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.condition-btn').forEach(b => {
+        b.className = 'condition-btn pixel-btn bg-[#faebd7] hover:bg-[#fff9ee] text-[#2b1810] p-2 border-2 border-[#3c2415] text-center cursor-pointer shadow-[2px_2px_0_#3c2415]';
+        const price = b.querySelector('.font-pixel:last-child');
+        if (price) price.className = 'font-pixel text-[9px] text-[#b45309] mt-0.5 font-bold';
+      });
+      this.className = 'condition-btn pixel-btn bg-[#f59e0b] text-[#2b1810] p-2 border-2 border-[#3c2415] text-center cursor-pointer shadow-[3px_3px_0_#3c2415]';
+      const activePrice = this.querySelector('.font-pixel:last-child');
+      if (activePrice) activePrice.className = 'font-pixel text-[10px] mt-0.5 font-black text-[#2b1810]';
+    });
+  });
+
+  // Loot cart mock
+  function addToCartMock(btn) {
+    const original = btn.innerHTML;
+    btn.innerHTML = '<span>✔️</span> <span>¡EN EL BOTÍN!</span>';
+    btn.classList.remove('bg-[#f59e0b]');
+    btn.classList.add('bg-[#16a34a]', 'text-white');
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.classList.remove('bg-[#16a34a]', 'text-white');
+      btn.classList.add('bg-[#f59e0b]');
+    }, 1200);
+  }
+</script>
+
+
+
+
+</body></html>

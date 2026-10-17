@@ -1,0 +1,636 @@
+<!DOCTYPE html><html lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Top Deck - Landing Page Bóveda Retro TCG</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Press Start 2P & Space Mono & Cinzel -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Cinzel:wght@600;800&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-khaki: #F4EAD4;
+    --bg-beige-light: #FBF6EB;
+    --bg-sand: #ECE0C8;
+    --border-dark: #382414;
+    --primary-amber: #F29F38;
+    --primary-amber-dark: #D47E19;
+    --accent-red: #C84630;
+    --accent-green: #3F7E44;
+    --accent-blue: #2E6B9E;
+    --accent-purple: #6A3E8A;
+  }
+
+  body {
+    background-color: #F4EAD4;
+    background-image: 
+      linear-gradient(rgba(56, 36, 20, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 36, 20, 0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    font-family: 'Space Mono', monospace;
+    color: #382414;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  .font-pixel {
+    font-family: 'Press Start 2P', monospace;
+  }
+
+  /* Pixel borders & retro box-shadows */
+  .pixel-box {
+    border: 3px solid #382414;
+    box-shadow: 4px 4px 0px #382414;
+  }
+  .pixel-box-sm {
+    border: 2px solid #382414;
+    box-shadow: 2px 2px 0px #382414;
+  }
+  .pixel-box-lg {
+    border: 4px solid #382414;
+    box-shadow: 6px 6px 0px #382414;
+  }
+  .pixel-btn {
+    border: 3px solid #382414;
+    box-shadow: 3px 3px 0px #382414;
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+  }
+  .pixel-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px #382414;
+  }
+  .pixel-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #382414;
+  }
+
+  /* Folder Tab Styles inspired by 21st.dev component */
+  .folder-tab {
+    position: relative;
+    border-top: 3px solid #382414;
+    border-left: 3px solid #382414;
+    border-right: 3px solid #382414;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: all 0.15s ease-out;
+    user-select: none;
+  }
+  .folder-tab.active {
+    background-color: #FBF6EB !important;
+    transform: translateY(3px);
+    z-index: 20;
+    border-bottom: 3px solid #FBF6EB;
+    box-shadow: 0 -4px 0 rgba(242, 159, 56, 0.4);
+  }
+  .folder-tab:not(.active):hover {
+    transform: translateY(-2px);
+  }
+
+  /* Card shine hover effect */
+  .card-slot {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card-slot:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 6px 8px 0px rgba(56, 36, 20, 0.85);
+  }
+
+  /* Retro ticker tape animation */
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-ticker {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: ticker 25s linear infinite;
+  }
+</style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-[#F29F38] selection:text-white">
+<!-- Top Announcement Bar (Retro Ticker) -->
+<header class="bg-[#382414] text-[#FBF6EB] py-2 px-4 border-b-2 border-[#1E1208] overflow-hidden text-xs font-pixel">
+<div class="flex items-center space-x-6 animate-ticker">
+<span class="inline-flex items-center gap-2"><span class="w-2 h-2 bg-[#F29F38] animate-pulse"></span> BÓVEDA TOP DECK: +15,000 CARTAS SINGLES SINCRONIZADAS EN VIVO CON SCRYFALL &amp; TCGPLAYER</span>
+<span class="text-[#F29F38]">✦</span>
+
+
+<span class="">COMPRAMOS TUS CARTAS (BUYLIST GREMIAL 80% CASH / 100% STORE CREDIT)</span>
+<span class="text-[#F29F38]">✦</span>
+<span class="">NUEVAS EXPANSIONES DUSKMOURN, STELLAR CROWN, OP-08 DISPONIBLES</span>
+<span class="text-[#F29F38]">✦</span>
+<span class="inline-flex items-center gap-2"><span class="w-2 h-2 bg-[#F29F38] animate-pulse"></span> BÓVEDA TOP DECK: +15,000 CARTAS SINGLES SINCRONIZADAS EN VIVO CON SCRYFALL &amp; TCGPLAYER</span>
+</div>
+</header>
+<!-- Navigation Bar (Top Deck Retro Bar) -->
+<nav class="bg-[#FBF6EB] border-b-4 border-[#382414] sticky top-0 z-40 px-4 md:px-8 py-3">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+<!-- Brand Logo -->
+<a class="flex items-center gap-3 group" href="#">
+<div class="w-12 h-12 bg-[#F4EAD4] border-2 border-[#382414] shadow-[3px_3px_0px_#382414] flex items-center justify-center p-1 rounded-sm group-hover:bg-[#F29F38] transition-colors">
+<img alt="Top Deck Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkdiEWUQPno7swEO78yHJsjV-wHx785OBu8xuLnW68dUO7se10TJRqjjm_rcWahKqi87PRJRGe3Cj_Mz94DbTwGvOCZjGm-CnSdDUZzyXOqs3rru8lsTCJvBhFY4nbaXlScCZ8q7GvHfaTefRHF2KB-OGL0Ryd64onx0sD85oloI8521RCEK8u_dfENe3UePDRHoT-89_aBK3EZtUgjTlSQ0Kq_gqmEAIBizOnrDKT7JrbcxiPobCPijGpgNOIOZpyQ">
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-pixel text-lg md:text-xl text-[#382414] font-bold tracking-tight">TOP DECK</span>
+<span class="font-pixel text-[9px] bg-[#382414] text-[#F29F38] px-1.5 py-0.5 rounded-sm">TCG VAULT</span>
+</div>
+<span class="text-[11px] font-bold text-[#805B3A] tracking-wider uppercase block">Competitividad &amp; Coleccionismo</span>
+</div>
+</a>
+<!-- Quick Search Bar (DracoStore style: Singles, Sellado, Accesorios) -->
+<div class="flex-1 max-w-2xl hidden md:block mx-2">
+  <div class="relative flex items-center bg-[#ECE0C8] border-2 border-[#382414] shadow-[3px_3px_0px_#382414]">
+    
+    <div class="relative flex-1 flex items-center">
+      <span class="pl-3 pr-1 text-[#805B3A] text-xs select-none">🔍</span>
+      <input class="w-full bg-transparent px-2 py-2 text-xs font-mono text-[#382414] focus:outline-none placeholder-[#805B3A] font-bold tracking-tight" placeholder="Busca por nombre o por texto de la carta" type="text">
+    </div>
+    <button class="bg-[#F29F38] hover:bg-[#D47E19] text-[#382414] font-pixel text-[10px] px-4 py-2 border-l-2 border-[#382414] flex items-center gap-1 transition-colors">
+      <span class="">BUSCAR</span>
+    </button>
+  </div>
+</div>
+<!-- Quick Actions -->
+<div class="flex items-center gap-3">
+
+
+<button class="pixel-btn bg-[#ECE0C8] hover:bg-[#E3D4B6] text-[#382414] font-pixel text-xs px-3.5 py-2 flex items-center gap-2" title="Mi Cuenta / Gremio">
+<span class="text-xs">👤</span>
+<span class="hidden sm:inline">MI CUENTA</span>
+</button><button class="pixel-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#382414] font-pixel text-xs px-4 py-2 flex items-center gap-2">
+<span class="">🛒 BARAJA</span>
+<span class="bg-[#382414] text-[#FBF6EB] px-1.5 py-0.2 rounded-sm text-[10px]">3</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section: Retro Tavern & Deck Sanctuary -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-12">
+<!-- Hero Card Banner -->
+<section class="pixel-box-lg bg-[#FBF6EB] p-6 md:p-10 relative overflow-hidden">
+<!-- Decorative Pixel corner elements -->
+<div class="absolute top-2 left-1 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
+<div class="absolute top-2 right-1 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
+<div class="absolute bottom-2 left-1 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
+<div class="absolute bottom-2 right-1 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+<!-- Left Column: Copy & Value Proposition -->
+<div class="lg:col-span-7 space-y-5 max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-[#ECE0C8] border-2 border-[#382414] shadow-[2px_2px_0px_#382414]">
+<span class="text-xs font-pixel text-[#C84630]">NUEVA EXPERIENCIA</span>
+<span class="text-xs font-mono font-bold text-[#382414]">★ Adiós a las listas aburridas</span>
+</div>
+<h1 class="font-pixel text-2xl md:text-4xl text-[#382414] leading-relaxed">
+            LA BÓVEDA DIGITAL DE <span class="text-[#D47E19] bg-[#ECE0C8] px-2 py-0.5">CARTAS TCG</span> QUE SE HOJEA COMO UNA CARPETA REAL
+          </h1>
+<p class="text-sm md:text-base text-[#5C3D24] leading-relaxed">
+            Explora catálogos completos de <strong>Magic: The Gathering</strong>, <strong>Pokémon</strong>, <strong>One Piece</strong> y <strong>Yu-Gi-Oh!</strong> en álbumes interactivos. Inspecciona cartas en <strong>3D con grosor físico</strong>, revisa su condición física y completa tu mazo de torneo.
+          </p>
+<!-- CTAs -->
+<div class="flex flex-wrap gap-4 pt-2">
+<a class="pixel-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#382414] font-pixel text-xs px-6 py-3 flex items-center gap-2" href="#carpetas">
+<span class="">📖 ABRIR CARPETAS DE COLECCIÓN</span>
+</a>
+<a class="pixel-btn bg-[#ECE0C8] hover:bg-[#E3D4B6] text-[#382414] font-pixel text-xs px-5 py-3" href="#sellado">
+              📦 PRODUCTO SELLADO
+            </a>
+</div>
+</div>
+<!-- Right Column: Fox Wizard Dexter Illustration matching IMAGE_6 -->
+
+</div>
+</section>
+<!-- SECTION 2: TCG FOLDER-TAB SELECTOR (COMPONENTE DE PESTAÑAS 21ST.DEV) -->
+<section class="space-y-4" id="carpetas">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b-2 border-[#382414] pb-3">
+<div>
+<span class="font-pixel text-xs text-[#C84630] uppercase">SELECCIONA TU JUEGO DE CARTAS</span>
+<h2 class="font-pixel text-xl md:text-2xl text-[#382414] mt-1">CARPETAS POR TCG (BINDER VAULT)</h2>
+</div>
+<p class="text-xs text-[#805B3A] max-w-md">
+          Haz clic en las pestañas para cambiar de carpeta TCG. Cada juego cuenta con sus cartas singles, expansiones y sellado oficial.
+        </p>
+</div>
+<!-- THE FOLDER COMPONENT (21st.dev style tabs) -->
+<div class="pt-4">
+<!-- Tab Headers Bar -->
+<div class="flex items-end gap-1 md:gap-2 px-2 overflow-x-auto no-scrollbar border-b-3 border-[#382414]" id="folderTabs">
+<!-- Tab 1: Magic: The Gathering (Active by default) -->
+<button class="folder-tab font-pixel text-[11px] md:text-xs px-4 md:px-6 py-3 bg-[#ECE0C8] text-[#382414] flex items-center gap-2 active" id="tab-mtg" onclick="switchFolder('mtg')" style="background-color: rgb(251, 246, 235);">
+<span class="w-3 h-3 rounded-full bg-[#D47E19] inline-block border border-[#382414]"></span>
+<span class="">MAGIC: THE GATHERING</span>
+<span class="bg-[#382414] text-[#FBF6EB] text-[9px] px-1.5 py-0.5 rounded ml-1">8,420</span>
+</button>
+<!-- Tab 2: Pokémon TCG -->
+<button class="folder-tab font-pixel text-[11px] md:text-xs px-4 md:px-6 py-3 bg-[#E3D4B6] text-[#382414] flex items-center gap-2" id="tab-pokemon" onclick="switchFolder('pokemon')" style="background-color: rgb(227, 212, 182);">
+<span class="w-3 h-3 rounded-full bg-[#E5B229] inline-block border border-[#382414]"></span>
+<span class="">POKÉMON TCG</span>
+<span class="bg-[#382414] text-[#FBF6EB] text-[9px] px-1.5 py-0.5 rounded ml-1">4,150</span>
+</button>
+<!-- Tab 3: One Piece Card Game -->
+<button class="folder-tab font-pixel text-[11px] md:text-xs px-4 md:px-6 py-3 bg-[#E3D4B6] text-[#382414] flex items-center gap-2" id="tab-onepiece" onclick="switchFolder('onepiece')" style="background-color: rgb(227, 212, 182);">
+<span class="w-3 h-3 rounded-full bg-[#C84630] inline-block border border-[#382414]"></span>
+<span class="">ONE PIECE CG</span>
+<span class="bg-[#382414] text-[#FBF6EB] text-[9px] px-1.5 py-0.5 rounded ml-1">1,890</span>
+</button>
+<!-- Tab 4: Yu-Gi-Oh! -->
+<button class="folder-tab font-pixel text-[11px] md:text-xs px-4 md:px-6 py-3 bg-[#E3D4B6] text-[#382414] flex items-center gap-2" id="tab-yugioh" onclick="switchFolder('yugioh')" style="background-color: rgb(227, 212, 182);">
+<span class="w-3 h-3 rounded-full bg-[#6A3E8A] inline-block border border-[#382414]"></span>
+<span class="">YU-GI-OH!</span>
+<span class="bg-[#382414] text-[#FBF6EB] text-[9px] px-1.5 py-0.5 rounded ml-1">2,340</span>
+</button>
+</div>
+<!-- Folder Main Content Container (The Opened Binder Interior) -->
+<div class="bg-[#FBF6EB] border-4 border-[#382414] shadow-[8px_8px_0px_#382414] p-5 md:p-8 rounded-b-lg relative -mt-[3px] z-10">
+<!-- Folder Sub-header: Quick filters inside folder -->
+<div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b-2 border-[#382414]/20">
+<div class="flex items-center gap-3">
+<span class="font-pixel text-xs text-[#382414] bg-[#ECE0C8] px-2.5 py-1 border border-[#382414]" id="folderBadge">📖 CARPETA ACTIVA: MAGIC: THE GATHERING</span>
+<span class="text-xs text-[#805B3A] hidden sm:inline" id="folderExpansions">Expansiones: Duskmourn • Bloomburrow • Modern Horizons 3 • Ravnica</span>
+</div>
+<!-- Page flip navigation controls inside binder -->
+<div class="flex items-center gap-2 font-pixel text-[10px]">
+<button class="pixel-btn bg-[#ECE0C8] px-2.5 py-1 text-[#382414]">◀ PÁG ANT</button>
+<span class="bg-[#382414] text-[#FBF6EB] px-3 py-1">PÁG 01 / 48</span>
+<button class="pixel-btn bg-[#F29F38] px-2.5 py-1 text-[#382414]">PÁG SIG ▶</button>
+</div>
+</div>
+<!-- DYNAMIC FOLDER SLOTS: (Magic content active by default) -->
+<div class="pt-6" id="folderContent"><div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="card-slot bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between shadow-[3px_3px_0px_#382414]">
+            <div class="relative overflow-hidden border border-[#382414] aspect-[63/88] bg-[#382414]">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4=" alt="UNHOLY ANNEX" class="w-full h-full object-cover" onerror="this.src='https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg?1726286295'">
+              <span class="absolute top-1 left-1 bg-[#382414]/90 text-[#F29F38] font-pixel text-[8px] px-1">FOIL</span>
+            </div>
+            <div class="mt-2 space-y-1">
+              <div class="font-pixel text-[9px] text-[#382414] truncate">UNHOLY ANNEX</div>
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] font-bold text-[#805B3A]">NM</span>
+                <span class="font-pixel text-[10px] text-[#C84630]">$34.00</span>
+              </div>
+            </div>
+            <button class="mt-2 w-full pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#382414] font-pixel text-[8px] py-1 transition-colors">
+              VER EN 3D
+            </button>
+          </div>
+        
+          <div class="card-slot bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between shadow-[3px_3px_0px_#382414]">
+            <div class="relative overflow-hidden border border-[#382414] aspect-[63/88] bg-[#382414]">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4=" alt="DEMONIC TUTOR" class="w-full h-full object-cover" onerror="this.src='https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg?1726286295'">
+              <span class="absolute top-1 left-1 bg-[#382414]/90 text-[#F29F38] font-pixel text-[8px] px-1">ETCHED</span>
+            </div>
+            <div class="mt-2 space-y-1">
+              <div class="font-pixel text-[9px] text-[#382414] truncate">DEMONIC TUTOR</div>
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] font-bold text-[#805B3A]">NM</span>
+                <span class="font-pixel text-[10px] text-[#C84630]">$44.00</span>
+              </div>
+            </div>
+            <button class="mt-2 w-full pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#382414] font-pixel text-[8px] py-1 transition-colors">
+              VER EN 3D
+            </button>
+          </div>
+        
+          <div class="card-slot bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between shadow-[3px_3px_0px_#382414]">
+            <div class="relative overflow-hidden border border-[#382414] aspect-[63/88] bg-[#382414]">
+              <img src="https://cards.scryfall.io/large/front/4/d/4d960186-4559-4af0-bd22-63baa15f8939.jpg?1599709515" alt="MANA CRYPT" class="w-full h-full object-cover" onerror="this.src='https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg?1726286295'">
+              <span class="absolute top-1 left-1 bg-[#382414]/90 text-[#F29F38] font-pixel text-[8px] px-1">SP FOIL</span>
+            </div>
+            <div class="mt-2 space-y-1">
+              <div class="font-pixel text-[9px] text-[#382414] truncate">MANA CRYPT</div>
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] font-bold text-[#805B3A]">SP</span>
+                <span class="font-pixel text-[10px] text-[#C84630]">$185.00</span>
+              </div>
+            </div>
+            <button class="mt-2 w-full pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#382414] font-pixel text-[8px] py-1 transition-colors">
+              VER EN 3D
+            </button>
+          </div>
+        
+          <div class="card-slot bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between shadow-[3px_3px_0px_#382414]">
+            <div class="relative overflow-hidden border border-[#382414] aspect-[63/88] bg-[#382414]">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgcng9IjgiIGZpbGw9IiNlOGVhZWQiLz48cGF0aCBkPSJNMTcwIDEzMCBsMzAgNDAgbDIwLTE1IGw0MCA1NSBIMTQweiIgZmlsbD0iI2JkYzFjNiIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEyMCIgcj0iMTgiIGZpbGw9IiNiZGMxYzYiLz48L3N2Zz4=" alt="SOL RING" class="w-full h-full object-cover" onerror="this.src='https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg?1726286295'">
+              <span class="absolute top-1 left-1 bg-[#382414]/90 text-[#F29F38] font-pixel text-[8px] px-1">RETRO</span>
+            </div>
+            <div class="mt-2 space-y-1">
+              <div class="font-pixel text-[9px] text-[#382414] truncate">SOL RING</div>
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] font-bold text-[#805B3A]">NM</span>
+                <span class="font-pixel text-[10px] text-[#C84630]">$21.00</span>
+              </div>
+            </div>
+            <button class="mt-2 w-full pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#382414] font-pixel text-[8px] py-1 transition-colors">
+              VER EN 3D
+            </button>
+          </div>
+        
+          <div class="card-slot bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between shadow-[3px_3px_0px_#382414]">
+            <div class="relative overflow-hidden border border-[#382414] aspect-[63/88] bg-[#382414]">
+              <img src="https://cards.scryfall.io/large/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.jpg?1664273873" alt="URZA'S SAGA" class="w-full h-full object-cover" onerror="this.src='https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg?1726286295'">
+              <span class="absolute top-1 left-1 bg-[#382414]/90 text-[#F29F38] font-pixel text-[8px] px-1">SKETCH</span>
+            </div>
+            <div class="mt-2 space-y-1">
+              <div class="font-pixel text-[9px] text-[#382414] truncate">URZA'S SAGA</div>
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] font-bold text-[#805B3A]">NM</span>
+                <span class="font-pixel text-[10px] text-[#C84630]">$41.00</span>
+              </div>
+            </div>
+            <button class="mt-2 w-full pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#382414] font-pixel text-[8px] py-1 transition-colors">
+              VER EN 3D
+            </button>
+          </div>
+        
+          <div class="card-slot bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between shadow-[3px_3px_0px_#382414]">
+            <div class="relative overflow-hidden border border-[#382414] aspect-[63/88] bg-[#382414]">
+              <img src="https://cards.scryfall.io/large/front/f/3/f340cbf7-5bbe-45b9-a4bf-d1caa500ff93.jpg?1599709022" alt="CHROME MOX" class="w-full h-full object-cover" onerror="this.src='https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg?1726286295'">
+              <span class="absolute top-1 left-1 bg-[#382414]/90 text-[#F29F38] font-pixel text-[8px] px-1">BORDERLESS</span>
+            </div>
+            <div class="mt-2 space-y-1">
+              <div class="font-pixel text-[9px] text-[#382414] truncate">CHROME MOX</div>
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] font-bold text-[#805B3A]">EX</span>
+                <span class="font-pixel text-[10px] text-[#C84630]">$110.00</span>
+              </div>
+            </div>
+            <button class="mt-2 w-full pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#382414] font-pixel text-[8px] py-1 transition-colors">
+              VER EN 3D
+            </button>
+          </div>
+        </div>
+        <div class="mt-8 pt-4 border-t-2 border-[#382414]/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-green-600 rounded-full animate-ping"></span>
+            <span class="font-pixel text-[10px] text-[#382414]">CATÁLOGO COMPLETO SINCRONIZADO: DISPONIBLE PARA ENVÍO INMEDIATO</span>
+          </div>
+          <a href="#" class="pixel-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#382414] font-pixel text-xs px-5 py-2.5 flex items-center gap-2">
+            <span class="">ABRIR CARPETA DE MAGIC: THE GATHERING ▶</span>
+          </a>
+        </div>
+      </div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: PRODUCTO SELLADO & ACCESORIOS (Inspirado en DracoStore) -->
+<section class="space-y-6" id="sellado">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b-2 border-[#382414] pb-3">
+<div>
+<span class="font-pixel text-xs text-[#C84630] uppercase">EXPANSIONES &amp; CAJAS OFICIALES</span>
+<h2 class="font-pixel text-xl md:text-2xl text-[#382414] mt-1">PRODUCTO SELLADO &amp; PRE-ORDENES</h2>
+</div>
+<p class="text-xs text-[#805B3A]">
+          Booster Boxes, Bundles, Commander Decks y Protectores Dragon Shield con despacho inmediato.
+        </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Product 1: Duskmourn Play Booster Box -->
+<div class="pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19] transition-colors">
+<div class="relative bg-[#ECE0C8] border-2 border-[#382414] p-3 text-center">
+<span class="absolute top-2 right-2 bg-[#C84630] text-white font-pixel text-[8px] px-1.5 py-0.5">NUEVO</span>
+<div class="h-40 flex items-center justify-center font-pixel text-xs text-[#805B3A]">
+              📦 DUSKMOURN<br>PLAY BOOSTER BOX<br>(36 SOBRES)
+            </div>
+</div>
+<div>
+<span class="font-pixel text-[9px] text-[#D47E19]">MAGIC: THE GATHERING</span>
+<h3 class="font-pixel text-xs text-[#382414] mt-1">DUSKMOURN: HOUSE OF HORROR</h3>
+<p class="text-xs text-[#805B3A] mt-1">Caja sellada oficial WPN con Buy-a-Box promo incluida.</p>
+</div>
+<div class="pt-2 border-t border-[#382414]/20 flex items-center justify-between">
+<span class="font-pixel text-sm text-[#382414]">$145.00</span>
+<button class="pixel-btn bg-[#F29F38] text-[#382414] font-pixel text-[9px] px-3 py-1.5">
+              + AÑADIR
+            </button>
+</div>
+</div>
+<!-- Product 2: Pokémon Stellar Crown Booster Box -->
+<div class="pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19] transition-colors">
+<div class="relative bg-[#ECE0C8] border-2 border-[#382414] p-3 text-center">
+<span class="absolute top-2 right-2 bg-[#E5B229] text-[#382414] font-pixel text-[8px] px-1.5 py-0.5">HOT</span>
+<div class="h-40 flex items-center justify-center font-pixel text-xs text-[#805B3A]">
+              ⚡ STELLAR CROWN<br>BOOSTER DISPLAY<br>(36 SOBRES)
+            </div>
+</div>
+<div>
+<span class="font-pixel text-[9px] text-[#E5B229]">POKÉMON TCG</span>
+<h3 class="font-pixel text-xs text-[#382414] mt-1">SCARLET &amp; VIOLET: STELLAR CROWN</h3>
+<p class="text-xs text-[#805B3A] mt-1">Incluye cartas de Terapagos ex y Pokémon Stellar Tera.</p>
+</div>
+<div class="pt-2 border-t border-[#382414]/20 flex items-center justify-between">
+<span class="font-pixel text-sm text-[#382414]">$129.99</span>
+<button class="pixel-btn bg-[#F29F38] text-[#382414] font-pixel text-[9px] px-3 py-1.5">
+              + AÑADIR
+            </button>
+</div>
+</div>
+<!-- Product 3: One Piece OP-08 Two Legends -->
+<div class="pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19] transition-colors">
+<div class="relative bg-[#ECE0C8] border-2 border-[#382414] p-3 text-center">
+<span class="absolute top-2 right-2 bg-[#C84630] text-white font-pixel text-[8px] px-1.5 py-0.5">PRE-ORDEN</span>
+<div class="h-40 flex items-center justify-center font-pixel text-xs text-[#805B3A]">
+              🏴‍☠️ OP-08 TWO LEGENDS<br>BOOSTER BOX<br>(24 SOBRES)
+            </div>
+</div>
+<div>
+<span class="font-pixel text-[9px] text-[#C84630]">ONE PIECE CARD GAME</span>
+<h3 class="font-pixel text-xs text-[#382414] mt-1">TWO LEGENDS [OP-08]</h3>
+<p class="text-xs text-[#805B3A] mt-1">Con los nuevos líderes Silvers Rayleigh y Edward Newgate.</p>
+</div>
+<div class="pt-2 border-t border-[#382414]/20 flex items-center justify-between">
+<span class="font-pixel text-sm text-[#382414]">$118.00</span>
+<button class="pixel-btn bg-[#F29F38] text-[#382414] font-pixel text-[9px] px-3 py-1.5">
+              + AÑADIR
+            </button>
+</div>
+</div>
+<!-- Product 4: Dragon Shield Matte Sleeves (Accesorios DracoStore) -->
+<div class="pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19] transition-colors">
+<div class="relative bg-[#ECE0C8] border-2 border-[#382414] p-3 text-center">
+<span class="absolute top-2 right-2 bg-[#3F7E44] text-white font-pixel text-[8px] px-1.5 py-0.5">ACCESORIO</span>
+<div class="h-40 flex items-center justify-center font-pixel text-xs text-[#805B3A]">
+              🛡️ DRAGON SHIELD<br>MATTE SLEEVES<br>(100 CT DUAL)
+            </div>
+</div>
+<div>
+<span class="font-pixel text-[9px] text-[#3F7E44]">PROTECCIÓN GREMIAL</span>
+<h3 class="font-pixel text-xs text-[#382414] mt-1">DRAGON SHIELD DUAL MATTE</h3>
+<p class="text-xs text-[#805B3A] mt-1">Interior opaco negro para torneos competitivos de todo TCG.</p>
+</div>
+<div class="pt-2 border-t border-[#382414]/20 flex items-center justify-between">
+<span class="font-pixel text-sm text-[#382414]">$13.50</span>
+<button class="pixel-btn bg-[#F29F38] text-[#382414] font-pixel text-[9px] px-3 py-1.5">
+              + AÑADIR
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: BUYLIST GREMIAL & COMUNIDAD (Inspirado en DracoStore / Top Deck) -->
+<section class="grid grid-cols-1 gap-8" id="torneos">
+<!-- Buylist Card -->
+
+<!-- Torneos & Comunidad (Referencia DracoStore Store Events) -->
+<div class="pixel-box-lg bg-[#FBF6EB] p-6 md:p-8 space-y-6 w-full"><div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b-2 border-[#382414] gap-4"><div><div class="flex items-center gap-2"><span class="font-pixel text-xl md:text-2xl text-[#382414]">🏆 TORNEOS EN TABERNA &amp; LIGAS TCG</span><span class="bg-[#C84630] text-white font-pixel text-[9px] px-2 py-0.5 animate-pulse">EN VIVO</span></div><p class="text-xs md:text-sm text-[#5C3D24] mt-1">Participa en nuestras noches de Commander, Friday Night Magic, Liga Pokémon y torneos clasificatorios oficiales de One Piece y Yu-Gi-Oh! con mesas reglamentarias y jueces DCI certificados.</p></div></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><div class="bg-[#ECE0C8] border-2 border-[#382414] p-4 flex flex-col justify-between space-y-3 shadow-[3px_3px_0px_#382414]"><div><div class="flex items-center justify-between"><span class="font-pixel text-[8px] bg-[#D47E19] text-[#FBF6EB] px-1.5 py-0.5">MAGIC: MTG</span><span class="font-pixel text-[9px] text-[#C84630]">POZO $250</span></div><h4 class="font-pixel text-xs text-[#382414] mt-2">FRIDAY NIGHT MAGIC</h4><p class="text-[11px] text-[#5C3D24] mt-1">Formato Modern &amp; Commander Multiplayer con promos retro foil.</p></div><div class="pt-2 border-t border-[#382414]/20 flex items-center justify-between font-mono text-[11px]"><span class="text-[#382414] font-bold">VIERNES 19:00</span><span class="font-pixel text-[9px] text-[#3F7E44]">8 CUPOS</span></div></div><div class="bg-[#ECE0C8] border-2 border-[#382414] p-4 flex flex-col justify-between space-y-3 shadow-[3px_3px_0px_#382414]"><div><div class="flex items-center justify-between"><span class="font-pixel text-[8px] bg-[#C84630] text-[#FBF6EB] px-1.5 py-0.5">ONE PIECE</span><span class="font-pixel text-[9px] text-[#D47E19]">WINNER PACK</span></div><h4 class="font-pixel text-xs text-[#382414] mt-2">OP-08 STORE TOURNAMENT</h4><p class="text-[11px] text-[#5C3D24] mt-1">Torneo suizo a 4 rondas con carta dorada Shanks Champion.</p></div><div class="pt-2 border-t border-[#382414]/20 flex items-center justify-between font-mono text-[11px]"><span class="text-[#382414] font-bold">SÁBADO 16:00</span><span class="font-pixel text-[9px] text-[#3F7E44]">14 CUPOS</span></div></div><div class="bg-[#ECE0C8] border-2 border-[#382414] p-4 flex flex-col justify-between space-y-3 shadow-[3px_3px_0px_#382414]"><div><div class="flex items-center justify-between"><span class="font-pixel text-[8px] bg-[#E5B229] text-[#382414] px-1.5 py-0.5">POKÉMON TCG</span><span class="font-pixel text-[9px] text-[#3F7E44]">PREMIO BOOSTER</span></div><h4 class="font-pixel text-xs text-[#382414] mt-2">LIGA STELLAR CROWN</h4><p class="text-[11px] text-[#5C3D24] mt-1">Formato Estándar oficial Play! Pokémon con puntos clasificatorios.</p></div><div class="pt-2 border-t border-[#382414]/20 flex items-center justify-between font-mono text-[11px]"><span class="text-[#382414] font-bold">DOMINGO 14:00</span><span class="font-pixel text-[9px] text-[#3F7E44]">10 CUPOS</span></div></div><div class="bg-[#ECE0C8] border-2 border-[#382414] p-4 flex flex-col justify-between space-y-3 shadow-[3px_3px_0px_#382414]"><div><div class="flex items-center justify-between"><span class="font-pixel text-[8px] bg-[#6A3E8A] text-[#FBF6EB] px-1.5 py-0.5">YU-GI-OH!</span><span class="font-pixel text-[9px] text-[#C84630]">PLAYMAT OTS</span></div><h4 class="font-pixel text-xs text-[#382414] mt-2">OTS LOCAL TOURNAMENT</h4><p class="text-[11px] text-[#5C3D24] mt-1">Torneo oficial Avanzado con sobres OTS Pack de participación.</p></div><div class="pt-2 border-t border-[#382414]/20 flex items-center justify-between font-mono text-[11px]"><span class="text-[#382414] font-bold">SÁBADO 11:00</span><span class="font-pixel text-[9px] text-[#3F7E44]">6 CUPOS</span></div></div></div><div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t-2 border-[#382414]/20"><div class="flex items-center gap-2"><span class="font-pixel text-xs text-[#382414]">📍 SEDE: RISARALDA-PEREIRA - SALÓN DE GREMIO</span></div><button class="pixel-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#382414] font-pixel text-xs px-6 py-3 flex items-center gap-2"><span class="">VER CALENDARIO COMPLETO &amp; RESERVAR CUPO ▶</span></button></div></div>
+</section>
+</main>
+<!-- Footer (Retro 16-Bit Guild Tavern) -->
+<footer class="bg-[#ECE0C8] border-t-4 border-[#382414] mt-16 py-8 px-4 md:px-8">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-[#FBF6EB] border-2 border-[#382414] flex items-center justify-center p-1">
+<img alt="Top Deck" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkdiEWUQPno7swEO78yHJsjV-wHx785OBu8xuLnW68dUO7se10TJRqjjm_rcWahKqi87PRJRGe3Cj_Mz94DbTwGvOCZjGm-CnSdDUZzyXOqs3rru8lsTCJvBhFY4nbaXlScCZ8q7GvHfaTefRHF2KB-OGL0Ryd64onx0sD85oloI8521RCEK8u_dfENe3UePDRHoT-89_aBK3EZtUgjTlSQ0Kq_gqmEAIBizOnrDKT7JrbcxiPobCPijGpgNOIOZpyQ">
+</div>
+<div>
+<span class="font-pixel text-xs text-[#382414]">TOP DECK VAULT &amp; TAVERN</span>
+<p class="text-[11px] text-[#805B3A]">Competitividad y Coleccionismo de Juegos de Cartas Coleccionables</p>
+</div>
+</div>
+<div class="flex flex-wrap justify-center gap-4 text-xs font-mono font-bold text-[#5C3D24]">
+<a class="hover:text-[#D47E19]" href="#">TÉRMINOS DEL GRIMORIO</a>
+<span class="">•</span>
+<a class="hover:text-[#D47E19]" href="#">GUÍA DE ESTADOS (NM/EX/GD)</a>
+<span class="">•</span>
+<a class="hover:text-[#D47E19]" href="#">ENVÍOS &amp; DEVOLUCIONES</a>
+<span class="">•</span>
+<a class="hover:text-[#D47E19]" href="#">SOPORTE DEL GREMIO</a>
+</div>
+<div class="text-right text-[10px] text-[#805B3A] font-pixel">
+        © 2026 TOP DECK TCG • PIXELCRAFT 16-BIT EDITION
+      </div>
+</div>
+</footer>
+<!-- SCRIPT FOR FOLDER TABS SWITCHING (21st.dev inspired interactivity) -->
+<script>
+    const folderData = {
+      mtg: {
+        name: "MAGIC: THE GATHERING",
+        badge: "📖 CARPETA ACTIVA: MAGIC: THE GATHERING",
+        expansions: "Expansiones: Duskmourn • Bloomburrow • Modern Horizons 3 • Ravnica",
+        cards: [
+          { name: "UNHOLY ANNEX", tag: "FOIL", cond: "NM", price: "$34.00", img: "https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg?1726286295" },
+          { name: "DEMONIC TUTOR", tag: "ETCHED", cond: "NM", price: "$44.00", img: "https://cards.scryfall.io/large/front/a/2/a24b652c-7359-4556-82ae-c94380eb922c.jpg?1689997034" },
+          { name: "MANA CRYPT", tag: "SP FOIL", cond: "SP", price: "$185.00", img: "https://cards.scryfall.io/large/front/4/d/4d960186-4559-4af0-bd22-63baa15f8939.jpg?1599709515" },
+          { name: "SOL RING", tag: "RETRO", cond: "NM", price: "$21.00", img: "https://cards.scryfall.io/large/front/d/a/da20235d-6c17-48f8-a152-64e9e03d3f9e.jpg?1674140788" },
+          { name: "URZA'S SAGA", tag: "SKETCH", cond: "NM", price: "$41.00", img: "https://cards.scryfall.io/large/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.jpg?1664273873" },
+          { name: "CHROME MOX", tag: "BORDERLESS", cond: "EX", price: "$110.00", img: "https://cards.scryfall.io/large/front/f/3/f340cbf7-5bbe-45b9-a4bf-d1caa500ff93.jpg?1599709022" }
+        ]
+      },
+      pokemon: {
+        name: "POKÉMON TCG",
+        badge: "⚡ CARPETA ACTIVA: POKÉMON TCG (INGLÉS / JAPONÉS)",
+        expansions: "Expansiones: Stellar Crown • Shrouded Fable • 151 • Twilight Masquerade",
+        cards: [
+          { name: "CHARIZARD EX", tag: "SPECIAL ART", cond: "NM", price: "$124.00", img: "https://images.pokemontcg.io/sv3pt5/199_hires.png" },
+          { name: "PIKACHU EX", tag: "STELLAR TERA", cond: "NM", price: "$48.00", img: "https://images.pokemontcg.io/sv7/133_hires.png" },
+          { name: "TERAPAGOS EX", tag: "HYPER RARE", cond: "NM", price: "$65.00", img: "https://images.pokemontcg.io/sv7/170_hires.png" },
+          { name: "GIRATINA VSTAR", tag: "SECRET RARE", cond: "NM", price: "$98.00", img: "https://images.pokemontcg.io/swsh12pt5/gg69_hires.png" },
+          { name: "MEW EX", tag: "151 PROMO", cond: "NM", price: "$32.00", img: "https://images.pokemontcg.io/sv3pt5/151_hires.png" },
+          { name: "GARDEVOIR EX", tag: "SPECIAL ART", cond: "NM", price: "$42.00", img: "https://images.pokemontcg.io/sv1/245_hires.png" }
+        ]
+      },
+      onepiece: {
+        name: "ONE PIECE CARD GAME",
+        badge: "🏴‍☠️ CARPETA ACTIVA: ONE PIECE CARD GAME",
+        expansions: "Expansiones: OP-08 Two Legends • OP-07 500 Years • OP-06 Wings of Captain",
+        cards: [
+          { name: "MONKEY D. LUFFY", tag: "MANGA RARE", cond: "NM", price: "$850.00", img: "https://en.onepiece-cardgame.com/images/cardlist/card/OP05-119_p1.png" },
+          { name: "SILVERS RAYLEIGH", tag: "SEC FOIL", cond: "NM", price: "$68.00", img: "https://en.onepiece-cardgame.com/images/cardlist/card/OP08-118.png" },
+          { name: "PORTGAS D. ACE", tag: "SUPER PARALLEL", cond: "NM", price: "$340.00", img: "https://en.onepiece-cardgame.com/images/cardlist/card/OP02-013_p1.png" },
+          { name: "RORONOA ZORO", tag: "LEADER ALT", cond: "NM", price: "$95.00", img: "https://en.onepiece-cardgame.com/images/cardlist/card/OP01-001_p1.png" },
+          { name: "NAMI", tag: "SPECIAL PARALLEL", cond: "NM", price: "$140.00", img: "https://en.onepiece-cardgame.com/images/cardlist/card/OP01-016_p1.png" },
+          { name: "TRAFALGAR LAW", tag: "ALT ART", cond: "NM", price: "$75.00", img: "https://en.onepiece-cardgame.com/images/cardlist/card/OP01-047_p1.png" }
+        ]
+      },
+      yugioh: {
+        name: "YU-GI-OH! TRADING CARD GAME",
+        badge: "👁️ CARPETA ACTIVA: YU-GI-OH! TCG",
+        expansions: "Expansiones: 25th Anniversary Rarity Collection II • Infinite Forbidden • Retro Pack",
+        cards: [
+          { name: "BLUE-EYES WHITE DRAGON", tag: "QUARTER CENTURY", cond: "NM", price: "$180.00", img: "https://images.ygoprodeck.com/images/cards/89631139.jpg" },
+          { name: "DARK MAGICIAN", tag: "PRISMATIC", cond: "NM", price: "$75.00", img: "https://images.ygoprodeck.com/images/cards/46986414.jpg" },
+          { name: "ASH BLOSSOM", tag: "QC SECRET", cond: "NM", price: "$45.00", img: "https://images.ygoprodeck.com/images/cards/14558127.jpg" },
+          { name: "EXODIA THE FORBIDDEN", tag: "ULTRA RARE", cond: "NM", price: "$60.00", img: "https://images.ygoprodeck.com/images/cards/33396948.jpg" },
+          { name: "S:P LITTLE KNIGHT", tag: "SECRET RARE", cond: "NM", price: "$85.00", img: "https://images.ygoprodeck.com/images/cards/29301450.jpg" },
+          { name: "NIBIRU THE PRIMAL", tag: "COLLECTOR RARE", cond: "NM", price: "$30.00", img: "https://images.ygoprodeck.com/images/cards/27204311.jpg" }
+        ]
+      }
+    };
+
+    function switchFolder(gameKey) {
+      // Update Tab classes
+      const tabs = ['mtg', 'pokemon', 'onepiece', 'yugioh'];
+      tabs.forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if (t === gameKey) {
+          el.classList.add('active');
+          el.style.backgroundColor = '#FBF6EB';
+        } else {
+          el.classList.remove('active');
+          el.style.backgroundColor = '#E3D4B6';
+        }
+      });
+
+      const data = folderData[gameKey];
+      if (!data) return;
+
+      document.getElementById('folderBadge').innerText = data.badge;
+      document.getElementById('folderExpansions').innerText = data.expansions;
+
+      // Render cards
+      const container = document.getElementById('folderContent');
+      let html = '<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">';
+      
+      data.cards.forEach(c => {
+        html += `
+          <div class="card-slot bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between shadow-[3px_3px_0px_#382414]">
+            <div class="relative overflow-hidden border border-[#382414] aspect-[63/88] bg-[#382414]">
+              <img src="${c.img}" alt="${c.name}" class="w-full h-full object-cover" onerror="this.src='https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg?1726286295'" />
+              <span class="absolute top-1 left-1 bg-[#382414]/90 text-[#F29F38] font-pixel text-[8px] px-1">${c.tag}</span>
+            </div>
+            <div class="mt-2 space-y-1">
+              <div class="font-pixel text-[9px] text-[#382414] truncate">${c.name}</div>
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] font-bold text-[#805B3A]">${c.cond}</span>
+                <span class="font-pixel text-[10px] text-[#C84630]">${c.price}</span>
+              </div>
+            </div>
+            <button class="mt-2 w-full pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#382414] font-pixel text-[8px] py-1 transition-colors">
+              VER EN 3D
+            </button>
+          </div>
+        `;
+      });
+
+      html += `</div>
+        <div class="mt-8 pt-4 border-t-2 border-[#382414]/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-green-600 rounded-full animate-ping"></span>
+            <span class="font-pixel text-[10px] text-[#382414]">CATÁLOGO COMPLETO SINCRONIZADO: DISPONIBLE PARA ENVÍO INMEDIATO</span>
+          </div>
+          <a href="#" class="pixel-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#382414] font-pixel text-xs px-5 py-2.5 flex items-center gap-2">
+            <span>ABRIR CARPETA DE ${data.name} ▶</span>
+          </a>
+        </div>
+      `;
+
+      container.innerHTML = html;
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html><html class="light" lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Top Deck - Perfil de Jugador &amp; Mazos de Torneo | Andrés Mejía</title>
+<!-- Google Fonts: Retro 16-bit / Vintage Editorial Hybrid -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary-fixed": "#2f1501",
+            "on-tertiary": "#ffffff",
+            "on-primary-container": "#bf916f",
+            "inverse-surface": "#353022",
+            "secondary-fixed-dim": "#ffb77c",
+            "on-background": "#1f1b0e",
+            "on-tertiary-fixed": "#311300",
+            "on-primary": "#ffffff",
+            "primary-container": "#4a2b11",
+            "surface-bright": "#fff9ee",
+            "surface-dim": "#e2d9c4",
+            "tertiary-container": "#532600",
+            "inverse-primary": "#efbc98",
+            "on-secondary-container": "#693600",
+            "surface-variant": "#ebe2cc",
+            "inverse-on-surface": "#f9f0da",
+            "outline-variant": "#d4c3b9",
+            "background": "#fff9ee",
+            "on-surface-variant": "#50443d",
+            "surface-container-high": "#f0e8d2",
+            "error": "#ba1a1a",
+            "surface-container-highest": "#ebe2cc",
+            "surface-tint": "#7c5638",
+            "surface": "#fff9ee",
+            "tertiary": "#341500",
+            "on-tertiary-container": "#d8874e",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#fe9836",
+            "surface-container-low": "#fcf3dd",
+            "tertiary-fixed": "#ffdcc7",
+            "on-secondary-fixed-variant": "#6d3900",
+            "on-surface": "#1f1b0e",
+            "on-tertiary-fixed-variant": "#723600",
+            "on-error": "#ffffff",
+            "primary": "#311701",
+            "secondary": "#904d00",
+            "primary-fixed": "#ffdcc4",
+            "on-secondary-fixed": "#2e1500",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed-variant": "#623f23",
+            "surface-container": "#f6edd7",
+            "secondary-fixed": "#ffdcc2",
+            "on-error-container": "#93000a",
+            "outline": "#82746b",
+            "tertiary-fixed-dim": "#ffb787",
+            "primary-fixed-dim": "#efbc98"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          spacing: {
+            "margin": "2rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "margin-mobile": "1rem",
+            "gutter-mobile": "0.75rem",
+            "gutter": "1.25rem",
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem"
+          },
+          fontFamily: {
+            "headline-lg": ["EB Garamond", "serif"],
+            "headline-sm": ["EB Garamond", "serif"],
+            "headline-md": ["EB Garamond", "serif"],
+            "display": ["EB Garamond", "serif"],
+            "headline-lg-mobile": ["EB Garamond", "serif"],
+            "body-md": ["Manrope", "sans-serif"],
+            "body-lg": ["Manrope", "sans-serif"],
+            "body-sm": ["Manrope", "sans-serif"],
+            "title": ["Manrope", "sans-serif"],
+            "label-sm": ["Manrope", "sans-serif"],
+            "label-md": ["Manrope", "sans-serif"],
+            "label-lg": ["Manrope", "sans-serif"],
+            "pixel": ["'Press Start 2P'", "monospace"],
+            "mono-custom": ["'Space Mono'", "monospace"]
+          },
+          fontSize: {
+            "headline-lg": ["2.5rem", { lineHeight: "1.2", fontWeight: "600" }],
+            "headline-sm": ["1.5rem", { lineHeight: "1.35", fontWeight: "500" }],
+            "body-md": ["0.9375rem", { lineHeight: "1.5", fontWeight: "400" }],
+            "body-lg": ["1.125rem", { lineHeight: "1.6", fontWeight: "400" }],
+            "headline-md": ["2rem", { lineHeight: "1.3", fontWeight: "500" }],
+            "title": ["1.125rem", { lineHeight: "1.4", fontWeight: "700" }],
+            "label-sm": ["0.6875rem", { lineHeight: "1.2", fontWeight: "600" }],
+            "display": ["3.5rem", { lineHeight: "1.1", fontWeight: "600" }],
+            "label-md": ["0.75rem", { lineHeight: "1.2", fontWeight: "700" }],
+            "label-lg": ["0.875rem", { lineHeight: "1.2", fontWeight: "600" }],
+            "headline-lg-mobile": ["1.875rem", { lineHeight: "1.25", fontWeight: "600" }],
+            "body-sm": ["0.8125rem", { lineHeight: "1.45", fontWeight: "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* 16-Bit Pixel RPG Physical Metaphors & Parchment Grids */
+    .pixel-box {
+      border: 3px solid #382414;
+      box-shadow: 4px 4px 0px #382414;
+    }
+    .pixel-box-sm {
+      border: 2px solid #382414;
+      box-shadow: 2px 2px 0px #382414;
+    }
+    .pixel-box-gold {
+      border: 3px solid #382414;
+      box-shadow: 4px 4px 0px #d8874e;
+    }
+    .pixel-inset {
+      border: 2px solid #382414;
+      box-shadow: inset 2px 2px 0px rgba(56, 36, 20, 0.25);
+    }
+    .pixel-btn {
+      border: 2px solid #382414;
+      box-shadow: 3px 3px 0px #382414;
+      transition: all 0.08s steps(2);
+    }
+    .pixel-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0px #382414;
+    }
+    .pixel-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #382414;
+    }
+
+    /* Subtle parchment grid canvas texture */
+    .bg-parchment-grid {
+      background-color: #f6edd7;
+      background-image: 
+        linear-gradient(to right, rgba(56, 36, 20, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 36, 20, 0.04) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+
+    /* Scanline vintage TV subtle effect */
+    .scanlines {
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.03) 50%
+      );
+      background-size: 100% 4px;
+    }
+
+    /* 16-Bit Badge Shine */
+    @keyframes goldPulse {
+      0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px #fe9836); }
+      50% { opacity: 0.85; filter: drop-shadow(0 0 6px #fe9836); }
+    }
+    .pulse-gold {
+      animation: goldPulse 2.8s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased bg-parchment-grid min-h-screen flex flex-col selection:bg-secondary selection:text-white font-mono-custom">
+<!-- 1. CINTA SUPERIOR: NOTICIAS & ANUNCIOS RETRO 16-BIT -->
+
+<!-- 2. CABECERA RETRO (TopNavBar Shared Anchor) -->
+<header class="w-full bg-surface-container border-b border-outline-variant shadow-sm sticky top-0 z-40">
+<div class="w-full px-4 lg:px-8 max-w-7xl mx-auto flex items-center justify-between py-3 gap-3">
+<!-- Logo Oficial Top Deck TCG -->
+<a class="flex items-center gap-3 group focus:outline-none shrink-0" href="#">
+<div class="w-12 h-12 bg-surface-container-lowest pixel-box-sm flex items-center justify-center p-1 overflow-hidden bg-[#faf3e0]">
+<img alt="Top Deck TCG Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlPE0yGeNDEAOFfb9vvvhgCeyCqJpK1JdotRQYT4It5r9RLfBOfre8plbK0OvlLbtnlig9v31Eae-YFliCbqr__pluAtUrUxIg5IPC_LY1Ze9ThvkPf_XQFQrfLU6bpsLRj0WuO2zBQ7dwR26xMvZ_e6rOvuw1PGqEj0SnEXFwZoX8wDGbWztpUcb2ptPolpE799DMxVxSqn2sKnavefo_Yr0UWaXoKYGEluQ2jcbi9R0d4Ea8DdXdGkoK-OFDerkEcQ">
+</div>
+<div class="flex flex-col">
+<span class="font-pixel text-[11px] sm:text-xs font-bold tracking-wide text-primary leading-none group-hover:text-secondary transition-colors">Top Deck TCG</span>
+<span class="font-mono-custom text-[10px] text-on-surface-variant font-medium tracking-wide mt-1">Competitividad y Coleccionismo</span>
+</div>
+</a>
+<!-- Barra de Búsqueda de Singles + [📁 CARPETAS] Integrado -->
+<div class="relative flex items-center mx-2" id="header-search-container"><button id="search-toggle-btn" onclick="document.getElementById('search-expanded-bar').classList.remove('hidden'); document.getElementById('search-expanded-bar').classList.add('flex'); document.getElementById('search-input-field').focus();" class="pixel-btn bg-surface-container-low text-primary font-pixel text-[9px] flex items-center gap-1.5 cursor-pointer hover:bg-surface-variant transition-colors px-4 py-2"><span class="material-symbols-outlined text-base text-secondary" data-icon="search">search</span><span class="">Buscar<br></span></button><div id="search-expanded-bar" class="absolute left-0 right-0 z-30 w-[320px] sm:w-[420px] md:w-[500px] pixel-box bg-surface-container-lowest items-center shadow-md hidden"><span class="material-symbols-outlined text-outline ml-2.5 text-base" data-icon="search">search</span><input id="search-input-field" type="text" placeholder="Buscar singles por nombre, set, rareza..." class="w-full bg-transparent border-none focus:ring-0 text-xs sm:text-sm font-mono-custom text-on-surface placeholder:text-outline py-2 px-2.5"><button type="button" class="bg-secondary text-white hover:bg-on-secondary-container px-3.5 py-2 border-l-2 border-[#382414] font-pixel text-[9px] tracking-wider transition-colors">BUSCAR</button><button type="button" onclick="document.getElementById('search-expanded-bar').classList.add('hidden'); document.getElementById('search-expanded-bar').classList.remove('flex');" title="Cerrar búsqueda" class="bg-surface-variant text-primary hover:bg-error hover:text-white px-2.5 py-2 border-l-2 border-[#382414] font-pixel text-[10px] font-bold transition-colors">✕</button></div></div>
+<!-- Links de Navegación del Header -->
+<nav class="hidden xl:flex items-center space-x-6 text-sm font-mono-custom"><a class="text-on-surface-variant hover:text-primary font-pixel text-[9px] pb-1 transition-colors" href="#">SINGLES</a><a class="text-on-surface-variant hover:text-primary font-pixel text-[9px] pb-1 transition-colors" href="#">DECKS</a><a class="text-on-surface-variant hover:text-primary font-pixel text-[9px] pb-1 transition-colors" href="#">TOURNAMENTS</a><a class="text-on-surface-variant hover:text-primary font-pixel text-[9px] pb-1 transition-colors" href="#">BINDERS</a></nav>
+<!-- Botones de Acción Derecha (Estado Activo para Mi Cuenta/Perfil) -->
+<div class="flex items-center gap-2 sm:gap-3 shrink-0">
+<!-- Botón Import Deck Rápido -->
+
+<!-- Botón Mi Cuenta / Perfil (ACTIVO) -->
+<a class="pixel-btn bg-primary text-white px-3 sm:px-4 py-1.5 text-xs font-mono-custom font-bold flex items-center gap-2 border-[#382414] shadow-sm" href="#"><span class="material-symbols-outlined text-secondary-container text-base" data-icon="person">person</span>
+<span class="hidden sm:inline">MI CUENTA&nbsp;</span>
+<span class="sm:hidden font-pixel text-[9px]">CUENTA</span></a>
+<!-- Botón Carrito / Baraja 3 -->
+<button class="pixel-btn bg-secondary-container text-primary font-bold px-3 py-1.5 text-xs font-mono-custom flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base" data-icon="shopping_bag">shopping_bag</span>
+<span class="">BARAJA 3</span>
+</button>
+</div>
+</div>
+</header>
+<!-- CONTENIDO PRINCIPAL -->
+<main class="w-full max-w-7xl mx-auto px-4 lg:px-8 py-6 space-y-8 flex-1">
+<!-- 3. HERO / FICHA DE JUGADOR RETRO (GREMIO TOP DECK) -->
+<section class="pixel-box bg-surface-container-low p-4 sm:p-6 lg:p-8 relative overflow-hidden">
+<!-- Decoración esquina pixelada -->
+<div class="absolute top-2 right-2 flex gap-1 opacity-40 pointer-events-none">
+<span class="w-2 h-2 bg-primary"></span>
+<span class="w-2 h-2 bg-secondary"></span>
+<span class="w-2 h-2 bg-primary"></span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+<!-- Avatar del Jugador con marco de Gremio Fantástico y Fox Wizard -->
+<div class="lg:col-span-4 flex flex-col items-center justify-center">
+<div class="relative p-2 bg-[#4a2b11] pixel-box max-w-[280px] w-full">
+<div class="relative aspect-[3/4] overflow-hidden border-2 border-[#f29f38] bg-[#1a0f07]">
+<!-- Imagen del campeón con marco original y zorro mago -->
+<img alt="Andrés Mejía - Campeón de Torneo Top Deck TCG" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw">
+<!-- Badge Flotante "MVP" en esquina -->
+<div class="absolute top-2 right-2 bg-primary border-2 border-secondary-container px-2 py-0.5 text-secondary-container font-pixel text-[9px] shadow-md">
+                ★ MVP
+              </div>
+<!-- Banner de Victoria 3-0 en la base -->
+<div class="absolute bottom-2 inset-x-2 bg-primary-container/95 border border-[#8C4A15] p-1.5 flex items-center justify-between text-white text-xs font-mono-custom">
+<span class="flex items-center gap-1 text-secondary-fixed">
+<span class="material-symbols-outlined text-sm" data-icon="trophy">trophy</span>
+<span class="">RECORD: 3 - 0</span>
+</span>
+<span class="font-pixel text-[8px] text-surface-container-high">FNM TABERNA</span>
+</div>
+</div>
+<!-- Etiqueta de Folio Coleccionista -->
+<div class="mt-2 text-center bg-surface-container-highest border border-outline py-1 px-2">
+<span class="font-pixel text-[8px] text-primary tracking-wider">RETRATO OFICIAL DE TABERNA #044</span>
+</div>
+</div>
+</div>
+<!-- Ficha de Datos, Títulos y Métricas Globales -->
+<div class="lg:col-span-8 flex flex-col justify-between space-y-6">
+<!-- Encabezado de Identidad -->
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-2">
+<span class="bg-secondary-container text-on-secondary-container font-pixel text-[9px] px-2.5 py-1 border border-[#382414] uppercase">
+                Gremio Top Deck Gold
+              </span>
+<span class="bg-surface-variant font-mono-custom text-xs font-bold text-primary px-2 py-0.5 border border-outline">
+                ID: TD-8842
+              </span>
+
+</div>
+<h1 class="font-pixel text-lg sm:text-xl md:text-2xl font-bold text-primary tracking-wide leading-tight my-2">ANDRÉS MEJÍA</h1>
+<p class="font-pixel text-[10px] text-secondary flex flex-wrap items-center gap-2 mt-1"><span class="">@andres_planeswalker</span><span class="text-outline-variant">•</span><span class="text-on-surface-variant">"CAMPEÓN DE TABERNA - RANGO MÍTICO"</span></p>
+</div>
+<!-- Cuadrícula 16-bit de Estadísticas Globales del Jugador -->
+<div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 font-mono-custom"><div class="bg-surface-container-lowest pixel-box-sm p-2.5 text-center flex flex-col justify-between"><div class="font-pixel text-[8px] text-on-surface-variant mb-1">VICTORIAS</div><div class="font-pixel text-sm text-primary font-bold">142</div><div class="font-pixel text-[7px] text-green-700 font-bold mt-1">+12 ESTE MES</div></div><div class="bg-surface-container-lowest pixel-box-sm p-2.5 text-center flex flex-col justify-between"><div class="font-pixel text-[8px] text-on-surface-variant mb-1">WINRATE</div><div class="font-pixel text-sm text-secondary font-bold">68.4%</div><div class="font-pixel text-[7px] text-on-surface-variant mt-1">GLOBAL TCG</div></div><div class="bg-surface-container-lowest pixel-box-sm p-2.5 text-center flex flex-col justify-between"><div class="font-pixel text-[8px] text-on-surface-variant mb-1">TORNEOS</div><div class="font-pixel text-sm text-primary font-bold">24</div><div class="font-pixel text-[7px] text-on-surface-variant mt-1">OFICIALES</div></div><div class="bg-surface-container-lowest pixel-box-sm p-2.5 text-center flex flex-col justify-between"><div class="font-pixel text-[8px] text-on-surface-variant mb-1">TROFEOS</div><div class="font-pixel text-sm text-amber-700 font-bold flex items-center justify-center gap-1"><span class="">7</span><span class="material-symbols-outlined text-xs" data-icon="emoji_events">emoji_events</span></div><div class="font-pixel text-[7px] text-amber-800 font-bold mt-1">1ER PUESTO</div></div><div class="col-span-2 sm:col-span-1 bg-surface-variant pixel-box-sm p-2.5 text-center border-secondary flex flex-col justify-between"><div class="font-pixel text-[8px] text-secondary mb-1">ELO TABERNA</div><div class="font-pixel text-sm text-primary font-bold">1845</div><div class="font-pixel text-[7px] text-secondary font-bold mt-1">TOP 3 LOCAL</div></div></div>
+<!-- Botones de Acción Destacada -->
+<div class="flex flex-wrap items-center gap-3 pt-2"><button class="pixel-btn bg-surface-container-lowest text-on-surface-variant font-pixel text-[8px] px-3 py-2.5 flex items-center gap-1.5 cursor-pointer" title="Exportar ficha DCI"><span class="material-symbols-outlined text-sm" data-icon="share">share</span><span class="hidden sm:inline">COMPARTIR FICHA</span></button></div>
+</div>
+</div>
+</section>
+<!-- 4. SELECTOR DE TCG CON PESTAÑAS DE ARCHIVADOR (ESTILO CARPETA RETRO) -->
+<div class="space-y-0">
+<div class="flex items-end overflow-x-auto no-scrollbar gap-1 pt-2 border-b-2 border-[#382414]"><button class="px-4 py-2.5 bg-surface-container-low border-t-2 border-x-2 border-[#382414] font-pixel font-bold text-[9px] text-primary rounded-t flex items-center gap-1.5 shrink-0 relative -mb-[2px] z-10 shadow-[0_-2px_0_#f29f38]"><span class="w-2.5 h-2.5 rounded-full bg-orange-600 inline-block border border-[#382414]"></span><span class="text-orange-950">MAGIC: THE GATHERING</span><span class="ml-1.5 bg-[#4a2b11] text-secondary-fixed text-[8px] px-1.5 py-0.5 rounded font-pixel">92W-34L</span></button><button class="px-3.5 py-2 bg-surface-variant hover:bg-surface-container text-on-surface-variant border-t-2 border-x-2 border-[#382414] font-pixel text-[9px] rounded-t flex items-center gap-1.5 shrink-0 transition-colors"><span class="w-2.5 h-2.5 rounded-full bg-yellow-500 inline-block border border-[#382414]"></span><span class="">POKÉMON TCG</span><span class="text-[8px] text-outline font-pixel">28W-16L</span></button><button class="px-3.5 py-2 bg-surface-variant hover:bg-surface-container text-on-surface-variant border-t-2 border-x-2 border-[#382414] font-pixel text-[9px] rounded-t flex items-center gap-1.5 shrink-0 transition-colors"><span class="w-2.5 h-2.5 rounded-full bg-red-600 inline-block border border-[#382414]"></span><span class="">ONE PIECE CG</span><span class="text-[8px] text-outline font-pixel">18W-8L</span></button><button class="px-3.5 py-2 bg-surface-variant hover:bg-surface-container text-on-surface-variant border-t-2 border-x-2 border-[#382414] font-pixel text-[9px] rounded-t flex items-center gap-1.5 shrink-0 transition-colors"><span class="w-2.5 h-2.5 rounded-full bg-purple-600 inline-block border border-[#382414]"></span><span class="">YU-GI-OH!</span><span class="text-[8px] text-outline font-pixel">4W-4L</span></button></div>
+<!-- 5. PANEL DE ESTADÍSTICAS DETALLADAS DEL TCG SELECCIONADO (MAGIC: THE GATHERING) -->
+<div class="bg-surface-container-low border-x-2 border-b-2 border-[#382414] p-4 sm:p-5 pixel-box-sm !border-t-0">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4"><div class="bg-surface-container-lowest p-3 border-2 border-[#382414] flex flex-col justify-between"><div class="flex items-center justify-between font-pixel text-[8px] text-on-surface-variant"><span class="">WIN RATE TORNEOS</span><span class="material-symbols-outlined text-secondary text-base" data-icon="analytics">analytics</span></div><div class="my-2"><span class="font-pixel text-lg text-primary font-bold">73.0%</span><div class="w-full bg-surface-variant h-2.5 border border-[#382414] mt-1 overflow-hidden"><div class="bg-secondary h-full" style="width: 73%"></div></div></div><div class="text-[8px] font-pixel text-outline">126 PARTIDAS TOTAL</div></div><div class="bg-surface-container-lowest p-3 border-2 border-[#382414] flex flex-col justify-between"><div class="flex items-center justify-between font-pixel text-[8px] text-on-surface-variant"><span class="">ON PLAY / DRAW</span><span class="material-symbols-outlined text-primary text-base" data-icon="casino">casino</span></div><div class="my-2 space-y-1"><div class="flex justify-between font-pixel text-[8px]"><span class="font-bold text-primary">PLAY: 64%</span><span class="font-bold text-secondary">DRAW: 78%</span></div><div class="w-full bg-surface-variant h-2.5 border border-[#382414] flex"><div class="bg-primary h-full" style="width: 45%" title="Play"></div><div class="bg-secondary-container h-full" style="width: 55%" title="Draw"></div></div></div><div class="text-[8px] font-pixel text-green-800 font-bold">RESILIENCIA EN DRAW</div></div><div class="bg-surface-container-lowest p-3 border-2 border-[#382414] flex flex-col justify-between"><div class="flex items-center justify-between font-pixel text-[8px] text-on-surface-variant"><span class="">MATCHUPS FAVORABLES</span><span class="material-symbols-outlined text-primary text-base" data-icon="shield">shield</span></div><div class="space-y-1 font-pixel text-[8px] my-1"><div class="flex justify-between"><span class="">VS CONTROL</span><span class="font-bold text-green-700">80% W</span></div><div class="flex justify-between"><span class="">VS AGGRO</span><span class="font-bold text-green-700">71% W</span></div><div class="flex justify-between"><span class="">VS COMBO</span><span class="font-bold text-amber-700">62% W</span></div></div><div class="text-[8px] font-pixel text-outline">META REGIONAL BOG</div></div><div class="bg-surface-container-lowest p-3 border-2 border-[#382414] flex flex-col justify-between"><div class="flex items-center justify-between font-pixel text-[8px] text-on-surface-variant"><span class="">FORMATOS INSIGNIA</span><span class="material-symbols-outlined text-primary text-base" data-icon="auto_stories">auto_stories</span></div><div class="flex flex-wrap gap-1 my-1.5"><span class="font-pixel text-[7px] bg-primary text-white px-1.5 py-0.5 border border-outline">COMMANDER</span><span class="font-pixel text-[7px] bg-surface-variant text-primary px-1.5 py-0.5 border border-[#382414]">MODERN</span><span class="font-pixel text-[7px] bg-surface-variant text-primary px-1.5 py-0.5 border border-[#382414]">PIONEER</span></div><div class="text-[8px] font-pixel text-secondary font-bold">6 MAZOS ACTIVOS</div></div></div>
+</div>
+</div>
+<!-- 6. SECCIÓN PRINCIPAL: MIS MAZOS DE TORNEO (RANKING POR VICTORIAS) -->
+<section class="space-y-4">
+<!-- Cabecera de Sección & Barra de Herramientas -->
+<div class="pixel-box bg-surface-container p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-pixel text-secondary text-sm">⚔️</span>
+<h2 class="font-pixel text-xs sm:text-sm font-bold text-primary tracking-wide">MIS MAZOS DE TORNEO (RANKING POR VICTORIAS)</h2>
+</div>
+<p class="font-mono-custom text-xs text-on-surface-variant mt-0.5">
+            Mazos ordenados según mayor cantidad de victorias registradas en torneos oficiales y partidas de taberna.
+          </p>
+</div>
+<!-- Controles y Filtros Retro -->
+<div class="relative flex items-center gap-2 text-xs font-mono-custom"><div id="deck-actions-default" class="items-center gap-2 flex"><button class="pixel-btn bg-surface-container-lowest hover:bg-surface-bright text-primary font-pixel text-[8px] px-2.5 py-1.5 flex items-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs text-secondary" data-icon="download">download</span><span class="">IMPORTAR MAZO</span></button><button type="button" id="deck-search-open-btn" onclick="document.getElementById('deck-actions-default').classList.add('hidden'); document.getElementById('deck-actions-default').classList.remove('flex'); document.getElementById('deck-search-overlay').classList.remove('hidden'); document.getElementById('deck-search-overlay').classList.add('flex'); document.getElementById('deck-search-input').focus();" title="Buscar en mis mazos" class="pixel-btn bg-surface-container-lowest hover:bg-surface-bright text-primary font-pixel text-[8px] px-2 py-1.5 flex items-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs text-secondary" data-icon="search">search</span><span class="hidden sm:inline">BUSCAR</span></button></div><div id="deck-search-overlay" class="items-center pixel-box bg-surface-container-lowest shadow-md max-w-full hidden"><span class="material-symbols-outlined text-outline ml-2 text-sm" data-icon="search">search</span><input id="deck-search-input" type="text" placeholder="Buscar entre mis mazos..." class="bg-transparent border-none focus:ring-0 text-xs font-mono-custom text-on-surface placeholder:text-outline py-1.5 px-2 w-[180px] sm:w-[240px]"><button type="button" class="bg-secondary text-white hover:bg-on-secondary-container px-2.5 py-1.5 border-l-2 border-[#382414] font-pixel text-[8px] tracking-wider transition-colors">BUSCAR</button><button type="button" onclick="document.getElementById('deck-search-overlay').classList.add('hidden'); document.getElementById('deck-search-overlay').classList.remove('flex'); document.getElementById('deck-actions-default').classList.remove('hidden'); document.getElementById('deck-actions-default').classList.add('flex');" title="Cerrar búsqueda" class="bg-surface-variant text-primary hover:bg-error hover:text-white px-2 py-1.5 border-l-2 border-[#382414] font-pixel text-[9px] font-bold transition-colors">✕</button></div></div>
+</div>
+<!-- LISTA / GRID DE MAZOS RETRO TIPO RPG INVENTARIO -->
+<div class="grid grid-cols-1 gap-4">
+<!-- MAZO #1: PUESTO DE HONOR - ORO (DIMIR RITUAL CHAMBER / UNHOLY CONTROL) -->
+<article class="pixel-box-gold bg-surface-container-lowest p-4 sm:p-5 relative border-l-8 border-l-[#fe9836]">
+<!-- Medalla de Oro Flotante -->
+<div class="absolute -top-3 right-4 bg-secondary-container border-2 border-[#382414] px-3 py-0.5 text-primary font-pixel text-[10px] shadow-sm flex items-center gap-1">
+<span class="">🏆 MEDALLA DE ORO / MVP</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+<!-- Miniatura / Carta Insignia (Unholy Annex // Ritual Chamber) -->
+<div class="lg:col-span-3 flex flex-col items-center">
+<div class="w-full max-w-[210px] aspect-[5/7] bg-[#1a0f07] pixel-box relative overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Magic the Gathering trading card Unholy Annex Ritual Chamber room card dark gothic chamber with glowing eerie green runes and ancient mahogany doors illustrated in atmospheric high fantasy style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiPJKqCR_Xi8UZ79FcCNbEKDiLQx1k-353j2VG_iZmF-t-7SGc-WiqASxNOFpNnBQltkFtXi8cAQhM_RgBNlKPlRVR71WxHvJiniZwnAYxEWo5IdPAsnNpjJXWowtjs-1ccodgvuxgYJzy8BWYudVwqmI-BZmS003G2fjZFhE7RkbXSW3soTQLVDUEXXUAxY0SJKE8UKU2DxY0MTqakjGNKvUX2RKH3rXZKRKBg13og6dNp0bTBSpq">
+<div class="absolute bottom-0 inset-x-0 bg-primary-container/90 text-surface-container-low font-mono-custom text-[10px] text-center py-1 border-t border-[#8C4A15]">
+                  Unholy Annex // Ritual Chamber
+                </div>
+<div class="absolute top-1.5 left-1.5 bg-secondary text-white font-pixel text-[8px] px-1.5 py-0.5 border border-white">
+                  FOIL MVP
+                </div>
+</div>
+<span class="font-mono-custom text-[11px] text-outline mt-1.5">Comandante &amp; Motor Principal</span>
+</div>
+<!-- Datos del Mazo y Estadísticas -->
+<div class="lg:col-span-6 space-y-3">
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<span class="bg-primary text-secondary-fixed font-pixel text-[8px] px-2 py-0.5 border border-[#382414]">
+                    RANK #1
+                  </span>
+<span class="bg-surface-variant font-mono-custom text-xs font-bold text-primary px-2 py-0.5 border border-outline">
+                    Commander / EDH
+                  </span>
+<span class="font-mono-custom text-xs text-outline">
+                    ID: #mox-8912
+                  </span>
+</div>
+<h3 class="font-pixel text-xs sm:text-sm font-bold text-primary hover:text-secondary cursor-pointer transition-colors tracking-wide">DIMIR RITUAL CHAMBER // UNHOLY CONTROL</h3>
+<p class="font-mono-custom text-xs text-on-surface-variant">
+                  Estrategia de descarte sistemático, robo sostenido de salas y finishers demoníacos 6/6 con evasión aérea.
+                </p>
+</div>
+<!-- Registro de Victorias Destacado -->
+<div class="bg-surface-container p-3 border-2 border-[#382414] flex flex-wrap items-center justify-between gap-2 font-mono-custom">
+<div>
+<div class="font-pixel text-[9px] text-secondary">RÉCORD DE TABERNA:</div>
+<div class="font-pixel text-sm text-primary font-bold">
+                    38 VICTORIAS - 8 DERROTAS
+                  </div>
+</div>
+<div class="text-right">
+<span class="font-pixel text-xs bg-green-800 text-white px-2 py-1 border border-[#382414]">
+                    82.6% WIN RATE
+                  </span>
+</div>
+</div>
+<!-- Último Torneo & Costo en Vault -->
+<div class="flex flex-wrap items-center justify-between text-xs font-mono-custom text-on-surface-variant pt-1 border-t border-dashed border-outline-variant">
+<span class="flex items-center gap-1.5 text-primary font-bold">
+<span class="material-symbols-outlined text-amber-700 text-base" data-icon="stars">stars</span>
+<span class="">Último Torneo: 1er Lugar - Torneo FNM Taberna (3 - 0)</span>
+</span>
+<span class="font-mono-custom text-outline">
+                  Valor Vault: <strong class="text-primary font-bold">$420 USD</strong>
+</span>
+</div>
+</div>
+<!-- Botones de Acción de Mazo -->
+<div class="lg:col-span-3 flex flex-col gap-2 font-mono-custom text-xs"><button class="pixel-btn bg-primary text-white font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs text-secondary-container" data-icon="visibility">visibility</span><span class="">[ 👁️ VER LISTA COMPLETA ]</span></button><button class="pixel-btn bg-surface-container-high text-primary font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs" data-icon="query_stats">query_stats</span><span class="">[ 📊 STATS EN TORNEO ]</span></button><button class="pixel-btn bg-secondary-container text-on-secondary-container font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs" data-icon="add_shopping_cart">add_shopping_cart</span><span class="">[ 🛒 COMPRAR FALTANTES ]</span></button><span class="text-[7px] text-center text-outline font-pixel mt-0.5">SINCRONIZADO VÍA MOXFIELD API</span></div>
+</div>
+</article>
+<!-- MAZO #2: PLATA 🥈 (URZA'S SAGA AFFINITY & RETRO RELICS) -->
+<article class="pixel-box bg-surface-container-lowest p-4 sm:p-5 relative border-l-8 border-l-slate-400">
+<div class="absolute -top-3 right-4 bg-slate-200 border-2 border-[#382414] px-3 py-0.5 text-primary font-pixel text-[9px] shadow-sm flex items-center gap-1">
+<span class="">🥈 2DO LUGAR / PLATA</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+<div class="lg:col-span-3 flex flex-col items-center">
+<div class="w-full max-w-[210px] aspect-[5/7] bg-[#1a0f07] pixel-box relative overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Magic the Gathering Urzas Saga artifact enchantment card artwork showing towering ancient clockwork mechs and bronze golem foundry warm sepia fantasy tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi03lxcctMx9PNz-8KSyDW_qiZ1rCE2aVAx3rsZRnDC45gQSKglo6WfdflzBSqbj1Zl7y4f2Cpfaji0u1OEvuMikNWWkFMV7_OKE-u1aNnI3ffTPoe5oOkfNuKtEcARyWugqwFPW9Ea2kbfhAdttEzfH47oVoEB5-fwe5zdTxjEDclk99lHTl-d1AD6Vb7dj5J-DT2qmLfAtbN9yzWzl_DfAGftoBq4cgKCmv_KRIPgBE0ai_Whdy3">
+<div class="absolute bottom-0 inset-x-0 bg-primary-container/90 text-surface-container-low font-mono-custom text-[10px] text-center py-1 border-t border-[#8C4A15]">
+                  Urza's Saga / Chrome Mox
+                </div>
+</div>
+<span class="font-mono-custom text-[11px] text-outline mt-1.5">Motor de Artefactos Modern</span>
+</div>
+<div class="lg:col-span-6 space-y-3">
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<span class="bg-surface-variant text-primary font-pixel text-[8px] px-2 py-0.5 border border-[#382414]">
+                    RANK #2
+                  </span>
+<span class="bg-surface-variant font-mono-custom text-xs font-bold text-primary px-2 py-0.5 border border-outline">
+                    Modern
+                  </span>
+<span class="font-mono-custom text-xs text-outline">
+                    ID: #mox-4421
+                  </span>
+</div>
+<h3 class="font-pixel text-xs sm:text-sm font-bold text-primary hover:text-secondary cursor-pointer transition-colors tracking-wide">URZA'S SAGA AFFINITY &amp; RETRO RELICS</h3>
+<p class="font-mono-custom text-xs text-on-surface-variant">
+                  Tempo ultra rápido con criaturas artefacto de coste cero y crecimiento exponencial de constructos 8/8.
+                </p>
+</div>
+<div class="bg-surface-container p-3 border-2 border-[#382414] flex flex-wrap items-center justify-between gap-2 font-mono-custom">
+<div>
+<div class="font-pixel text-[9px] text-secondary">RÉCORD DE TABERNA:</div>
+<div class="font-pixel text-sm text-primary font-bold">
+                    26 VICTORIAS - 11 DERROTAS
+                  </div>
+</div>
+<div class="text-right">
+<span class="font-pixel text-xs bg-slate-700 text-white px-2 py-1 border border-[#382414]">
+                    70.2% WIN RATE
+                  </span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between text-xs font-mono-custom text-on-surface-variant pt-1 border-t border-dashed border-outline-variant">
+<span class="flex items-center gap-1.5 text-primary font-bold">
+<span class="material-symbols-outlined text-slate-600 text-base" data-icon="military_tech">military_tech</span>
+<span class="">Último Torneo: Top 4 - Clasificatorio Regional Modern</span>
+</span>
+<span class="font-mono-custom text-outline">
+                  Valor Vault: <strong class="text-primary font-bold">$680 USD</strong>
+</span>
+</div>
+</div>
+<div class="lg:col-span-3 flex flex-col gap-2 font-mono-custom text-xs"><button class="pixel-btn bg-primary text-white font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs text-secondary-container" data-icon="visibility">visibility</span><span class="">[ 👁️ VER LISTA COMPLETA ]</span></button><button class="pixel-btn bg-surface-container-high text-primary font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs" data-icon="query_stats">query_stats</span><span class="">[ 📊 STATS EN TORNEO ]</span></button><button class="pixel-btn bg-surface-container-lowest text-primary font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer border border-[#382414]"><span class="material-symbols-outlined text-xs" data-icon="tune">tune</span><span class="">SIDEBOARD GUIDE (15)</span></button></div>
+</div>
+</article>
+<!-- MAZO #3: BRONCE 🥉 (MONO BLACK NECRO-DOMINANCE) -->
+<article class="pixel-box bg-surface-container-lowest p-4 sm:p-5 relative border-l-8 border-l-amber-800">
+<div class="absolute -top-3 right-4 bg-amber-200 border-2 border-[#382414] px-3 py-0.5 text-amber-950 font-pixel text-[9px] shadow-sm flex items-center gap-1">
+<span class="">🥉 3ER LUGAR / BRONCE</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+<div class="lg:col-span-3 flex flex-col items-center">
+<div class="w-full max-w-[210px] aspect-[5/7] bg-[#1a0f07] pixel-box relative overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Magic the Gathering fantasy card art Demonic Necro Dominance with dark purple necrotic energy swirling around an ancient skull altar warm dark fantasy aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATo-E0CydYl8URZDGsO40Tc98kBdwunfNB1hVukobHKnx86JMTS1t9hEdF-gnq-u3QiSZdyavTpaw2uu0jssmfjsxsJczZY4We1gy_B2YiIgur0mBaKu4ulPiOHVHxSremZR2d2PhhZDLPVSkKPZgSuMQflIAW410G2JYAGaIyd61QwQjBQn5uPpIsJz2HkKWfYYnAdvOJMOSLSyBQixKwHCqHShx7kT_aZSzL9dGs-SJW3d3cz3Et">
+<div class="absolute bottom-0 inset-x-0 bg-primary-container/90 text-surface-container-low font-mono-custom text-[10px] text-center py-1 border-t border-[#8C4A15]">
+                  Demonic Tutor / Necro
+                </div>
+</div>
+<span class="font-mono-custom text-[11px] text-outline mt-1.5">Finisher Mono Black Pioneer</span>
+</div>
+<div class="lg:col-span-6 space-y-3">
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<span class="bg-surface-variant text-primary font-pixel text-[8px] px-2 py-0.5 border border-[#382414]">
+                    RANK #3
+                  </span>
+<span class="bg-surface-variant font-mono-custom text-xs font-bold text-primary px-2 py-0.5 border border-outline">
+                    Pioneer
+                  </span>
+<span class="font-mono-custom text-xs text-outline">
+                    ID: #mox-3109
+                  </span>
+</div>
+<h3 class="font-pixel text-xs sm:text-sm font-bold text-primary hover:text-secondary cursor-pointer transition-colors tracking-wide">MONO BLACK NECRO-DOMINANCE</h3>
+<p class="font-mono-custom text-xs text-on-surface-variant">
+                  Pérdida de vida convertida en ventaja de cartas implacable y removal absoluto de criaturas rivales.
+                </p>
+</div>
+<div class="bg-surface-container p-3 border-2 border-[#382414] flex flex-wrap items-center justify-between gap-2 font-mono-custom">
+<div>
+<div class="font-pixel text-[9px] text-secondary">RÉCORD DE TABERNA:</div>
+<div class="font-pixel text-sm text-primary font-bold">
+                    19 VICTORIAS - 9 DERROTAS
+                  </div>
+</div>
+<div class="text-right">
+<span class="font-pixel text-xs bg-amber-900 text-white px-2 py-1 border border-[#382414]">
+                    67.8% WIN RATE
+                  </span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between text-xs font-mono-custom text-on-surface-variant pt-1 border-t border-dashed border-outline-variant">
+<span class="flex items-center gap-1.5 text-primary font-bold">
+<span class="material-symbols-outlined text-amber-800 text-base" data-icon="emoji_events">emoji_events</span>
+<span class="">Último Torneo: 2do Lugar - Liga Nocturna Pioneer</span>
+</span>
+<span class="font-mono-custom text-outline">
+                  Valor Vault: <strong class="text-primary font-bold">$345 USD</strong>
+</span>
+</div>
+</div>
+<div class="lg:col-span-3 flex flex-col gap-2 font-mono-custom text-xs"><button class="pixel-btn bg-primary text-white font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs text-secondary-container" data-icon="visibility">visibility</span><span class="">[ 👁️ VER LISTA COMPLETA ]</span></button><button class="pixel-btn bg-surface-container-high text-primary font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs" data-icon="query_stats">query_stats</span><span class="">[ 📊 STATS EN TORNEO ]</span></button><button class="pixel-btn bg-secondary-container text-on-secondary-container font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs" data-icon="add_shopping_cart">add_shopping_cart</span><span class="">[ 🛒 COMPRAR FALTANTES ]</span></button></div>
+</div>
+</article>
+<!-- MAZO #4: GOLGARI ARISTOCRATS & SACRIFICE -->
+<article class="pixel-box bg-surface-container-lowest p-4 sm:p-5 relative border-l-8 border-l-stone-500">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+<div class="lg:col-span-3 flex flex-col items-center">
+<div class="w-full max-w-[210px] aspect-[5/7] bg-[#1a0f07] pixel-box relative overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Magic the Gathering Golgari dark fantasy card illustration featuring eerie swamp foliage parasitic vines and rotting undead moss in deep warm emerald and earth tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4_WCzTEjivEXmINnn73GZ45Gv0vVY_C3o1sJkBYHt05eABMUmFvbO_2m6FYxhr-lUpzCg0PNrd616SxOLnAB1mk2cTx02IvOLxcKJo2_IibNvYC6n5XVrB6etX-Cx3tO6Ud7HQzB0l7wqSDo1S7a0Kyh4WhhaTBTSaJuJjWMBi-NUWd_H6RCHFNEjV5pmdXXs2pg8mPRwbBiVddnlu23TTyDSvESSIYefBhgmMP5eKpE7icT6n3vo">
+<div class="absolute bottom-0 inset-x-0 bg-primary-container/90 text-surface-container-low font-mono-custom text-[10px] text-center py-1 border-t border-[#8C4A15]">
+                  Korvold / Chatterfang
+                </div>
+</div>
+<span class="font-mono-custom text-[11px] text-outline mt-1.5">Commander Casual / Mid-Power</span>
+</div>
+<div class="lg:col-span-6 space-y-3">
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<span class="bg-surface-variant text-primary font-pixel text-[8px] px-2 py-0.5 border border-[#382414]">
+                    RANK #4
+                  </span>
+<span class="bg-surface-variant font-mono-custom text-xs font-bold text-primary px-2 py-0.5 border border-outline">
+                    Commander
+                  </span>
+<span class="font-mono-custom text-xs text-outline">
+                    ID: #mox-2180
+                  </span>
+</div>
+<h3 class="font-pixel text-xs sm:text-sm font-bold text-primary hover:text-secondary cursor-pointer transition-colors tracking-wide">GOLGARI ARISTOCRATS &amp; SACRIFICE</h3>
+<p class="font-mono-custom text-xs text-on-surface-variant">
+                  Enjambre de tokens, drenaje pasivo de vidas y motores de sacrificio infinitos para mesas multijugador.
+                </p>
+</div>
+<div class="bg-surface-container p-3 border-2 border-[#382414] flex flex-wrap items-center justify-between gap-2 font-mono-custom">
+<div>
+<div class="font-pixel text-[9px] text-secondary">RÉCORD DE TABERNA:</div>
+<div class="font-pixel text-sm text-primary font-bold">
+                    9 VICTORIAS - 6 DERROTAS
+                  </div>
+</div>
+<div class="text-right">
+<span class="font-pixel text-xs bg-stone-700 text-white px-2 py-1 border border-[#382414]">
+                    60.0% WIN RATE
+                  </span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between text-xs font-mono-custom text-on-surface-variant pt-1 border-t border-dashed border-outline-variant">
+<span class="flex items-center gap-1.5 text-primary font-bold">
+<span class="material-symbols-outlined text-outline text-base" data-icon="sports_esports">sports_esports</span>
+<span class="">Última Sesión: Casual Pod 4 Jugadores (Victoria)</span>
+</span>
+<span class="font-mono-custom text-outline">
+                  Valor Vault: <strong class="text-primary font-bold">$290 USD</strong>
+</span>
+</div>
+</div>
+<div class="lg:col-span-3 flex flex-col gap-2 font-mono-custom text-xs"><button class="pixel-btn bg-primary text-white font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs text-secondary-container" data-icon="visibility">visibility</span><span class="">[ 👁️ VER LISTA COMPLETA ]</span></button><button class="pixel-btn bg-surface-container-high text-primary font-pixel text-[8px] py-2 px-2 text-center flex items-center justify-center gap-1 cursor-pointer"><span class="material-symbols-outlined text-xs" data-icon="query_stats">query_stats</span><span class="">[ 📊 STATS EN TORNEO ]</span></button></div>
+</div>
+</article>
+</div>
+</section>
+<!-- 7. MODAL / BLOQUE DE INTEGRACIÓN RÁPIDA DE MOXFIELD -->
+
+<!-- 8. HISTORIAL RECIENTE DE PARTIDAS DE TORNEO (MATCH LOG) -->
+<section class="pixel-box bg-surface-container-low p-4 sm:p-6 space-y-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-[#382414] pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="history_toggle_drop_down">cloud_upload</span>
+<h2 class="font-pixel text-xs sm:text-sm font-bold text-primary tracking-wide">HISTORIAL RECIENTE DE PARTIDAS DE TORNEO (MATCH LOG)</h2>
+</div>
+<span class="font-mono-custom text-xs text-outline font-bold">
+          Últimas 5 rondas sancionadas en Taberna Top Deck
+        </span>
+</div>
+<!-- Tabla Pixelada de Match Log -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-mono-custom text-xs border-collapse">
+<thead>
+<tr class="bg-surface-container-highest border-b-2 border-[#382414] text-primary font-pixel text-[8px]"><th class="py-2 px-3">FECHA</th><th class="py-2 px-3">TORNEO</th><th class="py-2 px-3">MAZO UTILIZADO</th><th class="py-2 px-3">OPONENTE / ARQUETIPO</th><th class="py-2 px-3 text-center">RESULTADO</th><th class="py-2 px-3 text-right">PREMIO / ELO</th></tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/60">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-3 font-bold text-primary">11/09/2026</td>
+<td class="py-3 px-3">
+<span class="bg-primary text-white font-pixel text-[8px] px-1.5 py-0.5 mr-1">FNM</span>
+<span class="">Torneo Nocturno Taberna</span>
+</td>
+<td class="py-3 px-3 font-semibold text-secondary">Dimir Ritual Chamber</td>
+<td class="py-3 px-3 text-on-surface-variant">Carlos V. (Boros Burn)</td>
+<td class="py-3 px-3 text-center">
+<span class="bg-green-700 text-white font-pixel text-[9px] px-2 py-0.5 border border-[#382414]">
+                  3 - 0 W
+                </span>
+</td>
+<td class="py-3 px-3 text-right font-bold text-green-800">
+                +25 Pts (1er Lugar + Sobre Foil)
+              </td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-3 font-bold text-primary">04/09/2026</td>
+<td class="py-3 px-3">
+<span class="bg-surface-variant text-primary font-pixel text-[8px] px-1.5 py-0.5 mr-1 border border-[#382414]">MOD</span>
+<span class="">Clasificatorio Regional</span>
+</td>
+<td class="py-3 px-3 font-semibold text-secondary">Urza's Saga Affinity</td>
+<td class="py-3 px-3 text-on-surface-variant">Mateo R. (Izzet Murktide)</td>
+<td class="py-3 px-3 text-center">
+<span class="bg-green-700 text-white font-pixel text-[9px] px-2 py-0.5 border border-[#382414]">
+                  2 - 1 W
+                </span>
+</td>
+<td class="py-3 px-3 text-right font-bold text-green-800">
+                +18 Pts (Pase a Top 4)
+              </td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-3 font-bold text-primary">28/08/2026</td>
+<td class="py-3 px-3">
+<span class="bg-surface-variant text-primary font-pixel text-[8px] px-1.5 py-0.5 mr-1 border border-[#382414]">MOD</span>
+<span class="">Clasificatorio Regional</span>
+</td>
+<td class="py-3 px-3 font-semibold text-secondary">Urza's Saga Affinity</td>
+<td class="py-3 px-3 text-on-surface-variant">David K. (Amulet Titan)</td>
+<td class="py-3 px-3 text-center">
+<span class="bg-red-800 text-white font-pixel text-[9px] px-2 py-0.5 border border-[#382414]">
+                  1 - 2 L
+                </span>
+</td>
+<td class="py-3 px-3 text-right text-error font-bold">
+                -8 Pts ELO
+              </td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-3 font-bold text-primary">21/08/2026</td>
+<td class="py-3 px-3">
+<span class="bg-primary text-white font-pixel text-[8px] px-1.5 py-0.5 mr-1">EDH</span>
+<span class="">Liga Commander cEDH</span>
+</td>
+<td class="py-3 px-3 font-semibold text-secondary">Dimir Ritual Chamber</td>
+<td class="py-3 px-3 text-on-surface-variant">Pod 4 (Kraum, Tymna, Yuriko)</td>
+<td class="py-3 px-3 text-center">
+<span class="bg-green-700 text-white font-pixel text-[9px] px-2 py-0.5 border border-[#382414]">
+                  1 - 0 W
+                </span>
+</td>
+<td class="py-3 px-3 text-right font-bold text-green-800">
+                +30 Pts (Victoria de Pod)
+              </td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-3 font-bold text-primary">14/08/2026</td>
+<td class="py-3 px-3">
+<span class="bg-surface-variant text-primary font-pixel text-[8px] px-1.5 py-0.5 mr-1 border border-[#382414]">PIO</span>
+<span class="">Liga Nocturna Pioneer</span>
+</td>
+<td class="py-3 px-3 font-semibold text-secondary">Mono Black Necro</td>
+<td class="py-3 px-3 text-on-surface-variant">Esteban L. (Rakdos Midrange)</td>
+<td class="py-3 px-3 text-center">
+<span class="bg-green-700 text-white font-pixel text-[9px] px-2 py-0.5 border border-[#382414]">
+                  2 - 0 W
+                </span>
+</td>
+<td class="py-3 px-3 text-right font-bold text-green-800">
+                +15 Pts (2do Puesto General)
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pt-2 flex justify-between items-center text-xs font-mono-custom text-outline">
+<span class="">Mostrando 5 de 142 partidas registradas</span>
+<button class="pixel-btn bg-surface-container-highest px-3 py-1.5 font-pixel text-[8px] text-primary cursor-pointer">[ VER HISTORIAL COMPLETO DE TORNEOS ]</button>
+</div>
+</section>
+</main>
+<!-- 9. PIE DE PÁGINA RETRO (Footer Shared Anchor) -->
+<footer class="w-full bg-surface-container-highest border-t border-outline-variant mt-12">
+<div class="w-full px-4 lg:px-8 py-10 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<!-- Brand & Copyright -->
+<div class="flex flex-col items-center md:items-start text-center md:text-left gap-2 max-w-xl">
+<div class="flex items-center gap-2">
+<span class="font-pixel text-xs font-bold text-primary">Top Deck TCG</span>
+<span class="font-pixel text-[9px] bg-secondary-container text-on-secondary-container px-2 py-0.5 border border-[#382414]">VAULT</span>
+</div>
+<p class="font-mono-custom text-[11px] text-on-surface-variant leading-relaxed">© 2024 Top Deck TCG. All card art and trademarks belong to their respective publishers (Wizards of the Coast, Nintendo/Creatures Inc./GAME FREAK, Bandai, Konami).</p>
+</div>
+<!-- Links del Pie de Página (Shared Component Anchor) -->
+<div class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 font-mono-custom text-xs"><a class="text-on-surface-variant hover:text-secondary font-pixel text-[8px] transition-colors duration-150" href="#">DECKLIST IMPORTER</a><a class="text-on-surface-variant hover:text-secondary font-pixel text-[8px] transition-colors duration-150" href="#">TOURNAMENT RULES</a><a class="text-on-surface-variant hover:text-secondary font-pixel text-[8px] transition-colors duration-150" href="#">MARKETPLACE VAULT</a><a class="text-on-surface-variant hover:text-secondary font-pixel text-[8px] transition-colors duration-150" href="#">API &amp; MOXFIELD SYNC</a><a class="text-on-surface-variant hover:text-secondary font-pixel text-[8px] transition-colors duration-150" href="#">COLLECTOR TERMS</a><a class="text-on-surface-variant hover:text-secondary font-pixel text-[8px] transition-colors duration-150" href="#">PRIVACY FOLIO</a></div>
+</div>
+</footer>
+
+
+
+
+
+
+
+
+</body></html>
