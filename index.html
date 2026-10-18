@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TopDeck TCG — Tienda Virtual 3D &amp; PWA de Taberna (Magic: The Gathering Demo)</title>
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#382414">
@@ -52,16 +52,18 @@
       </a>
 
       <!-- Center: Dual Experience Switcher (Web Virtual vs PWA Presencial) -->
-      <div class="flex items-center gap-2 bg-[#ECE0C8] p-1.5 border-2 border-[#382414] shadow-[2px_2px_0_#382414]">
+      <div class="flex items-center gap-1.5 sm:gap-2 bg-[#ECE0C8] p-1.5 border-2 border-[#382414] shadow-[2px_2px_0_#382414]">
         <button id="switchBtnWeb" onclick="switchPlatform('web')"
-          class="pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[10px] px-3 sm:px-4 py-2 flex items-center gap-2 font-bold">
+          class="pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[9px] sm:text-[10px] px-2.5 sm:px-4 py-2 flex items-center gap-1.5 sm:gap-2 font-bold">
           <span>💻</span>
-          <span>1. WEB VIRTUAL (TIENDA 3D)</span>
+          <span class="hidden sm:inline">1. WEB VIRTUAL (TIENDA 3D)</span>
+          <span class="sm:hidden">1. WEB 3D</span>
         </button>
         <button id="switchBtnPwa" onclick="switchPlatform('pwa')"
-          class="pixel-btn bg-[#ECE0C8] hover:bg-[#FBF6EB] text-[#5A4231] font-pixel text-[10px] px-3 sm:px-4 py-2 flex items-center gap-2">
+          class="pixel-btn bg-[#ECE0C8] hover:bg-[#FBF6EB] text-[#5A4231] font-pixel text-[9px] sm:text-[10px] px-2.5 sm:px-4 py-2 flex items-center gap-1.5 sm:gap-2">
           <span>📱</span>
-          <span>2. PWA LOCAL (EN MESA)</span>
+          <span class="hidden sm:inline">2. PWA LOCAL (EN MESA)</span>
+          <span class="sm:hidden">2. PWA MESA</span>
         </button>
       </div>
 
@@ -375,12 +377,14 @@
             <div id="interactive3DCardMesh" class="card-mesh-3d foil-enabled">
               <!-- Frente de la Carta -->
               <div class="card-face-3d bg-black">
-                <img id="inspect3DFrontImg" src="" alt="MTG Card Front" class="w-full h-full object-cover pointer-events-none"/>
+                <img id="inspect3DFrontImg" src="" alt="MTG Card Front" class="w-full h-full object-cover pointer-events-none"
+                     onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuA0GZ-lIeBR_De8L8j2qYyxI3nteBfYQI7ak8Ev1d1faocLpOgPxc1H_XrX5fWnCzffd24h5HvTNJbBs06RO6WCCUAULEwWIsIYFi15x2XopqQHc-do6DF3d00AIBT28fQ7xaHsky0dg7lYpt4UzpGnDJTQYsed-UKlS5kkl2IKdRh2XUNpSxVJtLiNwVdR1ey4rZN4qkqJ60qLkOmiQG4ier1FlLKtuokaXTBHMUbIEreXeNaNMInueN0e5hN-zayVtw'"/>
                 <div class="card-foil-overlay"></div>
               </div>
               <!-- Reverso Oficial de la Carta -->
               <div class="card-face-3d card-face-back-3d bg-[#120803]">
-                <img id="inspect3DBackImg" src="" alt="MTG Card Back" class="w-full h-full object-cover pointer-events-none"/>
+                <img id="inspect3DBackImg" src="" alt="MTG Card Back" class="w-full h-full object-cover pointer-events-none"
+                     onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuA0GZ-lIeBR_De8L8j2qYyxI3nteBfYQI7ak8Ev1d1faocLpOgPxc1H_XrX5fWnCzffd24h5HvTNJbBs06RO6WCCUAULEwWIsIYFi15x2XopqQHc-do6DF3d00AIBT28fQ7xaHsky0dg7lYpt4UzpGnDJTQYsed-UKlS5kkl2IKdRh2XUNpSxVJtLiNwVdR1ey4rZN4qkqJ60qLkOmiQG4ier1FlLKtuokaXTBHMUbIEreXeNaNMInueN0e5hN-zayVtw'"/>
               </div>
             </div>
           </div>

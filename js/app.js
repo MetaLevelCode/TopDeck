@@ -179,8 +179,15 @@
     };
   }
 
+  let currentSearchController = null;
+
   // Trigger Live Scryfall Search
   window.executeVaultSearch = async function (customScryfallQuery = null) {
+    if (currentSearchController) {
+      currentSearchController.abort();
+    }
+    currentSearchController = new AbortController();
+
     const searchInput = document.getElementById("vaultSearchInput");
     const rawText = searchInput ? searchInput.value.trim() : "";
     state.searchQuery = rawText;
@@ -197,8 +204,14 @@
     }
 
     if (state.activeColors.length > 0) {
-      const colorStr = state.activeColors.join("");
-      queryParts.push(`id>=${colorStr}`);
+      if (state.activeColors.length === 1 && state.activeColors[0] === "C") {
+        queryParts.push("(id:c or c:c)");
+      } else {
+        const nonColorless = state.activeColors.filter(c => c !== "C");
+        if (nonColorless.length > 0) {
+          queryParts.push(`id>=${nonColorless.join("")}`);
+        }
+      }
     }
 
     if (state.activeType !== "all") {
@@ -233,12 +246,11 @@
 
     try {
       const url = `https://api.scryfall.com/cards/search?q=${encodeURIComponent(fullQuery)}&order=edhrec`;
-      const res = await fetch(url);
+      const res = await fetch(url, { signal: currentSearchController.signal });
       if (!res.ok) throw new Error("No exact Scryfall matches");
       const data = await res.json();
       if (data && Array.isArray(data.data) && data.data.length > 0) {
         const scryCards = data.data.slice(0, 27).map(normalizeScryfallCard);
-        // Merge any high-priority local matches at the front if searching by synergy
         state.filteredCards = scryCards;
         state.binderPage = 1;
         renderBinderPage();
@@ -255,6 +267,7 @@
         return;
       }
     } catch (err) {
+      if (err.name === "AbortError") return;
       // Fallback to local curated matches if offline or query had no external results
       if (localMatches.length > 0) {
         state.filteredCards = localMatches;
@@ -460,7 +473,7 @@
       setTimeout(() => {
         innerCard.classList.remove("card-sliding-out");
         open3DCardInspector(card);
-      }, 430);
+      }, 380);
     } else {
       open3DCardInspector(card);
     }
@@ -523,10 +536,15 @@
 
   function getCalculatedInspectPrice() {
     if (!state.inspectedCard) return { usd: 0, cop: 0 };
-    const baseUsd = state.inspectedCard.priceUsd;
+    const rawBaseUsd = state.inspectedCard.priceUsd;
     const condMultiplier = state.inspectCondition === "NM" ? 1.0 : state.inspectCondition === "EX" ? 0.88 : 0.75;
-    const foilMultiplier = state.inspectFoil ? 1.25 : 1.0;
-    const finalUsd = baseUsd * condMultiplier * (state.inspectedCard.isFoil === state.inspectFoil ? 1.0 : foilMultiplier);
+    let foilFactor = 1.0;
+    if (state.inspectedCard.isFoil && !state.inspectFoil) {
+      foilFactor = 0.80;
+    } else if (!state.inspectedCard.isFoil && state.inspectFoil) {
+      foilFactor = 1.25;
+    }
+    const finalUsd = rawBaseUsd * condMultiplier * foilFactor;
     return {
       usd: finalUsd,
       cop: Math.round(finalUsd * 4200)
@@ -613,38 +631,50 @@
     let isDragging = false;
     let startX = 0;
     let startY = 0;
+    let cachedRect = null;
+    let rafId = null;
+
+    function refreshRect() {
+      cachedRect = stage.getBoundingClientRect();
+    }
+
+    stage.addEventListener("pointerenter", refreshRect);
+    window.addEventListener("resize", () => { cachedRect = null; });
 
     // Hover tilt + glare effect (feels like holding the card under tavern light)
     stage.addEventListener("pointermove", (e) => {
-      const rect = stage.getBoundingClientRect();
-      const relX = (e.clientX - rect.left) / rect.width;
-      const relY = (e.clientY - rect.top) / rect.height;
+      if (!cachedRect) refreshRect();
+      const relX = (e.clientX - cachedRect.left) / cachedRect.width;
+      const relY = (e.clientY - cachedRect.top) / cachedRect.height;
 
-      // Update holographic glare coordinates
-      mesh.style.setProperty("--glare-x", `${Math.round(relX * 100)}%`);
-      mesh.style.setProperty("--glare-y", `${Math.round(relY * 100)}%`);
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        // Update holographic glare coordinates
+        mesh.style.setProperty("--glare-x", `${Math.round(relX * 100)}%`);
+        mesh.style.setProperty("--glare-y", `${Math.round(relY * 100)}%`);
 
-      if (isDragging) {
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        startX = e.clientX;
-        startY = e.clientY;
-        state.inspectRotationY += dx * 0.85;
-        state.inspectRotationX = Math.max(-35, Math.min(35, state.inspectRotationX - dy * 0.65));
-        mesh.style.transition = "none";
-        mesh.style.transform = `rotateX(${state.inspectRotationX}deg) rotateY(${state.inspectRotationY}deg) scale(1.04)`;
-      } else {
-        // Gentle magnetic tactile tilt on hover
-        const baseRotY = state.inspectFlipped ? 180 : 0;
-        const tiltY = (relX - 0.5) * 28;
-        const tiltX = (0.5 - relY) * 24;
-        mesh.style.transition = "transform 0.12s ease-out";
-        mesh.style.transform = `rotateX(${tiltX}deg) rotateY(${baseRotY + tiltY}deg) scale(1.03)`;
-      }
+        if (isDragging) {
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          startX = e.clientX;
+          startY = e.clientY;
+          state.inspectRotationY += dx * 0.85;
+          state.inspectRotationX = Math.max(-35, Math.min(35, state.inspectRotationX - dy * 0.65));
+          mesh.style.transition = "none";
+          mesh.style.transform = `rotateX(${state.inspectRotationX}deg) rotateY(${state.inspectRotationY}deg) scale(1.04)`;
+        } else {
+          // Gentle magnetic tactile tilt on hover based on current rotation
+          const tiltY = (relX - 0.5) * 26;
+          const tiltX = (0.5 - relY) * 22;
+          mesh.style.transition = "transform 0.12s ease-out";
+          mesh.style.transform = `rotateX(${tiltX}deg) rotateY(${state.inspectRotationY + tiltY}deg) scale(1.03)`;
+        }
+      });
     });
 
     stage.addEventListener("pointerdown", (e) => {
       isDragging = true;
+      refreshRect();
       startX = e.clientX;
       startY = e.clientY;
       stage.setPointerCapture(e.pointerId);
@@ -654,11 +684,14 @@
       isDragging = false;
     });
 
+    stage.addEventListener("pointercancel", () => {
+      isDragging = false;
+    });
+
     stage.addEventListener("pointerleave", () => {
       if (!isDragging) {
-        const baseRotY = state.inspectFlipped ? 180 : 0;
-        mesh.style.transition = "transform 0.4s ease-out";
-        mesh.style.transform = `rotateX(0deg) rotateY(${baseRotY}deg) scale(1)`;
+        mesh.style.transition = "transform 0.35s ease-out";
+        mesh.style.transform = `rotateX(0deg) rotateY(${state.inspectRotationY}deg) scale(1)`;
       }
     });
   }
@@ -708,7 +741,11 @@
     modal.classList.add("flex");
   };
 
+  let activeCheckoutTimeouts = [];
+
   window.closePersonalBinderCart = function () {
+    activeCheckoutTimeouts.forEach(clearTimeout);
+    activeCheckoutTimeouts = [];
     const modal = document.getElementById("personalBinderCartModal");
     if (modal) {
       modal.classList.add("hidden");
@@ -735,7 +772,8 @@
               ✕
             </button>
             <div class="aspect-[63/88] bg-black border border-[#382414] overflow-hidden relative">
-              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover"/>
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover"
+                   onerror="this.src='${MTG_CARD_BACK}'"/>
               ${item.selectedFoil ? `<span class="absolute bottom-1 left-1 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[7px] px-1">FOIL</span>` : ""}
             </div>
             <div class="mt-1.5 z-20">
@@ -793,6 +831,9 @@
   window.runCheckoutPackagingAnimation = function () {
     if (state.cart.length === 0) return;
 
+    activeCheckoutTimeouts.forEach(clearTimeout);
+    activeCheckoutTimeouts = [];
+
     const cartContent = document.getElementById("personalBinderCartContent");
     const animStage = document.getElementById("checkoutAnimationStage");
     const stepTitle = document.getElementById("checkoutAnimStepTitle");
@@ -821,13 +862,14 @@
         </div>
         <!-- Card sliding inside the sleeve -->
         <div class="w-36 h-52 rounded border-2 border-[#382414] overflow-hidden shadow-lg anim-sleeve-card z-10">
-          <img src="${sampleCard.image}" class="w-full h-full object-cover" alt="${sampleCard.name}"/>
+          <img src="${sampleCard.image}" class="w-full h-full object-cover" alt="${sampleCard.name}"
+               onerror="this.src='${MTG_CARD_BACK}'"/>
         </div>
       </div>
     `;
 
     // STEP 2: PACKING INTO ARMORED DECKBOX (2.2s -> 4.4s)
-    setTimeout(() => {
+    const t1 = setTimeout(() => {
       progressBar.style.width = "68%";
       stepTitle.textContent = "PASO 2/3: EMPACANDO EN TU DECKBOX DE BÓVEDA TOPDECK...";
       stepDesc.textContent = "Sellando las cartas enfundadas dentro de un cofre rígido anti-impacto con lacre del gremio.";
@@ -835,7 +877,8 @@
         <div class="relative w-64 h-60 flex flex-col items-center justify-end pb-4">
           <!-- Sleeved cards dropping into the box -->
           <div class="w-28 h-40 rounded border-2 border-[#F59E0B] overflow-hidden shadow-md anim-pack-box mb-[-30px] z-10">
-            <img src="${sampleCard.image}" class="w-full h-full object-cover" alt="Sleeved Card"/>
+            <img src="${sampleCard.image}" class="w-full h-full object-cover" alt="Sleeved Card"
+                 onerror="this.src='${MTG_CARD_BACK}'"/>
           </div>
           <!-- Armored TopDeck Vault Box -->
           <div class="w-48 h-28 bg-[#4A2B11] border-4 border-[#382414] shadow-[6px_6px_0_#382414] rounded-sm relative z-20 flex flex-col items-center justify-center p-2">
@@ -849,9 +892,14 @@
         </div>
       `;
     }, 2200);
+    activeCheckoutTimeouts.push(t1);
 
     // STEP 3: SHIPPING ON PIXEL DELIVERY TRUCK (4.4s -> 7.0s)
-    setTimeout(() => {
+    const t2 = setTimeout(() => {
+      // Clear cart immediately upon successful packaging dispatch
+      state.cart = [];
+      updateCartBadges();
+
       progressBar.style.width = "100%";
       stepTitle.textContent = "PASO 3/3: ¡DESPACHADO EN EL CAMIÓN EXPRESO TOPDECK!";
       stepDesc.textContent = "¡Tu pedido va en camino! Saliendo de la taberna TopDeck directo a tus manos.";
@@ -896,6 +944,7 @@
         </div>
       `;
     }, 4400);
+    activeCheckoutTimeouts.push(t2);
   };
 
   window.finishCheckoutOrder = function () {
@@ -1037,7 +1086,7 @@
               <div class="min-w-0">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="font-pixel text-[8px] text-[#2B1810] font-bold">${item.name}</span>
-                  <span class="bg-[#F29F38] text-[#2B1810] font-pixel text-[6px] px-1 py-0.5 border border-[#382414]">${item.tag}</span>
+                  <span class="bg-[#F29F38] text-[#2B1810] font-pixel text-[7px] px-1 py-0.5 border border-[#382414]">${item.tag}</span>
                 </div>
                 <p class="font-mono-code text-[10px] text-[#6B5443] leading-tight mt-0.5">${item.desc}</p>
                 <div class="font-pixel text-[9px] text-[#B45309] font-bold mt-1">${formatCop(item.priceCop)}</div>
@@ -1223,13 +1272,13 @@
                 <div class="bg-[#ECE0C8] border border-[#382414] p-1.5 flex flex-col justify-between">
                   <div class="aspect-[63/88] bg-black border border-[#382414] overflow-hidden relative">
                     <img src="${card.img}" alt="${card.name}" class="w-full h-full object-cover"/>
-                    <span class="absolute top-0.5 left-0.5 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[6px] px-1">${card.mode}</span>
+                    <span class="absolute top-0.5 left-0.5 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[7px] px-1">${card.mode}</span>
                   </div>
                   <div class="mt-1">
                     <div class="font-pixel text-[7px] text-[#2B1810] truncate font-bold">${card.name}</div>
                     <div class="font-pixel text-[7px] text-[#B45309] mt-0.5">${formatCop(card.priceCop)}</div>
                     <button onclick="proposeInStoreTrade('${binder.player}', '${binder.table}', '${card.name}')"
-                      class="mt-1 w-full pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[6px] py-1 font-bold">
+                      class="mt-1 w-full pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[7px] py-1 font-bold">
                       🤝 PROPONER TRATO
                     </button>
                   </div>
@@ -1449,10 +1498,25 @@
 
   window.reportTournamentMatch = function (score) {
     state.matchResultReported = score;
-    if (score.startsWith("2")) {
-      state.standings[1].points = 9;
-      state.standings[1].record = "3-1-0";
+    const userStanding = state.standings.find(s => s.isUser);
+    if (userStanding) {
+      if (score.startsWith("2")) {
+        userStanding.points = 9;
+        userStanding.record = "3-1-0";
+      } else {
+        userStanding.record = "2-2-0";
+      }
     }
+    // Sort standings descending by points, then OMW%
+    state.standings.sort((a, b) => {
+      if (b.points !== a.points) return b.points - a.points;
+      return parseFloat(b.omw) - parseFloat(a.omw);
+    });
+    // Re-assign ranks dynamically
+    state.standings.forEach((s, idx) => {
+      s.rank = idx + 1;
+    });
+
     window.showTavernToast(`Resultado ${score} registrado por el juez Vulkan. ¡Tabla actualizada!`, "🦁");
     renderPwaCurrentSection();
   };
@@ -1461,6 +1525,11 @@
     const t = state.tournaments[idx];
     if (!t) return;
     t.enrolled = !t.enrolled;
+    if (t.enrolled) {
+      t.spotsLeft = Math.max(0, t.spotsLeft - 1);
+    } else {
+      t.spotsLeft += 1;
+    }
     window.showTavernToast(
       t.enrolled ? `¡Te has inscrito a ${t.name}! Cupo reservado.` : `Inscripción cancelada para ${t.name}.`,
       "🏆"
@@ -1516,7 +1585,7 @@
               </button>
               <div class="text-center">
                 <div class="font-pixel text-2xl text-[#2B1810] font-bold">${p.life}</div>
-                <div class="font-pixel text-[6px] text-[#6B5443]">VIDAS</div>
+                <div class="font-pixel text-[8px] text-[#6B5443]">VIDAS</div>
               </div>
               <button onclick="adjustPlayerLife(${idx}, 1)"
                 class="w-10 h-10 pixel-btn bg-[#16A34A] text-white font-pixel text-sm flex items-center justify-center font-bold">
@@ -1525,15 +1594,24 @@
             </div>
 
             <!-- Botones rápidos +5 / -5 y Contadores de Comandante/Veneno -->
-            <div class="flex items-center justify-between text-[9px] font-mono-code pt-1.5 border-t border-[#382414]/20">
-              <button onclick="adjustPlayerLife(${idx}, -5)" class="px-1.5 py-0.5 bg-white/80 border border-[#382414] font-bold">-5</button>
-              <button onclick="adjustCmdDmg(${idx})" class="px-1.5 py-0.5 bg-white/80 border border-[#382414]" title="Daño de Comandante">
-                ⚔️ Cmd: <strong>${p.cmdDmg}</strong>
-              </button>
-              <button onclick="adjustPoison(${idx})" class="px-1.5 py-0.5 bg-white/80 border border-[#382414]" title="Contadores de Veneno">
-                ☠️: <strong>${p.poison}</strong>
-              </button>
-              <button onclick="adjustPlayerLife(${idx}, 5)" class="px-1.5 py-0.5 bg-white/80 border border-[#382414] font-bold">+5</button>
+            <div class="flex items-center justify-between text-[10px] font-mono-code pt-1.5 border-t border-[#382414]/20 gap-1">
+              <button onclick="adjustPlayerLife(${idx}, -5)" class="px-2 py-1 bg-white/80 border border-[#382414] font-bold text-xs" title="Restar 5 vidas">-5</button>
+
+              <!-- Stepper Daño Comandante -->
+              <div class="flex items-center bg-white/90 border border-[#382414] px-1 py-0.5 rounded-sm" title="Daño de Comandante (21 pierde)">
+                <button onclick="adjustCmdDmg(${idx}, -1)" class="w-4 h-5 flex items-center justify-center font-bold text-red-700 active:scale-90">-</button>
+                <span class="px-1 text-[10px] font-bold">⚔️${p.cmdDmg}</span>
+                <button onclick="adjustCmdDmg(${idx}, 1)" class="w-4 h-5 flex items-center justify-center font-bold text-green-700 active:scale-90">+</button>
+              </div>
+
+              <!-- Stepper Veneno -->
+              <div class="flex items-center bg-white/90 border border-[#382414] px-1 py-0.5 rounded-sm" title="Contadores de Veneno (10 pierde)">
+                <button onclick="adjustPoison(${idx}, -1)" class="w-4 h-5 flex items-center justify-center font-bold text-red-700 active:scale-90">-</button>
+                <span class="px-1 text-[10px] font-bold">☠️${p.poison}</span>
+                <button onclick="adjustPoison(${idx}, 1)" class="w-4 h-5 flex items-center justify-center font-bold text-green-700 active:scale-90">+</button>
+              </div>
+
+              <button onclick="adjustPlayerLife(${idx}, 5)" class="px-2 py-1 bg-white/80 border border-[#382414] font-bold text-xs" title="Sumar 5 vidas">+5</button>
             </div>
           </div>
         `).join("")}
@@ -1598,14 +1676,20 @@
     renderPwaCurrentSection();
   };
 
-  window.adjustCmdDmg = function (idx) {
-    state.players[idx].cmdDmg = (state.players[idx].cmdDmg + 1) % 22;
-    state.players[idx].life -= 1;
+  window.adjustCmdDmg = function (idx, delta = 1) {
+    const p = state.players[idx];
+    if (!p) return;
+    const oldDmg = p.cmdDmg;
+    p.cmdDmg = Math.max(0, Math.min(21, p.cmdDmg + delta));
+    const diff = p.cmdDmg - oldDmg;
+    p.life = Math.max(0, p.life - diff);
     renderPwaCurrentSection();
   };
 
-  window.adjustPoison = function (idx) {
-    state.players[idx].poison = (state.players[idx].poison + 1) % 11;
+  window.adjustPoison = function (idx, delta = 1) {
+    const p = state.players[idx];
+    if (!p) return;
+    p.poison = Math.max(0, Math.min(10, p.poison + delta));
     renderPwaCurrentSection();
   };
 
@@ -1661,17 +1745,17 @@
         <div class="grid grid-cols-3 gap-2.5 my-3">
           ${state.tarotSpread.map((card, idx) => `
             <div onclick="revealTarotCard(${idx})" class="cursor-pointer">
-              <div class="text-center font-pixel text-[6px] text-[#C084FC] mb-1 truncate">${card.positionMeaning}</div>
+              <div class="text-center font-pixel text-[7px] text-[#C084FC] mb-1 truncate">${card.positionMeaning}</div>
               <div class="aspect-[63/88] rounded border-2 ${card.revealed ? "border-[#FDE047]" : "border-[#C084FC]"} overflow-hidden relative bg-[#1E1B4B] shadow-md transition-transform hover:scale-105">
                 ${card.revealed ? `
                   <img src="${card.img}" alt="${card.cardName}" class="w-full h-full object-cover"/>
                   <div class="absolute inset-x-0 bottom-0 bg-black/85 p-1 text-center">
-                    <span class="font-pixel text-[6px] text-[#FDE047] block">${card.arcanaTitle}</span>
+                    <span class="font-pixel text-[7px] text-[#FDE047] block">${card.arcanaTitle}</span>
                   </div>
                 ` : `
                   <div class="w-full h-full flex flex-col items-center justify-center p-2 text-center bg-gradient-to-b from-[#4C1D95] to-[#1E1B4B]">
                     <span class="text-2xl mb-1 animate-pulse">🦉</span>
-                    <span class="font-pixel text-[7px] text-[#FDE047]">TOCAR PARA REVELAR</span>
+                    <span class="font-pixel text-[8px] text-[#FDE047]">TOCAR PARA REVELAR</span>
                   </div>
                 `}
               </div>
@@ -1721,8 +1805,8 @@
             ${state.boosterCards.map(bc => `
               <div class="bg-[#ECE0C8] border border-[#382414] p-1 text-center cursor-pointer" onclick="triggerCardSlideOut('${bc.id}', null)">
                 <img src="${bc.image}" class="w-full aspect-[63/88] object-cover border border-[#382414]" alt="${bc.name}"/>
-                <div class="font-pixel text-[6px] text-[#2B1810] truncate mt-1 font-bold">${bc.name}</div>
-                <div class="font-pixel text-[7px] text-[#B45309]">$${bc.priceUsd.toFixed(2)}</div>
+                <div class="font-pixel text-[8px] text-[#2B1810] truncate mt-1 font-bold">${bc.name}</div>
+                <div class="font-pixel text-[8px] text-[#B45309]">$${bc.priceUsd.toFixed(2)}</div>
               </div>
             `).join("")}
           </div>

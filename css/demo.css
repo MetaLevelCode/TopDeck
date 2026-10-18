@@ -200,7 +200,7 @@ body {
 }
 
 .card-sliding-out {
-  animation: slideOutOfSleeve 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+  animation: slideOutOfSleeve 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
 /* Modal Entrance Animation from Binder */
@@ -216,7 +216,7 @@ body {
 }
 
 .card-arrive-3d {
-  animation: cardArriveIn3D 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cardArriveIn3D 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ==========================================================================
@@ -226,7 +226,7 @@ body {
 .stage-3d-perspective {
   perspective: 1200px;
   user-select: none;
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 .card-mesh-3d {
@@ -236,6 +236,8 @@ body {
   transform-style: preserve-3d;
   transition: transform 0.12s ease-out;
   cursor: grab;
+  touch-action: none;
+  will-change: transform;
 }
 
 .card-mesh-3d:active {
