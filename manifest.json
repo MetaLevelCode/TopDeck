@@ -1,0 +1,17 @@
+{
+  "name": "TopDeck TCG — Vault & Tavern",
+  "short_name": "TopDeck TCG",
+  "description": "Tienda virtual inmersiva 3D y PWA de taberna para jugadores de Magic: The Gathering en TopDeck.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F7EED8",
+  "theme_color": "#382414",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuCRxSn3A3iG0MNmWctzPvFCx2BXDJ7ccOnWTYQWpW_6OdCHY6wTwba-7QrUNwW1g84TY40qV4uPUGCgfmkCrlk0D72yxcenVwxmxkh53DsD3RO7po-gE-cMNEhN-vmC2TgWEr0_84sbekEW-S7rAyDJcqkoKK4Hpmid8mj7RENtt0LSGYZWGLFWWrt_x9f7paYRsIW847dHO5RJfcVP4mZLyGu2Woh6pBkiLnrfhQMu9xBtRhF_v371qPLPpnPvmoysdA",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
