@@ -234,20 +234,51 @@
         <!-- Folder Main Content Container (Interior de la Carpeta) -->
         <div class="bg-[#38261C] border-2 border-[#5E402F] shadow-2xl p-4 sm:p-6 md:p-8 rounded-b-2xl relative -mt-[2px] z-10">
 
+          <!-- Dexter Live Assistant Advice Banner -->
+          <div class="bg-[#2C1E16] border border-[#C55A3F] rounded-xl p-3.5 mb-4 shadow-md flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-xl bg-[#251811] border-2 border-[#E5A93C] overflow-hidden shrink-0 shadow-md relative">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw"
+                   alt="Dexter El Zorro Mago" class="w-full h-full object-cover">
+              <span class="absolute bottom-0 inset-x-0 bg-[#1E140E]/90 text-[#E5A93C] font-mono-code text-[8px] text-center font-bold">DEXTER</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span id="dexterLiveHintTopic" class="font-mono-code text-[10px] bg-[#C55A3F] text-white px-2 py-0.5 rounded font-bold">
+                  🦊 ASISTENTE ARCHIVISTA DEXTER
+                </span>
+                <span class="text-xs text-[#E5A93C] font-bold font-sans">• Conexión en vivo Scryfall API (+27,000 cartas MTG)</span>
+              </div>
+              <p id="dexterLiveHintText" class="text-xs text-[#F1E8D9] font-sans mt-1 leading-snug">
+                "¡Saludos! Escribe cualquier carta en el buscador o toca una sinergia. Yo consultaré Scryfall en vivo y pondré las cartas en tu carpeta para que las toques en 3D."
+              </p>
+            </div>
+          </div>
+
           <!-- Live Scryfall Search & Advanced Filter Console -->
-          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-3 sm:p-4 mb-6 shadow-inner">
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-3 sm:p-4 mb-6 shadow-inner space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-3">
               <!-- Search bar with Scryfall Live connection -->
-              <div class="flex-1 min-w-[260px] relative flex items-center bg-[#38261C] border border-[#5E402F] rounded-xl shadow-sm">
+              <div class="flex-1 min-w-[260px] relative flex items-center bg-[#38261C] border border-[#5E402F] rounded-xl shadow-sm focus-within:border-[#C55A3F] transition-colors">
                 <span class="pl-3.5 pr-1 text-[#CBBDA8] text-sm select-none">🔍</span>
                 <input id="vaultSearchInput" type="text"
-                  placeholder="Busca por nombre (ej. Sol Ring, Sheoldred, Black Lotus)..."
+                  oninput="window.onVaultSearchInput(this.value)"
+                  onkeydown="if(event.key==='Enter') window.executeVaultSearch()"
+                  placeholder="Busca cualquier carta (ej. Sol Ring, Sheoldred, Atraxa, Black Lotus)..."
                   class="w-full bg-transparent px-2.5 py-2.5 text-xs md:text-sm font-sans text-[#F1E8D9] focus:outline-none placeholder-[#9E8C78] font-semibold">
+                <button id="clearSearchBtn" onclick="window.resetVaultSearch()"
+                  class="hidden px-2 text-[#9E8C78] hover:text-[#F1E8D9] text-xs font-bold transition-colors">
+                  ✕
+                </button>
+                <button onclick="window.executeVaultSearch()"
+                  class="tavern-btn tavern-btn-terracotta text-white text-xs px-3.5 py-1.5 m-1 rounded-lg font-bold shrink-0 shadow">
+                  BUSCAR
+                </button>
               </div>
 
               <!-- Card Type Select -->
-              <div class="w-48">
+              <div class="w-44 sm:w-48">
                 <select id="vaultTypeSelect"
+                  onchange="window.changeCardTypeFilter(this.value)"
                   class="w-full bg-[#38261C] border border-[#5E402F] text-xs font-sans font-bold text-[#F1E8D9] py-2.5 px-3 rounded-xl shadow-sm focus:outline-none focus:border-[#C55A3F]">
                   <option value="">TODOS LOS TIPOS</option>
                   <option value="creature">CRIATURAS</option>
@@ -265,6 +296,17 @@
                 <span class="w-2 h-2 rounded-full bg-[#4A7C59] animate-ping"></span>
                 <span>SCRYFALL LIVE</span>
               </div>
+            </div>
+
+            <!-- Quick Suggestions from Dexter -->
+            <div class="flex items-center gap-2 flex-wrap pt-1 text-xs">
+              <span class="font-sans font-bold text-[#CBBDA8] text-[11px]">Sugerencias de Dexter:</span>
+              <button onclick="window.quickSearchDexter('Sol Ring')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Sol Ring</button>
+              <button onclick="window.quickSearchDexter('Sheoldred, the Apocalypse')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Sheoldred</button>
+              <button onclick="window.quickSearchDexter('Atraxa, Praetors\' Voice')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Atraxa</button>
+              <button onclick="window.quickSearchDexter('The One Ring')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">The One Ring</button>
+              <button onclick="window.quickSearchDexter('Counterspell')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Counterspell</button>
+              <button onclick="window.quickSearchDexter('Black Lotus')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Black Lotus</button>
             </div>
 
             <!-- Mana Color Identity Filter Bar -->
@@ -441,7 +483,22 @@
             </p>
           </div>
 
-          <!-- Legalities & Dexter Tip -->
+          <!-- Dexter's Advice Box in 3D Modal -->
+          <div class="my-3 bg-[#2C1E16] border border-[#C55A3F] rounded-xl p-3 flex items-start gap-3 shadow-inner">
+            <div class="w-10 h-10 rounded-xl bg-[#251811] border border-[#E5A93C] overflow-hidden shrink-0 shadow relative">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw"
+                   alt="Dexter" class="w-full h-full object-cover">
+              <span class="absolute bottom-0 inset-x-0 bg-[#1E140E]/90 text-[#E5A93C] font-mono-code text-[7px] text-center font-bold">DEXTER</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <span class="font-mono-code text-[10px] text-[#E5A93C] font-bold block uppercase tracking-wider">🦊 CONSEJO DE DEXTER:</span>
+              <p id="inspectDexterTip" class="text-xs text-[#F1E8D9] font-sans mt-0.5 leading-relaxed italic">
+                Excelente adición para tu carpeta de colección o mazo de torneo.
+              </p>
+            </div>
+          </div>
+
+          <!-- Legalities -->
           <div id="inspectLegalities" class="flex flex-wrap gap-1.5 mb-3"></div>
 
           <!-- Condition Selector (NM, LP, MP) -->

@@ -129,8 +129,12 @@
     const speechEl = document.getElementById("dexterSpeechText");
     const badgeEl = document.getElementById("dexterSpeechBadge");
     if (badgeEl) badgeEl.textContent = badge;
-    if (!speechEl) return;
-    speechEl.textContent = text;
+    if (speechEl) speechEl.textContent = text;
+
+    const liveHintTopic = document.getElementById("dexterLiveHintTopic");
+    const liveHintText = document.getElementById("dexterLiveHintText");
+    if (liveHintTopic) liveHintTopic.textContent = `🦊 DEXTER: ${badge}`;
+    if (liveHintText) liveHintText.textContent = `"${text}"`;
   }
 
   // Convert a raw Scryfall card object into our TopDeck Vault card format
@@ -167,7 +171,7 @@
       colors: scryCard.colors || [],
       color_identity: scryCard.color_identity || [],
       synergyTags: ["all"],
-      dexterNote: `Carta sincronizada en tiempo real desde Scryfall (${scryCard.set_name}). Lista para inspección física 3D en la bóveda de TopDeck.`,
+      dexterNote: `Carta sincronizada en vivo desde Scryfall (${scryCard.set_name}). Excelente adición para Commander y juego de alto nivel.`,
       priceUsd: priceUsd,
       priceCop: priceCop,
       stock: Math.floor(Math.random() * 6) + 1,
@@ -180,6 +184,40 @@
   }
 
   let currentSearchController = null;
+  let searchDebounceTimer = null;
+
+  // Real-time input listener with 400ms debounce
+  window.onVaultSearchInput = function (val) {
+    const clearBtn = document.getElementById("clearSearchBtn");
+    if (clearBtn) clearBtn.classList.toggle("hidden", !val || val.trim().length === 0);
+
+    if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(() => {
+      window.executeVaultSearch();
+    }, 420);
+  };
+
+  // Quick suggestion click from Dexter
+  window.quickSearchDexter = function (cardName) {
+    const input = document.getElementById("vaultSearchInput");
+    if (input) {
+      input.value = cardName;
+      const clearBtn = document.getElementById("clearSearchBtn");
+      if (clearBtn) clearBtn.classList.remove("hidden");
+    }
+    state.activeSynergy = "all";
+    renderSynergyPills();
+    window.executeVaultSearch();
+  };
+
+  // Reset search and restore default vault cards
+  window.resetVaultSearch = function () {
+    const input = document.getElementById("vaultSearchInput");
+    if (input) input.value = "";
+    const clearBtn = document.getElementById("clearSearchBtn");
+    if (clearBtn) clearBtn.classList.add("hidden");
+    window.resetVaultFilters();
+  };
 
   // Trigger Live Scryfall Search
   window.executeVaultSearch = async function (customScryfallQuery = null) {
@@ -191,6 +229,9 @@
     const searchInput = document.getElementById("vaultSearchInput");
     const rawText = searchInput ? searchInput.value.trim() : "";
     state.searchQuery = rawText;
+
+    const clearBtn = document.getElementById("clearSearchBtn");
+    if (clearBtn) clearBtn.classList.toggle("hidden", rawText.length === 0);
 
     // Build Scryfall query parts
     const queryParts = [];
@@ -223,6 +264,10 @@
       state.filteredCards = [...DATA.initialCards];
       state.binderPage = 1;
       renderBinderPage();
+      const statusBadge = document.getElementById("scryfallLiveStatus");
+      if (statusBadge) {
+        statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#4A7C59] animate-ping"></span><span>SCRYFALL LIVE: LISTO</span>`;
+      }
       setDexterSpeech(DATA.mascots.dexter.welcomeWeb, "BÓVEDA CENTRAL TOPDECK");
       return;
     }
@@ -239,10 +284,10 @@
     const fullQuery = queryParts.join(" ") + " game:paper";
     const statusBadge = document.getElementById("scryfallLiveStatus");
     if (statusBadge) {
-      statusBadge.innerHTML = `<span class="w-2.5 h-2.5 bg-[#F59E0B] inline-block border border-[#382414] animate-spin"></span> CONSULTANDO SCRYFALL API...`;
+      statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#E5A93C] animate-pulse"></span><span>CONSULTANDO SCRYFALL...</span>`;
     }
 
-    setDexterSpeech(`Estoy buscando en los archivos arcanos de Scryfall cartas con: "${queryParts.join(" • ")}"...`, "BUSCANDO EN SCRYFALL API");
+    setDexterSpeech(`Estoy buscando en los archivos de Scryfall cartas que coincidan con "${rawText || queryParts.join(" • ")}"...`, "CONSULTANDO SCRYFALL API");
 
     try {
       const url = `https://api.scryfall.com/cards/search?q=${encodeURIComponent(fullQuery)}&order=edhrec`;
@@ -256,11 +301,11 @@
         renderBinderPage();
 
         if (statusBadge) {
-          statusBadge.innerHTML = `<span class="w-2.5 h-2.5 bg-[#16A34A] inline-block border border-[#382414]"></span> SCRYFALL LIVE: ${data.total_cards || scryCards.length} CARTAS ENCONTRADAS`;
+          statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#4A7C59]"></span><span>SCRYFALL: ${data.total_cards || scryCards.length} CARTAS</span>`;
         }
         const synObj = DATA.synergies.find(s => s.id === state.activeSynergy);
         if (rawText) {
-          setDexterSpeech(`¡Encontré ${data.total_cards || scryCards.length} cartas en Scryfall para "${rawText}"! Las he acomodado en la carpeta. Haz clic en cualquiera para sacarla de la funda y verla en 3D.`, "RESULTADOS SCRYFALL EN VIVO");
+          setDexterSpeech(`¡Encontré ${data.total_cards || scryCards.length} cartas en Scryfall para "${rawText}"! Las he colocado en tu carpeta. Toca cualquier carta para sacarla e inspeccionarla en 3D.`, `RESULTADOS EN VIVO: ${rawText.toUpperCase()}`);
         } else if (synObj) {
           setDexterSpeech(synObj.speech, `SINERGIA: ${synObj.shortLabel.toUpperCase()}`);
         }
@@ -271,14 +316,16 @@
       // Fallback to local curated matches if offline or query had no external results
       if (localMatches.length > 0) {
         state.filteredCards = localMatches;
+        setDexterSpeech(`No encontré más resultados externos en Scryfall, pero te muestro ${localMatches.length} cartas de la bóveda local que encajan con tu búsqueda.`, "COINCIDENCIAS EN BÓVEDA");
       } else {
         state.filteredCards = [...DATA.initialCards];
-        window.showTavernToast("No se encontraron cartas con esa combinación exacta; mostrando sugerencias de Dexter.", "🦊");
+        setDexterSpeech(`No encontré cartas con esa combinación exacta en Scryfall. He restaurado las joyas recomendadas de la bóveda para que sigas explorando.`, "SUGERENCIAS DE DEXTER");
+        window.showTavernToast("Sin resultados en Scryfall para esa búsqueda exacta; mostrando sugerencias de la bóveda.", "🦊");
       }
       state.binderPage = 1;
       renderBinderPage();
       if (statusBadge) {
-        statusBadge.innerHTML = `<span class="w-2.5 h-2.5 bg-[#16A34A] inline-block border border-[#382414]"></span> BÓVEDA LOCAL ACTIVA (${state.filteredCards.length} CARTAS)`;
+        statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#E5A93C]"></span><span>BÓVEDA (${state.filteredCards.length} CARTAS)</span>`;
       }
     }
   };
@@ -287,6 +334,8 @@
     state.activeSynergy = synergyId;
     const searchInput = document.getElementById("vaultSearchInput");
     if (searchInput && synergyId !== "all") searchInput.value = "";
+    const clearBtn = document.getElementById("clearSearchBtn");
+    if (clearBtn && synergyId !== "all") clearBtn.classList.add("hidden");
 
     renderSynergyPills();
     const synObj = DATA.synergies.find(s => s.id === synergyId);
@@ -327,13 +376,19 @@
     state.searchQuery = "";
     const input = document.getElementById("vaultSearchInput");
     if (input) input.value = "";
+    const clearBtn = document.getElementById("clearSearchBtn");
+    if (clearBtn) clearBtn.classList.add("hidden");
     const typeSelect = document.getElementById("vaultTypeSelect");
-    if (typeSelect) typeSelect.value = "all";
+    if (typeSelect) typeSelect.value = "";
     renderSynergyPills();
     renderManaColorButtons();
     state.filteredCards = [...DATA.initialCards];
     state.binderPage = 1;
     renderBinderPage();
+    const statusBadge = document.getElementById("scryfallLiveStatus");
+    if (statusBadge) {
+      statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#4A7C59]"></span><span>SCRYFALL LIVE: LISTO</span>`;
+    }
     setDexterSpeech(DATA.mascots.dexter.welcomeWeb, "BÓVEDA RESTAURADA");
   };
 
@@ -494,16 +549,25 @@
     const modal = document.getElementById("cardInspector3DModal");
     if (!modal) return;
 
-    // Populate modal fields
-    document.getElementById("inspect3DFrontImg").src = card.image;
-    document.getElementById("inspect3DBackImg").src = card.backImage || MTG_CARD_BACK;
-    document.getElementById("inspectCardName").textContent = card.name;
-    document.getElementById("inspectCardSet").textContent = `${card.set_name} (${card.set} #${card.collector_number})`;
-    document.getElementById("inspectCardMana").textContent = card.mana_cost || "SIN COSTO";
-    document.getElementById("inspectCardType").textContent = card.type_line;
-    document.getElementById("inspectCardOracle").textContent = card.oracle_text;
-    document.getElementById("inspectDexterTip").textContent = card.dexterNote || "Excelente adición para tu carpeta de colección o mazo de torneo.";
-    document.getElementById("inspectStockBadge").textContent = `${card.stock || 3} DISPONIBLES EN BÓVEDA`;
+    // Populate modal fields safely
+    const frontEl = document.getElementById("inspect3DFrontImg");
+    if (frontEl) frontEl.src = card.image;
+    const backEl = document.getElementById("inspect3DBackImg");
+    if (backEl) backEl.src = card.backImage || MTG_CARD_BACK;
+    const nameEl = document.getElementById("inspectCardName");
+    if (nameEl) nameEl.textContent = card.name;
+    const setEl = document.getElementById("inspectCardSet");
+    if (setEl) setEl.textContent = `${card.set_name || "MTG"} (${card.set} #${card.collector_number || "1"})`;
+    const manaEl = document.getElementById("inspectCardMana");
+    if (manaEl) manaEl.textContent = card.mana_cost || "SIN COSTO";
+    const typeEl = document.getElementById("inspectCardType");
+    if (typeEl) typeEl.textContent = card.type_line;
+    const oracleEl = document.getElementById("inspectCardOracle");
+    if (oracleEl) oracleEl.textContent = card.oracle_text;
+    const tipEl = document.getElementById("inspectDexterTip");
+    if (tipEl) tipEl.textContent = card.dexterNote || `¡Excelente carta! Sincronizada en vivo desde Scryfall (${card.set_name || card.set}). Gran staple para Commander y juego competitivo.`;
+    const stockEl = document.getElementById("inspectStockBadge");
+    if (stockEl) stockEl.textContent = `${card.stock || 3} DISPONIBLES EN BÓVEDA`;
 
     // Render legalities
     const legContainer = document.getElementById("inspectLegalities");
@@ -513,8 +577,8 @@
         const status = card.legalities[fmt] || "not_legal";
         const isLegal = status === "legal";
         return `
-          <span class="px-2 py-0.5 font-pixel text-[8px] border border-[#382414] ${
-            isLegal ? "bg-[#DCFCE7] text-[#166534]" : "bg-[#FEE2E2] text-[#991B1B]"
+          <span class="px-2 py-0.5 font-mono text-[9px] font-bold rounded border ${
+            isLegal ? "bg-[#4A7C59]/20 text-[#689F77] border-[#4A7C59]/40" : "bg-[#A2412A]/20 text-[#C55A3F] border-[#A2412A]/40"
           }">
             ${fmt.toUpperCase()}: ${isLegal ? "LEGAL" : "NO LEGAL"}
           </span>
