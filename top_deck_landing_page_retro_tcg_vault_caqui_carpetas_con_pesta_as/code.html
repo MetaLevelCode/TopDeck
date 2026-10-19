@@ -108,6 +108,109 @@
     white-space: nowrap;
     animation: ticker 25s linear infinite;
   }
+
+  /* Pixelcraft-inspired Stepped Card & Box Animations */
+  @keyframes pixelCardFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .pixel-card-animate {
+    opacity: 0;
+    animation: pixelCardFadeIn 0.35s steps(8) forwards;
+  }
+
+  /* 16-Bit Idle Float for Fox Wizard */
+  @keyframes retroFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  .animate-retro-float {
+    animation: retroFloat 3s steps(6) infinite ease-in-out;
+  }
+
+  /* Interactive Card Slot & Recuadros Hover */
+  .card-slot {
+    transition: transform 0.15s steps(3), box-shadow 0.15s steps(3), border-color 0.15s ease;
+  }
+  .card-slot:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 6px 8px 0px rgba(56, 36, 20, 0.95);
+    border-color: #D47E19;
+  }
+
+  .product-card {
+    transition: transform 0.15s steps(3), box-shadow 0.15s steps(3), border-color 0.15s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 0px #382414;
+    border-color: #D47E19;
+  }
+
+  .tournament-card {
+    transition: transform 0.15s steps(3), box-shadow 0.15s steps(3), border-color 0.15s ease;
+  }
+  .tournament-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 5px 5px 0px #382414;
+    border-color: #D47E19;
+  }
+
+  /* CUSTOM RETRO PIXEL CURSOR (Inspirado en PixelCraft e Imagen 3) */
+  @media (hover: hover) and (pointer: fine) {
+    .custom-cursor-active,
+    .custom-cursor-active * {
+      cursor: none !important;
+    }
+  }
+
+  #custom-cursor-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    will-change: transform;
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+  }
+  .custom-cursor-active #custom-cursor-container {
+    opacity: 1;
+  }
+
+  #custom-cursor-box {
+    width: 12px;
+    height: 12px;
+    background-color: #F29F38;
+    border: 2px solid #382414;
+    box-shadow: 2px 2px 0px rgba(56, 36, 20, 0.4);
+    transition: width 0.12s ease-out, height 0.12s ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    transform-origin: center center;
+    image-rendering: pixelated;
+  }
+
+  #custom-cursor-container.hovered #custom-cursor-box {
+    width: 22px;
+    height: 22px;
+    transform: rotate(45deg);
+    box-shadow: 3px 3px 0px #382414;
+    background-color: #F29F38;
+  }
+
+  #custom-cursor-container.clicking #custom-cursor-box {
+    transform: rotate(45deg) scale(0.85);
+    box-shadow: 1px 1px 0px #382414;
+  }
 </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-[#F29F38] selection:text-white">
@@ -173,10 +276,10 @@
 <!-- Hero Card Banner -->
 <section class="pixel-box-lg bg-[#FBF6EB] p-6 md:p-10 relative overflow-hidden">
 <!-- Decorative Pixel corner elements -->
-<div class="absolute top-2 left-1 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
-<div class="absolute top-2 right-1 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
-<div class="absolute bottom-2 left-1 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
-<div class="absolute bottom-2 right-1 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
+<div class="absolute top-2 left-2 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
+<div class="absolute top-2 right-2 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
+<div class="absolute bottom-2 left-2 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
+<div class="absolute bottom-2 right-2 w-3 h-3 bg-[#F29F38] border border-[#382414] z-10"></div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
 <!-- Left Column: Copy & Value Proposition -->
 <div class="lg:col-span-7 space-y-5 max-w-2xl">
@@ -200,10 +303,28 @@
             </a>
 </div>
 </div>
-<!-- Right Column: Fox Wizard Dexter Illustration matching IMAGE_6 -->
-
+<!-- Right Column: Fox Wizard Dexter Illustration matching Image 2 -->
+<div class="lg:col-span-5 flex justify-center lg:justify-end items-center relative mt-6 lg:mt-0">
+  <div class="relative w-full max-w-[420px] lg:max-w-none flex justify-center lg:justify-end">
+    <img src="fox_wizard.png" alt="Zorro Mago Dexter Top Deck TCG" class="w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[440px] xl:max-w-[480px] h-auto object-contain select-none pointer-events-none animate-retro-float drop-shadow-[4px_6px_0px_rgba(56,36,20,0.15)]" style="image-rendering: pixelated;" />
+  </div>
+</div>
 </div>
 </section>
+
+<!-- Retro Pixelcraft Divider -->
+<div class="w-full flex justify-center my-4 select-none">
+  <div class="flex items-center space-x-2">
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-28 sm:w-36 h-3 bg-[#382414]" style="box-shadow:3px 3px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+  </div>
+</div>
+
 <!-- SECTION 2: TCG FOLDER-TAB SELECTOR (COMPONENTE DE PESTAÑAS 21ST.DEV) -->
 <section class="space-y-4" id="carpetas">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b-2 border-[#382414] pb-3">
@@ -376,6 +497,20 @@
 </div>
 </div>
 </section>
+
+<!-- Retro Pixelcraft Divider -->
+<div class="w-full flex justify-center my-6 select-none">
+  <div class="flex items-center space-x-2">
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-28 sm:w-36 h-3 bg-[#382414]" style="box-shadow:3px 3px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+  </div>
+</div>
+
 <!-- SECTION 3: PRODUCTO SELLADO & ACCESORIOS (Inspirado en DracoStore) -->
 <section class="space-y-6" id="sellado">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b-2 border-[#382414] pb-3">
@@ -389,7 +524,7 @@
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 <!-- Product 1: Duskmourn Play Booster Box -->
-<div class="pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19] transition-colors">
+<div class="product-card pixel-card-animate pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19]" style="animation-delay: 0ms;">
 <div class="relative bg-[#ECE0C8] border-2 border-[#382414] p-3 text-center">
 <span class="absolute top-2 right-2 bg-[#C84630] text-white font-pixel text-[8px] px-1.5 py-0.5">NUEVO</span>
 <div class="h-40 flex items-center justify-center font-pixel text-xs text-[#805B3A]">
@@ -409,7 +544,7 @@
 </div>
 </div>
 <!-- Product 2: Pokémon Stellar Crown Booster Box -->
-<div class="pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19] transition-colors">
+<div class="product-card pixel-card-animate pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19]" style="animation-delay: 80ms;">
 <div class="relative bg-[#ECE0C8] border-2 border-[#382414] p-3 text-center">
 <span class="absolute top-2 right-2 bg-[#E5B229] text-[#382414] font-pixel text-[8px] px-1.5 py-0.5">HOT</span>
 <div class="h-40 flex items-center justify-center font-pixel text-xs text-[#805B3A]">
@@ -429,7 +564,7 @@
 </div>
 </div>
 <!-- Product 3: One Piece OP-08 Two Legends -->
-<div class="pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19] transition-colors">
+<div class="product-card pixel-card-animate pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19]" style="animation-delay: 160ms;">
 <div class="relative bg-[#ECE0C8] border-2 border-[#382414] p-3 text-center">
 <span class="absolute top-2 right-2 bg-[#C84630] text-white font-pixel text-[8px] px-1.5 py-0.5">PRE-ORDEN</span>
 <div class="h-40 flex items-center justify-center font-pixel text-xs text-[#805B3A]">
@@ -449,7 +584,7 @@
 </div>
 </div>
 <!-- Product 4: Dragon Shield Matte Sleeves (Accesorios DracoStore) -->
-<div class="pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19] transition-colors">
+<div class="product-card pixel-card-animate pixel-box bg-[#FBF6EB] p-4 flex flex-col justify-between space-y-3 group hover:border-[#D47E19]" style="animation-delay: 240ms;">
 <div class="relative bg-[#ECE0C8] border-2 border-[#382414] p-3 text-center">
 <span class="absolute top-2 right-2 bg-[#3F7E44] text-white font-pixel text-[8px] px-1.5 py-0.5">ACCESORIO</span>
 <div class="h-40 flex items-center justify-center font-pixel text-xs text-[#805B3A]">
@@ -470,6 +605,20 @@
 </div>
 </div>
 </section>
+
+<!-- Retro Pixelcraft Divider -->
+<div class="w-full flex justify-center my-6 select-none">
+  <div class="flex items-center space-x-2">
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-28 sm:w-36 h-3 bg-[#382414]" style="box-shadow:3px 3px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+    <div class="w-2 h-2 bg-[#382414]" style="box-shadow:2px 2px 0 0 #F29F38"></div>
+  </div>
+</div>
+
 <!-- SECTION 4: BUYLIST GREMIAL & COMUNIDAD (Inspirado en DracoStore / Top Deck) -->
 <section class="grid grid-cols-1 gap-8" id="torneos">
 <!-- Buylist Card -->
@@ -585,9 +734,9 @@
       const container = document.getElementById('folderContent');
       let html = '<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">';
       
-      data.cards.forEach(c => {
+      data.cards.forEach((c, index) => {
         html += `
-          <div class="card-slot bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between shadow-[3px_3px_0px_#382414]">
+          <div class="card-slot pixel-card-animate bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between shadow-[3px_3px_0px_#382414]" style="animation-delay: ${index * 60}ms;">
             <div class="relative overflow-hidden border border-[#382414] aspect-[63/88] bg-[#382414]">
               <img src="${c.img}" alt="${c.name}" class="w-full h-full object-cover" onerror="this.src='https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg?1726286295'" />
               <span class="absolute top-1 left-1 bg-[#382414]/90 text-[#F29F38] font-pixel text-[8px] px-1">${c.tag}</span>
@@ -620,17 +769,48 @@
 
       container.innerHTML = html;
     }
+
+    // Custom Retro Pixel Cursor Logic (Pixelcraft 21st.dev style & Image 3)
+    (function initCustomCursor() {
+      const isTouch = window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      if (isTouch) return;
+
+      document.documentElement.classList.add("custom-cursor-active");
+
+      const cursorContainer = document.getElementById("custom-cursor-container");
+      if (!cursorContainer) return;
+
+      window.addEventListener("mousemove", (e) => {
+        cursorContainer.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+      }, { passive: true });
+
+      const interactiveSelector = "a, button, [role='button'], input, select, textarea, .pixel-btn, .folder-tab, .card-slot, .product-card, .tournament-card";
+
+      document.addEventListener("mouseover", (e) => {
+        if (e.target && e.target.closest(interactiveSelector)) {
+          cursorContainer.classList.add("hovered");
+        }
+      }, { passive: true });
+
+      document.addEventListener("mouseout", (e) => {
+        if (e.target && e.target.closest(interactiveSelector)) {
+          cursorContainer.classList.remove("hovered");
+        }
+      }, { passive: true });
+
+      document.addEventListener("mousedown", () => {
+        cursorContainer.classList.add("clicking");
+      });
+
+      document.addEventListener("mouseup", () => {
+        cursorContainer.classList.remove("clicking");
+      });
+    })();
   </script>
 
-
-
-
-
-
-
-
-
-
-
+  <!-- RETRO PIXEL CURSOR (Image 3 / Pixelcraft style) -->
+  <div id="custom-cursor-container">
+    <div id="custom-cursor-box"></div>
+  </div>
 
 </body></html>
