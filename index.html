@@ -3,626 +3,582 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TopDeck TCG — Tienda Virtual 3D &amp; PWA de Taberna (Magic: The Gathering Demo)</title>
+  <title>Top Deck TCG — Bóveda &amp; Taberna (Tienda 3D &amp; PWA)</title>
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#382414">
-  <!-- Google Fonts: 16-Bit Pixel + Tavern Serif + Clean UI -->
+
+  <!-- Google Fonts: EB Garamond (Editorial Serif / Fantasy Tavern) + Manrope (Clean Modern Grotesque) + Space Mono & Press Start 2P -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=EB+Garamond:ital,wght@0,500;0,700;1,500&amp;family=Manrope:wght@400;600;700;800&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <!-- TopDeck Custom Styles -->
-  <link rel="stylesheet" href="./css/demo.css">
+
+  <!-- Archival Tavern Stylesheet -->
+  <link rel="stylesheet" href="css/demo.css">
 </head>
-<body class="crt-scanlines min-h-screen flex flex-col justify-between selection:bg-[#F29F38] selection:text-[#2B1810]">
+<body class="selection:bg-[#F29F38] selection:text-[#2B1810]">
 
-  <!-- ================= TOAST NOTIFICATIONS CONTAINER ================= -->
-  <div id="tavernToastContainer" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
-
-  <!-- ================= TOP DEMO ANNOUNCEMENT & MODE BAR ================= -->
-  <div class="bg-[#382414] text-[#FBF6EB] px-3 py-1.5 border-b-2 border-[#1E1208] text-[10px] font-pixel flex flex-wrap items-center justify-between gap-2">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 bg-[#16A34A] inline-block animate-pulse"></span>
-      <span>DEMO COMERCIAL TOPDECK TCG • EDICIÓN MAGIC: THE GATHERING (METALEVEL)</span>
-    </div>
-    <div class="flex items-center gap-3 text-[9px] font-mono-code text-[#F29F38]">
-      <span>✦ Scryfall API Live</span>
-      <span>✦ Inspección 3D Táctil</span>
-      <span>✦ PWA 5 Mascotas</span>
-    </div>
-  </div>
-
-  <!-- ================= MAIN STICKY HEADER & PLATFORM SWITCHER ================= -->
-  <header class="bg-[#FBF6EB] border-b-4 border-[#382414] sticky top-0 z-40 px-3 sm:px-6 py-3 shadow-[0_4px_0_#382414]">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-      <!-- Brand Identity -->
-      <a href="#top" onclick="switchPlatform('web')" class="flex items-center gap-3 group">
-        <div class="w-12 h-12 bg-[#F7EED8] border-2 border-[#382414] shadow-[3px_3px_0_#382414] p-1 flex items-center justify-center group-hover:bg-[#F29F38] transition-colors">
-          <img alt="TopDeck Logo" class="w-full h-full object-contain"
-               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRxSn3A3iG0MNmWctzPvFCx2BXDJ7ccOnWTYQWpW_6OdCHY6wTwba-7QrUNwW1g84TY40qV4uPUGCgfmkCrlk0D72yxcenVwxmxkh53DsD3RO7po-gE-cMNEhN-vmC2TgWEr0_84sbekEW-S7rAyDJcqkoKK4Hpmid8mj7RENtt0LSGYZWGLFWWrt_x9f7paYRsIW847dHO5RJfcVP4mZLyGu2Woh6pBkiLnrfhQMu9xBtRhF_v371qPLPpnPvmoysdA"/>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-pixel text-sm sm:text-base text-[#382414] font-bold">TOP DECK</span>
-            <span class="bg-[#4A2B11] text-[#F29F38] font-pixel text-[8px] px-1.5 py-0.5 border border-[#382414]">MTG VAULT</span>
-          </div>
-          <span class="font-mono-code text-[11px] text-[#6B5443] font-bold block">Tu Taberna Mágica &amp; Santuario TCG</span>
-        </div>
-      </a>
-
-      <!-- Center: Dual Experience Switcher (Web Virtual vs PWA Presencial) -->
-      <div class="flex items-center gap-1.5 sm:gap-2 bg-[#ECE0C8] p-1.5 border-2 border-[#382414] shadow-[2px_2px_0_#382414]">
-        <button id="switchBtnWeb" onclick="switchPlatform('web')"
-          class="pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[9px] sm:text-[10px] px-2.5 sm:px-4 py-2 flex items-center gap-1.5 sm:gap-2 font-bold">
-          <span>💻</span>
-          <span class="hidden sm:inline">1. WEB VIRTUAL (TIENDA 3D)</span>
-          <span class="sm:hidden">1. WEB 3D</span>
-        </button>
-        <button id="switchBtnPwa" onclick="switchPlatform('pwa')"
-          class="pixel-btn bg-[#ECE0C8] hover:bg-[#FBF6EB] text-[#5A4231] font-pixel text-[9px] sm:text-[10px] px-2.5 sm:px-4 py-2 flex items-center gap-1.5 sm:gap-2">
-          <span>📱</span>
-          <span class="hidden sm:inline">2. PWA LOCAL (EN MESA)</span>
-          <span class="sm:hidden">2. PWA MESA</span>
-        </button>
-      </div>
-
-      <!-- Right: Personal Binder Cart Button -->
-      <div class="flex items-center gap-2">
-        <button onclick="openPersonalBinderCart()"
-          class="pixel-btn bg-[#F29F38] hover:bg-[#FBBF24] text-[#2B1810] font-pixel text-[9px] px-3.5 py-2 flex items-center gap-2 font-bold">
-          <span>📖</span>
-          <span class="hidden sm:inline">MI CARPETA</span>
-          <span id="headerCartCount" class="bg-[#382414] text-[#FBBF24] px-1.5 py-0.5 text-[9px]">2</span>
-          <span id="headerCartTotal" class="hidden md:inline font-mono-code text-[11px] bg-[#FFF9EE] px-1.5 py-0.5 border border-[#382414]">$489.300 COP</span>
-        </button>
-      </div>
+  <!-- ========================================================================
+       TOP ANNOUNCEMENT BAR (RETRO TAVERN TICKER)
+       ======================================================================== -->
+  <header class="bg-[#382414] text-[#FBF6EB] py-2 px-4 border-b-2 border-[#1E1208] overflow-hidden text-xs font-mono-code">
+    <div class="flex items-center space-x-8 animate-ticker">
+      <span class="inline-flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#F29F38] animate-pulse"></span>
+        <strong>BÓVEDA TOP DECK:</strong> +27,000 CARTAS SINGLES SINCRONIZADAS EN VIVO CON SCRYFALL API
+      </span>
+      <span class="text-[#F29F38]">✦</span>
+      <span>COMPRAMOS TUS CARTAS (BUYLIST GREMIAL 80% EFECTIVO / 100% CRÉDITO TIENDA)</span>
+      <span class="text-[#F29F38]">✦</span>
+      <span>ENVIOS SEGUROS ENFUNDADOS EN DRAGON SHIELD + COFRE DE BÓVEDA</span>
+      <span class="text-[#F29F38]">✦</span>
+      <span class="inline-flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse"></span>
+        TORNEOS FNM MODERN &amp; COMMANDER CADA VIERNES EN SEDE FÍSICA
+      </span>
     </div>
   </header>
 
   <!-- ========================================================================
-       PARTE 1: PLATAFORMA WEB (USUARIOS VIRTUALES — TIENDA INMERSIVA 3D)
+       TOP NAVIGATION BAR (TOP DECK RETRO TAVERN BAR)
        ======================================================================== -->
-  <main id="platformWebView" class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-6 space-y-10">
+  <nav class="bg-[#FBF6EB] border-b-4 border-[#382414] sticky top-0 z-40 px-4 md:px-8 py-3 shadow-[0_4px_0_rgba(56,36,20,0.15)]">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
 
-    <!-- 1.1 LANDING HERO: QUIÉN ES TOPDECK (SENSACIÓN DE HOGAR Y TABERNA MÁGICA) -->
-    <section class="pixel-box-lg bg-[#FBF6EB] p-5 sm:p-8 relative overflow-hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-        <div class="lg:col-span-8 space-y-4">
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#ECE0C8] border-2 border-[#382414] shadow-[2px_2px_0_#382414]">
-            <span class="font-pixel text-[9px] text-[#C84630] font-bold">🕯️ BIENVENIDO A CASA, PLANESWALKER</span>
-            <span class="font-mono-code text-xs text-[#382414] font-bold">• Más que una tienda, tu santuario en Colombia</span>
-          </div>
-          <h1 class="font-pixel text-lg sm:text-2xl md:text-3xl text-[#382414] leading-relaxed">
-            LA CALIDEZ DE NUESTRA <span class="bg-[#F29F38] px-2 py-0.5">TABERNA FÍSICA</span> AHORA EN TU PANTALLA
-          </h1>
-          <p class="font-serif-tavern text-lg sm:text-xl text-[#4A2B11] leading-relaxed">
-            En <strong>TopDeck</strong> sabemos que comprar una carta de <em>Magic: The Gathering</em> no es llenar un formulario frío de supermercado. Es sentarte en nuestra mesa de madera, abrir una carpeta de cuero junto a tus amigos, recibir el consejo de <strong>Dexter</strong> y sostener esa carta mítica contra la luz para ver su brillo foil antes de enfundarla.
-          </p>
-          <div class="flex flex-wrap gap-3 pt-1">
-            <a href="#dexterVaultSection" class="pixel-btn bg-[#F29F38] hover:bg-[#FBBF24] text-[#2B1810] font-pixel text-[10px] px-5 py-3 font-bold flex items-center gap-2">
-              <span>🦊 HABLAR CON DEXTER Y ABRIR LA CARPETA</span>
-            </a>
-            <button onclick="switchPlatform('pwa')" class="pixel-btn bg-[#ECE0C8] hover:bg-[#FFF9EE] text-[#2B1810] font-pixel text-[10px] px-4 py-3 font-bold flex items-center gap-2">
-              <span>📱 ¿ESTÁS EN EL LOCAL? ABRIR PWA DE MESA</span>
-            </button>
-          </div>
+      <!-- Brand Logo & Identity -->
+      <a class="flex items-center gap-3.5 group" href="#">
+        <div class="w-12 h-12 bg-[#F4EAD4] border-2 border-[#382414] shadow-[3px_3px_0px_#382414] flex items-center justify-center p-1 rounded-sm group-hover:bg-[#F29F38] transition-colors">
+          <img alt="Top Deck Logo" class="w-full h-full object-contain"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkdiEWUQPno7swEO78yHJsjV-wHx785OBu8xuLnW68dUO7se10TJRqjjm_rcWahKqi87PRJRGe3Cj_Mz94DbTwGvOCZjGm-CnSdDUZzyXOqs3rru8lsTCJvBhFY4nbaXlScCZ8q7GvHfaTefRHF2KB-OGL0Ryd64onx0sD85oloI8521RCEK8u_dfENe3UePDRHoT-89_aBK3EZtUgjTlSQ0Kq_gqmEAIBizOnrDKT7JrbcxiPobCPijGpgNOIOZpyQ">
         </div>
-
-        <!-- Tarjeta de Identidad del Local TopDeck -->
-        <div class="lg:col-span-4">
-          <div class="pixel-box bg-[#4A2B11] text-[#FBF6EB] p-4 space-y-3">
-            <div class="flex items-center justify-between border-b-2 border-[#F29F38] pb-2">
-              <span class="font-pixel text-[9px] text-[#F29F38]">🏰 EL ESTÁNDAR TOPDECK</span>
-              <span class="font-pixel text-[8px] bg-[#16A34A] text-white px-1.5 py-0.5">OFICIAL WPN</span>
-            </div>
-            <ul class="space-y-2 font-mono-code text-xs">
-              <li class="flex items-start gap-2">
-                <span>🦊</span>
-                <span><strong>Búsqueda Asistida por Sinergias:</strong> Dexter encuentra cartas por rol, color o combo en Scryfall.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span>🖐️</span>
-                <span><strong>Inspección Física 3D:</strong> Saca cada carta de la carpeta y rótala 360° como si la tocaras.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span>🛡️</span>
-                <span><strong>Despacho Ritual:</strong> Cada compra se enfunda en <em>Dragon Shield</em>, va en cofre y sale en camión.</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 1.2 DEXTER: EL ASISTENTE DE COMPRAS Y BUSCADOR DE SINERGIAS (SCRYFALL API) -->
-    <section id="dexterVaultSection" class="space-y-4">
-      <!-- Diálogo RPG de Dexter -->
-      <div class="rpg-dialog p-4 sm:p-5 flex flex-col md:flex-row items-center gap-4">
-        <!-- Retrato de Dexter -->
-        <div class="flex items-center gap-3 shrink-0">
-          <div class="w-20 h-20 border-3 border-[#382414] shadow-[4px_4px_0_#382414] bg-[#382414] overflow-hidden shrink-0">
-            <svg viewBox="0 0 64 64" class="w-full h-full">
-              <rect width="64" height="64" fill="#382414"/>
-              <polygon points="32,4 12,26 52,26" fill="#4A2B11" stroke="#F29F38" stroke-width="2"/>
-              <rect x="8" y="24" width="48" height="5" fill="#F29F38"/>
-              <polygon points="16,24 12,10 24,20" fill="#D97706"/>
-              <polygon points="48,24 52,10 40,20" fill="#D97706"/>
-              <rect x="16" y="28" width="32" height="24" rx="4" fill="#EA580C"/>
-              <polygon points="16,40 32,54 48,40" fill="#FFF9EE"/>
-              <rect x="20" y="33" width="9" height="7" fill="#1F1B0E" stroke="#FBBF24" stroke-width="2"/>
-              <rect x="35" y="33" width="9" height="7" fill="#1F1B0E" stroke="#FBBF24" stroke-width="2"/>
-              <line x1="29" y1="36" x2="35" y2="36" stroke="#FBBF24" stroke-width="2"/>
-              <rect x="23" y="35" width="3" height="3" fill="#FFF"/>
-              <rect x="38" y="35" width="3" height="3" fill="#FFF"/>
-              <rect x="30" y="46" width="4" height="4" fill="#1F1B0E"/>
-            </svg>
-          </div>
-          <div class="md:hidden">
-            <span class="font-pixel text-xs text-[#92400E] font-bold block">🦊 DEXTER</span>
-            <span class="font-mono-code text-xs text-[#6B5443]">Archivista Jefe de TopDeck</span>
-          </div>
-        </div>
-
-        <!-- Globo de Texto Interactivo -->
-        <div class="flex-1 space-y-2">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
-              <span class="hidden md:inline font-pixel text-xs text-[#92400E] font-bold">🦊 DEXTER (MAESTRO ARCHIVISTA):</span>
-              <span id="dexterSpeechBadge" class="bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] px-2 py-0.5 border border-[#382414] font-bold">
-                BÓVEDA CENTRAL TOPDECK
-              </span>
-            </div>
-            <div id="scryfallLiveStatus" class="font-pixel text-[8px] text-[#16A34A] flex items-center gap-1.5">
-              <span class="w-2.5 h-2.5 bg-[#16A34A] inline-block border border-[#382414]"></span>
-              <span>CONECTADO A SCRYFALL API</span>
-            </div>
-          </div>
-          <p id="dexterSpeechText" class="font-mono-code text-xs sm:text-sm text-[#2B1810] leading-relaxed bg-[#F7EED8] p-3 border-2 border-[#382414]">
-            "¡Bienvenido a la taberna de TopDeck, viajero! Soy Dexter. Dime qué carta buscas por su nombre, o explora por color, sinergia o rol para tu mazo. ¡Haz clic en cualquier carta de mi carpeta para sacarla de la funda e inspeccionarla en 3D como si la tuvieras en tus manos!"
-          </p>
-        </div>
-      </div>
-
-      <!-- Panel de Búsqueda de Dexter: Nombre, Colores de Maná, Tipo y Botones de Sinergia -->
-      <div class="pixel-box bg-[#ECE0C8] p-4 space-y-4">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
-          <!-- Buscador por Nombre, Texto o Regla (Conecta con Scryfall) -->
-          <div class="lg:col-span-6">
-            <label class="font-pixel text-[8px] text-[#5A4231] block mb-1 font-bold">
-              🔍 BUSCAR POR NOMBRE PROPIO, TEXTO O EFECTO (27,000+ CARTAS MTG):
-            </label>
-            <form onsubmit="event.preventDefault(); executeVaultSearch();" class="flex">
-              <input id="vaultSearchInput" type="text"
-                placeholder="Ej: Atraxa, Black Lotus, Vampire, 'draw two cards', Dragon..."
-                class="flex-1 bg-[#FFF9EE] border-2 border-[#382414] px-3 py-2 font-mono-code text-xs text-[#2B1810] focus:outline-none focus:border-[#D97706]"/>
-              <button type="submit" class="pixel-btn bg-[#F29F38] hover:bg-[#FBBF24] text-[#2B1810] font-pixel text-[9px] px-4 py-2 border-l-0 font-bold">
-                BUSCAR
-              </button>
-            </form>
-          </div>
-
-          <!-- Filtro por Color de Maná -->
-          <div class="lg:col-span-3">
-            <label class="font-pixel text-[8px] text-[#5A4231] block mb-1 font-bold">
-              🔮 FILTRAR POR COLOR DE MANÁ:
-            </label>
-            <div id="manaColorFilterBar" class="flex items-center gap-1.5"></div>
-          </div>
-
-          <!-- Filtro por Tipo de Carta + Reset -->
-          <div class="lg:col-span-3 flex items-end gap-2">
-            <div class="flex-1">
-              <label class="font-pixel text-[8px] text-[#5A4231] block mb-1 font-bold">
-                📜 TIPO / FUNCIONALIDAD:
-              </label>
-              <select id="vaultTypeSelect" onchange="changeCardTypeFilter(this.value)"
-                class="w-full bg-[#FFF9EE] border-2 border-[#382414] font-pixel text-[8px] text-[#2B1810] py-2 px-2 font-bold">
-                <option value="all">TODOS LOS TIPOS</option>
-                <option value="creature">CRIATURAS</option>
-                <option value="instant">INSTANTÁNEOS</option>
-                <option value="sorcery">CONJUROS</option>
-                <option value="artifact">ARTEFACTOS</option>
-                <option value="enchantment">ENCANTAMIENTOS</option>
-                <option value="planeswalker">PLANESWALKERS</option>
-                <option value="land">TIERRAS</option>
-              </select>
-            </div>
-            <button onclick="resetVaultFilters()" title="Limpiar todos los filtros"
-              class="pixel-btn bg-[#FFF9EE] hover:bg-[#FEE2E2] text-[#2B1810] font-pixel text-[8px] px-2.5 py-2 font-bold">
-              🔄
-            </button>
-          </div>
-        </div>
-
-        <!-- Botones de Sinergias Recomendadas por Dexter -->
-        <div class="pt-3 border-t-2 border-[#382414]/20">
-          <div class="font-pixel text-[8px] text-[#92400E] mb-2 font-bold">
-            ⚡ ¿NO SABES EL NOMBRE EXACTO? BUSCA POR SINERGIA O ESTRATEGIA CON DEXTER:
-          </div>
-          <div id="dexterSynergyPills" class="flex flex-wrap gap-2"></div>
-        </div>
-      </div>
-
-      <!-- 1.3 LA CARPETA DE CUERO INTERACTIVA (ARCHIVAL 9-POCKET BINDER) -->
-      <div class="binder-leather p-3 sm:p-6 rounded-md relative">
-        <!-- Barra Superior de la Carpeta -->
-        <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b-2 border-[#382414]">
+        <div>
           <div class="flex items-center gap-2">
-            <span class="bg-[#382414] text-[#F29F38] font-pixel text-[9px] px-2.5 py-1 border border-[#F29F38]">
-              📖 ÁLBUM ARCHIVAL MAGIC: THE GATHERING
-            </span>
-            <span id="binderTotalCountLabel" class="font-mono-code text-xs font-bold text-[#2B1810]">
-              18 CARTAS EN CARPETA
-            </span>
+            <span class="font-serif-tavern text-2xl md:text-3xl text-[#382414] font-bold tracking-tight">TOP DECK</span>
+            <span class="font-pixel text-[8px] bg-[#382414] text-[#F29F38] px-1.5 py-0.5 rounded-sm">TCG VAULT</span>
+          </div>
+          <span class="text-[11px] font-bold text-[#805B3A] tracking-wider uppercase block font-sans">
+            Competitividad &amp; Coleccionismo • Taberna TCG
+          </span>
+        </div>
+      </a>
+
+      <!-- Center: Dual Experience Switcher (Web Virtual vs PWA Presencial) -->
+      <div class="flex items-center gap-1.5 sm:gap-2 bg-[#ECE0C8] p-1.5 border-2 border-[#382414] shadow-[2px_2px_0_#382414] rounded-sm">
+        <button id="switchBtnWeb" onclick="switchPlatform('web')"
+          class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2 font-bold shadow-[2px_2px_0_#382414]">
+          <span>💻</span>
+          <span class="hidden sm:inline">1. TIENDA VIRTUAL (WEB 3D)</span>
+          <span class="sm:hidden">1. WEB 3D</span>
+        </button>
+        <button id="switchBtnPwa" onclick="switchPlatform('pwa')"
+          class="tavern-btn bg-[#ECE0C8] hover:bg-[#FBF6EB] text-[#5A4231] text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2">
+          <span>📱</span>
+          <span class="hidden sm:inline">2. COMPAÑERO EN MESA (PWA)</span>
+          <span class="sm:hidden">2. PWA LOCAL</span>
+        </button>
+      </div>
+
+      <!-- Quick Actions: Cart / Loot Binder -->
+      <div class="flex items-center gap-3">
+        <button onclick="openPersonalBinderCart()"
+          class="tavern-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#382414] text-xs sm:text-sm px-4 py-2 flex items-center gap-2.5 font-bold shadow-[3px_3px_0_#382414]">
+          <span class="text-base">🎒</span>
+          <span class="hidden md:inline">MI BARAJA</span>
+          <span id="headerCartCount" class="bg-[#382414] text-[#FBF6EB] px-2 py-0.5 rounded-sm text-xs font-mono-code font-bold">0</span>
+          <span id="headerCartTotal" class="hidden lg:inline text-xs font-mono-code text-[#4A2B11] font-bold">($0.00)</span>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ========================================================================
+       PLATAFORMA 1: WEB VIRTUAL (EXPERIENCIA INMERSIVA 3D DE TABERNA)
+       ======================================================================== -->
+  <main id="platformWebView" class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-10">
+
+    <!-- HERO SECTION: Atmospheric Fantasy Tavern & Dexter The Fox Wizard -->
+    <section class="pixel-box-lg bg-[#FBF6EB] p-6 md:p-10 relative overflow-hidden rounded-sm">
+      <!-- Decorative gold corner elements -->
+      <div class="absolute top-2 left-2 w-3.5 h-3.5 bg-[#F29F38] border-2 border-[#382414] z-10"></div>
+      <div class="absolute top-2 right-2 w-3.5 h-3.5 bg-[#F29F38] border-2 border-[#382414] z-10"></div>
+      <div class="absolute bottom-2 left-2 w-3.5 h-3.5 bg-[#F29F38] border-2 border-[#382414] z-10"></div>
+      <div class="absolute bottom-2 right-2 w-3.5 h-3.5 bg-[#F29F38] border-2 border-[#382414] z-10"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+
+        <!-- Left Column: Copy & Value Proposition -->
+        <div class="lg:col-span-7 space-y-4 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#ECE0C8] border-2 border-[#382414] shadow-[2px_2px_0px_#382414]">
+            <span class="text-xs font-pixel text-[#C84630]">SANTUARIO GREMIAL</span>
+            <span class="text-xs font-mono-code font-bold text-[#382414]">★ Adiós a las listas aburridas</span>
           </div>
 
-          <div class="flex items-center gap-2 font-pixel text-[9px]">
-            <button onclick="changeBinderPage(-1)" class="pixel-btn bg-[#FFF9EE] hover:bg-[#F29F38] text-[#2B1810] px-3 py-1.5 font-bold">
-              ◀ PÁG ANT
-            </button>
-            <span id="binderPageIndicator" class="bg-[#382414] text-[#FBF6EB] px-3 py-1.5 border border-[#382414]">
-              PÁG 01 / 02
-            </span>
-            <button onclick="changeBinderPage(1)" class="pixel-btn bg-[#F29F38] hover:bg-[#FBBF24] text-[#2B1810] px-3 py-1.5 font-bold">
-              PÁG SIG ▶
+          <h1 class="font-serif-tavern text-3xl sm:text-4xl lg:text-5xl text-[#382414] leading-[1.15] font-bold">
+            La Bóveda Digital de Cartas TCG que se Hojea como una <span class="text-[#D47E19] bg-[#ECE0C8] px-2 py-0.5">Carpeta Real</span>
+          </h1>
+
+          <p class="text-sm md:text-base text-[#5C3D24] leading-relaxed font-sans">
+            Transmite la calidez del local físico de <strong>TopDeck</strong> directo a tu pantalla. Explora catálogos completos sincronizados en vivo con <strong>Scryfall API</strong> (+27,000 cartas de Magic), inspecciona cartas en <strong>3D con grosor físico</strong> y manipulación táctil 360°, y despacha tus compras enfundadas con lacre oficial.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-3.5 pt-2">
+            <a class="tavern-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#382414] text-xs sm:text-sm px-6 py-3 flex items-center gap-2 font-bold shadow-[3px_3px_0_#382414]"
+               href="#carpetasSection">
+              <span>📖</span>
+              <span>HOJEAR CARPETA DE COLECCIÓN</span>
+            </a>
+            <button onclick="switchPlatform('pwa')"
+              class="tavern-btn bg-[#ECE0C8] hover:bg-[#E3D4B6] text-[#382414] text-xs sm:text-sm px-5 py-3 font-bold">
+              <span>📱</span>
+              <span>VER APP PWA DE MESA</span>
             </button>
           </div>
         </div>
 
-        <!-- Hoja de 9 Bolsillos Plásticos Transparentes -->
-        <div class="binder-page p-3 sm:p-5 rounded-sm">
-          <div class="mb-3 flex items-center justify-between text-xs font-mono-code text-[#6B5443]">
-            <span>💡 <strong>Tip Inmersivo:</strong> Haz clic en cualquier carta para ver cómo <strong>sale de la funda plástica</strong> y manipúlala en <strong>3D</strong>.</span>
-            <span class="hidden sm:inline font-pixel text-[8px] text-[#92400E]">HOJA ULTRA•PRO 9-POCKET</span>
+        <!-- Right Column: Dexter The Fox Wizard (RPG Tavern Dialogue) -->
+        <div class="lg:col-span-5 flex flex-col items-center">
+          <div class="rpg-window p-4 sm:p-5 w-full relative">
+            <div class="flex items-start gap-4">
+              <!-- Dexter's Official Portrait -->
+              <div class="w-20 h-24 sm:w-24 sm:h-28 bg-[#4A2B11] border-2 border-[#F29F38] shadow-[3px_3px_0_#382414] shrink-0 overflow-hidden relative">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw"
+                     alt="Dexter El Zorro Mago" class="w-full h-full object-cover">
+                <span class="absolute bottom-0 inset-x-0 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[7px] text-center py-0.5">DEXTER</span>
+              </div>
+
+              <!-- Dialogue Speech Bubble -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between mb-1">
+                  <span id="dexterSpeechBadge" class="font-pixel text-[8px] bg-[#382414] text-[#F29F38] px-1.5 py-0.5 rounded-sm">
+                    🦊 ARCHIVISTA GREMIAL
+                  </span>
+                  <span class="w-2 h-2 rounded-full bg-[#16A34A] animate-ping" title="En línea"></span>
+                </div>
+                <h4 class="font-serif-tavern text-lg font-bold text-[#382414]">"¡Saludos, caminante de planos!"</h4>
+                <p id="dexterSpeechText" class="text-xs text-[#5C3D24] leading-relaxed mt-1 font-sans">
+                  Soy Dexter, el guardián de la bóveda. Dime qué carta buscas o filtra por maná y sinergias abajo. Deslizaré las cartas de los bolsillos para que las toques en 3D.
+                </p>
+              </div>
+            </div>
+
+            <!-- Quick Dexter Synergy Shortcuts -->
+            <div class="mt-3.5 pt-3 border-t-2 border-[#382414]/20">
+              <span class="text-[11px] font-bold text-[#805B3A] uppercase tracking-wider block mb-2 font-sans">
+                ⚡ Sinergias Estratégicas para tu Mazo:
+              </span>
+              <div id="dexterSynergyPills" class="flex flex-wrap gap-1.5">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
           </div>
-          <div id="binderPocketGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION: TCG FOLDER-TAB SELECTOR (COMPONENTE DE PESTAÑAS 21ST.DEV)
+         ======================================================================== -->
+    <section id="carpetasSection" class="space-y-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b-2 border-[#382414] pb-3">
+        <div>
+          <span class="font-pixel text-[9px] text-[#C84630] uppercase">SELECCIONA TU COLECCIÓN</span>
+          <h2 class="font-serif-tavern text-2xl md:text-3xl text-[#382414] mt-0.5 font-bold">Carpetas por TCG (Binder Vault)</h2>
+        </div>
+        <p class="text-xs md:text-sm text-[#805B3A] max-w-md font-sans">
+          Cambia de carpeta de colección. Cada juego cuenta con sus cartas singles, expansiones y sellado oficial.
+        </p>
+      </div>
+
+      <!-- THE FOLDER COMPONENT (21st.dev style tabs) -->
+      <div class="pt-2">
+        <!-- Tab Headers Bar -->
+        <div class="flex items-end gap-1.5 px-2 overflow-x-auto no-scrollbar border-b-3 border-[#382414]" id="folderTabs">
+          <!-- Tab 1: Magic: The Gathering (Active por defecto) -->
+          <button class="folder-tab text-xs sm:text-sm px-4 sm:px-6 py-2.5 bg-[#FBF6EB] text-[#382414] flex items-center gap-2 active">
+            <span class="w-3 h-3 rounded-full bg-[#D47E19] inline-block border border-[#382414]"></span>
+            <span>MAGIC: THE GATHERING</span>
+            <span class="bg-[#382414] text-[#FBF6EB] font-pixel text-[8px] px-1.5 py-0.5 rounded ml-1">+27,000</span>
+          </button>
+          <!-- Tab 2: Pokémon TCG -->
+          <button onclick="window.showTavernToast('La demo para TopDeck está enfocada en Magic: The Gathering.', 'ℹ️')"
+                  class="folder-tab text-xs sm:text-sm px-4 sm:px-6 py-2.5 bg-[#E2D4B7] hover:bg-[#ECE0C8] text-[#5A4231] flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-[#E5B229] inline-block border border-[#382414]"></span>
+            <span>POKÉMON TCG</span>
+            <span class="bg-[#382414]/70 text-[#FBF6EB] font-pixel text-[8px] px-1.5 py-0.5 rounded ml-1">4,150</span>
+          </button>
+          <!-- Tab 3: One Piece Card Game -->
+          <button onclick="window.showTavernToast('La demo para TopDeck está enfocada en Magic: The Gathering.', 'ℹ️')"
+                  class="folder-tab text-xs sm:text-sm px-4 sm:px-6 py-2.5 bg-[#E2D4B7] hover:bg-[#ECE0C8] text-[#5A4231] flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-[#C84630] inline-block border border-[#382414]"></span>
+            <span>ONE PIECE CG</span>
+            <span class="bg-[#382414]/70 text-[#FBF6EB] font-pixel text-[8px] px-1.5 py-0.5 rounded ml-1">1,890</span>
+          </button>
+          <!-- Tab 4: Yu-Gi-Oh! -->
+          <button onclick="window.showTavernToast('La demo para TopDeck está enfocada en Magic: The Gathering.', 'ℹ️')"
+                  class="folder-tab text-xs sm:text-sm px-4 sm:px-6 py-2.5 bg-[#E2D4B7] hover:bg-[#ECE0C8] text-[#5A4231] flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-[#6A3E8A] inline-block border border-[#382414]"></span>
+            <span>YU-GI-OH!</span>
+            <span class="bg-[#382414]/70 text-[#FBF6EB] font-pixel text-[8px] px-1.5 py-0.5 rounded ml-1">2,340</span>
+          </button>
+        </div>
+
+        <!-- Folder Main Content Container (Opened Archival Binder Interior) -->
+        <div class="bg-[#FBF6EB] border-4 border-[#382414] shadow-[8px_8px_0px_#382414] p-4 sm:p-6 md:p-8 rounded-b-lg relative -mt-[3px] z-10">
+
+          <!-- Live Scryfall Search & Advanced Filter Console -->
+          <div class="bg-[#ECE0C8] border-2 border-[#382414] p-3 sm:p-4 mb-6 shadow-[3px_3px_0_#382414]">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+              <!-- Search bar with Scryfall Live connection -->
+              <div class="flex-1 min-w-[260px] relative flex items-center bg-[#FFF9EE] border-2 border-[#382414] shadow-[2px_2px_0_#382414]">
+                <span class="pl-3 pr-1 text-[#805B3A] text-sm select-none">🔍</span>
+                <input id="vaultSearchInput" type="text"
+                  placeholder="Busca por nombre (ej. Sol Ring, Sheoldred, Black Lotus)..."
+                  class="w-full bg-transparent px-2 py-2 text-xs md:text-sm font-sans text-[#382414] focus:outline-none placeholder-[#805B3A] font-semibold">
+              </div>
+
+              <!-- Card Type Select -->
+              <div class="w-48">
+                <select id="vaultTypeSelect"
+                  class="w-full bg-[#FFF9EE] border-2 border-[#382414] text-xs font-sans font-bold text-[#382414] py-2 px-3 shadow-[2px_2px_0_#382414] focus:outline-none focus:border-[#F29F38]">
+                  <option value="">TODOS LOS TIPOS</option>
+                  <option value="creature">CRIATURAS</option>
+                  <option value="instant">INSTANTÁNEOS</option>
+                  <option value="sorcery">CONJUROS</option>
+                  <option value="enchantment">ENCANTAMIENTOS</option>
+                  <option value="artifact">ARTEFACTOS</option>
+                  <option value="planeswalker">PLANESWALKERS</option>
+                  <option value="land">TIERRAS</option>
+                </select>
+              </div>
+
+              <!-- Scryfall Live Sync Status Badge -->
+              <div id="scryfallLiveStatus" class="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#DCFCE7] border border-[#166534] text-[11px] font-mono-code text-[#166534] font-bold">
+                <span class="w-2 h-2 rounded-full bg-[#16A34A] animate-ping"></span>
+                <span>SCRYFALL LIVE</span>
+              </div>
+            </div>
+
+            <!-- Mana Color Identity Filter Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#382414]/20">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-[#5C3D24] uppercase tracking-wider font-sans">🔮 Identidad de Maná:</span>
+                <div id="manaColorFilterBar" class="flex items-center gap-1.5">
+                  <!-- Injected via JavaScript -->
+                </div>
+              </div>
+              <button onclick="resetAllVaultFilters()"
+                class="tavern-btn bg-[#FFF9EE] hover:bg-[#F4EAD4] text-[#805B3A] text-xs px-3 py-1 font-semibold">
+                🔄 Limpiar Filtros
+              </button>
+            </div>
+          </div>
+
+          <!-- THE ARCHIVAL LEATHER BINDER SPREAD -->
+          <div class="relative bg-[#D6BE96] border-4 border-[#382414] p-3 sm:p-5 shadow-[6px_6px_0_#382414] rounded-sm">
+            <!-- Brass Corner Rivets -->
+            <div class="absolute -top-2 -left-2 w-4 h-4 bg-[#F59E0B] border-2 border-[#382414]"></div>
+            <div class="absolute -top-2 -right-2 w-4 h-4 bg-[#F59E0B] border-2 border-[#382414]"></div>
+            <div class="absolute -bottom-2 -left-2 w-4 h-4 bg-[#F59E0B] border-2 border-[#382414]"></div>
+            <div class="absolute -bottom-2 -right-2 w-4 h-4 bg-[#F59E0B] border-2 border-[#382414]"></div>
+
+            <!-- Binder Sub-header: Navigation & Page Counts -->
+            <div class="bg-[#FFF9EE] border-2 border-[#382414] px-4 py-2.5 mb-4 flex flex-wrap items-center justify-between gap-3 shadow-[2px_2px_0_#382414]">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xs font-bold bg-[#ECE0C8] px-2.5 py-1 border border-[#382414] text-[#382414] font-mono-code">
+                  📖 CARPETA 9-POCKET ULTRA•PRO
+                </span>
+                <span id="binderTotalCountLabel" class="text-xs text-[#805B3A] font-bold font-sans">
+                  CARGANDO CARTAS...
+                </span>
+              </div>
+              <div class="flex items-center gap-2 font-sans font-bold text-xs">
+                <button onclick="changeBinderPage(-1)" class="tavern-btn bg-[#ECE0C8] px-3 py-1 text-[#382414]">
+                  ◀ PÁG ANT
+                </button>
+                <span id="binderPageIndicator" class="bg-[#382414] text-[#FBF6EB] px-3 py-1 font-mono-code text-xs">
+                  PÁG 01 / 01
+                </span>
+                <button onclick="changeBinderPage(1)" class="tavern-btn bg-[#F29F38] px-3 py-1 text-[#382414]">
+                  PÁG SIG ▶
+                </button>
+              </div>
+            </div>
+
+            <!-- Double Page Spread Grid (9 Archival Recessed Pockets) -->
+            <div id="binderPocketGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4 bg-[#FDFBF7] p-3 sm:p-5 border-2 border-[#382414] shadow-inner min-h-[580px]">
+              <!-- Injected via JavaScript (9 Pockets) -->
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- ========================================================================
-       PARTE 2: PLATAFORMA PWA MÓVIL (USUARIOS PRESENCIALES EN EL LOCAL)
+       PLATAFORMA 2: COMPAÑERO EN MESA (PWA MÓVIL EN EL LOCAL TOPDECK)
        ======================================================================== -->
-  <main id="platformPwaView" class="hidden flex-1 max-w-7xl w-full mx-auto px-2 sm:px-6 py-6">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+  <section id="platformPwaView" class="hidden flex-1 max-w-3xl w-full mx-auto px-3 sm:px-4 py-6">
 
-      <!-- Columna Explicativa para la Presentación del Demo (Visible en Desktop) -->
-      <div class="hidden lg:block lg:col-span-5 space-y-4 sticky top-24">
-        <div class="pixel-box bg-[#FBF6EB] p-5 space-y-4">
-          <div class="inline-flex items-center gap-2 bg-[#DCFCE7] text-[#166534] border-2 border-[#166534] px-2.5 py-1 font-pixel text-[8px] font-bold">
-            📱 EXPERIENCIA EN EL LOCAL FÍSICO (PWA)
+    <!-- En-Tavern Header Banner (Diario del Gremio) -->
+    <div class="pixel-box bg-[#FBF6EB] p-3.5 mb-4 border-3 border-[#382414] shadow-[4px_4px_0_#382414]">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 bg-[#4A2B11] border-2 border-[#F29F38] p-1 flex items-center justify-center text-xl shrink-0">
+            🍻
           </div>
-          <h2 class="font-pixel text-base text-[#382414] leading-relaxed">
-            5 SECCIONES CON SU PROPIA MASCOTA PARA EL JUGADOR EN MESA
-          </h2>
-          <p class="font-mono-code text-xs text-[#5A4231] leading-relaxed">
-            Cuando el jugador entra físicamente a <strong>TopDeck</strong>, escanea el QR de su mesa y abre la PWA. Cada sección conserva la estética cálida de la taberna pero es guiada por una mascota especialista:
-          </p>
-
-          <div class="space-y-2.5 text-xs font-mono-code">
-            <div onclick="switchPwaTab('mesa')" class="p-2.5 bg-[#FFEDD5] border-2 border-[#382414] cursor-pointer hover:translate-x-1 transition-transform">
-              <strong class="font-pixel text-[8px] text-[#92400E] block">1. 🍺 MESA &amp; COMIDA (BARNABY EL TABERNERO)</strong>
-              <span>Pones el código de tu mesa y pides bebidas, cafés o nachos con pinzas gamer directo a tu partida.</span>
-            </div>
-            <div onclick="switchPwaTab('coleccion')" class="p-2.5 bg-[#FEF3C7] border-2 border-[#382414] cursor-pointer hover:translate-x-1 transition-transform">
-              <strong class="font-pixel text-[8px] text-[#B45309] block">2. 🦊 COLECCIONISTA &amp; MERCADO DE PULGAS (DEXTER)</strong>
-              <span>Sincroniza mazos de <strong>Moxfield</strong>, revisa tu Bulk y <strong>habilita tu carpeta en vivo</strong> para que otros en la tienda compren o intercambien contigo.</span>
-            </div>
-            <div onclick="switchPwaTab('competitivo')" class="p-2.5 bg-[#FEE2E2] border-2 border-[#382414] cursor-pointer hover:translate-x-1 transition-transform">
-              <strong class="font-pixel text-[8px] text-[#991B1B] block">3. 🦁 COMPETITIVO &amp; TORNEOS (VULKAN EL JUEZ)</strong>
-              <span>Inscripción a FNM, pairings de ronda en vivo, reporte de resultados y ranking ELO.</span>
-            </div>
-            <div onclick="switchPwaTab('casual')" class="p-2.5 bg-[#DCFCE7] border-2 border-[#382414] cursor-pointer hover:translate-x-1 transition-transform">
-              <strong class="font-pixel text-[8px] text-[#166534] block">4. 👺 JUGADORES CASUALES (PIP EL DUENDECILLO)</strong>
-              <span>Contador de vidas Commander (4 jugadores) y 1v1, daño de comandante, veneno, D20 y botón rápido de comida.</span>
-            </div>
-            <div onclick="switchPwaTab('suerte')" class="p-2.5 bg-[#F3E8FF] border-2 border-[#382414] cursor-pointer hover:translate-x-1 transition-transform">
-              <strong class="font-pixel text-[8px] text-[#5B21B6] block">5. 🦉 LA SUERTE &amp; ORÁCULO (MADAME VESPERA)</strong>
-              <span>El <strong>Tarot del Planeswalker</strong> con lectura de fortuna para tus partidas de hoy, cupones sorpresa y apertura de sobres.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Marco Interactivo de la PWA (Nativo en Celular / Simulador en Desktop) -->
-      <div class="lg:col-span-7 flex justify-center w-full">
-        <div class="pwa-phone-shell mobile-native">
-          <!-- Top Bar de la App Móvil -->
-          <div class="bg-[#382414] text-[#FBF6EB] px-4 py-2.5 flex items-center justify-between border-b-2 border-[#F29F38]">
-            <div class="flex items-center gap-2">
-              <span class="font-pixel text-[9px] text-[#F29F38]">TOPDECK PWA</span>
-              <span class="bg-[#16A34A] text-white font-pixel text-[6px] px-1.5 py-0.5">EN LOCAL</span>
-            </div>
-            <div class="font-mono-code text-[10px] text-[#FBF6EB] flex items-center gap-2">
-              <span>📶 WiFi Taberna</span>
-              <span>🔋 98%</span>
-            </div>
-          </div>
-
-          <!-- Contenido Dinámico de la Sección Activa -->
-          <div id="pwaSectionViewport" class="flex-1 p-3.5 overflow-y-auto max-h-[640px] sm:max-h-[680px]"></div>
-
-          <!-- Barra de Navegación Inferior de 5 Mascotas -->
-          <nav id="pwaBottomNavBar" class="border-t-4 border-[#382414] flex bg-[#ECE0C8] sticky bottom-0 z-30"></nav>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- ========================================================================
-       MODAL 1: INSPECTOR 3D INTERACTIVO DE CARTA ("COMO SI LA TOCARAS")
-       ======================================================================== -->
-  <div id="cardInspector3DModal" class="fixed inset-0 z-50 bg-[#1E1208]/80 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div class="rpg-dialog max-w-5xl w-full my-auto overflow-hidden card-arrive-3d">
-      <!-- Botón Cerrar -->
-      <button onclick="close3DCardInspector()"
-        class="absolute top-3 right-3 z-40 w-9 h-9 bg-[#C84630] hover:bg-[#EF4444] text-white font-pixel text-xs border-2 border-[#382414] shadow-[2px_2px_0_#382414] flex items-center justify-center cursor-pointer">
-        ✕
-      </button>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12">
-        <!-- Columna Izquierda: Escenario 3D Táctil -->
-        <div class="lg:col-span-6 bg-[#ECE0C8] p-5 flex flex-col items-center justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-[#382414]">
-          <div class="w-full flex items-center justify-between">
-            <span class="font-pixel text-[8px] bg-[#382414] text-[#FBBF24] px-2 py-1">
-              🖐️ INSPECCIÓN FÍSICA 3D (FUERA DE LA FUNDA)
-            </span>
-            <span class="font-mono-code text-[11px] text-[#6B5443] font-bold">Grosor Oficial MTG</span>
-          </div>
-
-          <!-- Escenario 3D donde el usuario rota/toca la carta -->
-          <div id="interactive3DStage" class="stage-3d-perspective w-full py-6 flex items-center justify-center min-h-[410px]">
-            <div id="interactive3DCardMesh" class="card-mesh-3d foil-enabled">
-              <!-- Frente de la Carta -->
-              <div class="card-face-3d bg-black">
-                <img id="inspect3DFrontImg" src="" alt="MTG Card Front" class="w-full h-full object-cover pointer-events-none"
-                     onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuA0GZ-lIeBR_De8L8j2qYyxI3nteBfYQI7ak8Ev1d1faocLpOgPxc1H_XrX5fWnCzffd24h5HvTNJbBs06RO6WCCUAULEwWIsIYFi15x2XopqQHc-do6DF3d00AIBT28fQ7xaHsky0dg7lYpt4UzpGnDJTQYsed-UKlS5kkl2IKdRh2XUNpSxVJtLiNwVdR1ey4rZN4qkqJ60qLkOmiQG4ier1FlLKtuokaXTBHMUbIEreXeNaNMInueN0e5hN-zayVtw'"/>
-                <div class="card-foil-overlay"></div>
-              </div>
-              <!-- Reverso Oficial de la Carta -->
-              <div class="card-face-3d card-face-back-3d bg-[#120803]">
-                <img id="inspect3DBackImg" src="" alt="MTG Card Back" class="w-full h-full object-cover pointer-events-none"
-                     onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuA0GZ-lIeBR_De8L8j2qYyxI3nteBfYQI7ak8Ev1d1faocLpOgPxc1H_XrX5fWnCzffd24h5HvTNJbBs06RO6WCCUAULEwWIsIYFi15x2XopqQHc-do6DF3d00AIBT28fQ7xaHsky0dg7lYpt4UzpGnDJTQYsed-UKlS5kkl2IKdRh2XUNpSxVJtLiNwVdR1ey4rZN4qkqJ60qLkOmiQG4ier1FlLKtuokaXTBHMUbIEreXeNaNMInueN0e5hN-zayVtw'"/>
-              </div>
-            </div>
-          </div>
-
-          <!-- Controles 3D -->
-          <div class="w-full space-y-2">
-            <p class="text-center font-pixel text-[8px] text-[#5A4231]">
-              🕹️ MUEVE O ARRASTRA LA CARTA PARA SENTIR SU BRILLO Y RELIEVE 3D
-            </p>
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="flip3DCard()" class="pixel-btn bg-[#FFF9EE] hover:bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] py-2 font-bold">
-                🔄 VOLTEAR (REVERSO)
-              </button>
-              <button onclick="spin3DCard360()" class="pixel-btn bg-[#FFF9EE] hover:bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] py-2 font-bold">
-                🌀 GIRO 360°
-              </button>
-            </div>
-            <button id="toggleFoil3DBtn" onclick="toggleInspectFoil()"
-              class="pixel-btn bg-[#FBBF24] text-[#2B1810] font-pixel text-[9px] px-3 py-2 w-full font-bold">
-              ✨ ACABADO FOIL HOLOGRÁFICO: ACTIVO
-            </button>
-          </div>
-        </div>
-
-        <!-- Columna Derecha: Información Básica, Sinergia de Dexter y Compra -->
-        <div class="lg:col-span-6 p-5 sm:p-6 bg-[#FFF9EE] flex flex-col justify-between space-y-4">
-          <div class="space-y-3">
-            <!-- Expansión y Costo de Maná -->
-            <div class="border-b-2 border-[#382414] pb-3">
-              <div class="flex items-center justify-between gap-2 mb-1">
-                <span id="inspectCardSet" class="font-pixel text-[8px] text-[#B45309] font-bold uppercase"></span>
-                <span id="inspectCardMana" class="bg-[#382414] text-[#FBBF24] font-pixel text-[9px] px-2 py-0.5 border border-[#382414]"></span>
-              </div>
-              <h2 id="inspectCardName" class="font-pixel text-sm sm:text-base text-[#2B1810] font-bold leading-snug"></h2>
-              <p id="inspectCardType" class="font-mono-code text-xs text-[#6B5443] font-bold mt-1"></p>
-            </div>
-
-            <!-- Texto de Oráculo -->
-            <div class="bg-[#ECE0C8] border-2 border-[#382414] p-3 relative">
-              <span class="bg-[#F29F38] text-[#2B1810] font-pixel text-[7px] px-1.5 py-0.5 border border-[#382414] absolute -top-2 right-2 font-bold">
-                TEXTO DE ORÁCULO OFICIAL
-              </span>
-              <p id="inspectCardOracle" class="font-mono-code text-xs text-[#2B1810] whitespace-pre-line leading-relaxed"></p>
-            </div>
-
-            <!-- Nota de Sinergia de Dexter -->
-            <div class="bg-[#FEF3C7] border-2 border-[#D97706] p-2.5 flex items-start gap-2.5">
-              <span class="text-lg">🦊</span>
-              <div>
-                <span class="font-pixel text-[7px] text-[#92400E] font-bold block">ANÁLISIS DE SINERGIA DE DEXTER:</span>
-                <p id="inspectDexterTip" class="font-mono-code text-[11px] text-[#2B1810] leading-snug mt-0.5"></p>
-              </div>
-            </div>
-
-            <!-- Selector de Condición -->
-            <div>
-              <label class="font-pixel text-[8px] text-[#5A4231] block mb-1.5 font-bold">
-                SELECCIONA EL ESTADO FÍSICO (CONDITION):
-              </label>
-              <div class="grid grid-cols-3 gap-2">
-                <button id="condBtn-NM" onclick="setInspectCondition('NM')" class="pixel-btn bg-[#F29F38] text-[#2B1810] p-2 font-pixel text-[9px] font-bold text-center">
-                  NEAR MINT (NM)
-                </button>
-                <button id="condBtn-EX" onclick="setInspectCondition('EX')" class="pixel-btn bg-[#FFF9EE] text-[#5A4231] p-2 font-pixel text-[9px] text-center">
-                  EXCELLENT (-12%)
-                </button>
-                <button id="condBtn-LP" onclick="setInspectCondition('LP')" class="pixel-btn bg-[#FFF9EE] text-[#5A4231] p-2 font-pixel text-[9px] text-center">
-                  LIGHT PLAY (-25%)
-                </button>
-              </div>
-            </div>
-
-            <!-- Legalidad en Formatos -->
-            <div id="inspectLegalities" class="flex flex-wrap gap-1.5 pt-1"></div>
-          </div>
-
-          <!-- Precio y Botón de Meter a Mi Carpeta -->
-          <div class="pt-3 border-t-2 border-[#382414] flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <span id="inspectStockBadge" class="font-pixel text-[8px] text-[#16A34A] font-bold block">3 DISPONIBLES</span>
-              <div id="inspectPriceCop" class="font-pixel text-base sm:text-lg text-[#B45309] font-bold mt-0.5">$413.700 COP</div>
-              <div id="inspectPriceUsd" class="font-mono-code text-xs text-[#6B5443]">$98.50 USD</div>
-            </div>
-
-            <button onclick="addInspectedCardToBinderCart()"
-              class="pixel-btn bg-[#F29F38] hover:bg-[#FBBF24] text-[#2B1810] font-pixel text-[9px] px-4 py-3 flex items-center gap-2 font-bold">
-              <span>📖</span>
-              <span>METER EN MI CARPETA DE COMPRA</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========================================================================
-       MODAL 2: EL CARRITO "MI CARPETA PROPIA" & CHECKOUT ANIMADO (SLEEVE + CAJA + CAMIÓN)
-       ======================================================================== -->
-  <div id="personalBinderCartModal" class="fixed inset-0 z-50 bg-[#1E1208]/80 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div class="rpg-dialog max-w-4xl w-full my-auto p-4 sm:p-6 relative">
-      <button onclick="closePersonalBinderCart()"
-        class="absolute top-3 right-3 z-40 w-8 h-8 bg-[#C84630] text-white font-pixel text-xs border-2 border-[#382414] flex items-center justify-center cursor-pointer">
-        ✕
-      </button>
-
-      <!-- Vista 1: Mi Carpeta Personal de Compra + Pasarela -->
-      <div id="personalBinderCartContent" class="space-y-5">
-        <div class="border-b-2 border-[#382414] pb-3 flex flex-wrap items-center justify-between gap-2 pr-10">
           <div>
-            <span class="font-pixel text-[8px] bg-[#4A2B11] text-[#F29F38] px-2 py-0.5">CARRITO COLECCIONISTA PREMIUM</span>
-            <h2 class="font-pixel text-sm sm:text-base text-[#2B1810] font-bold mt-1">
-              📖 TU CARPETA PROPIA DE COMPRA
-            </h2>
+            <div class="flex items-center gap-1.5">
+              <span class="font-serif-tavern text-xl font-bold text-[#382414]">El Tabernero de TopDeck</span>
+              <span class="font-pixel text-[8px] bg-[#16A34A] text-white px-1.5 py-0.5">LOCAL EN VIVO</span>
+            </div>
+            <p class="text-xs text-[#805B3A] font-sans">Compañero interactivo de mesa para jugadores físicos en el local.</p>
           </div>
-          <span class="font-mono-code text-xs text-[#6B5443]">Cada carta incluye funda Dragon Shield + Empaque en Caja</span>
+        </div>
+        <div class="text-right">
+          <span class="font-pixel text-[9px] bg-[#382414] text-[#FBBF24] px-2 py-1 block">MESA #04</span>
+          <span class="text-[10px] text-[#16A34A] font-bold font-mono-code">CONECTADO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PWA Section Navigation Tabs (5 Secciones con Mascotas) -->
+    <div id="pwaBottomNavBar" class="grid grid-cols-5 gap-1 mb-4 bg-[#ECE0C8] p-1.5 border-2 border-[#382414] shadow-[3px_3px_0_#382414]">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Dynamic PWA Section Viewport -->
+    <div id="pwaSectionViewport" class="space-y-4">
+      <!-- Injected via JavaScript (Mesa, Coleccionista, Competitivo, Casual, Suerte) -->
+    </div>
+
+  </section>
+
+  <!-- ========================================================================
+       MODAL: INSPECTOR 3D DE CARTAS (RPG DIALOG & GROSOR FÍSICO MTG)
+       ======================================================================== -->
+  <div id="cardInspector3DModal" class="fixed inset-0 z-50 bg-[#2B1810]/75 backdrop-blur-sm items-center justify-center p-2 sm:p-4 overflow-y-auto hidden">
+    <div class="rpg-window max-w-4xl w-full relative overflow-hidden flex flex-col lg:flex-row my-auto border-4 border-[#382414] shadow-[8px_8px_0_#382414]">
+
+      <!-- Close Button -->
+      <button onclick="close3DCardInspector()"
+              class="absolute top-3 right-3 z-40 w-8 h-8 bg-[#C84630] hover:bg-[#DC2626] text-white font-bold text-sm border-2 border-[#382414] shadow-[2px_2px_0_#382414] flex items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5"
+              title="Cerrar ventana">
+        ✕
+      </button>
+
+      <!-- LEFT COLUMN: 3D CARD STAGE -->
+      <div class="w-full lg:w-1/2 bg-[#F4EAD4] p-4 sm:p-6 flex flex-col items-center justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-[#382414] relative">
+        <div class="w-full flex items-center justify-between mb-2 z-10">
+          <span class="font-pixel text-[8px] bg-[#382414] text-[#FBBF24] px-2 py-0.5">GROSOR FÍSICO MTG</span>
+          <span class="text-xs text-[#805B3A] font-bold font-sans">INSPECCIÓN HOLOGRÁFICA 3D</span>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-          <!-- Hoja de la Carpeta Propia del Usuario -->
-          <div class="lg:col-span-7 binder-leather p-3 rounded-sm">
-            <div class="binder-page p-3">
-              <div id="personalBinderCartGrid" class="grid grid-cols-3 gap-2.5"></div>
+        <!-- Interactive 3D Card Stage -->
+        <div id="interactive3DStage" class="stage-3d-perspective w-full flex-1 flex items-center justify-center min-h-[350px] py-4 cursor-grab active:cursor-grabbing">
+          <div id="interactive3DCardMesh" class="card-mesh-3d foil-enabled">
+            <!-- Frente de la Carta -->
+            <div class="card-face-3d bg-black">
+              <img id="inspect3DFrontImg" src="" alt="MTG Card Front" class="w-full h-full object-cover pointer-events-none"
+                   onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuA0GZ-lIeBR_De8L8j2qYyxI3nteBfYQI7ak8Ev1d1faocLpOgPxc1H_XrX5fWnCzffd24h5HvTNJbBs06RO6WCCUAULEwWIsIYFi15x2XopqQHc-do6DF3d00AIBT28fQ7xaHsky0dg7lYpt4UzpGnDJTQYsed-UKlS5kkl2IKdRh2XUNpSxVJtLiNwVdR1ey4rZN4qkqJ60qLkOmiQG4ier1FlLKtuokaXTBHMUbIEreXeNaNMInueN0e5hN-zayVtw'"/>
+              <div class="card-foil-overlay"></div>
+            </div>
+            <!-- Reverso Oficial MTG -->
+            <div class="card-face-3d card-face-back-3d bg-[#120803]">
+              <img id="inspect3DBackImg" src="" alt="MTG Card Back" class="w-full h-full object-cover pointer-events-none"
+                   onerror="this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuA0GZ-lIeBR_De8L8j2qYyxI3nteBfYQI7ak8Ev1d1faocLpOgPxc1H_XrX5fWnCzffd24h5HvTNJbBs06RO6WCCUAULEwWIsIYFi15x2XopqQHc-do6DF3d00AIBT28fQ7xaHsky0dg7lYpt4UzpGnDJTQYsed-UKlS5kkl2IKdRh2XUNpSxVJtLiNwVdR1ey4rZN4qkqJ60qLkOmiQG4ier1FlLKtuokaXTBHMUbIEreXeNaNMInueN0e5hN-zayVtw'"/>
             </div>
           </div>
+        </div>
 
-          <!-- Resumen y Pasarela de Pago -->
-          <div class="lg:col-span-5 space-y-4">
-            <div class="pixel-box bg-[#ECE0C8] p-3.5 space-y-2" id="personalBinderCartSummary"></div>
+        <!-- 3D Controls -->
+        <div class="w-full space-y-2 mt-2 z-10">
+          <p class="text-center text-xs text-[#6B5443] font-bold font-sans">
+            🕹️ Arrastra con el mouse o dedo para rotar 360°
+          </p>
+          <div class="flex gap-2">
+            <button onclick="flip3DCardInspector()" class="tavern-btn flex-1 bg-[#ECE0C8] hover:bg-[#FFF9EE] text-[#382414] py-1.5 text-xs font-bold">
+              🔄 VOLTEAR AL REVERSO
+            </button>
+            <button id="toggleFoil3DBtn" onclick="toggleFoilHoloSheen()" class="tavern-btn px-3 bg-[#FEF3C7] text-[#92400E] py-1.5 text-xs font-bold">
+              ✨ FOIL ON
+            </button>
+          </div>
+        </div>
+      </div>
 
-            <!-- Pasarela de Pago Colombiana -->
-            <div class="pixel-box bg-[#FFF9EE] p-3.5 space-y-2.5">
-              <label class="font-pixel text-[8px] text-[#382414] font-bold block">
-                💳 MÉTODO DE PAGO (PASARELA SEGURA TOPDECK):
-              </label>
-              <div class="grid grid-cols-2 gap-2 font-pixel text-[8px]">
-                <label class="flex items-center gap-1.5 bg-[#ECE0C8] p-2 border border-[#382414] cursor-pointer">
-                  <input type="radio" name="payMethod" checked class="text-[#D97706]"/>
-                  <span>📱 NEQUI / PSE</span>
-                </label>
-                <label class="flex items-center gap-1.5 bg-[#ECE0C8] p-2 border border-[#382414] cursor-pointer">
-                  <input type="radio" name="payMethod" class="text-[#D97706]"/>
-                  <span>💳 TARJETA CRÉD.</span>
-                </label>
-              </div>
-              <input type="text" value="Santiago Guerra — Envío Express"
-                class="w-full bg-[#ECE0C8] border-2 border-[#382414] px-2.5 py-1.5 font-mono-code text-xs text-[#2B1810]"/>
+      <!-- RIGHT COLUMN: STATS, RULES & CART ACTION -->
+      <div class="w-full lg:w-1/2 p-4 sm:p-6 flex flex-col justify-between bg-[#FFF9EE]">
+        <div>
+          <!-- Set & Title -->
+          <div class="border-b-2 border-[#382414] pb-3">
+            <div class="flex items-center justify-between mb-1">
+              <span id="inspectCardSet" class="font-mono-code text-xs text-[#B45309] font-bold uppercase tracking-wider">
+                EXPANSIÓN MTG
+              </span>
+              <div id="inspectCardMana" class="flex items-center gap-1"></div>
+            </div>
+            <h2 id="inspectCardName" class="font-serif-tavern text-2xl sm:text-3xl text-[#382414] font-bold leading-tight">
+              Nombre de la Carta
+            </h2>
+            <p id="inspectCardType" class="text-xs font-bold text-[#805B3A] mt-0.5 font-sans uppercase">
+              Tipo de Carta
+            </p>
+          </div>
 
-              <button id="startCheckoutAnimBtn" onclick="runCheckoutPackagingAnimation()"
-                class="w-full pixel-btn bg-[#16A34A] hover:bg-[#15803D] text-white font-pixel text-[9px] py-3 font-bold flex items-center justify-center gap-2">
-                <span>🛡️</span>
-                <span>PAGAR Y ENFUNDAR MIS CARTAS ▶</span>
+          <!-- Oracle Rules Box -->
+          <div class="my-3 bg-[#EFE2C8] border-2 border-[#382414] p-3 relative shadow-[2px_2px_0_#382414]">
+            <span class="bg-[#F29F38] text-[#2B1810] font-pixel text-[7px] px-1.5 py-0.5 border border-[#382414] absolute -top-2 right-3 font-bold">
+              ORACLE RULES
+            </span>
+            <p id="inspectCardOracle" class="font-mono-code text-xs text-[#2B1810] leading-relaxed max-h-32 overflow-y-auto pr-1">
+              Texto de reglas de la carta...
+            </p>
+          </div>
+
+          <!-- Legalities & Dexter Tip -->
+          <div id="inspectLegalities" class="flex flex-wrap gap-1.5 mb-3"></div>
+
+          <!-- Condition Selector (NM, LP, MP) -->
+          <div class="mb-3">
+            <label class="block text-xs font-bold text-[#805B3A] uppercase tracking-wider mb-1 font-sans">
+              Condición Física en Bóveda:
+            </label>
+            <div class="flex gap-2">
+              <button id="condBtn-NM" onclick="setInspectCondition('NM')"
+                class="tavern-btn flex-1 py-1.5 text-xs bg-[#F29F38] text-[#2B1810] font-bold">
+                NM (Near Mint)
+              </button>
+              <button id="condBtn-LP" onclick="setInspectCondition('LP')"
+                class="tavern-btn flex-1 py-1.5 text-xs bg-[#ECE0C8] text-[#382414] font-bold">
+                LP (Lightly Played)
+              </button>
+              <button id="condBtn-MP" onclick="setInspectCondition('MP')"
+                class="tavern-btn flex-1 py-1.5 text-xs bg-[#ECE0C8] text-[#382414] font-bold">
+                MP (Played)
               </button>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Vista 2: Escenario Cinematográfico de Empaque (Sleeve -> Deckbox -> Camión) -->
-      <div id="checkoutAnimationStage" class="hidden py-6 space-y-4 text-center">
-        <div class="max-w-lg mx-auto space-y-2">
-          <span class="font-pixel text-[8px] bg-[#F29F38] text-[#2B1810] px-2 py-1 border border-[#382414] font-bold">
-            RITUAL DE DESPACHO TOPDECK VAULT
-          </span>
-          <h3 id="checkoutAnimStepTitle" class="font-pixel text-xs sm:text-sm text-[#2B1810] font-bold pt-1"></h3>
-          <p id="checkoutAnimStepDesc" class="font-mono-code text-xs text-[#6B5443]"></p>
-          <!-- Barra de Progreso -->
-          <div class="w-full h-3 bg-[#ECE0C8] border-2 border-[#382414] overflow-hidden">
-            <div id="checkoutAnimProgressBar" class="h-full bg-[#16A34A] transition-all duration-500" style="width: 33%"></div>
+        <!-- Pricing & Action Button -->
+        <div class="pt-3 border-t-2 border-[#382414] mt-2">
+          <div class="flex items-end justify-between mb-3">
+            <div>
+              <span class="text-[10px] font-bold text-[#805B3A] uppercase font-sans">Precio de Mercado:</span>
+              <div id="inspectPriceUsd" class="font-mono-code text-xl sm:text-2xl font-bold text-[#B45309]">$0.00 USD</div>
+            </div>
+            <div class="text-right">
+              <span id="inspectStockBadge" class="font-pixel text-[8px] bg-[#DCFCE7] text-[#166534] px-1.5 py-0.5 border border-[#166534]">
+                EN BÓVEDA
+              </span>
+              <div id="inspectPriceCop" class="text-xs font-mono-code font-bold text-[#382414] mt-1">$0 COP</div>
+            </div>
           </div>
+
+          <button onclick="addInspectedCardToCart()"
+            class="tavern-btn w-full bg-[#F29F38] hover:bg-[#D47E19] text-[#2B1810] py-3 text-sm font-bold flex items-center justify-center gap-2 shadow-[3px_3px_0_#382414]">
+            <span>🎒</span>
+            <span>AÑADIR A MI BARAJA / COMPRAR</span>
+          </button>
         </div>
 
-        <!-- Lienzo de Animación -->
-        <div id="checkoutAnimVisualCanvas" class="min-h-[270px] flex items-center justify-center"></div>
       </div>
     </div>
   </div>
 
-  <!-- ================= FOOTER CON ACCESO A PROTOTIPOS BASE ================= -->
-  <footer class="bg-[#ECE0C8] border-t-4 border-[#382414] mt-12 py-6 px-4 sm:px-8">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <span class="font-pixel text-xs text-[#382414] font-bold">🃏 TOP DECK TCG — DEMO METALEVEL</span>
-        <span class="font-mono-code text-xs text-[#6B5443]">• Magic: The Gathering Edition</span>
+  <!-- ========================================================================
+       MODAL: MI BARAJA & CHECKOUT ANIMADO (ENFUNDADO + DECKBOX + CAMIÓN)
+       ======================================================================== -->
+  <div id="personalBinderCartModal" class="fixed inset-0 z-50 bg-[#2B1810]/75 backdrop-blur-sm items-center justify-center p-3 sm:p-4 overflow-y-auto hidden">
+    <div class="rpg-window max-w-3xl w-full relative overflow-hidden my-auto border-4 border-[#382414] shadow-[8px_8px_0_#382414]">
+
+      <!-- Header Cart -->
+      <div class="bg-[#ECE0C8] border-b-3 border-[#382414] p-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl">🎒</span>
+          <div>
+            <h3 class="font-serif-tavern text-xl font-bold text-[#382414]">Mi Carpeta de Baraja</h3>
+            <span class="text-xs text-[#805B3A] font-sans">Cartas seleccionadas listas para enfundar y despachar</span>
+          </div>
+        </div>
+        <button onclick="closePersonalBinderCart()"
+                class="w-8 h-8 bg-[#C84630] text-white font-bold border-2 border-[#382414] flex items-center justify-center cursor-pointer">
+          ✕
+        </button>
       </div>
-      <div class="flex flex-wrap items-center gap-3 font-pixel text-[8px]">
-        <span class="text-[#6B5443]">PROTOTIPOS ESTÁTICOS BASE:</span>
-        <a href="./top_deck_landing_page_retro_tcg_vault_caqui_carpetas_con_pesta_as/code.html" class="underline text-[#92400E] hover:text-[#382414]">01. LANDING</a>
-        <a href="./top_deck_edici_n_retro_pixelcraft_caqui_beige/code.html" class="underline text-[#92400E] hover:text-[#382414]">02. BÓVEDA</a>
-        <a href="./top_deck_perfil_de_jugador_mazos_de_torneo/code.html" class="underline text-[#92400E] hover:text-[#382414]">03. PERFIL</a>
+
+      <!-- Content View -->
+      <div id="personalBinderCartContent" class="p-4 sm:p-6 bg-[#FFF9EE]">
+        <div id="personalBinderCartGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-72 overflow-y-auto p-1">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <div id="personalBinderCartSummary" class="mt-4 pt-4 border-t-2 border-[#382414] flex flex-wrap items-center justify-between gap-3">
+          <!-- Total and Checkout button -->
+        </div>
+      </div>
+
+      <!-- Animated Packaging Stage (Sleeve -> Deckbox -> Truck) -->
+      <div id="checkoutAnimationStage" class="p-4 sm:p-6 bg-[#FDFBF7] hidden">
+        <div class="text-center mb-3">
+          <div class="w-full bg-[#ECE0C8] border-2 border-[#382414] h-3.5 p-0.5 mb-2">
+            <div id="checkoutAnimProgressBar" class="bg-[#F29F38] h-full transition-all duration-500" style="width: 25%"></div>
+          </div>
+          <h4 id="checkoutAnimStepTitle" class="font-serif-tavern text-xl font-bold text-[#382414]">PASO 1/3: ENFUNDANDO EN DRAGON SHIELD...</h4>
+          <p id="checkoutAnimStepDesc" class="text-xs text-[#6B5443] font-sans mt-0.5">Protegiendo tus cartas con fundas de torneo oficiales de la taberna.</p>
+        </div>
+
+        <div id="checkoutAnimVisualCanvas" class="min-h-[220px] bg-[#ECE0C8] border-2 border-[#382414] flex items-center justify-center p-4 relative overflow-hidden">
+          <!-- Injected via JavaScript Animation -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="tavernToastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ========================================================================
+       FOOTER (TAVERN SANCTUARY & ORIGINAL STITCH PROTOTYPE LINKS)
+       ======================================================================== -->
+  <footer class="bg-[#ECE0C8] border-t-4 border-[#382414] py-8 px-4 md:px-8 mt-12 text-[#5A4231]">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-[#F4EAD4] border-2 border-[#382414] p-1 flex items-center justify-center">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkdiEWUQPno7swEO78yHJsjV-wHx785OBu8xuLnW68dUO7se10TJRqjjm_rcWahKqi87PRJRGe3Cj_Mz94DbTwGvOCZjGm-CnSdDUZzyXOqs3rru8lsTCJvBhFY4nbaXlScCZ8q7GvHfaTefRHF2KB-OGL0Ryd64onx0sD85oloI8521RCEK8u_dfENe3UePDRHoT-89_aBK3EZtUgjTlSQ0Kq_gqmEAIBizOnrDKT7JrbcxiPobCPijGpgNOIOZpyQ"
+               alt="TopDeck Emblem" class="w-full h-full object-contain">
+        </div>
+        <div>
+          <div class="font-serif-tavern text-lg font-bold text-[#382414]">Top Deck TCG — Bóveda &amp; Taberna</div>
+          <div class="text-xs font-sans text-[#805B3A]">Demo interactiva desarrollada por MetaLevel • Magic: The Gathering Edition</div>
+        </div>
+      </div>
+
+      <!-- Links to original Stitch base prototypes -->
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono-code">
+        <span class="text-[#805B3A] font-bold">PROTOTIPOS BASE:</span>
+        <a href="./top_deck_landing_page_retro_tcg_vault_caqui_carpetas_con_pesta_as/code.html" class="underline hover:text-[#382414]">01. Landing</a>
+        <span>•</span>
+        <a href="./top_deck_edici_n_retro_pixelcraft_caqui_beige/code.html" class="underline hover:text-[#382414]">02. Bóveda 3D</a>
+        <span>•</span>
+        <a href="./top_deck_perfil_de_jugador_mazos_de_torneo/code.html" class="underline hover:text-[#382414]">03. Perfil &amp; Mazos</a>
+        <span>•</span>
+        <a href="./top_deck_archival_collector/DESIGN.md" class="underline hover:text-[#382414]">DESIGN.md</a>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts de Datos y Lógica -->
-  <script src="./js/data.js"></script>
-  <script src="./js/app.js"></script>
-
-  <!-- RETRO PIXEL CURSOR (Image 3 / Pixelcraft style) -->
-  <div id="custom-cursor-container">
-    <div id="custom-cursor-box"></div>
-  </div>
-
-  <script>
-    (function initCustomCursor() {
-      const isTouch = window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window || navigator.maxTouchPoints > 0;
-      if (isTouch) return;
-
-      document.documentElement.classList.add("custom-cursor-active");
-
-      const cursorContainer = document.getElementById("custom-cursor-container");
-      if (!cursorContainer) return;
-
-      window.addEventListener("mousemove", (e) => {
-        cursorContainer.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-      }, { passive: true });
-
-      const interactiveSelector = "a, button, [role='button'], input, select, textarea, .pixel-btn, .binder-slot, .tarot-card";
-
-      document.addEventListener("mouseover", (e) => {
-        if (e.target && e.target.closest(interactiveSelector)) {
-          cursorContainer.classList.add("hovered");
-        }
-      }, { passive: true });
-
-      document.addEventListener("mouseout", (e) => {
-        if (e.target && e.target.closest(interactiveSelector)) {
-          cursorContainer.classList.remove("hovered");
-        }
-      }, { passive: true });
-
-      document.addEventListener("mousedown", () => {
-        cursorContainer.classList.add("clicking");
-      });
-
-      document.addEventListener("mouseup", () => {
-        cursorContainer.classList.remove("clicking");
-      });
-    })();
-  </script>
+  <!-- Application Logic -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

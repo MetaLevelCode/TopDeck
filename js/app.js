@@ -81,10 +81,10 @@
     const container = document.getElementById("tavernToastContainer");
     if (!container) return;
     const toast = document.createElement("div");
-    toast.className = "pixel-box bg-[#382414] text-[#FBF6EB] px-4 py-3 flex items-center gap-3 shadow-lg transform transition-all duration-300 translate-y-2 opacity-0 max-w-sm";
+    toast.className = "tavern-box bg-[#382414] text-[#FBF6EB] px-4 py-3 flex items-center gap-3 shadow-[4px_4px_0_#1E0F07] transform transition-all duration-300 translate-y-2 opacity-0 max-w-sm rounded-sm";
     toast.innerHTML = `
       <span class="text-xl">${icon}</span>
-      <div class="font-mono-code text-xs leading-snug text-[#FBF6EB]">${msg}</div>
+      <div class="font-sans text-xs font-semibold leading-snug text-[#FBF6EB]">${msg}</div>
     `;
     container.appendChild(toast);
     requestAnimationFrame(() => {
@@ -109,13 +109,13 @@
     if (mode === "web") {
       webView.classList.remove("hidden");
       pwaView.classList.add("hidden");
-      btnWeb.className = "pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[10px] px-3 sm:px-4 py-2 flex items-center gap-2 font-bold";
-      btnPwa.className = "pixel-btn bg-[#ECE0C8] hover:bg-[#FBF6EB] text-[#5A4231] font-pixel text-[10px] px-3 sm:px-4 py-2 flex items-center gap-2";
+      btnWeb.className = "tavern-btn bg-[#F29F38] text-[#2B1810] text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2 font-bold shadow-[2px_2px_0_#382414]";
+      btnPwa.className = "tavern-btn bg-[#FFF9EE] hover:bg-[#F4EAD4] text-[#5A4231] text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2 font-bold";
     } else {
       webView.classList.add("hidden");
       pwaView.classList.remove("hidden");
-      btnPwa.className = "pixel-btn bg-[#16A34A] text-white font-pixel text-[10px] px-3 sm:px-4 py-2 flex items-center gap-2 font-bold";
-      btnWeb.className = "pixel-btn bg-[#ECE0C8] hover:bg-[#FBF6EB] text-[#5A4231] font-pixel text-[10px] px-3 sm:px-4 py-2 flex items-center gap-2";
+      btnPwa.className = "tavern-btn bg-[#16A34A] text-white text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2 font-bold shadow-[2px_2px_0_#382414]";
+      btnWeb.className = "tavern-btn bg-[#FFF9EE] hover:bg-[#F4EAD4] text-[#5A4231] text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2 font-bold";
       renderPwaCurrentSection();
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -343,9 +343,9 @@
     container.innerHTML = DATA.synergies.map(s => {
       const isActive = state.activeSynergy === s.id;
       return `
-        <button onclick="selectSynergy('${s.id}')" class="pixel-btn px-3 py-1.5 font-pixel text-[9px] flex items-center gap-1.5 transition-all ${
+        <button onclick="selectSynergy('${s.id}')" class="tavern-btn px-2.5 py-1 text-xs font-sans font-bold flex items-center gap-1.5 transition-all rounded-sm ${
           isActive
-            ? "bg-[#F29F38] text-[#2B1810] font-bold scale-105"
+            ? "bg-[#F29F38] text-[#2B1810] shadow-[2px_2px_0_#382414]"
             : "bg-[#FFF9EE] hover:bg-[#ECE0C8] text-[#5A4231]"
         }">
           <span>${s.label}</span>
@@ -370,7 +370,7 @@
       return `
         <button onclick="toggleManaColor('${c.code}')" title="${c.label}"
           style="background-color:${c.bg}; color:${c.text};"
-          class="w-7 h-7 font-pixel text-[10px] font-bold flex items-center justify-center transition-transform ${
+          class="w-7 h-7 font-mono-code text-xs font-bold flex items-center justify-center transition-transform rounded-sm ${
             active
               ? "border-2 border-[#F29F38] ring-2 ring-[#382414] scale-110 shadow-[2px_2px_0_#382414]"
               : "border-2 border-[#382414] opacity-80 hover:opacity-100"
@@ -401,7 +401,7 @@
       pageIndicator.textContent = `PÁG 0${state.binderPage} / 0${totalPages}`;
     }
     if (countLabel) {
-      countLabel.textContent = `${state.filteredCards.length} CARTAS EN CARPETA`;
+      countLabel.textContent = `${state.filteredCards.length} CARTAS EN BÓVEDA`;
     }
 
     // Always render 9 pockets so it looks like a real physical 9-pocket binder sheet!
@@ -421,19 +421,19 @@
               ${card.isFoil ? `<span class="absolute top-1.5 left-1.5 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[7px] px-1.5 py-0.5 border border-[#FBBF24]">✨ FOIL</span>` : ""}
               <span class="absolute top-1.5 right-1.5 ${rarityColor} font-pixel text-[7px] px-1.5 py-0.5 border border-[#382414] font-bold">${rarityBadge}</span>
               <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-2 pt-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span class="bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] px-2 py-1 border border-[#382414] shadow-[2px_2px_0_#000]">
-                  🖐️ SACAR E INSPECCIONAR 3D
+                <span class="bg-[#F29F38] text-[#2B1810] font-sans font-bold text-xs px-2.5 py-1 border border-[#382414] shadow-[2px_2px_0_#000]">
+                  🖐️ Sacar e Inspeccionar 3D
                 </span>
               </div>
             </div>
             <div class="mt-2 px-1 z-20">
               <div class="flex items-center justify-between gap-1">
-                <span class="font-pixel text-[9px] text-[#2B1810] truncate font-bold" title="${card.name}">${card.name}</span>
-                <span class="font-pixel text-[9px] text-[#B45309] font-bold shrink-0">$${card.priceUsd.toFixed(2)}</span>
+                <span class="font-sans text-xs text-[#2B1810] truncate font-bold" title="${card.name}">${card.name}</span>
+                <span class="font-mono-code text-xs text-[#B45309] font-bold shrink-0">$${card.priceUsd.toFixed(2)}</span>
               </div>
-              <div class="flex items-center justify-between text-[10px] font-mono-code text-[#6B5443] mt-0.5">
+              <div class="flex items-center justify-between text-[11px] font-sans text-[#6B5443] mt-0.5">
                 <span>${card.set} #${card.collector_number} • <strong class="text-[#16A34A]">${card.condition}</strong></span>
-                <span class="font-bold text-[#382414]">${formatCop(card.priceCop)}</span>
+                <span class="font-bold text-[#382414] font-mono-code">${formatCop(card.priceCop)}</span>
               </div>
             </div>
           </div>
@@ -443,8 +443,8 @@
         pocketsHtml += `
           <div class="binder-pocket rounded-sm flex flex-col items-center justify-center aspect-[63/88] opacity-55">
             <div class="text-center p-4">
-              <div class="font-pixel text-xs text-[#8C6D46] mb-1">BOLSILLO VACÍO</div>
-              <div class="font-mono-code text-[10px] text-[#8C6D46]">ULTRA•PRO 9-POCKET</div>
+              <div class="font-serif-tavern text-base text-[#8C6D46] font-bold mb-0.5">Bolsillo Vacío</div>
+              <div class="font-mono-code text-[10px] text-[#8C6D46]">ULTRA•PRO 9-POCKET ARCHIVAL</div>
             </div>
           </div>
         `;
@@ -559,13 +559,13 @@
     if (copEl) copEl.textContent = formatCop(price.cop);
 
     // Condition buttons
-    ["NM", "EX", "LP"].forEach(cond => {
+    ["NM", "LP", "MP"].forEach(cond => {
       const btn = document.getElementById(`condBtn-${cond}`);
       if (btn) {
         if (state.inspectCondition === cond) {
-          btn.className = "pixel-btn bg-[#F29F38] text-[#2B1810] p-2 font-pixel text-[9px] font-bold text-center";
+          btn.className = "tavern-btn flex-1 py-1.5 text-xs bg-[#F29F38] text-[#2B1810] font-bold text-center";
         } else {
-          btn.className = "pixel-btn bg-[#FFF9EE] text-[#5A4231] p-2 font-pixel text-[9px] text-center";
+          btn.className = "tavern-btn flex-1 py-1.5 text-xs bg-[#ECE0C8] text-[#382414] font-bold text-center";
         }
       }
     });
@@ -574,11 +574,11 @@
     const foilBtn = document.getElementById("toggleFoil3DBtn");
     if (foilBtn) {
       foilBtn.innerHTML = state.inspectFoil
-        ? `<span>✨ ACABADO FOIL HOLOGRÁFICO: ACTIVO</span>`
-        : `<span>🃏 ACABADO: NORMAL (ACTIVAR FOIL)</span>`;
+        ? `<span>✨ FOIL ON</span>`
+        : `<span>🃏 FOIL OFF</span>`;
       foilBtn.className = state.inspectFoil
-        ? "pixel-btn bg-[#FBBF24] text-[#2B1810] font-pixel text-[9px] px-3 py-2 w-full font-bold"
-        : "pixel-btn bg-[#ECE0C8] text-[#2B1810] font-pixel text-[9px] px-3 py-2 w-full";
+        ? "tavern-btn px-3 bg-[#FBBF24] text-[#2B1810] py-1.5 text-xs font-bold"
+        : "tavern-btn px-3 bg-[#ECE0C8] text-[#5A4231] py-1.5 text-xs font-bold";
     }
   }
 
@@ -768,7 +768,7 @@
         html += `
           <div class="binder-pocket rounded-sm p-2 flex flex-col justify-between bg-[#FBF6EB] relative">
             <button onclick="removeFromBinderCart(${i})" title="Sacar de mi carpeta"
-              class="absolute top-1.5 right-1.5 z-30 w-6 h-6 bg-[#C84630] text-white font-pixel text-[9px] border border-[#382414] flex items-center justify-center cursor-pointer">
+              class="absolute top-1.5 right-1.5 z-30 w-6 h-6 bg-[#C84630] text-white font-bold text-xs border border-[#382414] flex items-center justify-center cursor-pointer">
               ✕
             </button>
             <div class="aspect-[63/88] bg-black border border-[#382414] overflow-hidden relative">
@@ -777,10 +777,10 @@
               ${item.selectedFoil ? `<span class="absolute bottom-1 left-1 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[7px] px-1">FOIL</span>` : ""}
             </div>
             <div class="mt-1.5 z-20">
-              <div class="font-pixel text-[8px] text-[#2B1810] truncate font-bold">${item.name}</div>
+              <div class="font-sans text-xs text-[#2B1810] truncate font-bold">${item.name}</div>
               <div class="flex justify-between items-center mt-0.5">
-                <span class="font-mono-code text-[10px] font-bold text-[#16A34A]">${item.selectedCondition}</span>
-                <span class="font-pixel text-[8px] text-[#B45309] font-bold">${formatCop(item.finalPriceCop)}</span>
+                <span class="font-mono-code text-[11px] font-bold text-[#16A34A]">${item.selectedCondition}</span>
+                <span class="font-mono-code text-xs text-[#B45309] font-bold">${formatCop(item.finalPriceCop)}</span>
               </div>
             </div>
           </div>
@@ -789,7 +789,7 @@
         html += `
           <div class="binder-pocket rounded-sm p-2 flex flex-col items-center justify-center aspect-[63/88] opacity-50">
             <span class="text-xl mb-1">🃏</span>
-            <span class="font-pixel text-[7px] text-[#6B5443] text-center">ESPACIO EN TU CARPETA</span>
+            <span class="font-sans text-xs text-[#6B5443] text-center font-semibold">Bolsillo Libre</span>
           </div>
         `;
       }
@@ -800,29 +800,34 @@
     const totalUsd = state.cart.reduce((s, c) => s + c.finalPriceUsd, 0);
     if (summaryEl) {
       summaryEl.innerHTML = `
-        <div class="flex justify-between text-xs font-mono-code">
-          <span>Cartas en tu carpeta:</span>
-          <strong class="font-pixel text-[10px]">${state.cart.length} Singles MTG</strong>
-        </div>
-        <div class="flex justify-between text-xs font-mono-code">
-          <span>Fundas Dragon Shield de cortesía:</span>
-          <strong class="text-[#16A34A]">¡GRATIS! ($0)</strong>
-        </div>
-        <div class="flex justify-between text-xs font-mono-code">
-          <span>Caja protectora TopDeck Vault:</span>
-          <strong class="text-[#16A34A]">INCLUIDA</strong>
-        </div>
-        <div class="border-t-2 border-[#382414] pt-2 mt-2 flex justify-between items-baseline">
-          <span class="font-pixel text-[10px] text-[#2B1810]">TOTAL ORDEN:</span>
-          <div class="text-right">
-            <div class="font-pixel text-sm text-[#B45309] font-bold">${formatCop(totalCop)}</div>
-            <div class="font-mono-code text-[10px] text-[#6B5443]">(${formatUsd(totalUsd)})</div>
+        <div class="space-y-1.5 w-full">
+          <div class="flex justify-between text-xs font-sans text-[#5C3D24]">
+            <span>Cartas seleccionadas:</span>
+            <strong class="font-mono-code text-[#382414]">${state.cart.length} Singles MTG</strong>
+          </div>
+          <div class="flex justify-between text-xs font-sans text-[#5C3D24]">
+            <span>Fundas Dragon Shield de cortesía:</span>
+            <strong class="text-[#16A34A] font-bold">¡GRATIS! ($0)</strong>
+          </div>
+          <div class="flex justify-between text-xs font-sans text-[#5C3D24]">
+            <span>Cofre de Bóveda TopDeck:</span>
+            <strong class="text-[#16A34A] font-bold">INCLUIDO</strong>
+          </div>
+          <div class="border-t-2 border-[#382414] pt-3 mt-3 flex flex-wrap justify-between items-center gap-3">
+            <div>
+              <span class="text-xs font-bold text-[#805B3A] font-sans block">TOTAL ORDEN:</span>
+              <div class="font-mono-code text-xl text-[#B45309] font-bold">${formatCop(totalCop)}</div>
+              <div class="font-mono-code text-xs text-[#6B5443]">(${formatUsd(totalUsd)})</div>
+            </div>
+            <button id="startCheckoutAnimBtn" onclick="runCheckoutPackagingAnimation()"
+              ${state.cart.length === 0 ? "disabled" : ""}
+              class="tavern-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#2B1810] px-5 py-2.5 text-sm font-bold flex items-center gap-2 shadow-[3px_3px_0_#382414] disabled:opacity-50 disabled:cursor-not-allowed">
+              <span>✨</span>
+              <span>PAGAR Y EMPACAR PEDIDO</span>
+            </button>
           </div>
         </div>
       `;
-    }
-    if (payBtn) {
-      payBtn.disabled = state.cart.length === 0;
     }
   }
 
@@ -933,11 +938,11 @@
           </div>
           <!-- Confirmation Ticket -->
           <div class="mt-4 bg-[#DCFCE7] border-2 border-[#166534] p-3 w-full max-w-md text-center shadow-[3px_3px_0_#166534]">
-            <div class="font-pixel text-[10px] text-[#166534] font-bold">✅ ¡PAGO APROBADO Y CARPETA DESPACHADA!</div>
+            <div class="font-sans text-xs text-[#166534] font-bold">✅ ¡PAGO APROBADO Y CARPETA DESPACHADA!</div>
             <div class="font-mono-code text-xs text-[#2B1810] mt-1">
               Guía de Rastreo: <strong>${guideCode}</strong> • Empaque: <strong>Sleeve + Deckbox</strong>
             </div>
-            <button onclick="finishCheckoutOrder()" class="mt-3 pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[9px] px-4 py-2 font-bold">
+            <button onclick="finishCheckoutOrder()" class="mt-3 tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-4 py-2 font-bold shadow-[2px_2px_0_#382414]">
               VOLVER A LA BÓVEDA
             </button>
           </div>
@@ -966,11 +971,11 @@
 
   function renderPwaNavButtons() {
     const tabs = [
-      { id: "mesa", label: "1. Mesa", icon: "🍺", mascot: "Barnaby", color: "#B45309" },
-      { id: "coleccion", label: "2. Pulgas", icon: "🦊", mascot: "Dexter", color: "#D97706" },
-      { id: "competitivo", label: "3. Torneo", icon: "🦁", mascot: "Vulkan", color: "#DC2626" },
-      { id: "casual", label: "4. Casual", icon: "👺", mascot: "Pip", color: "#16A34A" },
-      { id: "suerte", label: "5. Suerte", icon: "🦉", mascot: "Vespera", color: "#7C3AED" }
+      { id: "mesa", label: "Mesa", icon: "🍺", mascot: "Barnaby" },
+      { id: "coleccion", label: "Pulgas", icon: "🦊", mascot: "Dexter" },
+      { id: "competitivo", label: "Torneo", icon: "🦁", mascot: "Vulkan" },
+      { id: "casual", label: "Casual", icon: "👺", mascot: "Pip" },
+      { id: "suerte", label: "Suerte", icon: "🦉", mascot: "Vespera" }
     ];
 
     const navBar = document.getElementById("pwaBottomNavBar");
@@ -980,11 +985,11 @@
       return `
         <button onclick="switchPwaTab('${t.id}')"
           class="flex-1 py-2 px-1 flex flex-col items-center justify-center transition-all border-r last:border-r-0 border-[#382414] cursor-pointer ${
-            active ? "bg-[#382414] text-[#FBBF24] -translate-y-1 shadow-[0_4px_0_#382414]" : "bg-[#ECE0C8] text-[#382414] hover:bg-[#FBF6EB]"
+            active ? "bg-[#382414] text-[#FBBF24] -translate-y-0.5 shadow-[0_2px_0_#382414]" : "bg-[#ECE0C8] text-[#382414] hover:bg-[#FBF6EB]"
           }">
           <span class="text-base leading-none">${t.icon}</span>
-          <span class="font-pixel text-[7px] mt-1 tracking-tighter">${t.label}</span>
-          <span class="font-mono-code text-[8px] opacity-75">${t.mascot}</span>
+          <span class="font-sans font-bold text-xs mt-0.5 tracking-tight">${t.label}</span>
+          <span class="text-[10px] font-sans opacity-75">${t.mascot}</span>
         </button>
       `;
     }).join("");
@@ -993,18 +998,23 @@
   function renderMascotHeaderBanner(mascotKey, customSubtitle = null) {
     const m = DATA.mascots[mascotKey];
     return `
-      <div class="pixel-box p-3 mb-4 flex items-center gap-3" style="background-color: ${m.bgAccent}; border-color: #382414;">
-        <div class="w-14 h-14 shrink-0 border-2 border-[#382414] shadow-[2px_2px_0_#382414] overflow-hidden bg-[#382414]">
-          ${m.avatarSvg}
+      <div class="tavern-box p-3.5 mb-4 flex items-center gap-3.5 bg-[#FFF9EE] border-3 border-[#382414] shadow-[4px_4px_0_#382414] rounded-sm">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 shrink-0 border-2 border-[#382414] shadow-[2px_2px_0_#382414] overflow-hidden bg-[#4A2B11] p-0.5 flex items-center justify-center">
+          ${mascotKey === "dexter"
+            ? `<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw" class="w-full h-full object-cover"/>`
+            : `<div class="text-3xl">${m.emoji}</div>`
+          }
         </div>
         <div class="flex-1 min-w-0">
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <span class="font-pixel text-[9px] px-1.5 py-0.5 text-white border border-[#382414]" style="background-color: ${m.badgeColor}">
-              ${m.emoji} ${m.name}
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-serif-tavern text-lg sm:text-xl text-[#382414] font-bold">
+              ${m.name}
             </span>
-            <span class="font-pixel text-[8px] text-[#382414] truncate">${m.title}</span>
+            <span class="text-xs font-bold text-[#805B3A] font-sans">
+              • ${m.title}
+            </span>
           </div>
-          <p class="font-mono-code text-[11px] text-[#2B1810] mt-1 leading-snug">
+          <p class="text-xs text-[#5C3D24] mt-1 font-sans leading-relaxed italic">
             "${customSubtitle || m.greeting}"
           </p>
         </div>
@@ -1039,60 +1049,60 @@
       ${renderMascotHeaderBanner("barnaby")}
 
       <!-- Selector de Código de Mesa -->
-      <div class="pixel-box bg-[#FFF9EE] p-3 mb-4">
+      <div class="tavern-box bg-[#FFF9EE] p-3.5 mb-4 rounded-sm">
         <div class="flex items-center justify-between mb-2">
-          <label class="font-pixel text-[9px] text-[#92400E] font-bold">📍 CÓDIGO DE TU MESA EN EL LOCAL:</label>
-          <span class="bg-[#DCFCE7] text-[#166534] font-pixel text-[7px] px-1.5 py-0.5 border border-[#166534]">CONECTADO</span>
+          <label class="font-sans text-xs text-[#92400E] font-bold uppercase tracking-wider">📍 Código de tu Mesa en la Taberna:</label>
+          <span class="bg-[#DCFCE7] text-[#166534] font-mono-code text-[11px] font-bold px-2 py-0.5 border border-[#166534]">CONECTADO</span>
         </div>
         <div class="flex gap-2">
-          <select onchange="updateTableCode(this.value)" class="flex-1 bg-[#ECE0C8] border-2 border-[#382414] font-pixel text-[9px] text-[#2B1810] px-2 py-2 font-bold">
+          <select onchange="updateTableCode(this.value)" class="flex-1 bg-[#ECE0C8] border-2 border-[#382414] font-sans text-xs text-[#2B1810] px-3 py-2 font-bold focus:outline-none">
             ${DATA.tavernTables.map(t => `
               <option value="${t.code}" ${state.tableCode === t.code ? "selected" : ""}>
                 ${t.code} — ${t.zone}
               </option>
             `).join("")}
           </select>
-          <button onclick="simulateQrTableScan()" class="pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] px-2.5 py-2 shrink-0 font-bold">
+          <button onclick="simulateQrTableScan()" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3 py-2 shrink-0 font-bold">
             📷 QR MESA
           </button>
         </div>
       </div>
 
       ${state.activeTableOrder ? `
-        <div class="pixel-box bg-[#DCFCE7] border-[#166534] p-3 mb-4">
+        <div class="tavern-box bg-[#DCFCE7] border-[#166534] p-3.5 mb-4 rounded-sm">
           <div class="flex items-center justify-between">
-            <span class="font-pixel text-[9px] text-[#166534] font-bold">🍺 COMANDA EN CAMINO A ${state.activeTableOrder.table}</span>
-            <span class="font-pixel text-[8px] bg-[#166534] text-white px-1.5 py-0.5 animate-pulse">EN BARRA</span>
+            <span class="font-serif-tavern text-lg text-[#166534] font-bold">🍺 Comanda en Preparación para ${state.activeTableOrder.table}</span>
+            <span class="font-mono-code text-[10px] bg-[#166534] text-white px-2 py-0.5 animate-pulse font-bold">EN BARRA</span>
           </div>
-          <p class="font-mono-code text-xs text-[#2B1810] mt-1">
-            Barnaby está preparando tus <strong>${state.activeTableOrder.itemsCount} producto(s)</strong> (${formatCop(state.activeTableOrder.total)}). Llegará en ~4 min sin interrumpir tu partida.
+          <p class="font-sans text-xs text-[#2B1810] mt-1 leading-relaxed">
+            Barnaby está despachando tus <strong>${state.activeTableOrder.itemsCount} producto(s)</strong> (${formatCop(state.activeTableOrder.total)}). Llegará a tu mesa en ~4 min sin interrumpir tu partida.
           </p>
         </div>
       ` : ""}
 
       <!-- Menú de Comida y Bebida del Local -->
       <div class="mb-3 flex items-center justify-between">
-        <h3 class="font-pixel text-[10px] text-[#382414] font-bold">🍔 MENÚ DE TABERNA TOPDECK</h3>
-        <span class="font-mono-code text-[10px] text-[#6B5443]">Servicio directo a ${state.tableCode}</span>
+        <h3 class="font-serif-tavern text-2xl text-[#382414] font-bold">🍔 Menú de Taberna TopDeck</h3>
+        <span class="font-sans text-xs text-[#805B3A] font-semibold">Servicio directo a ${state.tableCode}</span>
       </div>
 
       <div class="space-y-2.5 mb-5">
         ${DATA.tavernMenu.map(item => `
-          <div class="pixel-box-sm bg-[#FFF9EE] p-2.5 flex items-center justify-between gap-2">
-            <div class="flex items-start gap-2.5 min-w-0">
-              <div class="w-10 h-10 bg-[#ECE0C8] border-2 border-[#382414] flex items-center justify-center text-xl shrink-0">
+          <div class="tavern-box bg-[#FFF9EE] p-3 flex items-center justify-between gap-3 rounded-sm">
+            <div class="flex items-start gap-3 min-w-0">
+              <div class="w-12 h-12 bg-[#ECE0C8] border-2 border-[#382414] flex items-center justify-center text-2xl shrink-0">
                 ${item.icon}
               </div>
               <div class="min-w-0">
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <span class="font-pixel text-[8px] text-[#2B1810] font-bold">${item.name}</span>
-                  <span class="bg-[#F29F38] text-[#2B1810] font-pixel text-[7px] px-1 py-0.5 border border-[#382414]">${item.tag}</span>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-sans text-sm text-[#2B1810] font-bold">${item.name}</span>
+                  <span class="bg-[#F29F38] text-[#2B1810] font-pixel text-[7px] px-1.5 py-0.5 border border-[#382414] font-bold">${item.tag}</span>
                 </div>
-                <p class="font-mono-code text-[10px] text-[#6B5443] leading-tight mt-0.5">${item.desc}</p>
-                <div class="font-pixel text-[9px] text-[#B45309] font-bold mt-1">${formatCop(item.priceCop)}</div>
+                <p class="font-sans text-xs text-[#6B5443] leading-snug mt-0.5">${item.desc}</p>
+                <div class="font-mono-code text-xs text-[#B45309] font-bold mt-1">${formatCop(item.priceCop)}</div>
               </div>
             </div>
-            <button onclick="addTavernMenuItem('${item.id}')" class="pixel-btn bg-[#F29F38] hover:bg-[#FBBF24] text-[#2B1810] font-pixel text-[8px] px-2.5 py-2 shrink-0 font-bold">
+            <button onclick="addTavernMenuItem('${item.id}')" class="tavern-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#2B1810] text-xs px-3 py-2 shrink-0 font-bold">
               + PEDIR
             </button>
           </div>
@@ -1100,17 +1110,17 @@
       </div>
 
       <!-- Resumen de Comanda de la Mesa -->
-      <div class="pixel-box bg-[#ECE0C8] p-3">
+      <div class="tavern-box bg-[#ECE0C8] p-4 rounded-sm">
         <div class="flex items-center justify-between border-b-2 border-[#382414] pb-2 mb-2">
-          <span class="font-pixel text-[9px] text-[#382414] font-bold">🧾 COMANDA DE ${state.tableCode}</span>
-          <span class="font-pixel text-[9px] text-[#B45309] font-bold">${formatCop(totalTableCop)}</span>
+          <span class="font-serif-tavern text-lg text-[#382414] font-bold">🧾 Comanda Activa (${state.tableCode})</span>
+          <span class="font-mono-code text-base text-[#B45309] font-bold">${formatCop(totalTableCop)}</span>
         </div>
         ${state.tableCart.length === 0 ? `
-          <p class="font-mono-code text-xs text-[#6B5443] py-2 text-center">Aún no has agregado bebidas ni snacks para tu mesa.</p>
+          <p class="font-sans text-xs text-[#6B5443] py-2 text-center italic">Aún no has agregado bebidas ni comida a tu mesa.</p>
         ` : `
           <div class="space-y-1.5 mb-3">
             ${state.tableCart.map((c, idx) => `
-              <div class="flex items-center justify-between text-xs font-mono-code bg-[#FFF9EE] px-2 py-1 border border-[#382414]">
+              <div class="flex items-center justify-between text-xs font-mono-code bg-[#FFF9EE] px-2.5 py-1.5 border border-[#382414]">
                 <span class="truncate">${c.icon} ${c.qty}x ${c.name}</span>
                 <div class="flex items-center gap-2 shrink-0">
                   <strong>${formatCop(c.priceCop * c.qty)}</strong>
@@ -1119,8 +1129,8 @@
               </div>
             `).join("")}
           </div>
-          <button onclick="submitTableOrder()" class="w-full pixel-btn bg-[#16A34A] text-white font-pixel text-[9px] py-2.5 font-bold">
-            🍺 ENVIAR PEDIDO A ${state.tableCode} (${formatCop(totalTableCop)})
+          <button onclick="submitTableOrder()" class="w-full tavern-btn bg-[#16A34A] text-white text-sm py-2.5 font-bold shadow-[2px_2px_0_#382414]">
+            🍺 ENVIAR PEDIDO A COCINA (${formatCop(totalTableCop)})
           </button>
         `}
       </div>
@@ -1180,12 +1190,12 @@
 
       <!-- Sub-navegación Coleccionista -->
       <div class="grid grid-cols-2 gap-2 mb-4">
-        <button onclick="setCollectorSubtab('pulgas')" class="pixel-btn py-2 font-pixel text-[8px] font-bold ${
+        <button onclick="setCollectorSubtab('pulgas')" class="tavern-btn py-2 text-xs font-bold font-sans ${
           state.collectorSubtab === "pulgas" ? "bg-[#F29F38] text-[#2B1810]" : "bg-[#FFF9EE] text-[#5A4231]"
         }">
           🔥 MERCADO DE PULGAS (EN TIENDA)
         </button>
-        <button onclick="setCollectorSubtab('mazos')" class="pixel-btn py-2 font-pixel text-[8px] font-bold ${
+        <button onclick="setCollectorSubtab('mazos')" class="tavern-btn py-2 text-xs font-bold font-sans ${
           state.collectorSubtab === "mazos" ? "bg-[#F29F38] text-[#2B1810]" : "bg-[#FFF9EE] text-[#5A4231]"
         }">
           📦 MIS MAZOS (MOXFIELD) & BULK
@@ -1204,20 +1214,20 @@
   function renderFleaMarketSubtab() {
     return `
       <!-- Switch Maestro: Habilitar Mi Carpeta en el Local -->
-      <div class="pixel-box p-3 mb-4 ${state.myBinderPublished ? "bg-[#DCFCE7] border-[#166534]" : "bg-[#ECE0C8]"}">
+      <div class="tavern-box p-3.5 mb-4 ${state.myBinderPublished ? "bg-[#DCFCE7] border-[#166534]" : "bg-[#ECE0C8]"}">
         <div class="flex items-center justify-between gap-2">
           <div>
-            <div class="font-pixel text-[9px] text-[#2B1810] font-bold flex items-center gap-1.5">
+            <div class="font-serif-tavern text-base sm:text-lg text-[#2B1810] font-bold flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full ${state.myBinderPublished ? "bg-[#16A34A] animate-ping" : "bg-gray-500"}"></span>
-              <span>MI CARPETA EN EL LOCAL (${state.tableCode})</span>
+              <span>Mi Carpeta en la Taberna (${state.tableCode})</span>
             </div>
-            <p class="font-mono-code text-[10px] text-[#382414] mt-0.5">
+            <p class="font-sans text-xs text-[#5C3D24] mt-0.5 leading-relaxed">
               ${state.myBinderPublished
                 ? "¡Tu carpeta está PÚBLICA! Los jugadores en TopDeck pueden ver tus cartas y acercarse a tu mesa a comprar o intercambiar."
-                : "Tu carpeta está oculta. Actívala para que la tienda vea qué vendes o cambias."}
+                : "Tu carpeta está oculta. Actívala para que los demás jugadores del local vean qué vendes o cambias."}
             </p>
           </div>
-          <button onclick="toggleMyBinderPublic()" class="pixel-btn px-3 py-2 font-pixel text-[8px] font-bold shrink-0 ${
+          <button onclick="toggleMyBinderPublic()" class="tavern-btn px-3 py-2 text-xs font-bold shrink-0 font-sans ${
             state.myBinderPublished ? "bg-[#16A34A] text-white" : "bg-[#FFF9EE] text-[#2B1810]"
           }">
             ${state.myBinderPublished ? "🟢 VISIBLE" : "⚪ OCULTA"}
@@ -1225,21 +1235,21 @@
         </div>
 
         <!-- Mis cartas publicadas en mi carpeta -->
-        <div class="mt-3 pt-2 border-t border-[#382414]/20">
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="font-pixel text-[8px] text-[#382414]">MIS CARTAS PUBLICADAS (${state.myTradeBinder.length}):</span>
-            <button onclick="addCardToMyPublicBinderPrompt()" class="font-pixel text-[7px] bg-[#F29F38] text-[#2B1810] px-2 py-0.5 border border-[#382414]">
+        <div class="mt-3 pt-2.5 border-t border-[#382414]/20">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-sans text-xs font-bold text-[#382414] uppercase">Mis Cartas Publicadas (${state.myTradeBinder.length}):</span>
+            <button onclick="addCardToMyPublicBinderPrompt()" class="tavern-btn text-xs bg-[#F29F38] text-[#2B1810] px-2.5 py-1 font-bold">
               + PUBLICAR CARTA
             </button>
           </div>
           <div class="grid grid-cols-2 gap-2">
             ${state.myTradeBinder.map(c => `
-              <div class="bg-[#FFF9EE] border border-[#382414] p-1.5 flex items-center gap-2">
-                <img src="${c.img}" class="w-8 h-11 object-cover border border-[#382414] shrink-0" alt="${c.name}"/>
+              <div class="bg-[#FFF9EE] border-2 border-[#382414] p-2 flex items-center gap-2.5 rounded-sm shadow-[1px_1px_0_#382414]">
+                <img src="${c.img}" class="w-9 h-12 object-cover border border-[#382414] shrink-0 rounded-xs" alt="${c.name}"/>
                 <div class="min-w-0">
-                  <div class="font-pixel text-[7px] text-[#2B1810] truncate font-bold">${c.name}</div>
-                  <div class="font-mono-code text-[9px] text-[#16A34A] font-bold">${c.mode}</div>
-                  <div class="font-pixel text-[7px] text-[#B45309]">${formatCop(c.priceCop)}</div>
+                  <div class="font-sans text-xs text-[#2B1810] truncate font-bold">${c.name}</div>
+                  <div class="font-pixel text-[7px] text-[#16A34A] font-bold">${c.mode}</div>
+                  <div class="font-mono-code text-xs text-[#B45309] font-bold">${formatCop(c.priceCop)}</div>
                 </div>
               </div>
             `).join("")}
@@ -1248,37 +1258,37 @@
       </div>
 
       <!-- Explorador de Carpetas Abiertas Ahora en TopDeck -->
-      <div class="mb-2 flex items-center justify-between">
-        <h4 class="font-pixel text-[9px] text-[#382414] font-bold">🤝 CARPETAS ABIERTAS EN OTRAS MESAS AHORA (3)</h4>
-        <span class="font-pixel text-[7px] bg-[#F29F38] px-1.5 py-0.5 border border-[#382414]">P2P EN VIVO</span>
+      <div class="mb-2.5 flex items-center justify-between">
+        <h4 class="font-serif-tavern text-xl text-[#382414] font-bold">🤝 Carpetas Abiertas en Otras Mesas</h4>
+        <span class="font-pixel text-[8px] bg-[#F29F38] text-[#2B1810] px-2 py-0.5 border border-[#382414] font-bold">P2P EN VIVO</span>
       </div>
 
       <div class="space-y-3">
         ${DATA.fleaMarketBinders.map(binder => `
-          <div class="pixel-box bg-[#FFF9EE] p-3">
-            <div class="flex items-center justify-between border-b-2 border-[#382414] pb-2 mb-2">
+          <div class="tavern-box bg-[#FFF9EE] p-3.5">
+            <div class="flex items-center justify-between border-b-2 border-[#382414] pb-2 mb-2.5">
               <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="font-pixel text-[9px] text-[#2B1810] font-bold">${binder.player}</span>
-                  <span class="bg-[#382414] text-[#FBBF24] font-pixel text-[7px] px-1.5 py-0.5">${binder.table}</span>
+                <div class="flex items-center gap-2">
+                  <span class="font-serif-tavern text-lg text-[#2B1810] font-bold">${binder.player}</span>
+                  <span class="bg-[#382414] text-[#FBBF24] font-mono-code text-[11px] font-bold px-2 py-0.5 rounded-xs">${binder.table}</span>
                 </div>
-                <div class="font-mono-code text-[10px] text-[#16A34A] font-bold mt-0.5">${binder.status}</div>
+                <div class="font-sans text-xs text-[#166534] font-bold mt-0.5">${binder.status}</div>
               </div>
-              <span class="font-mono-code text-[10px] text-[#B45309] font-bold">${binder.reputation}</span>
+              <span class="font-mono-code text-xs text-[#B45309] font-bold">${binder.reputation}</span>
             </div>
 
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-3 gap-2.5">
               ${binder.cards.map(card => `
-                <div class="bg-[#ECE0C8] border border-[#382414] p-1.5 flex flex-col justify-between">
-                  <div class="aspect-[63/88] bg-black border border-[#382414] overflow-hidden relative">
+                <div class="bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between rounded-sm shadow-[1px_1px_0_#382414]">
+                  <div class="aspect-[63/88] bg-black border border-[#382414] overflow-hidden relative rounded-xs">
                     <img src="${card.img}" alt="${card.name}" class="w-full h-full object-cover"/>
                     <span class="absolute top-0.5 left-0.5 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[7px] px-1">${card.mode}</span>
                   </div>
-                  <div class="mt-1">
-                    <div class="font-pixel text-[7px] text-[#2B1810] truncate font-bold">${card.name}</div>
-                    <div class="font-pixel text-[7px] text-[#B45309] mt-0.5">${formatCop(card.priceCop)}</div>
+                  <div class="mt-1.5">
+                    <div class="font-sans text-xs text-[#2B1810] truncate font-bold">${card.name}</div>
+                    <div class="font-mono-code text-xs text-[#B45309] font-bold mt-0.5">${formatCop(card.priceCop)}</div>
                     <button onclick="proposeInStoreTrade('${binder.player}', '${binder.table}', '${card.name}')"
-                      class="mt-1 w-full pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[7px] py-1 font-bold">
+                      class="mt-1.5 w-full tavern-btn bg-[#F29F38] text-[#2B1810] text-[11px] py-1 font-bold">
                       🤝 PROPONER TRATO
                     </button>
                   </div>
@@ -1326,29 +1336,29 @@
   function renderMoxfieldSubtab() {
     return `
       <!-- Importador Moxfield -->
-      <div class="pixel-box bg-[#FFF9EE] p-3 mb-4">
-        <label class="font-pixel text-[8px] text-[#92400E] font-bold block mb-1">
-          🔗 SINCRONIZAR / EXPORTAR MAZO CON MOXFIELD:
+      <div class="tavern-box bg-[#FFF9EE] p-3.5 mb-4">
+        <label class="font-sans text-xs text-[#92400E] font-bold block mb-1.5 uppercase">
+          🔗 Sincronizar o Exportar Mazo con Moxfield:
         </label>
-        <div class="flex gap-1.5">
+        <div class="flex gap-2">
           <input id="moxfieldUrlInput" type="text" placeholder="https://moxfield.com/decks/tu-mazo-commander..."
-            class="flex-1 bg-[#ECE0C8] border-2 border-[#382414] px-2 py-1.5 font-mono-code text-xs text-[#2B1810]"/>
-          <button onclick="importMoxfieldDeck()" class="pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] px-3 py-1.5 font-bold">
+            class="flex-1 bg-[#ECE0C8] border-2 border-[#382414] px-3 py-2 font-mono-code text-xs text-[#2B1810] focus:outline-none"/>
+          <button onclick="importMoxfieldDeck()" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3 py-2 font-bold">
             IMPORTAR
           </button>
         </div>
       </div>
 
       <!-- Mi Bulk Box -->
-      <div class="pixel-box bg-[#ECE0C8] p-3 mb-4 flex items-center justify-between">
+      <div class="tavern-box bg-[#ECE0C8] p-3.5 mb-4 flex items-center justify-between">
         <div>
-          <div class="font-pixel text-[9px] text-[#2B1810] font-bold">🗃️ MI BULK INVENTARIADO EN TOPDECK</div>
-          <div class="font-mono-code text-xs text-[#5A4231] mt-0.5">
+          <div class="font-serif-tavern text-base text-[#2B1810] font-bold">🗃️ Mi Bulk Inventariado en TopDeck</div>
+          <div class="font-sans text-xs text-[#5A4231] mt-0.5">
             1,420 cartas comunes/infrecuentes • 185 Raras de Bulk
           </div>
         </div>
         <button onclick="window.showTavernToast('Lista de Bulk exportada en formato CSV / Moxfield.', '📋')"
-          class="pixel-btn bg-[#FFF9EE] text-[#2B1810] font-pixel text-[7px] px-2.5 py-1.5 font-bold">
+          class="tavern-btn bg-[#FFF9EE] text-[#2B1810] text-xs px-3 py-1.5 font-bold">
           EXPORTAR BULK
         </button>
       </div>
@@ -1356,19 +1366,19 @@
       <!-- Lista de Mazos -->
       <div class="space-y-3">
         ${state.myDecks.map(d => `
-          <div class="pixel-box bg-[#FFF9EE] p-3 flex gap-3 items-center">
-            <img src="${d.featuredImg}" class="w-14 h-20 object-cover border-2 border-[#382414] shrink-0" alt="${d.name}"/>
+          <div class="tavern-box bg-[#FFF9EE] p-3.5 flex gap-3.5 items-center">
+            <img src="${d.featuredImg}" class="w-16 h-22 object-cover border-2 border-[#382414] shrink-0 rounded-xs" alt="${d.name}"/>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between">
-                <span class="font-pixel text-[7px] bg-[#382414] text-[#FBBF24] px-1.5 py-0.5">${d.format}</span>
-                <span class="font-pixel text-[8px] text-[#16A34A] font-bold">WR: ${d.winrate}</span>
+                <span class="font-mono-code text-[11px] bg-[#382414] text-[#FBBF24] px-2 py-0.5 font-bold">${d.format}</span>
+                <span class="font-sans text-xs text-[#16A34A] font-bold">WR: ${d.winrate}</span>
               </div>
-              <h4 class="font-pixel text-[9px] text-[#2B1810] font-bold mt-1 truncate">${d.name}</h4>
-              <p class="font-mono-code text-[10px] text-[#6B5443]">Comandante: <strong>${d.commander}</strong></p>
-              <div class="flex items-center justify-between mt-2">
-                <span class="font-pixel text-[8px] text-[#B45309]">${formatUsd(d.estValueUsd)}</span>
+              <h4 class="font-serif-tavern text-lg text-[#2B1810] font-bold mt-1 truncate">${d.name}</h4>
+              <p class="font-sans text-xs text-[#6B5443]">Comandante: <strong class="text-[#382414]">${d.commander}</strong></p>
+              <div class="flex items-center justify-between mt-2 pt-1 border-t border-[#382414]/15">
+                <span class="font-mono-code text-sm font-bold text-[#B45309]">${formatUsd(d.estValueUsd)}</span>
                 <button onclick="window.showTavernToast('Decklist de ${d.name} copiada en formato Moxfield.', '🦊')"
-                  class="pixel-btn bg-[#ECE0C8] text-[#2B1810] font-pixel text-[7px] px-2 py-1">
+                  class="tavern-btn bg-[#ECE0C8] text-[#2B1810] text-xs px-2.5 py-1 font-bold">
                   📤 EXPORTAR MOXFIELD
                 </button>
               </div>
@@ -1407,64 +1417,64 @@
       ${renderMascotHeaderBanner("vulkan")}
 
       <!-- Stats Rápidas del Jugador -->
-      <div class="grid grid-cols-3 gap-2 mb-4">
-        <div class="pixel-box-sm bg-[#FFF9EE] p-2 text-center">
-          <div class="font-pixel text-[7px] text-[#6B5443]">ELO TABERNA</div>
-          <div class="font-pixel text-xs text-[#B45309] font-bold mt-1">1,790</div>
-          <div class="font-mono-code text-[9px] text-[#16A34A] font-bold">Rango Mítico #2</div>
+      <div class="grid grid-cols-3 gap-2.5 mb-4">
+        <div class="tavern-box bg-[#FFF9EE] p-2.5 text-center">
+          <div class="font-sans text-[11px] text-[#6B5443] font-bold uppercase">ELO Taberna</div>
+          <div class="font-mono-code text-xl text-[#B45309] font-bold mt-0.5">1,790</div>
+          <div class="font-sans text-[11px] text-[#16A34A] font-bold">Mítico #2</div>
         </div>
-        <div class="pixel-box-sm bg-[#FFF9EE] p-2 text-center">
-          <div class="font-pixel text-[7px] text-[#6B5443]">WINRATE MES</div>
-          <div class="font-pixel text-xs text-[#2B1810] font-bold mt-1">68.4%</div>
-          <div class="font-mono-code text-[9px] text-[#6B5443]">26V - 12D</div>
+        <div class="tavern-box bg-[#FFF9EE] p-2.5 text-center">
+          <div class="font-sans text-[11px] text-[#6B5443] font-bold uppercase">Winrate Mes</div>
+          <div class="font-mono-code text-xl text-[#2B1810] font-bold mt-0.5">68.4%</div>
+          <div class="font-mono-code text-[11px] text-[#6B5443]">26V - 12D</div>
         </div>
-        <div class="pixel-box-sm bg-[#FFF9EE] p-2 text-center">
-          <div class="font-pixel text-[7px] text-[#6B5443]">CRÉDITO TIENDA</div>
-          <div class="font-pixel text-[10px] text-[#16A34A] font-bold mt-1">$185.000</div>
-          <div class="font-mono-code text-[9px] text-[#6B5443]">Premios FNM</div>
+        <div class="tavern-box bg-[#FFF9EE] p-2.5 text-center">
+          <div class="font-sans text-[11px] text-[#6B5443] font-bold uppercase">Crédito Tienda</div>
+          <div class="font-mono-code text-lg text-[#16A34A] font-bold mt-0.5">$185.000</div>
+          <div class="font-sans text-[10px] text-[#6B5443]">Premios FNM</div>
         </div>
       </div>
 
       <!-- Ronda en Vivo & Pairing -->
-      <div class="pixel-box bg-[#FEE2E2] border-[#991B1B] p-3 mb-4">
-        <div class="flex items-center justify-between mb-1.5">
-          <span class="font-pixel text-[8px] bg-[#DC2626] text-white px-2 py-0.5">⚔️ RONDA 3 EN VIVO • RELOJ: 34:18</span>
-          <span class="font-pixel text-[8px] text-[#991B1B] font-bold">MESA TORNEO #02</span>
+      <div class="tavern-box bg-[#FEE2E2] border-[#991B1B] p-3.5 mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-mono-code text-xs bg-[#DC2626] text-white px-2 py-0.5 font-bold">⚔️ RONDA 3 EN VIVO • RELOJ: 34:18</span>
+          <span class="font-sans text-xs text-[#991B1B] font-bold">MESA TORNEO #02</span>
         </div>
-        <div class="bg-[#FFF9EE] border-2 border-[#382414] p-2.5 flex items-center justify-between">
+        <div class="bg-[#FFF9EE] border-2 border-[#382414] p-3 flex items-center justify-between">
           <div>
-            <div class="font-pixel text-[9px] text-[#2B1810] font-bold">TÚ (SANTIAGO) vs. ANDRÉS MEJÍA</div>
-            <div class="font-mono-code text-[10px] text-[#6B5443]">Formato: Modern / Commander • Al mejor de 3</div>
+            <div class="font-serif-tavern text-lg text-[#2B1810] font-bold">TÚ (SANTIAGO) vs. ANDRÉS MEJÍA</div>
+            <div class="font-sans text-xs text-[#6B5443] mt-0.5">Formato: Modern / Commander • Al mejor de 3</div>
           </div>
           ${state.matchResultReported ? `
-            <span class="bg-[#16A34A] text-white font-pixel text-[8px] px-2 py-1">REPORTADO (${state.matchResultReported})</span>
+            <span class="bg-[#16A34A] text-white font-mono-code text-xs px-2.5 py-1 font-bold">REPORTADO (${state.matchResultReported})</span>
           ` : ""}
         </div>
         ${!state.matchResultReported ? `
-          <div class="mt-2 flex items-center justify-between gap-1.5">
-            <span class="font-pixel text-[7px] text-[#991B1B]">REPORTAR RESULTADO:</span>
-            <button onclick="reportTournamentMatch('2-0')" class="pixel-btn bg-[#16A34A] text-white font-pixel text-[7px] px-2 py-1 font-bold">GANÉ 2-0</button>
-            <button onclick="reportTournamentMatch('2-1')" class="pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[7px] px-2 py-1 font-bold">GANÉ 2-1</button>
-            <button onclick="reportTournamentMatch('1-2')" class="pixel-btn bg-[#ECE0C8] text-[#2B1810] font-pixel text-[7px] px-2 py-1">1-2</button>
+          <div class="mt-2.5 flex items-center justify-between gap-2">
+            <span class="font-sans text-xs text-[#991B1B] font-bold">Reportar resultado:</span>
+            <button onclick="reportTournamentMatch('2-0')" class="tavern-btn bg-[#16A34A] text-white text-xs px-3 py-1.5 font-bold">GANÉ 2-0</button>
+            <button onclick="reportTournamentMatch('2-1')" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3 py-1.5 font-bold">GANÉ 2-1</button>
+            <button onclick="reportTournamentMatch('1-2')" class="tavern-btn bg-[#ECE0C8] text-[#2B1810] text-xs px-3 py-1.5 font-bold">1-2</button>
           </div>
         ` : ""}
       </div>
 
       <!-- Tabla de Posiciones en Vivo (Standings) -->
-      <div class="pixel-box bg-[#FFF9EE] p-3 mb-4">
-        <h4 class="font-pixel text-[9px] text-[#382414] font-bold mb-2">🏆 STANDINGS EN VIVO (TOP 5 SUIZO)</h4>
-        <div class="space-y-1">
+      <div class="tavern-box bg-[#FFF9EE] p-3.5 mb-4">
+        <h4 class="font-serif-tavern text-xl text-[#382414] font-bold mb-2.5">🏆 Standings en Vivo (Top 5 Suizo)</h4>
+        <div class="space-y-1.5">
           ${state.standings.map(s => `
-            <div class="flex items-center justify-between text-xs font-mono-code px-2 py-1.5 border border-[#382414] ${
-              s.isUser ? "bg-[#FEF3C7] font-bold" : "bg-[#ECE0C8]/60"
+            <div class="flex items-center justify-between text-xs font-mono-code px-3 py-2 border-2 border-[#382414] ${
+              s.isUser ? "bg-[#FEF3C7] font-bold shadow-[1px_1px_0_#382414]" : "bg-[#ECE0C8]/60"
             }">
-              <div class="flex items-center gap-2">
-                <span class="font-pixel text-[8px] w-5 text-center bg-[#382414] text-[#FBBF24] py-0.5">#${s.rank}</span>
-                <span>${s.player}</span>
+              <div class="flex items-center gap-2.5">
+                <span class="w-6 text-center bg-[#382414] text-[#FBBF24] font-bold py-0.5">#${s.rank}</span>
+                <span class="font-sans font-bold text-sm text-[#2B1810]">${s.player}</span>
               </div>
               <div class="flex items-center gap-3">
-                <span class="text-[10px] text-[#6B5443]">OMW ${s.omw}</span>
-                <span class="font-pixel text-[8px] text-[#B45309]">${s.points} PTS (${s.record})</span>
+                <span class="text-[11px] text-[#6B5443]">OMW ${s.omw}</span>
+                <span class="font-mono-code text-xs text-[#B45309] font-bold">${s.points} PTS (${s.record})</span>
               </div>
             </div>
           `).join("")}
@@ -1472,19 +1482,19 @@
       </div>
 
       <!-- Inscripción a Torneos de la Semana -->
-      <h4 class="font-pixel text-[9px] text-[#382414] font-bold mb-2">📋 INSCRIPCIÓN A TORNEOS TOPDECK</h4>
+      <h4 class="font-serif-tavern text-2xl text-[#382414] font-bold mb-2.5">📋 Inscripción a Torneos TopDeck</h4>
       <div class="space-y-2.5">
         ${state.tournaments.map((t, idx) => `
-          <div class="pixel-box-sm bg-[#FFF9EE] p-3">
+          <div class="tavern-box bg-[#FFF9EE] p-3.5">
             <div class="flex items-center justify-between">
-              <span class="font-pixel text-[7px] bg-[#382414] text-[#F29F38] px-1.5 py-0.5">${t.time}</span>
-              <span class="font-pixel text-[7px] text-[#16A34A] font-bold">${t.spotsLeft} CUPOS LIBRES</span>
+              <span class="font-mono-code text-xs bg-[#382414] text-[#F29F38] px-2 py-0.5 font-bold">${t.time}</span>
+              <span class="font-sans text-xs text-[#16A34A] font-bold">${t.spotsLeft} CUPOS LIBRES</span>
             </div>
-            <h5 class="font-pixel text-[9px] text-[#2B1810] font-bold mt-1.5">${t.name}</h5>
-            <p class="font-mono-code text-[10px] text-[#6B5443] mt-0.5">Premios: ${t.prizePool}</p>
-            <div class="mt-2 pt-2 border-t border-[#382414]/20 flex items-center justify-between">
-              <span class="font-pixel text-[9px] text-[#B45309] font-bold">${formatCop(t.entryCop)}</span>
-              <button onclick="toggleTournamentEnroll(${idx})" class="pixel-btn px-3 py-1.5 font-pixel text-[8px] font-bold ${
+            <h5 class="font-serif-tavern text-lg text-[#2B1810] font-bold mt-1.5">${t.name}</h5>
+            <p class="font-sans text-xs text-[#6B5443] mt-0.5">Premios: <strong>${t.prizePool}</strong></p>
+            <div class="mt-2.5 pt-2 border-t border-[#382414]/20 flex items-center justify-between">
+              <span class="font-mono-code text-base text-[#B45309] font-bold">${formatCop(t.entryCop)}</span>
+              <button onclick="toggleTournamentEnroll(${idx})" class="tavern-btn px-4 py-2 text-xs font-bold ${
                 t.enrolled ? "bg-[#16A34A] text-white" : "bg-[#F29F38] text-[#2B1810]"
               }">
                 ${t.enrolled ? "✔️ INSCRITO" : "⚔️ INSCRIBIRME"}
@@ -1547,102 +1557,102 @@
       ${renderMascotHeaderBanner("pip")}
 
       <!-- Barra de Modo Casual + Pedido Rápido a Mesa -->
-      <div class="flex items-center justify-between gap-2 mb-3">
-        <div class="flex gap-1">
-          <button onclick="setCasualLifeMode('commander')" class="pixel-btn px-2.5 py-1.5 font-pixel text-[7px] font-bold ${
+      <div class="flex items-center justify-between gap-2 mb-3.5">
+        <div class="flex gap-1.5">
+          <button onclick="setCasualLifeMode('commander')" class="tavern-btn px-3 py-1.5 text-xs font-bold font-sans ${
             state.casualMode === "commander" ? "bg-[#16A34A] text-white" : "bg-[#FFF9EE] text-[#2B1810]"
           }">
             4P COMMANDER (40❤️)
           </button>
-          <button onclick="setCasualLifeMode('duel')" class="pixel-btn px-2.5 py-1.5 font-pixel text-[7px] font-bold ${
+          <button onclick="setCasualLifeMode('duel')" class="tavern-btn px-3 py-1.5 text-xs font-bold font-sans ${
             state.casualMode === "duel" ? "bg-[#16A34A] text-white" : "bg-[#FFF9EE] text-[#2B1810]"
           }">
             1v1 DUELO (20❤️)
           </button>
         </div>
-        <button onclick="resetCasualLifes()" class="pixel-btn bg-[#ECE0C8] text-[#2B1810] font-pixel text-[7px] px-2.5 py-1.5">
+        <button onclick="resetCasualLifes()" class="tavern-btn bg-[#ECE0C8] text-[#2B1810] text-xs px-3 py-1.5 font-bold">
           🔄 REINICIAR
         </button>
       </div>
 
       <!-- Grid del Contador de Vidas -->
-      <div class="grid ${state.casualMode === "commander" ? "grid-cols-2" : "grid-cols-1"} gap-2.5 mb-4">
+      <div class="grid ${state.casualMode === "commander" ? "grid-cols-2" : "grid-cols-1"} gap-3 mb-4">
         ${activePlayers.map((p, idx) => `
-          <div class="pixel-box p-3 flex flex-col justify-between relative" style="background-color: ${p.color}; border-color: #382414;">
+          <div class="tavern-box p-3.5 flex flex-col justify-between relative shadow-[3px_3px_0_#382414]" style="background-color: ${p.color}; border-color: #382414;">
             <div class="flex items-center justify-between">
-              <span class="font-pixel text-[8px] text-[#2B1810] font-bold truncate">${p.name}</span>
+              <span class="font-serif-tavern text-base text-[#2B1810] font-bold truncate">${p.name}</span>
               <button onclick="setMonarchPlayer(${p.id})" title="Asignar El Monarca"
-                class="text-xs px-1 border border-[#382414] ${state.monarchPlayer === p.id ? "bg-[#FBBF24]" : "bg-white/60 opacity-50"}">
+                class="text-sm px-1.5 py-0.5 border-2 border-[#382414] shadow-[1px_1px_0_#382414] ${state.monarchPlayer === p.id ? "bg-[#FBBF24]" : "bg-white/60 opacity-60"}">
                 👑
               </button>
             </div>
 
             <!-- Vidas Principales -->
-            <div class="my-2 flex items-center justify-between">
+            <div class="my-2.5 flex items-center justify-between">
               <button onclick="adjustPlayerLife(${idx}, -1)"
-                class="w-10 h-10 pixel-btn bg-[#C84630] text-white font-pixel text-sm flex items-center justify-center font-bold">
+                class="w-11 h-11 tavern-btn bg-[#C84630] text-white text-lg flex items-center justify-center font-bold">
                 -
               </button>
               <div class="text-center">
-                <div class="font-pixel text-2xl text-[#2B1810] font-bold">${p.life}</div>
-                <div class="font-pixel text-[8px] text-[#6B5443]">VIDAS</div>
+                <div class="font-serif-tavern text-4xl sm:text-5xl text-[#2B1810] font-bold leading-none">${p.life}</div>
+                <div class="font-sans text-[10px] text-[#6B5443] font-bold uppercase tracking-wider mt-1">VIDAS</div>
               </div>
               <button onclick="adjustPlayerLife(${idx}, 1)"
-                class="w-10 h-10 pixel-btn bg-[#16A34A] text-white font-pixel text-sm flex items-center justify-center font-bold">
+                class="w-11 h-11 tavern-btn bg-[#16A34A] text-white text-lg flex items-center justify-center font-bold">
                 +
               </button>
             </div>
 
             <!-- Botones rápidos +5 / -5 y Contadores de Comandante/Veneno -->
-            <div class="flex items-center justify-between text-[10px] font-mono-code pt-1.5 border-t border-[#382414]/20 gap-1">
-              <button onclick="adjustPlayerLife(${idx}, -5)" class="px-2 py-1 bg-white/80 border border-[#382414] font-bold text-xs" title="Restar 5 vidas">-5</button>
+            <div class="flex items-center justify-between text-xs font-mono-code pt-2 border-t-2 border-[#382414]/20 gap-1.5">
+              <button onclick="adjustPlayerLife(${idx}, -5)" class="px-2 py-1 bg-white/80 border border-[#382414] font-bold" title="Restar 5 vidas">-5</button>
 
               <!-- Stepper Daño Comandante -->
-              <div class="flex items-center bg-white/90 border border-[#382414] px-1 py-0.5 rounded-sm" title="Daño de Comandante (21 pierde)">
+              <div class="flex items-center bg-white/90 border border-[#382414] px-1.5 py-0.5 rounded-sm" title="Daño de Comandante (21 pierde)">
                 <button onclick="adjustCmdDmg(${idx}, -1)" class="w-4 h-5 flex items-center justify-center font-bold text-red-700 active:scale-90">-</button>
-                <span class="px-1 text-[10px] font-bold">⚔️${p.cmdDmg}</span>
+                <span class="px-1 text-xs font-bold">⚔️${p.cmdDmg}</span>
                 <button onclick="adjustCmdDmg(${idx}, 1)" class="w-4 h-5 flex items-center justify-center font-bold text-green-700 active:scale-90">+</button>
               </div>
 
               <!-- Stepper Veneno -->
-              <div class="flex items-center bg-white/90 border border-[#382414] px-1 py-0.5 rounded-sm" title="Contadores de Veneno (10 pierde)">
+              <div class="flex items-center bg-white/90 border border-[#382414] px-1.5 py-0.5 rounded-sm" title="Contadores de Veneno (10 pierde)">
                 <button onclick="adjustPoison(${idx}, -1)" class="w-4 h-5 flex items-center justify-center font-bold text-red-700 active:scale-90">-</button>
-                <span class="px-1 text-[10px] font-bold">☠️${p.poison}</span>
+                <span class="px-1 text-xs font-bold">☠️${p.poison}</span>
                 <button onclick="adjustPoison(${idx}, 1)" class="w-4 h-5 flex items-center justify-center font-bold text-green-700 active:scale-90">+</button>
               </div>
 
-              <button onclick="adjustPlayerLife(${idx}, 5)" class="px-2 py-1 bg-white/80 border border-[#382414] font-bold text-xs" title="Sumar 5 vidas">+5</button>
+              <button onclick="adjustPlayerLife(${idx}, 5)" class="px-2 py-1 bg-white/80 border border-[#382414] font-bold" title="Sumar 5 vidas">+5</button>
             </div>
           </div>
         `).join("")}
       </div>
 
       <!-- Herramientas Casuales de Mesa: D20, Moneda, Quién Empieza -->
-      <div class="pixel-box bg-[#FFF9EE] p-3 mb-4">
+      <div class="tavern-box bg-[#FFF9EE] p-3.5 mb-4">
         <div class="flex items-center justify-between mb-2">
-          <span class="font-pixel text-[8px] text-[#382414] font-bold">🎲 UTILIDADES DE MESA DE PIP:</span>
-          ${state.lastDiceRoll ? `<span class="font-pixel text-[8px] bg-[#F29F38] text-[#2B1810] px-2 py-0.5 border border-[#382414]">${state.lastDiceRoll}</span>` : ""}
+          <span class="font-serif-tavern text-base text-[#382414] font-bold">🎲 Utilidades de Mesa de Pip:</span>
+          ${state.lastDiceRoll ? `<span class="font-mono-code text-xs bg-[#F29F38] text-[#2B1810] px-2 py-0.5 border border-[#382414] font-bold">${state.lastDiceRoll}</span>` : ""}
         </div>
         <div class="grid grid-cols-3 gap-2">
-          <button onclick="rollCasualD20()" class="pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] py-2 font-bold">
+          <button onclick="rollCasualD20()" class="tavern-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#2B1810] text-xs py-2.5 font-bold font-sans">
             🎲 LANZAR D20
           </button>
-          <button onclick="flipCasualCoin()" class="pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] py-2 font-bold">
+          <button onclick="flipCasualCoin()" class="tavern-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#2B1810] text-xs py-2.5 font-bold font-sans">
             🪙 MONEDA
           </button>
-          <button onclick="pickRandomStarter()" class="pixel-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] py-2 font-bold">
+          <button onclick="pickRandomStarter()" class="tavern-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#2B1810] text-xs py-2.5 font-bold font-sans">
             🎯 ¿QUIÉN SALE?
           </button>
         </div>
       </div>
 
       <!-- Atajo directo: Pedir a la Mesa sin salir de la partida -->
-      <div class="pixel-box bg-[#FFEDD5] p-3 flex items-center justify-between gap-2">
+      <div class="tavern-box bg-[#FFEDD5] border-2 border-[#EA580C] p-3.5 flex items-center justify-between gap-3">
         <div>
-          <div class="font-pixel text-[8px] text-[#92400E] font-bold">🍕 ¿HAMBRE EN MEDIA PARTIDA EN ${state.tableCode}?</div>
-          <p class="font-mono-code text-[10px] text-[#2B1810]">Pide bebidas o nachos con pinzas sin cerrar tu contador de vidas.</p>
+          <div class="font-serif-tavern text-base text-[#92400E] font-bold">🍕 ¿Hambre o sed en ${state.tableCode}?</div>
+          <p class="font-sans text-xs text-[#2B1810]">Pide bebidas o comida sin pausar tu partida con los amigos.</p>
         </div>
-        <button onclick="switchPwaTab('mesa')" class="pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] px-3 py-2 shrink-0 font-bold">
+        <button onclick="switchPwaTab('mesa')" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3.5 py-2 shrink-0 font-bold">
           🍺 PEDIR A MESA
         </button>
       </div>
@@ -1731,31 +1741,31 @@
       ${renderMascotHeaderBanner("vespera")}
 
       <!-- Tarot del Planeswalker (3 Cartas Místicas) -->
-      <div class="pixel-box bg-[#2E1065] text-[#FBF6EB] p-3.5 mb-4">
-        <div class="flex items-center justify-between mb-2">
+      <div class="tavern-box bg-[#2E1065] text-[#FBF6EB] border-3 border-[#7C3AED] p-4 mb-4">
+        <div class="flex items-center justify-between mb-2.5">
           <div>
-            <span class="font-pixel text-[9px] text-[#FDE047] font-bold">🔮 EL TAROT DEL PLANESWALKER</span>
-            <p class="font-mono-code text-[10px] text-[#E9D5FF]">Toca cada carta arcana para revelar la suerte de tus partidas hoy:</p>
+            <span class="font-serif-tavern text-xl text-[#FDE047] font-bold">🔮 El Tarot del Planeswalker</span>
+            <p class="font-sans text-xs text-[#E9D5FF] mt-0.5">Toca cada carta arcana para revelar el destino de tus partidas:</p>
           </div>
-          <button onclick="shuffleNewTarotSpread()" class="pixel-btn bg-[#7C3AED] text-white font-pixel text-[7px] px-2.5 py-1.5">
+          <button onclick="shuffleNewTarotSpread()" class="tavern-btn bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs px-3 py-1.5 font-bold">
             🔄 BARAJAR
           </button>
         </div>
 
-        <div class="grid grid-cols-3 gap-2.5 my-3">
+        <div class="grid grid-cols-3 gap-2.5 my-3.5">
           ${state.tarotSpread.map((card, idx) => `
             <div onclick="revealTarotCard(${idx})" class="cursor-pointer">
-              <div class="text-center font-pixel text-[7px] text-[#C084FC] mb-1 truncate">${card.positionMeaning}</div>
+              <div class="text-center font-sans text-[11px] text-[#C084FC] mb-1 truncate font-bold">${card.positionMeaning}</div>
               <div class="aspect-[63/88] rounded border-2 ${card.revealed ? "border-[#FDE047]" : "border-[#C084FC]"} overflow-hidden relative bg-[#1E1B4B] shadow-md transition-transform hover:scale-105">
                 ${card.revealed ? `
                   <img src="${card.img}" alt="${card.cardName}" class="w-full h-full object-cover"/>
                   <div class="absolute inset-x-0 bottom-0 bg-black/85 p-1 text-center">
-                    <span class="font-pixel text-[7px] text-[#FDE047] block">${card.arcanaTitle}</span>
+                    <span class="font-serif-tavern text-xs text-[#FDE047] block font-bold">${card.arcanaTitle}</span>
                   </div>
                 ` : `
                   <div class="w-full h-full flex flex-col items-center justify-center p-2 text-center bg-gradient-to-b from-[#4C1D95] to-[#1E1B4B]">
-                    <span class="text-2xl mb-1 animate-pulse">🦉</span>
-                    <span class="font-pixel text-[8px] text-[#FDE047]">TOCAR PARA REVELAR</span>
+                    <span class="text-3xl mb-1 animate-pulse">🦉</span>
+                    <span class="font-sans text-[11px] text-[#FDE047] font-bold uppercase tracking-wider">Tocar</span>
                   </div>
                 `}
               </div>
@@ -1764,16 +1774,16 @@
         </div>
 
         <!-- Lectura del Oráculo -->
-        <div class="space-y-2 mt-3">
+        <div class="space-y-2.5 mt-3.5">
           ${state.tarotSpread.filter(c => c.revealed).map(c => `
-            <div class="bg-[#1E1B4B] border border-[#C084FC] p-2.5 rounded-sm">
+            <div class="bg-[#1E1B4B] border-2 border-[#7C3AED] p-3 rounded-sm shadow-[2px_2px_0_#1E1B4B]">
               <div class="flex items-center justify-between">
-                <span class="font-pixel text-[8px] text-[#FDE047] font-bold">${c.arcanaTitle} — ${c.cardName}</span>
-                <span class="font-mono-code text-[9px] text-[#38BDF8]">Maná: ${c.luckyColor}</span>
+                <span class="font-serif-tavern text-base text-[#FDE047] font-bold">${c.arcanaTitle} — ${c.cardName}</span>
+                <span class="font-mono-code text-xs text-[#38BDF8] font-bold">Maná: ${c.luckyColor}</span>
               </div>
-              <p class="font-mono-code text-[11px] text-[#F3E8FF] mt-1 leading-snug">${c.reading}</p>
+              <p class="font-sans text-xs text-[#F3E8FF] mt-1.5 leading-relaxed">${c.reading}</p>
               ${c.rewardText ? `
-                <div class="mt-2 bg-[#FEF08A] text-[#2B1810] p-2 border-2 border-[#F59E0B] font-mono-code text-[10px] font-bold">
+                <div class="mt-2 bg-[#FEF08A] text-[#2B1810] p-2.5 border-2 border-[#F59E0B] font-mono-code text-xs font-bold rounded-sm">
                   ${c.rewardText}
                 </div>
               ` : ""}
@@ -1781,7 +1791,7 @@
           `).join("")}
 
           ${!allRevealed ? `
-            <button onclick="revealAllTarotCards()" class="w-full pixel-btn bg-[#FDE047] text-[#2E1065] font-pixel text-[8px] py-2 font-bold">
+            <button onclick="revealAllTarotCards()" class="w-full tavern-btn bg-[#FDE047] text-[#2E1065] text-xs py-2.5 font-bold shadow-[2px_2px_0_#2E1065]">
               ✨ REVELAR LAS 3 CARTAS DEL DESTINO
             </button>
           ` : ""}
@@ -1789,24 +1799,24 @@
       </div>
 
       <!-- Simulador de Sobre de la Fortuna (Mystery Pack Opener) -->
-      <div class="pixel-box bg-[#FFF9EE] p-3">
+      <div class="tavern-box bg-[#FFF9EE] p-3.5">
         <div class="flex items-center justify-between mb-2">
           <div>
-            <h4 class="font-pixel text-[9px] text-[#382414] font-bold">🎁 SOBRE MISTERIOSO DE LA TABERNA</h4>
-            <p class="font-mono-code text-[10px] text-[#6B5443]">Rasga un sobre virtual para probar tu suerte antes de comprar en vitrina.</p>
+            <h4 class="font-serif-tavern text-xl text-[#382414] font-bold">🎁 Sobre Misterioso de la Taberna</h4>
+            <p class="font-sans text-xs text-[#6B5443]">Rasga un sobre virtual para probar tu suerte antes de comprar en vitrina.</p>
           </div>
-          <button onclick="openLuckyBoosterPack()" class="pixel-btn bg-[#F29F38] text-[#2B1810] font-pixel text-[8px] px-3 py-2 font-bold shrink-0">
+          <button onclick="openLuckyBoosterPack()" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3.5 py-2 font-bold shrink-0">
             ⚡ RASGAR SOBRE
           </button>
         </div>
 
         ${state.boosterOpened ? `
-          <div class="grid grid-cols-3 gap-2 mt-3 pt-3 border-t-2 border-[#382414]">
+          <div class="grid grid-cols-3 gap-2.5 mt-3 pt-3 border-t-2 border-[#382414]">
             ${state.boosterCards.map(bc => `
-              <div class="bg-[#ECE0C8] border border-[#382414] p-1 text-center cursor-pointer" onclick="triggerCardSlideOut('${bc.id}', null)">
-                <img src="${bc.image}" class="w-full aspect-[63/88] object-cover border border-[#382414]" alt="${bc.name}"/>
-                <div class="font-pixel text-[8px] text-[#2B1810] truncate mt-1 font-bold">${bc.name}</div>
-                <div class="font-pixel text-[8px] text-[#B45309]">$${bc.priceUsd.toFixed(2)}</div>
+              <div class="bg-[#ECE0C8] border-2 border-[#382414] p-1.5 text-center cursor-pointer rounded-sm shadow-[1px_1px_0_#382414] hover:scale-102 transition-transform" onclick="triggerCardSlideOut('${bc.id}', null)">
+                <img src="${bc.image}" class="w-full aspect-[63/88] object-cover border border-[#382414] rounded-xs" alt="${bc.name}"/>
+                <div class="font-sans text-xs text-[#2B1810] truncate mt-1 font-bold">${bc.name}</div>
+                <div class="font-mono-code text-xs text-[#B45309] font-bold">$${bc.priceUsd.toFixed(2)}</div>
               </div>
             `).join("")}
           </div>
@@ -1846,6 +1856,14 @@
     window.showTavernToast(`¡Sobre rasgado! Te salió ${state.boosterCards[0].name} ($${state.boosterCards[0].priceUsd.toFixed(2)})!`, "⚡");
     renderPwaCurrentSection();
   };
+
+  // ==========================================================================
+  // GLOBAL ALIASES (Compatibilidad con index.html)
+  // ==========================================================================
+  window.addInspectedCardToCart = window.addInspectedCardToBinderCart;
+  window.resetAllVaultFilters = window.resetVaultFilters;
+  window.flip3DCardInspector = window.flip3DCard;
+  window.toggleFoilHoloSheen = window.toggleInspectFoil;
 
   // ==========================================================================
   // INITIALIZATION ON DOM READY
