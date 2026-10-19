@@ -466,3 +466,49 @@ body {
   background: #B45309;
   border: 2px solid #382414;
 }
+
+/* CUSTOM RETRO PIXEL CURSOR (Inspirado en PixelCraft e Imagen 3) */
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+#custom-cursor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+.custom-cursor-active #custom-cursor-container {
+  opacity: 1;
+}
+
+#custom-cursor-box {
+  width: 12px;
+  height: 12px;
+  background-color: #F29F38;
+  border: 2px solid #382414;
+  box-shadow: 2px 2px 0px rgba(56, 36, 20, 0.4);
+  transition: width 0.12s ease-out, height 0.12s ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
+  transform-origin: center center;
+  image-rendering: pixelated;
+}
+
+#custom-cursor-container.hovered #custom-cursor-box {
+  width: 22px;
+  height: 22px;
+  transform: rotate(45deg);
+  box-shadow: 3px 3px 0px #382414;
+  background-color: #F29F38;
+}
+
+#custom-cursor-container.clicking #custom-cursor-box {
+  transform: rotate(45deg) scale(0.85);
+  box-shadow: 1px 1px 0px #382414;
+}
