@@ -81,10 +81,10 @@
     const container = document.getElementById("tavernToastContainer");
     if (!container) return;
     const toast = document.createElement("div");
-    toast.className = "tavern-box bg-[#382414] text-[#FBF6EB] px-4 py-3 flex items-center gap-3 shadow-[4px_4px_0_#1E0F07] transform transition-all duration-300 translate-y-2 opacity-0 max-w-sm rounded-sm";
+    toast.className = "tavern-box bg-[#38261C] text-[#F1E8D9] border border-[#5E402F] px-4 py-3 flex items-center gap-3 shadow-2xl rounded-xl transform transition-all duration-300 translate-y-2 opacity-0 max-w-sm";
     toast.innerHTML = `
       <span class="text-xl">${icon}</span>
-      <div class="font-sans text-xs font-semibold leading-snug text-[#FBF6EB]">${msg}</div>
+      <div class="font-sans text-xs font-semibold leading-snug text-[#F1E8D9]">${msg}</div>
     `;
     container.appendChild(toast);
     requestAnimationFrame(() => {
@@ -109,13 +109,13 @@
     if (mode === "web") {
       webView.classList.remove("hidden");
       pwaView.classList.add("hidden");
-      btnWeb.className = "tavern-btn bg-[#F29F38] text-[#2B1810] text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2 font-bold shadow-[2px_2px_0_#382414]";
-      btnPwa.className = "tavern-btn bg-[#FFF9EE] hover:bg-[#F4EAD4] text-[#5A4231] text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2 font-bold";
+      btnWeb.className = "tavern-btn tavern-btn-terracotta text-xs sm:text-sm px-4 sm:px-5 py-2 font-bold rounded-lg shadow-md";
+      btnPwa.className = "tavern-btn tavern-btn-wood text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-lg text-[#CBBDA8] hover:text-[#F1E8D9]";
     } else {
       webView.classList.add("hidden");
       pwaView.classList.remove("hidden");
-      btnPwa.className = "tavern-btn bg-[#16A34A] text-white text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2 font-bold shadow-[2px_2px_0_#382414]";
-      btnWeb.className = "tavern-btn bg-[#FFF9EE] hover:bg-[#F4EAD4] text-[#5A4231] text-xs sm:text-sm px-3.5 sm:px-5 py-2 flex items-center gap-2 font-bold";
+      btnPwa.className = "tavern-btn tavern-btn-herb text-white text-xs sm:text-sm px-4 sm:px-5 py-2 font-bold rounded-lg shadow-md";
+      btnWeb.className = "tavern-btn tavern-btn-wood text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-lg text-[#CBBDA8] hover:text-[#F1E8D9]";
       renderPwaCurrentSection();
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -343,10 +343,10 @@
     container.innerHTML = DATA.synergies.map(s => {
       const isActive = state.activeSynergy === s.id;
       return `
-        <button onclick="selectSynergy('${s.id}')" class="tavern-btn px-2.5 py-1 text-xs font-sans font-bold flex items-center gap-1.5 transition-all rounded-sm ${
+        <button onclick="selectSynergy('${s.id}')" class="tavern-btn px-3 py-1.5 text-xs font-sans font-bold flex items-center gap-1.5 transition-all rounded-lg ${
           isActive
-            ? "bg-[#F29F38] text-[#2B1810] shadow-[2px_2px_0_#382414]"
-            : "bg-[#FFF9EE] hover:bg-[#ECE0C8] text-[#5A4231]"
+            ? "bg-[#C55A3F] text-[#F1E8D9] shadow-md border border-[#D96F54]/40"
+            : "bg-[#38261C] hover:bg-[#4E3528] text-[#CBBDA8] hover:text-[#F1E8D9] border border-[#5E402F]"
         }">
           <span>${s.label}</span>
         </button>
@@ -358,10 +358,10 @@
     const colors = [
       { code: "W", label: "Blanco (W)", bg: "#FFFADC", text: "#292212" },
       { code: "U", label: "Azul (U)", bg: "#1B75BB", text: "#FFFFFF" },
-      { code: "B", label: "Negro (B)", bg: "#22130C", text: "#FBBF24" },
-      { code: "R", label: "Rojo (R)", bg: "#D32F2F", text: "#FFFFFF" },
-      { code: "G", label: "Verde (G)", bg: "#2E7D32", text: "#FFFFFF" },
-      { code: "C", label: "Incoloro (C)", bg: "#786E65", text: "#FFFFFF" }
+      { code: "B", label: "Negro (B)", bg: "#1E140E", text: "#FBBF24" },
+      { code: "R", label: "Rojo (R)", bg: "#C55A3F", text: "#FFFFFF" },
+      { code: "G", label: "Verde (G)", bg: "#4A7C59", text: "#FFFFFF" },
+      { code: "C", label: "Incoloro (C)", bg: "#5E402F", text: "#F1E8D9" }
     ];
     const container = document.getElementById("manaColorFilterBar");
     if (!container) return;
@@ -370,10 +370,10 @@
       return `
         <button onclick="toggleManaColor('${c.code}')" title="${c.label}"
           style="background-color:${c.bg}; color:${c.text};"
-          class="w-7 h-7 font-mono-code text-xs font-bold flex items-center justify-center transition-transform rounded-sm ${
+          class="w-7 h-7 font-mono-code text-xs font-bold flex items-center justify-center transition-all rounded-lg ${
             active
-              ? "border-2 border-[#F29F38] ring-2 ring-[#382414] scale-110 shadow-[2px_2px_0_#382414]"
-              : "border-2 border-[#382414] opacity-80 hover:opacity-100"
+              ? "border-2 border-[#E5A93C] ring-2 ring-[#C55A3F]/50 scale-110 shadow-lg"
+              : "border border-[#5E402F] opacity-75 hover:opacity-100"
           }">
           ${c.code}
         </button>
@@ -410,30 +410,30 @@
       const card = pageCards[i];
       if (card) {
         const rarityBadge = card.rarity === "mythic" ? "MÍTICA" : card.rarity === "rare" ? "RARA" : "SINGLES";
-        const rarityColor = card.rarity === "mythic" ? "bg-[#C84630] text-white" : "bg-[#F29F38] text-[#2B1810]";
+        const rarityColor = card.rarity === "mythic" ? "bg-[#C84630] text-white" : "bg-[#C55A3F] text-[#F1E8D9]";
         pocketsHtml += `
-          <div class="binder-pocket rounded-sm flex flex-col justify-between cursor-pointer group"
+          <div class="binder-pocket rounded-xl flex flex-col justify-between cursor-pointer group bg-[#22160F] border border-[#5E402F] p-2.5 hover:border-[#E5A93C]"
                onclick="triggerCardSlideOut('${card.id}', this)">
-            <div class="pocket-card-inner bg-[#1C110A] border-2 border-[#382414] rounded-sm overflow-hidden aspect-[63/88] relative">
+            <div class="pocket-card-inner bg-[#1A110B] border border-[#3A2418] rounded-lg overflow-hidden aspect-[63/88] relative shadow-sm">
               <img src="${card.image}" alt="${card.name}" loading="lazy"
                    class="w-full h-full object-cover pointer-events-none"
                    onerror="this.src='${MTG_CARD_BACK}'"/>
-              ${card.isFoil ? `<span class="absolute top-1.5 left-1.5 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[7px] px-1.5 py-0.5 border border-[#FBBF24]">✨ FOIL</span>` : ""}
-              <span class="absolute top-1.5 right-1.5 ${rarityColor} font-pixel text-[7px] px-1.5 py-0.5 border border-[#382414] font-bold">${rarityBadge}</span>
-              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-2 pt-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span class="bg-[#F29F38] text-[#2B1810] font-sans font-bold text-xs px-2.5 py-1 border border-[#382414] shadow-[2px_2px_0_#000]">
-                  🖐️ Sacar e Inspeccionar 3D
+              ${card.isFoil ? `<span class="absolute top-1.5 left-1.5 bg-[#1E140E]/90 text-[#E5A93C] font-mono-code text-[9px] px-1.5 py-0.5 rounded border border-[#E5A93C]/40 font-bold">✨ FOIL</span>` : ""}
+              <span class="absolute top-1.5 right-1.5 ${rarityColor} font-mono-code text-[9px] px-1.5 py-0.5 rounded font-bold shadow-sm">${rarityBadge}</span>
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-2 pt-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span class="tavern-btn tavern-btn-herb text-xs px-3 py-1 font-bold rounded-lg shadow-lg">
+                  🖐️ Tocar en 3D
                 </span>
               </div>
             </div>
-            <div class="mt-2 px-1 z-20">
+            <div class="mt-2 px-0.5 z-20">
               <div class="flex items-center justify-between gap-1">
-                <span class="font-sans text-xs text-[#2B1810] truncate font-bold" title="${card.name}">${card.name}</span>
-                <span class="font-mono-code text-xs text-[#B45309] font-bold shrink-0">$${card.priceUsd.toFixed(2)}</span>
+                <span class="font-sans text-xs text-[#F1E8D9] truncate font-bold" title="${card.name}">${card.name}</span>
+                <span class="font-mono-code text-xs text-[#E5A93C] font-bold shrink-0">$${card.priceUsd.toFixed(2)}</span>
               </div>
-              <div class="flex items-center justify-between text-[11px] font-sans text-[#6B5443] mt-0.5">
-                <span>${card.set} #${card.collector_number} • <strong class="text-[#16A34A]">${card.condition}</strong></span>
-                <span class="font-bold text-[#382414] font-mono-code">${formatCop(card.priceCop)}</span>
+              <div class="flex items-center justify-between text-[11px] font-sans text-[#CBBDA8] mt-0.5">
+                <span>${card.set} #${card.collector_number} • <strong class="text-[#689F77]">${card.condition}</strong></span>
+                <span class="font-bold text-[#F1E8D9] font-mono-code">${formatCop(card.priceCop)}</span>
               </div>
             </div>
           </div>
@@ -441,10 +441,10 @@
       } else {
         // Empty binder pocket slot
         pocketsHtml += `
-          <div class="binder-pocket rounded-sm flex flex-col items-center justify-center aspect-[63/88] opacity-55">
+          <div class="binder-pocket rounded-xl flex flex-col items-center justify-center aspect-[63/88] bg-[#1E140E] border border-dashed border-[#5E402F]/60 opacity-60">
             <div class="text-center p-4">
-              <div class="font-serif-tavern text-base text-[#8C6D46] font-bold mb-0.5">Bolsillo Vacío</div>
-              <div class="font-mono-code text-[10px] text-[#8C6D46]">ULTRA•PRO 9-POCKET ARCHIVAL</div>
+              <div class="font-serif-tavern text-sm text-[#CBBDA8] font-bold mb-0.5">Bolsillo Vacío</div>
+              <div class="font-mono-code text-[10px] text-[#9E8C78]">ULTRA•PRO 9-POCKET</div>
             </div>
           </div>
         `;
@@ -563,9 +563,9 @@
       const btn = document.getElementById(`condBtn-${cond}`);
       if (btn) {
         if (state.inspectCondition === cond) {
-          btn.className = "tavern-btn flex-1 py-1.5 text-xs bg-[#F29F38] text-[#2B1810] font-bold text-center";
+          btn.className = "tavern-btn tavern-btn-terracotta flex-1 py-1.5 text-xs text-white font-bold text-center rounded-lg";
         } else {
-          btn.className = "tavern-btn flex-1 py-1.5 text-xs bg-[#ECE0C8] text-[#382414] font-bold text-center";
+          btn.className = "tavern-btn tavern-btn-wood flex-1 py-1.5 text-xs text-[#CBBDA8] font-bold text-center rounded-lg";
         }
       }
     });
@@ -577,8 +577,8 @@
         ? `<span>✨ FOIL ON</span>`
         : `<span>🃏 FOIL OFF</span>`;
       foilBtn.className = state.inspectFoil
-        ? "tavern-btn px-3 bg-[#FBBF24] text-[#2B1810] py-1.5 text-xs font-bold"
-        : "tavern-btn px-3 bg-[#ECE0C8] text-[#5A4231] py-1.5 text-xs font-bold";
+        ? "tavern-btn tavern-btn-amber px-3 py-1.5 text-xs font-bold text-[#2C1E16] rounded-lg"
+        : "tavern-btn tavern-btn-wood px-3 py-1.5 text-xs font-bold text-[#CBBDA8] rounded-lg";
     }
   }
 
@@ -766,30 +766,30 @@
       const item = state.cart[i];
       if (item) {
         html += `
-          <div class="binder-pocket rounded-sm p-2 flex flex-col justify-between bg-[#FBF6EB] relative">
+          <div class="binder-pocket rounded-xl p-2.5 flex flex-col justify-between bg-[#22160F] border border-[#5E402F] relative shadow-inner">
             <button onclick="removeFromBinderCart(${i})" title="Sacar de mi carpeta"
-              class="absolute top-1.5 right-1.5 z-30 w-6 h-6 bg-[#C84630] text-white font-bold text-xs border border-[#382414] flex items-center justify-center cursor-pointer">
+              class="absolute top-1.5 right-1.5 z-30 w-6 h-6 bg-[#C55A3F] hover:bg-[#A2412A] text-white font-bold text-xs rounded-full flex items-center justify-center cursor-pointer shadow transition-colors">
               ✕
             </button>
-            <div class="aspect-[63/88] bg-black border border-[#382414] overflow-hidden relative">
+            <div class="aspect-[63/88] bg-black/40 rounded-lg border border-[#442E22] overflow-hidden relative shadow-md">
               <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover"
                    onerror="this.src='${MTG_CARD_BACK}'"/>
-              ${item.selectedFoil ? `<span class="absolute bottom-1 left-1 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[7px] px-1">FOIL</span>` : ""}
+              ${item.selectedFoil ? `<span class="absolute bottom-1 left-1 bg-[#1E140E]/90 text-[#E5A93C] font-mono text-[9px] px-1.5 py-0.5 rounded font-bold border border-[#E5A93C]/40">FOIL</span>` : ""}
             </div>
-            <div class="mt-1.5 z-20">
-              <div class="font-sans text-xs text-[#2B1810] truncate font-bold">${item.name}</div>
-              <div class="flex justify-between items-center mt-0.5">
-                <span class="font-mono-code text-[11px] font-bold text-[#16A34A]">${item.selectedCondition}</span>
-                <span class="font-mono-code text-xs text-[#B45309] font-bold">${formatCop(item.finalPriceCop)}</span>
+            <div class="mt-2 z-20">
+              <div class="font-sans text-xs text-[#F1E8D9] truncate font-bold">${item.name}</div>
+              <div class="flex justify-between items-center mt-1">
+                <span class="font-mono-code text-[11px] font-bold text-[#689F77] bg-[#4A7C59]/20 px-1.5 py-0.5 rounded">${item.selectedCondition}</span>
+                <span class="font-mono-code text-xs text-[#E5A93C] font-bold">${formatCop(item.finalPriceCop)}</span>
               </div>
             </div>
           </div>
         `;
       } else {
         html += `
-          <div class="binder-pocket rounded-sm p-2 flex flex-col items-center justify-center aspect-[63/88] opacity-50">
-            <span class="text-xl mb-1">🃏</span>
-            <span class="font-sans text-xs text-[#6B5443] text-center font-semibold">Bolsillo Libre</span>
+          <div class="binder-pocket rounded-xl p-2.5 flex flex-col items-center justify-center aspect-[63/88] bg-[#22160F]/40 border border-[#442E22] border-dashed opacity-60">
+            <span class="text-2xl mb-1 opacity-50">🃏</span>
+            <span class="font-sans text-xs text-[#9E8C78] text-center font-semibold">Bolsillo Libre</span>
           </div>
         `;
       }
@@ -800,28 +800,28 @@
     const totalUsd = state.cart.reduce((s, c) => s + c.finalPriceUsd, 0);
     if (summaryEl) {
       summaryEl.innerHTML = `
-        <div class="space-y-1.5 w-full">
-          <div class="flex justify-between text-xs font-sans text-[#5C3D24]">
+        <div class="space-y-2 w-full">
+          <div class="flex justify-between text-xs font-sans text-[#CBBDA8]">
             <span>Cartas seleccionadas:</span>
-            <strong class="font-mono-code text-[#382414]">${state.cart.length} Singles MTG</strong>
+            <strong class="font-mono-code text-[#F1E8D9]">${state.cart.length} Singles MTG</strong>
           </div>
-          <div class="flex justify-between text-xs font-sans text-[#5C3D24]">
+          <div class="flex justify-between text-xs font-sans text-[#CBBDA8]">
             <span>Fundas Dragon Shield de cortesía:</span>
-            <strong class="text-[#16A34A] font-bold">¡GRATIS! ($0)</strong>
+            <strong class="text-[#689F77] font-bold">¡GRATIS! ($0)</strong>
           </div>
-          <div class="flex justify-between text-xs font-sans text-[#5C3D24]">
+          <div class="flex justify-between text-xs font-sans text-[#CBBDA8]">
             <span>Cofre de Bóveda TopDeck:</span>
-            <strong class="text-[#16A34A] font-bold">INCLUIDO</strong>
+            <strong class="text-[#689F77] font-bold">INCLUIDO</strong>
           </div>
-          <div class="border-t-2 border-[#382414] pt-3 mt-3 flex flex-wrap justify-between items-center gap-3">
+          <div class="border-t border-[#5E402F] pt-3 mt-3 flex flex-wrap justify-between items-center gap-3">
             <div>
-              <span class="text-xs font-bold text-[#805B3A] font-sans block">TOTAL ORDEN:</span>
-              <div class="font-mono-code text-xl text-[#B45309] font-bold">${formatCop(totalCop)}</div>
-              <div class="font-mono-code text-xs text-[#6B5443]">(${formatUsd(totalUsd)})</div>
+              <span class="text-xs font-bold text-[#CBBDA8] font-sans block uppercase tracking-wider">TOTAL ORDEN:</span>
+              <div class="font-mono-code text-2xl text-[#E5A93C] font-bold leading-tight">${formatCop(totalCop)}</div>
+              <div class="font-mono-code text-xs text-[#9E8C78]">(${formatUsd(totalUsd)})</div>
             </div>
             <button id="startCheckoutAnimBtn" onclick="runCheckoutPackagingAnimation()"
               ${state.cart.length === 0 ? "disabled" : ""}
-              class="tavern-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#2B1810] px-5 py-2.5 text-sm font-bold flex items-center gap-2 shadow-[3px_3px_0_#382414] disabled:opacity-50 disabled:cursor-not-allowed">
+              class="tavern-btn tavern-btn-herb text-white px-6 py-2.5 text-sm font-bold flex items-center gap-2 rounded-xl disabled:opacity-40 disabled:cursor-not-allowed">
               <span>✨</span>
               <span>PAGAR Y EMPACAR PEDIDO</span>
             </button>
@@ -859,14 +859,14 @@
     visualCanvas.innerHTML = `
       <div class="relative w-44 h-60 flex items-center justify-center">
         <!-- Golden Dragon Shield Outer Sleeve -->
-        <div class="absolute inset-0 bg-gradient-to-b from-[#F59E0B]/30 to-[#D97706]/50 border-4 border-[#F59E0B] rounded-lg shadow-[0_12px_30px_rgba(245,158,11,0.45)] overflow-hidden z-20 pointer-events-none">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#E5A93C]/20 to-[#C55A3F]/30 border-2 border-[#E5A93C] rounded-xl shadow-[0_12px_30px_rgba(229,169,60,0.35)] overflow-hidden z-20 pointer-events-none">
           <div class="sleeve-shine-bar"></div>
-          <div class="absolute bottom-2 inset-x-0 text-center font-pixel text-[8px] text-white bg-[#382414]/80 py-1">
+          <div class="absolute bottom-2 inset-x-0 text-center font-sans font-bold text-[9px] text-[#F1E8D9] bg-[#1E140E]/90 py-1 border-t border-[#5E402F]">
             🛡️ DRAGON SHIELD GOLD SLEEVE
           </div>
         </div>
         <!-- Card sliding inside the sleeve -->
-        <div class="w-36 h-52 rounded border-2 border-[#382414] overflow-hidden shadow-lg anim-sleeve-card z-10">
+        <div class="w-36 h-52 rounded-lg border border-[#5E402F] overflow-hidden shadow-lg anim-sleeve-card z-10">
           <img src="${sampleCard.image}" class="w-full h-full object-cover" alt="${sampleCard.name}"
                onerror="this.src='${MTG_CARD_BACK}'"/>
         </div>
@@ -881,18 +881,18 @@
       visualCanvas.innerHTML = `
         <div class="relative w-64 h-60 flex flex-col items-center justify-end pb-4">
           <!-- Sleeved cards dropping into the box -->
-          <div class="w-28 h-40 rounded border-2 border-[#F59E0B] overflow-hidden shadow-md anim-pack-box mb-[-30px] z-10">
+          <div class="w-28 h-40 rounded-lg border border-[#E5A93C] overflow-hidden shadow-md anim-pack-box mb-[-25px] z-10">
             <img src="${sampleCard.image}" class="w-full h-full object-cover" alt="Sleeved Card"
                  onerror="this.src='${MTG_CARD_BACK}'"/>
           </div>
           <!-- Armored TopDeck Vault Box -->
-          <div class="w-48 h-28 bg-[#4A2B11] border-4 border-[#382414] shadow-[6px_6px_0_#382414] rounded-sm relative z-20 flex flex-col items-center justify-center p-2">
-            <div class="w-full h-3 bg-[#F29F38] border-b-2 border-[#382414] absolute top-0 inset-x-0"></div>
-            <div class="w-8 h-8 rounded-full bg-[#C84630] border-2 border-[#FBBF24] flex items-center justify-center font-pixel text-[10px] text-white shadow mb-1">
+          <div class="w-52 h-32 bg-[#38261C] border-2 border-[#5E402F] shadow-[0_8px_20px_rgba(10,5,2,0.6)] rounded-xl relative z-20 flex flex-col items-center justify-center p-3">
+            <div class="w-full h-3 bg-[#C55A3F] border-b border-[#5E402F] absolute top-0 inset-x-0 rounded-t-xl"></div>
+            <div class="w-9 h-9 rounded-full bg-[#4A7C59] border-2 border-[#E5A93C] flex items-center justify-center text-sm text-white shadow mb-1">
               🃏
             </div>
-            <span class="font-pixel text-[9px] text-[#FBF6EB]">COFRE TOPDECK</span>
-            <span class="font-mono-code text-[10px] text-[#F29F38] font-bold">${cardCount} CARTAS PROTEGIDAS</span>
+            <span class="font-serif-tavern text-xs text-[#F1E8D9] font-bold">COFRE TOPDECK</span>
+            <span class="font-mono-code text-[11px] text-[#E5A93C] font-bold mt-0.5">${cardCount} CARTAS PROTEGIDAS</span>
           </div>
         </div>
       `;
@@ -906,43 +906,43 @@
       updateCartBadges();
 
       progressBar.style.width = "100%";
-      stepTitle.textContent = "PASO 3/3: ¡DESPACHADO EN EL CAMIÓN EXPRESO TOPDECK!";
+      stepTitle.textContent = "PASO 3/3: ¡DESPACHADO EN EL TRANSPORTE EXPRESO TOPDECK!";
       stepDesc.textContent = "¡Tu pedido va en camino! Saliendo de la taberna TopDeck directo a tus manos.";
       const guideCode = "TD-COL-" + Math.floor(100000 + Math.random() * 900000);
       visualCanvas.innerHTML = `
         <div class="w-full flex flex-col items-center justify-center overflow-hidden py-4">
-          <div class="relative w-full max-w-md h-36 flex items-end justify-center border-b-4 border-[#382414] pb-2 overflow-hidden">
-            <!-- Pixel Delivery Truck -->
+          <div class="relative w-full max-w-md h-36 flex items-end justify-center border-b-2 border-[#5E402F] pb-2 overflow-hidden">
+            <!-- Delivery Truck -->
             <div class="anim-truck-move flex items-end gap-1">
               <!-- Smoke puffs -->
               <div class="flex gap-1 items-center mr-1 mb-4 animate-pulse">
-                <span class="w-3 h-3 rounded-full bg-[#805B3A]/50 inline-block"></span>
-                <span class="w-4 h-4 rounded-full bg-[#805B3A]/70 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-[#E5A93C]/40 inline-block"></span>
+                <span class="w-4 h-4 rounded-full bg-[#E5A93C]/60 inline-block"></span>
               </div>
               <div class="anim-truck-body flex items-end">
                 <!-- Cargo Box -->
-                <div class="w-36 h-24 bg-[#4A2B11] border-4 border-[#382414] flex flex-col items-center justify-center p-2 relative shadow-[4px_0_0_#382414]">
-                  <span class="font-pixel text-[9px] text-[#F29F38] font-bold">TOPDECK</span>
-                  <span class="font-pixel text-[7px] text-[#FBF6EB] mt-1">EXPRESS VAULT</span>
-                  <div class="mt-1 bg-[#16A34A] text-white font-pixel text-[7px] px-1.5 py-0.5 border border-[#382414]">
+                <div class="w-36 h-24 bg-[#38261C] border-2 border-[#5E402F] flex flex-col items-center justify-center p-2 relative rounded-l-lg shadow">
+                  <span class="font-serif-tavern text-xs text-[#E5A93C] font-bold">TOPDECK</span>
+                  <span class="text-[10px] text-[#CBBDA8] font-sans mt-0.5">EXPRESS VAULT</span>
+                  <div class="mt-1 bg-[#4A7C59] text-white text-[9px] px-2 py-0.5 rounded font-mono font-bold">
                     📦 ${cardCount} CARTAS
                   </div>
                 </div>
                 <!-- Truck Cabin -->
-                <div class="w-16 h-16 bg-[#F29F38] border-4 border-l-0 border-[#382414] relative flex flex-col justify-between p-1">
-                  <div class="w-10 h-6 bg-[#DBEAFE] border-2 border-[#382414] ml-auto"></div>
-                  <div class="w-3 h-3 bg-[#FEF08A] border border-[#382414] ml-auto"></div>
+                <div class="w-16 h-16 bg-[#C55A3F] border-2 border-l-0 border-[#5E402F] rounded-r-lg relative flex flex-col justify-between p-1.5">
+                  <div class="w-9 h-6 bg-[#38261C] border border-[#5E402F] rounded-sm ml-auto"></div>
+                  <div class="w-3 h-3 bg-[#E5A93C] rounded-full border border-[#5E402F] ml-auto"></div>
                 </div>
               </div>
             </div>
           </div>
           <!-- Confirmation Ticket -->
-          <div class="mt-4 bg-[#DCFCE7] border-2 border-[#166534] p-3 w-full max-w-md text-center shadow-[3px_3px_0_#166534]">
-            <div class="font-sans text-xs text-[#166534] font-bold">✅ ¡PAGO APROBADO Y CARPETA DESPACHADA!</div>
-            <div class="font-mono-code text-xs text-[#2B1810] mt-1">
-              Guía de Rastreo: <strong>${guideCode}</strong> • Empaque: <strong>Sleeve + Deckbox</strong>
+          <div class="mt-4 bg-[#38261C] border-2 border-[#4A7C59] p-4 w-full max-w-md text-center rounded-xl shadow-[0_8px_20px_rgba(10,5,2,0.5)]">
+            <div class="font-serif-tavern text-sm text-[#689F77] font-bold">✅ ¡PAGO APROBADO Y CARPETA DESPACHADA!</div>
+            <div class="font-mono-code text-xs text-[#CBBDA8] mt-1">
+              Guía de Rastreo: <strong class="text-[#F1E8D9]">${guideCode}</strong> • Empaque: <strong class="text-[#F1E8D9]">Sleeve + Deckbox</strong>
             </div>
-            <button onclick="finishCheckoutOrder()" class="mt-3 tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-4 py-2 font-bold shadow-[2px_2px_0_#382414]">
+            <button onclick="finishCheckoutOrder()" class="mt-3 tavern-btn tavern-btn-terracotta text-white text-xs px-5 py-2 font-bold rounded-xl">
               VOLVER A LA BÓVEDA
             </button>
           </div>
@@ -984,12 +984,12 @@
       const active = state.pwaTab === t.id;
       return `
         <button onclick="switchPwaTab('${t.id}')"
-          class="flex-1 py-2 px-1 flex flex-col items-center justify-center transition-all border-r last:border-r-0 border-[#382414] cursor-pointer ${
-            active ? "bg-[#382414] text-[#FBBF24] -translate-y-0.5 shadow-[0_2px_0_#382414]" : "bg-[#ECE0C8] text-[#382414] hover:bg-[#FBF6EB]"
+          class="flex-1 py-2 px-1 flex flex-col items-center justify-center transition-all border-r last:border-r-0 border-[#442E22] cursor-pointer ${
+            active ? "bg-[#442E22] text-[#E5A93C] shadow-inner font-bold" : "bg-[#251811] text-[#9E8C78] hover:bg-[#342016] hover:text-[#F1E8D9]"
           }">
           <span class="text-base leading-none">${t.icon}</span>
           <span class="font-sans font-bold text-xs mt-0.5 tracking-tight">${t.label}</span>
-          <span class="text-[10px] font-sans opacity-75">${t.mascot}</span>
+          <span class="text-[10px] font-sans opacity-70">${t.mascot}</span>
         </button>
       `;
     }).join("");
@@ -998,23 +998,23 @@
   function renderMascotHeaderBanner(mascotKey, customSubtitle = null) {
     const m = DATA.mascots[mascotKey];
     return `
-      <div class="tavern-box p-3.5 mb-4 flex items-center gap-3.5 bg-[#FFF9EE] border-3 border-[#382414] shadow-[4px_4px_0_#382414] rounded-sm">
-        <div class="w-14 h-14 sm:w-16 sm:h-16 shrink-0 border-2 border-[#382414] shadow-[2px_2px_0_#382414] overflow-hidden bg-[#4A2B11] p-0.5 flex items-center justify-center">
+      <div class="tavern-box p-4 mb-4 flex items-center gap-3.5 bg-[#38261C] border border-[#5E402F] shadow-[0_4px_16px_rgba(10,5,2,0.4)] rounded-2xl">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 shrink-0 border-2 border-[#5E402F] rounded-xl overflow-hidden bg-[#251811] p-1 flex items-center justify-center shadow">
           ${mascotKey === "dexter"
-            ? `<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw" class="w-full h-full object-cover"/>`
+            ? `<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw" class="w-full h-full object-cover rounded-lg"/>`
             : `<div class="text-3xl">${m.emoji}</div>`
           }
         </div>
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 flex-wrap">
-            <span class="font-serif-tavern text-lg sm:text-xl text-[#382414] font-bold">
+            <span class="font-serif-tavern text-lg sm:text-xl text-[#F1E8D9] font-bold">
               ${m.name}
             </span>
-            <span class="text-xs font-bold text-[#805B3A] font-sans">
+            <span class="text-xs font-bold text-[#E5A93C] font-sans">
               • ${m.title}
             </span>
           </div>
-          <p class="text-xs text-[#5C3D24] mt-1 font-sans leading-relaxed italic">
+          <p class="text-xs text-[#CBBDA8] mt-1 font-sans leading-relaxed italic">
             "${customSubtitle || m.greeting}"
           </p>
         </div>
@@ -1049,60 +1049,60 @@
       ${renderMascotHeaderBanner("barnaby")}
 
       <!-- Selector de Código de Mesa -->
-      <div class="tavern-box bg-[#FFF9EE] p-3.5 mb-4 rounded-sm">
+      <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 mb-4 rounded-xl shadow-md">
         <div class="flex items-center justify-between mb-2">
-          <label class="font-sans text-xs text-[#92400E] font-bold uppercase tracking-wider">📍 Código de tu Mesa en la Taberna:</label>
-          <span class="bg-[#DCFCE7] text-[#166534] font-mono-code text-[11px] font-bold px-2 py-0.5 border border-[#166534]">CONECTADO</span>
+          <label class="font-sans text-xs text-[#E5A93C] font-bold uppercase tracking-wider">📍 Código de tu Mesa en la Taberna:</label>
+          <span class="bg-[#4A7C59]/25 text-[#689F77] font-mono-code text-[11px] font-bold px-2 py-0.5 rounded border border-[#4A7C59]/40">CONECTADO</span>
         </div>
         <div class="flex gap-2">
-          <select onchange="updateTableCode(this.value)" class="flex-1 bg-[#ECE0C8] border-2 border-[#382414] font-sans text-xs text-[#2B1810] px-3 py-2 font-bold focus:outline-none">
+          <select onchange="updateTableCode(this.value)" class="flex-1 bg-[#251811] border border-[#5E402F] rounded-xl font-sans text-xs text-[#F1E8D9] px-3 py-2 font-bold focus:outline-none focus:border-[#C55A3F]">
             ${DATA.tavernTables.map(t => `
               <option value="${t.code}" ${state.tableCode === t.code ? "selected" : ""}>
                 ${t.code} — ${t.zone}
               </option>
             `).join("")}
           </select>
-          <button onclick="simulateQrTableScan()" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3 py-2 shrink-0 font-bold">
+          <button onclick="simulateQrTableScan()" class="tavern-btn tavern-btn-terracotta text-white text-xs px-3.5 py-2 shrink-0 font-bold rounded-xl">
             📷 QR MESA
           </button>
         </div>
       </div>
 
       ${state.activeTableOrder ? `
-        <div class="tavern-box bg-[#DCFCE7] border-[#166534] p-3.5 mb-4 rounded-sm">
+        <div class="tavern-box bg-[#2E3B2E] border border-[#4A7C59] p-4 mb-4 rounded-xl shadow-md">
           <div class="flex items-center justify-between">
-            <span class="font-serif-tavern text-lg text-[#166534] font-bold">🍺 Comanda en Preparación para ${state.activeTableOrder.table}</span>
-            <span class="font-mono-code text-[10px] bg-[#166534] text-white px-2 py-0.5 animate-pulse font-bold">EN BARRA</span>
+            <span class="font-serif-tavern text-lg text-[#689F77] font-bold">🍺 Comanda en Preparación para ${state.activeTableOrder.table}</span>
+            <span class="font-mono-code text-[10px] bg-[#4A7C59] text-white px-2 py-0.5 rounded animate-pulse font-bold">EN BARRA</span>
           </div>
-          <p class="font-sans text-xs text-[#2B1810] mt-1 leading-relaxed">
-            Barnaby está despachando tus <strong>${state.activeTableOrder.itemsCount} producto(s)</strong> (${formatCop(state.activeTableOrder.total)}). Llegará a tu mesa en ~4 min sin interrumpir tu partida.
+          <p class="font-sans text-xs text-[#F1E8D9] mt-1.5 leading-relaxed">
+            Barnaby está despachando tus <strong>${state.activeTableOrder.itemsCount} producto(s)</strong> (<span class="text-[#E5A93C] font-bold">${formatCop(state.activeTableOrder.total)}</span>). Llegará a tu mesa en ~4 min sin interrumpir tu partida.
           </p>
         </div>
       ` : ""}
 
       <!-- Menú de Comida y Bebida del Local -->
       <div class="mb-3 flex items-center justify-between">
-        <h3 class="font-serif-tavern text-2xl text-[#382414] font-bold">🍔 Menú de Taberna TopDeck</h3>
-        <span class="font-sans text-xs text-[#805B3A] font-semibold">Servicio directo a ${state.tableCode}</span>
+        <h3 class="font-serif-tavern text-xl sm:text-2xl text-[#F1E8D9] font-bold">🍔 Menú de Taberna TopDeck</h3>
+        <span class="font-sans text-xs text-[#CBBDA8] font-semibold">Servicio directo a <strong class="text-[#E5A93C]">${state.tableCode}</strong></span>
       </div>
 
       <div class="space-y-2.5 mb-5">
         ${DATA.tavernMenu.map(item => `
-          <div class="tavern-box bg-[#FFF9EE] p-3 flex items-center justify-between gap-3 rounded-sm">
+          <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-3.5 flex items-center justify-between gap-3 rounded-xl shadow-sm hover:border-[#7A533E] transition-colors">
             <div class="flex items-start gap-3 min-w-0">
-              <div class="w-12 h-12 bg-[#ECE0C8] border-2 border-[#382414] flex items-center justify-center text-2xl shrink-0">
+              <div class="w-12 h-12 bg-[#251811] border border-[#5E402F] rounded-xl flex items-center justify-center text-2xl shrink-0 shadow-inner">
                 ${item.icon}
               </div>
               <div class="min-w-0">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-sans text-sm text-[#2B1810] font-bold">${item.name}</span>
-                  <span class="bg-[#F29F38] text-[#2B1810] font-pixel text-[7px] px-1.5 py-0.5 border border-[#382414] font-bold">${item.tag}</span>
+                  <span class="font-sans text-sm text-[#F1E8D9] font-bold">${item.name}</span>
+                  <span class="bg-[#C55A3F]/25 text-[#F1E8D9] font-sans text-[10px] px-2 py-0.5 rounded border border-[#C55A3F]/40 font-bold">${item.tag}</span>
                 </div>
-                <p class="font-sans text-xs text-[#6B5443] leading-snug mt-0.5">${item.desc}</p>
-                <div class="font-mono-code text-xs text-[#B45309] font-bold mt-1">${formatCop(item.priceCop)}</div>
+                <p class="font-sans text-xs text-[#CBBDA8] leading-snug mt-0.5">${item.desc}</p>
+                <div class="font-mono-code text-xs text-[#E5A93C] font-bold mt-1">${formatCop(item.priceCop)}</div>
               </div>
             </div>
-            <button onclick="addTavernMenuItem('${item.id}')" class="tavern-btn bg-[#F29F38] hover:bg-[#D47E19] text-[#2B1810] text-xs px-3 py-2 shrink-0 font-bold">
+            <button onclick="addTavernMenuItem('${item.id}')" class="tavern-btn tavern-btn-herb text-white text-xs px-3.5 py-2 shrink-0 font-bold rounded-xl shadow">
               + PEDIR
             </button>
           </div>
@@ -1110,26 +1110,26 @@
       </div>
 
       <!-- Resumen de Comanda de la Mesa -->
-      <div class="tavern-box bg-[#ECE0C8] p-4 rounded-sm">
-        <div class="flex items-center justify-between border-b-2 border-[#382414] pb-2 mb-2">
-          <span class="font-serif-tavern text-lg text-[#382414] font-bold">🧾 Comanda Activa (${state.tableCode})</span>
-          <span class="font-mono-code text-base text-[#B45309] font-bold">${formatCop(totalTableCop)}</span>
+      <div class="tavern-box bg-[#251811] border border-[#5E402F] p-4 rounded-xl shadow-md">
+        <div class="flex items-center justify-between border-b border-[#5E402F] pb-2.5 mb-2.5">
+          <span class="font-serif-tavern text-lg text-[#F1E8D9] font-bold">🧾 Comanda Activa (${state.tableCode})</span>
+          <span class="font-mono-code text-base text-[#E5A93C] font-bold">${formatCop(totalTableCop)}</span>
         </div>
         ${state.tableCart.length === 0 ? `
-          <p class="font-sans text-xs text-[#6B5443] py-2 text-center italic">Aún no has agregado bebidas ni comida a tu mesa.</p>
+          <p class="font-sans text-xs text-[#9E8C78] py-2 text-center italic">Aún no has agregado bebidas ni comida a tu mesa.</p>
         ` : `
           <div class="space-y-1.5 mb-3">
             ${state.tableCart.map((c, idx) => `
-              <div class="flex items-center justify-between text-xs font-mono-code bg-[#FFF9EE] px-2.5 py-1.5 border border-[#382414]">
-                <span class="truncate">${c.icon} ${c.qty}x ${c.name}</span>
-                <div class="flex items-center gap-2 shrink-0">
-                  <strong>${formatCop(c.priceCop * c.qty)}</strong>
-                  <button onclick="removeTavernMenuItem(${idx})" class="text-[#C84630] font-bold">✕</button>
+              <div class="flex items-center justify-between text-xs font-mono-code bg-[#38261C] px-3 py-2 border border-[#5E402F] rounded-lg">
+                <span class="truncate text-[#F1E8D9]">${c.icon} ${c.qty}x ${c.name}</span>
+                <div class="flex items-center gap-2.5 shrink-0">
+                  <strong class="text-[#E5A93C]">${formatCop(c.priceCop * c.qty)}</strong>
+                  <button onclick="removeTavernMenuItem(${idx})" class="text-[#C55A3F] hover:text-[#A2412A] font-bold">✕</button>
                 </div>
               </div>
             `).join("")}
           </div>
-          <button onclick="submitTableOrder()" class="w-full tavern-btn bg-[#16A34A] text-white text-sm py-2.5 font-bold shadow-[2px_2px_0_#382414]">
+          <button onclick="submitTableOrder()" class="w-full tavern-btn tavern-btn-herb text-white text-sm py-2.5 font-bold rounded-xl shadow-lg">
             🍺 ENVIAR PEDIDO A COCINA (${formatCop(totalTableCop)})
           </button>
         `}
@@ -1190,13 +1190,13 @@
 
       <!-- Sub-navegación Coleccionista -->
       <div class="grid grid-cols-2 gap-2 mb-4">
-        <button onclick="setCollectorSubtab('pulgas')" class="tavern-btn py-2 text-xs font-bold font-sans ${
-          state.collectorSubtab === "pulgas" ? "bg-[#F29F38] text-[#2B1810]" : "bg-[#FFF9EE] text-[#5A4231]"
+        <button onclick="setCollectorSubtab('pulgas')" class="tavern-btn py-2 text-xs font-bold font-sans rounded-xl transition-all ${
+          state.collectorSubtab === "pulgas" ? "tavern-btn-terracotta text-white shadow-md" : "tavern-btn-wood text-[#CBBDA8]"
         }">
           🔥 MERCADO DE PULGAS (EN TIENDA)
         </button>
-        <button onclick="setCollectorSubtab('mazos')" class="tavern-btn py-2 text-xs font-bold font-sans ${
-          state.collectorSubtab === "mazos" ? "bg-[#F29F38] text-[#2B1810]" : "bg-[#FFF9EE] text-[#5A4231]"
+        <button onclick="setCollectorSubtab('mazos')" class="tavern-btn py-2 text-xs font-bold font-sans rounded-xl transition-all ${
+          state.collectorSubtab === "mazos" ? "tavern-btn-terracotta text-white shadow-md" : "tavern-btn-wood text-[#CBBDA8]"
         }">
           📦 MIS MAZOS (MOXFIELD) & BULK
         </button>
@@ -1214,42 +1214,42 @@
   function renderFleaMarketSubtab() {
     return `
       <!-- Switch Maestro: Habilitar Mi Carpeta en el Local -->
-      <div class="tavern-box p-3.5 mb-4 ${state.myBinderPublished ? "bg-[#DCFCE7] border-[#166534]" : "bg-[#ECE0C8]"}">
+      <div class="tavern-box p-4 mb-4 rounded-xl border transition-all ${state.myBinderPublished ? "bg-[#251811] border-[#4A7C59] shadow-[0_0_15px_rgba(74,124,89,0.2)]" : "bg-[#38261C] border-[#5E402F]"}">
         <div class="flex items-center justify-between gap-2">
           <div>
-            <div class="font-serif-tavern text-base sm:text-lg text-[#2B1810] font-bold flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full ${state.myBinderPublished ? "bg-[#16A34A] animate-ping" : "bg-gray-500"}"></span>
+            <div class="font-serif-tavern text-base sm:text-lg text-[#F1E8D9] font-bold flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full ${state.myBinderPublished ? "bg-[#689F77] animate-ping" : "bg-[#9E8C78]"}"></span>
               <span>Mi Carpeta en la Taberna (${state.tableCode})</span>
             </div>
-            <p class="font-sans text-xs text-[#5C3D24] mt-0.5 leading-relaxed">
+            <p class="font-sans text-xs text-[#CBBDA8] mt-0.5 leading-relaxed">
               ${state.myBinderPublished
                 ? "¡Tu carpeta está PÚBLICA! Los jugadores en TopDeck pueden ver tus cartas y acercarse a tu mesa a comprar o intercambiar."
                 : "Tu carpeta está oculta. Actívala para que los demás jugadores del local vean qué vendes o cambias."}
             </p>
           </div>
-          <button onclick="toggleMyBinderPublic()" class="tavern-btn px-3 py-2 text-xs font-bold shrink-0 font-sans ${
-            state.myBinderPublished ? "bg-[#16A34A] text-white" : "bg-[#FFF9EE] text-[#2B1810]"
+          <button onclick="toggleMyBinderPublic()" class="tavern-btn px-3.5 py-2 text-xs font-bold shrink-0 font-sans rounded-xl ${
+            state.myBinderPublished ? "tavern-btn-herb text-white" : "tavern-btn-wood text-[#CBBDA8]"
           }">
             ${state.myBinderPublished ? "🟢 VISIBLE" : "⚪ OCULTA"}
           </button>
         </div>
 
         <!-- Mis cartas publicadas en mi carpeta -->
-        <div class="mt-3 pt-2.5 border-t border-[#382414]/20">
+        <div class="mt-3 pt-3 border-t border-[#5E402F]">
           <div class="flex items-center justify-between mb-2">
-            <span class="font-sans text-xs font-bold text-[#382414] uppercase">Mis Cartas Publicadas (${state.myTradeBinder.length}):</span>
-            <button onclick="addCardToMyPublicBinderPrompt()" class="tavern-btn text-xs bg-[#F29F38] text-[#2B1810] px-2.5 py-1 font-bold">
+            <span class="font-sans text-xs font-bold text-[#CBBDA8] uppercase tracking-wider">Mis Cartas Publicadas (${state.myTradeBinder.length}):</span>
+            <button onclick="addCardToMyPublicBinderPrompt()" class="tavern-btn tavern-btn-terracotta text-xs text-white px-3 py-1 font-bold rounded-lg shadow">
               + PUBLICAR CARTA
             </button>
           </div>
           <div class="grid grid-cols-2 gap-2">
             ${state.myTradeBinder.map(c => `
-              <div class="bg-[#FFF9EE] border-2 border-[#382414] p-2 flex items-center gap-2.5 rounded-sm shadow-[1px_1px_0_#382414]">
-                <img src="${c.img}" class="w-9 h-12 object-cover border border-[#382414] shrink-0 rounded-xs" alt="${c.name}"/>
+              <div class="bg-[#251811] border border-[#5E402F] p-2 flex items-center gap-2.5 rounded-lg shadow-sm">
+                <img src="${c.img}" class="w-9 h-12 object-cover border border-[#5E402F] shrink-0 rounded" alt="${c.name}"/>
                 <div class="min-w-0">
-                  <div class="font-sans text-xs text-[#2B1810] truncate font-bold">${c.name}</div>
-                  <div class="font-pixel text-[7px] text-[#16A34A] font-bold">${c.mode}</div>
-                  <div class="font-mono-code text-xs text-[#B45309] font-bold">${formatCop(c.priceCop)}</div>
+                  <div class="font-sans text-xs text-[#F1E8D9] truncate font-bold">${c.name}</div>
+                  <div class="font-mono text-[9px] text-[#689F77] font-bold">${c.mode}</div>
+                  <div class="font-mono-code text-xs text-[#E5A93C] font-bold">${formatCop(c.priceCop)}</div>
                 </div>
               </div>
             `).join("")}
@@ -1258,38 +1258,38 @@
       </div>
 
       <!-- Explorador de Carpetas Abiertas Ahora en TopDeck -->
-      <div class="mb-2.5 flex items-center justify-between">
-        <h4 class="font-serif-tavern text-xl text-[#382414] font-bold">🤝 Carpetas Abiertas en Otras Mesas</h4>
-        <span class="font-pixel text-[8px] bg-[#F29F38] text-[#2B1810] px-2 py-0.5 border border-[#382414] font-bold">P2P EN VIVO</span>
+      <div class="mb-3 flex items-center justify-between">
+        <h4 class="font-serif-tavern text-xl text-[#F1E8D9] font-bold">🤝 Carpetas Abiertas en Otras Mesas</h4>
+        <span class="font-mono text-[10px] bg-[#C55A3F]/25 text-[#F1E8D9] px-2 py-0.5 border border-[#C55A3F]/40 rounded font-bold">P2P EN VIVO</span>
       </div>
 
-      <div class="space-y-3">
+      <div class="space-y-3.5">
         ${DATA.fleaMarketBinders.map(binder => `
-          <div class="tavern-box bg-[#FFF9EE] p-3.5">
-            <div class="flex items-center justify-between border-b-2 border-[#382414] pb-2 mb-2.5">
+          <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-xl shadow-md">
+            <div class="flex items-center justify-between border-b border-[#5E402F] pb-2 mb-2.5">
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="font-serif-tavern text-lg text-[#2B1810] font-bold">${binder.player}</span>
-                  <span class="bg-[#382414] text-[#FBBF24] font-mono-code text-[11px] font-bold px-2 py-0.5 rounded-xs">${binder.table}</span>
+                  <span class="font-serif-tavern text-lg text-[#F1E8D9] font-bold">${binder.player}</span>
+                  <span class="bg-[#251811] text-[#E5A93C] font-mono-code text-[11px] font-bold px-2 py-0.5 rounded border border-[#5E402F]">${binder.table}</span>
                 </div>
-                <div class="font-sans text-xs text-[#166534] font-bold mt-0.5">${binder.status}</div>
+                <div class="font-sans text-xs text-[#689F77] font-bold mt-0.5">${binder.status}</div>
               </div>
-              <span class="font-mono-code text-xs text-[#B45309] font-bold">${binder.reputation}</span>
+              <span class="font-mono-code text-xs text-[#E5A93C] font-bold">${binder.reputation}</span>
             </div>
 
             <div class="grid grid-cols-3 gap-2.5">
               ${binder.cards.map(card => `
-                <div class="bg-[#ECE0C8] border-2 border-[#382414] p-2 flex flex-col justify-between rounded-sm shadow-[1px_1px_0_#382414]">
-                  <div class="aspect-[63/88] bg-black border border-[#382414] overflow-hidden relative rounded-xs">
+                <div class="bg-[#251811] border border-[#5E402F] p-2 flex flex-col justify-between rounded-lg shadow-sm">
+                  <div class="aspect-[63/88] bg-black/50 border border-[#5E402F] overflow-hidden relative rounded">
                     <img src="${card.img}" alt="${card.name}" class="w-full h-full object-cover"/>
-                    <span class="absolute top-0.5 left-0.5 bg-[#382414]/90 text-[#FBBF24] font-pixel text-[7px] px-1">${card.mode}</span>
+                    <span class="absolute top-1 left-1 bg-[#1E140E]/90 text-[#E5A93C] font-mono text-[8px] px-1 rounded">${card.mode}</span>
                   </div>
-                  <div class="mt-1.5">
-                    <div class="font-sans text-xs text-[#2B1810] truncate font-bold">${card.name}</div>
-                    <div class="font-mono-code text-xs text-[#B45309] font-bold mt-0.5">${formatCop(card.priceCop)}</div>
+                  <div class="mt-2">
+                    <div class="font-sans text-xs text-[#F1E8D9] truncate font-bold">${card.name}</div>
+                    <div class="font-mono-code text-xs text-[#E5A93C] font-bold mt-0.5">${formatCop(card.priceCop)}</div>
                     <button onclick="proposeInStoreTrade('${binder.player}', '${binder.table}', '${card.name}')"
-                      class="mt-1.5 w-full tavern-btn bg-[#F29F38] text-[#2B1810] text-[11px] py-1 font-bold">
-                      🤝 PROPONER TRATO
+                      class="mt-2 w-full tavern-btn tavern-btn-terracotta text-white text-[11px] py-1.5 font-bold rounded-lg shadow">
+                      🤝 TRATAR
                     </button>
                   </div>
                 </div>
@@ -1336,29 +1336,29 @@
   function renderMoxfieldSubtab() {
     return `
       <!-- Importador Moxfield -->
-      <div class="tavern-box bg-[#FFF9EE] p-3.5 mb-4">
-        <label class="font-sans text-xs text-[#92400E] font-bold block mb-1.5 uppercase">
+      <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 mb-4 rounded-xl shadow-md">
+        <label class="font-sans text-xs text-[#E5A93C] font-bold block mb-1.5 uppercase tracking-wider">
           🔗 Sincronizar o Exportar Mazo con Moxfield:
         </label>
         <div class="flex gap-2">
           <input id="moxfieldUrlInput" type="text" placeholder="https://moxfield.com/decks/tu-mazo-commander..."
-            class="flex-1 bg-[#ECE0C8] border-2 border-[#382414] px-3 py-2 font-mono-code text-xs text-[#2B1810] focus:outline-none"/>
-          <button onclick="importMoxfieldDeck()" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3 py-2 font-bold">
+            class="flex-1 bg-[#251811] border border-[#5E402F] px-3 py-2 font-mono-code text-xs text-[#F1E8D9] rounded-xl focus:outline-none focus:border-[#C55A3F]"/>
+          <button onclick="importMoxfieldDeck()" class="tavern-btn tavern-btn-terracotta text-white text-xs px-4 py-2 font-bold rounded-xl shadow">
             IMPORTAR
           </button>
         </div>
       </div>
 
       <!-- Mi Bulk Box -->
-      <div class="tavern-box bg-[#ECE0C8] p-3.5 mb-4 flex items-center justify-between">
+      <div class="tavern-box bg-[#251811] border border-[#5E402F] p-4 mb-4 flex items-center justify-between rounded-xl shadow-md">
         <div>
-          <div class="font-serif-tavern text-base text-[#2B1810] font-bold">🗃️ Mi Bulk Inventariado en TopDeck</div>
-          <div class="font-sans text-xs text-[#5A4231] mt-0.5">
+          <div class="font-serif-tavern text-base text-[#F1E8D9] font-bold">🗃️ Mi Bulk Inventariado en TopDeck</div>
+          <div class="font-sans text-xs text-[#CBBDA8] mt-0.5">
             1,420 cartas comunes/infrecuentes • 185 Raras de Bulk
           </div>
         </div>
         <button onclick="window.showTavernToast('Lista de Bulk exportada en formato CSV / Moxfield.', '📋')"
-          class="tavern-btn bg-[#FFF9EE] text-[#2B1810] text-xs px-3 py-1.5 font-bold">
+          class="tavern-btn tavern-btn-wood text-[#F1E8D9] text-xs px-3.5 py-2 font-bold rounded-xl">
           EXPORTAR BULK
         </button>
       </div>
@@ -1366,19 +1366,19 @@
       <!-- Lista de Mazos -->
       <div class="space-y-3">
         ${state.myDecks.map(d => `
-          <div class="tavern-box bg-[#FFF9EE] p-3.5 flex gap-3.5 items-center">
-            <img src="${d.featuredImg}" class="w-16 h-22 object-cover border-2 border-[#382414] shrink-0 rounded-xs" alt="${d.name}"/>
+          <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 flex gap-3.5 items-center rounded-xl shadow-md">
+            <img src="${d.featuredImg}" class="w-16 h-22 object-cover border border-[#5E402F] shrink-0 rounded-lg shadow" alt="${d.name}"/>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between">
-                <span class="font-mono-code text-[11px] bg-[#382414] text-[#FBBF24] px-2 py-0.5 font-bold">${d.format}</span>
-                <span class="font-sans text-xs text-[#16A34A] font-bold">WR: ${d.winrate}</span>
+                <span class="font-mono-code text-[11px] bg-[#251811] text-[#E5A93C] px-2 py-0.5 rounded border border-[#5E402F] font-bold">${d.format}</span>
+                <span class="font-sans text-xs text-[#689F77] font-bold">WR: ${d.winrate}</span>
               </div>
-              <h4 class="font-serif-tavern text-lg text-[#2B1810] font-bold mt-1 truncate">${d.name}</h4>
-              <p class="font-sans text-xs text-[#6B5443]">Comandante: <strong class="text-[#382414]">${d.commander}</strong></p>
-              <div class="flex items-center justify-between mt-2 pt-1 border-t border-[#382414]/15">
-                <span class="font-mono-code text-sm font-bold text-[#B45309]">${formatUsd(d.estValueUsd)}</span>
+              <h4 class="font-serif-tavern text-lg text-[#F1E8D9] font-bold mt-1 truncate">${d.name}</h4>
+              <p class="font-sans text-xs text-[#CBBDA8]">Comandante: <strong class="text-[#F1E8D9]">${d.commander}</strong></p>
+              <div class="flex items-center justify-between mt-2.5 pt-2 border-t border-[#5E402F]">
+                <span class="font-mono-code text-sm font-bold text-[#E5A93C]">${formatUsd(d.estValueUsd)}</span>
                 <button onclick="window.showTavernToast('Decklist de ${d.name} copiada en formato Moxfield.', '🦊')"
-                  class="tavern-btn bg-[#ECE0C8] text-[#2B1810] text-xs px-2.5 py-1 font-bold">
+                  class="tavern-btn tavern-btn-wood text-[#F1E8D9] text-xs px-3 py-1.5 font-bold rounded-lg">
                   📤 EXPORTAR MOXFIELD
                 </button>
               </div>
@@ -1418,63 +1418,63 @@
 
       <!-- Stats Rápidas del Jugador -->
       <div class="grid grid-cols-3 gap-2.5 mb-4">
-        <div class="tavern-box bg-[#FFF9EE] p-2.5 text-center">
-          <div class="font-sans text-[11px] text-[#6B5443] font-bold uppercase">ELO Taberna</div>
-          <div class="font-mono-code text-xl text-[#B45309] font-bold mt-0.5">1,790</div>
-          <div class="font-sans text-[11px] text-[#16A34A] font-bold">Mítico #2</div>
+        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-3 text-center rounded-xl shadow-sm">
+          <div class="font-sans text-[11px] text-[#CBBDA8] font-bold uppercase tracking-wider">ELO Taberna</div>
+          <div class="font-mono-code text-xl text-[#E5A93C] font-bold mt-0.5">1,790</div>
+          <div class="font-sans text-[11px] text-[#689F77] font-bold">Mítico #2</div>
         </div>
-        <div class="tavern-box bg-[#FFF9EE] p-2.5 text-center">
-          <div class="font-sans text-[11px] text-[#6B5443] font-bold uppercase">Winrate Mes</div>
-          <div class="font-mono-code text-xl text-[#2B1810] font-bold mt-0.5">68.4%</div>
-          <div class="font-mono-code text-[11px] text-[#6B5443]">26V - 12D</div>
+        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-3 text-center rounded-xl shadow-sm">
+          <div class="font-sans text-[11px] text-[#CBBDA8] font-bold uppercase tracking-wider">Winrate Mes</div>
+          <div class="font-mono-code text-xl text-[#F1E8D9] font-bold mt-0.5">68.4%</div>
+          <div class="font-mono-code text-[11px] text-[#9E8C78]">26V - 12D</div>
         </div>
-        <div class="tavern-box bg-[#FFF9EE] p-2.5 text-center">
-          <div class="font-sans text-[11px] text-[#6B5443] font-bold uppercase">Crédito Tienda</div>
-          <div class="font-mono-code text-lg text-[#16A34A] font-bold mt-0.5">$185.000</div>
-          <div class="font-sans text-[10px] text-[#6B5443]">Premios FNM</div>
+        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-3 text-center rounded-xl shadow-sm">
+          <div class="font-sans text-[11px] text-[#CBBDA8] font-bold uppercase tracking-wider">Crédito Tienda</div>
+          <div class="font-mono-code text-lg text-[#689F77] font-bold mt-0.5">$185.000</div>
+          <div class="font-sans text-[10px] text-[#9E8C78]">Premios FNM</div>
         </div>
       </div>
 
       <!-- Ronda en Vivo & Pairing -->
-      <div class="tavern-box bg-[#FEE2E2] border-[#991B1B] p-3.5 mb-4">
-        <div class="flex items-center justify-between mb-2">
-          <span class="font-mono-code text-xs bg-[#DC2626] text-white px-2 py-0.5 font-bold">⚔️ RONDA 3 EN VIVO • RELOJ: 34:18</span>
-          <span class="font-sans text-xs text-[#991B1B] font-bold">MESA TORNEO #02</span>
+      <div class="tavern-box bg-[#3D1E1E] border border-[#A2412A] p-4 mb-4 rounded-xl shadow-md">
+        <div class="flex items-center justify-between mb-2.5">
+          <span class="font-mono-code text-xs bg-[#A2412A] text-white px-2 py-0.5 rounded font-bold">⚔️ RONDA 3 EN VIVO • RELOJ: 34:18</span>
+          <span class="font-sans text-xs text-[#E5A93C] font-bold">MESA TORNEO #02</span>
         </div>
-        <div class="bg-[#FFF9EE] border-2 border-[#382414] p-3 flex items-center justify-between">
+        <div class="bg-[#251811] border border-[#5E402F] p-3 rounded-lg flex items-center justify-between">
           <div>
-            <div class="font-serif-tavern text-lg text-[#2B1810] font-bold">TÚ (SANTIAGO) vs. ANDRÉS MEJÍA</div>
-            <div class="font-sans text-xs text-[#6B5443] mt-0.5">Formato: Modern / Commander • Al mejor de 3</div>
+            <div class="font-serif-tavern text-lg text-[#F1E8D9] font-bold">TÚ (SANTIAGO) vs. ANDRÉS MEJÍA</div>
+            <div class="font-sans text-xs text-[#CBBDA8] mt-0.5">Formato: Modern / Commander • Al mejor de 3</div>
           </div>
           ${state.matchResultReported ? `
-            <span class="bg-[#16A34A] text-white font-mono-code text-xs px-2.5 py-1 font-bold">REPORTADO (${state.matchResultReported})</span>
+            <span class="bg-[#4A7C59] text-white font-mono-code text-xs px-2.5 py-1 rounded font-bold">REPORTADO (${state.matchResultReported})</span>
           ` : ""}
         </div>
         ${!state.matchResultReported ? `
-          <div class="mt-2.5 flex items-center justify-between gap-2">
-            <span class="font-sans text-xs text-[#991B1B] font-bold">Reportar resultado:</span>
-            <button onclick="reportTournamentMatch('2-0')" class="tavern-btn bg-[#16A34A] text-white text-xs px-3 py-1.5 font-bold">GANÉ 2-0</button>
-            <button onclick="reportTournamentMatch('2-1')" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3 py-1.5 font-bold">GANÉ 2-1</button>
-            <button onclick="reportTournamentMatch('1-2')" class="tavern-btn bg-[#ECE0C8] text-[#2B1810] text-xs px-3 py-1.5 font-bold">1-2</button>
+          <div class="mt-3 flex items-center justify-between gap-2">
+            <span class="font-sans text-xs text-[#E5A93C] font-bold">Reportar resultado:</span>
+            <button onclick="reportTournamentMatch('2-0')" class="tavern-btn tavern-btn-herb text-white text-xs px-3 py-1.5 font-bold rounded-lg shadow">GANÉ 2-0</button>
+            <button onclick="reportTournamentMatch('2-1')" class="tavern-btn tavern-btn-terracotta text-white text-xs px-3 py-1.5 font-bold rounded-lg shadow">GANÉ 2-1</button>
+            <button onclick="reportTournamentMatch('1-2')" class="tavern-btn tavern-btn-wood text-[#CBBDA8] text-xs px-3 py-1.5 font-bold rounded-lg">1-2</button>
           </div>
         ` : ""}
       </div>
 
       <!-- Tabla de Posiciones en Vivo (Standings) -->
-      <div class="tavern-box bg-[#FFF9EE] p-3.5 mb-4">
-        <h4 class="font-serif-tavern text-xl text-[#382414] font-bold mb-2.5">🏆 Standings en Vivo (Top 5 Suizo)</h4>
-        <div class="space-y-1.5">
+      <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 mb-4 rounded-xl shadow-md">
+        <h4 class="font-serif-tavern text-xl text-[#F1E8D9] font-bold mb-3">🏆 Standings en Vivo (Top 5 Suizo)</h4>
+        <div class="space-y-2">
           ${state.standings.map(s => `
-            <div class="flex items-center justify-between text-xs font-mono-code px-3 py-2 border-2 border-[#382414] ${
-              s.isUser ? "bg-[#FEF3C7] font-bold shadow-[1px_1px_0_#382414]" : "bg-[#ECE0C8]/60"
+            <div class="flex items-center justify-between text-xs font-mono-code px-3 py-2.5 border rounded-lg ${
+              s.isUser ? "bg-[#442E22] border-[#C55A3F] font-bold shadow-sm" : "bg-[#251811] border-[#5E402F]"
             }">
               <div class="flex items-center gap-2.5">
-                <span class="w-6 text-center bg-[#382414] text-[#FBBF24] font-bold py-0.5">#${s.rank}</span>
-                <span class="font-sans font-bold text-sm text-[#2B1810]">${s.player}</span>
+                <span class="w-6 text-center bg-[#251811] text-[#E5A93C] font-bold py-0.5 rounded border border-[#5E402F]">#${s.rank}</span>
+                <span class="font-sans font-bold text-sm text-[#F1E8D9]">${s.player}</span>
               </div>
               <div class="flex items-center gap-3">
-                <span class="text-[11px] text-[#6B5443]">OMW ${s.omw}</span>
-                <span class="font-mono-code text-xs text-[#B45309] font-bold">${s.points} PTS (${s.record})</span>
+                <span class="text-[11px] text-[#9E8C78]">OMW ${s.omw}</span>
+                <span class="font-mono-code text-xs text-[#E5A93C] font-bold">${s.points} PTS (${s.record})</span>
               </div>
             </div>
           `).join("")}
@@ -1482,20 +1482,20 @@
       </div>
 
       <!-- Inscripción a Torneos de la Semana -->
-      <h4 class="font-serif-tavern text-2xl text-[#382414] font-bold mb-2.5">📋 Inscripción a Torneos TopDeck</h4>
-      <div class="space-y-2.5">
+      <h4 class="font-serif-tavern text-2xl text-[#F1E8D9] font-bold mb-3">📋 Inscripción a Torneos TopDeck</h4>
+      <div class="space-y-3">
         ${state.tournaments.map((t, idx) => `
-          <div class="tavern-box bg-[#FFF9EE] p-3.5">
+          <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-xl shadow-md">
             <div class="flex items-center justify-between">
-              <span class="font-mono-code text-xs bg-[#382414] text-[#F29F38] px-2 py-0.5 font-bold">${t.time}</span>
-              <span class="font-sans text-xs text-[#16A34A] font-bold">${t.spotsLeft} CUPOS LIBRES</span>
+              <span class="font-mono-code text-xs bg-[#251811] text-[#E5A93C] px-2.5 py-0.5 rounded border border-[#5E402F] font-bold">${t.time}</span>
+              <span class="font-sans text-xs text-[#689F77] font-bold">${t.spotsLeft} CUPOS LIBRES</span>
             </div>
-            <h5 class="font-serif-tavern text-lg text-[#2B1810] font-bold mt-1.5">${t.name}</h5>
-            <p class="font-sans text-xs text-[#6B5443] mt-0.5">Premios: <strong>${t.prizePool}</strong></p>
-            <div class="mt-2.5 pt-2 border-t border-[#382414]/20 flex items-center justify-between">
-              <span class="font-mono-code text-base text-[#B45309] font-bold">${formatCop(t.entryCop)}</span>
-              <button onclick="toggleTournamentEnroll(${idx})" class="tavern-btn px-4 py-2 text-xs font-bold ${
-                t.enrolled ? "bg-[#16A34A] text-white" : "bg-[#F29F38] text-[#2B1810]"
+            <h5 class="font-serif-tavern text-lg text-[#F1E8D9] font-bold mt-2">${t.name}</h5>
+            <p class="font-sans text-xs text-[#CBBDA8] mt-0.5">Premios: <strong class="text-[#F1E8D9]">${t.prizePool}</strong></p>
+            <div class="mt-3 pt-2.5 border-t border-[#5E402F] flex items-center justify-between">
+              <span class="font-mono-code text-base text-[#E5A93C] font-bold">${formatCop(t.entryCop)}</span>
+              <button onclick="toggleTournamentEnroll(${idx})" class="tavern-btn px-4 py-2 text-xs font-bold rounded-xl shadow ${
+                t.enrolled ? "tavern-btn-herb text-white" : "tavern-btn-terracotta text-white"
               }">
                 ${t.enrolled ? "✔️ INSCRITO" : "⚔️ INSCRIBIRME"}
               </button>
@@ -1557,20 +1557,20 @@
       ${renderMascotHeaderBanner("pip")}
 
       <!-- Barra de Modo Casual + Pedido Rápido a Mesa -->
-      <div class="flex items-center justify-between gap-2 mb-3.5">
-        <div class="flex gap-1.5">
-          <button onclick="setCasualLifeMode('commander')" class="tavern-btn px-3 py-1.5 text-xs font-bold font-sans ${
-            state.casualMode === "commander" ? "bg-[#16A34A] text-white" : "bg-[#FFF9EE] text-[#2B1810]"
+      <div class="flex items-center justify-between gap-2 mb-4">
+        <div class="flex gap-2">
+          <button onclick="setCasualLifeMode('commander')" class="tavern-btn px-3 py-1.5 text-xs font-bold font-sans rounded-xl transition-all ${
+            state.casualMode === "commander" ? "tavern-btn-terracotta text-white shadow-md" : "tavern-btn-wood text-[#CBBDA8]"
           }">
             4P COMMANDER (40❤️)
           </button>
-          <button onclick="setCasualLifeMode('duel')" class="tavern-btn px-3 py-1.5 text-xs font-bold font-sans ${
-            state.casualMode === "duel" ? "bg-[#16A34A] text-white" : "bg-[#FFF9EE] text-[#2B1810]"
+          <button onclick="setCasualLifeMode('duel')" class="tavern-btn px-3 py-1.5 text-xs font-bold font-sans rounded-xl transition-all ${
+            state.casualMode === "duel" ? "tavern-btn-terracotta text-white shadow-md" : "tavern-btn-wood text-[#CBBDA8]"
           }">
             1v1 DUELO (20❤️)
           </button>
         </div>
-        <button onclick="resetCasualLifes()" class="tavern-btn bg-[#ECE0C8] text-[#2B1810] text-xs px-3 py-1.5 font-bold">
+        <button onclick="resetCasualLifes()" class="tavern-btn tavern-btn-wood text-[#CBBDA8] text-xs px-3 py-1.5 font-bold rounded-xl">
           🔄 REINICIAR
         </button>
       </div>
@@ -1578,81 +1578,81 @@
       <!-- Grid del Contador de Vidas -->
       <div class="grid ${state.casualMode === "commander" ? "grid-cols-2" : "grid-cols-1"} gap-3 mb-4">
         ${activePlayers.map((p, idx) => `
-          <div class="tavern-box p-3.5 flex flex-col justify-between relative shadow-[3px_3px_0_#382414]" style="background-color: ${p.color}; border-color: #382414;">
+          <div class="tavern-box p-4 flex flex-col justify-between relative bg-[#38261C] border border-[#5E402F] rounded-2xl shadow-md">
             <div class="flex items-center justify-between">
-              <span class="font-serif-tavern text-base text-[#2B1810] font-bold truncate">${p.name}</span>
+              <span class="font-serif-tavern text-base text-[#F1E8D9] font-bold truncate">${p.name}</span>
               <button onclick="setMonarchPlayer(${p.id})" title="Asignar El Monarca"
-                class="text-sm px-1.5 py-0.5 border-2 border-[#382414] shadow-[1px_1px_0_#382414] ${state.monarchPlayer === p.id ? "bg-[#FBBF24]" : "bg-white/60 opacity-60"}">
+                class="text-sm px-2 py-0.5 rounded-lg border border-[#5E402F] ${state.monarchPlayer === p.id ? "bg-[#E5A93C] text-[#2C1E16] font-bold" : "bg-[#251811] text-[#9E8C78] opacity-70"}">
                 👑
               </button>
             </div>
 
             <!-- Vidas Principales -->
-            <div class="my-2.5 flex items-center justify-between">
+            <div class="my-3 flex items-center justify-between">
               <button onclick="adjustPlayerLife(${idx}, -1)"
-                class="w-11 h-11 tavern-btn bg-[#C84630] text-white text-lg flex items-center justify-center font-bold">
+                class="w-12 h-12 tavern-btn tavern-btn-terracotta text-white text-xl flex items-center justify-center font-bold rounded-xl shadow">
                 -
               </button>
               <div class="text-center">
-                <div class="font-serif-tavern text-4xl sm:text-5xl text-[#2B1810] font-bold leading-none">${p.life}</div>
-                <div class="font-sans text-[10px] text-[#6B5443] font-bold uppercase tracking-wider mt-1">VIDAS</div>
+                <div class="font-serif-tavern text-4xl sm:text-5xl text-[#E5A93C] font-bold leading-none">${p.life}</div>
+                <div class="font-sans text-[10px] text-[#CBBDA8] font-bold uppercase tracking-wider mt-1">VIDAS</div>
               </div>
               <button onclick="adjustPlayerLife(${idx}, 1)"
-                class="w-11 h-11 tavern-btn bg-[#16A34A] text-white text-lg flex items-center justify-center font-bold">
+                class="w-12 h-12 tavern-btn tavern-btn-herb text-white text-xl flex items-center justify-center font-bold rounded-xl shadow">
                 +
               </button>
             </div>
 
             <!-- Botones rápidos +5 / -5 y Contadores de Comandante/Veneno -->
-            <div class="flex items-center justify-between text-xs font-mono-code pt-2 border-t-2 border-[#382414]/20 gap-1.5">
-              <button onclick="adjustPlayerLife(${idx}, -5)" class="px-2 py-1 bg-white/80 border border-[#382414] font-bold" title="Restar 5 vidas">-5</button>
+            <div class="flex items-center justify-between text-xs font-mono-code pt-2.5 border-t border-[#5E402F] gap-1.5">
+              <button onclick="adjustPlayerLife(${idx}, -5)" class="px-2 py-1 bg-[#251811] text-[#CBBDA8] hover:text-white border border-[#5E402F] rounded font-bold" title="Restar 5 vidas">-5</button>
 
               <!-- Stepper Daño Comandante -->
-              <div class="flex items-center bg-white/90 border border-[#382414] px-1.5 py-0.5 rounded-sm" title="Daño de Comandante (21 pierde)">
-                <button onclick="adjustCmdDmg(${idx}, -1)" class="w-4 h-5 flex items-center justify-center font-bold text-red-700 active:scale-90">-</button>
+              <div class="flex items-center bg-[#251811] border border-[#5E402F] px-1.5 py-0.5 rounded text-[#F1E8D9]" title="Daño de Comandante (21 pierde)">
+                <button onclick="adjustCmdDmg(${idx}, -1)" class="w-4 h-5 flex items-center justify-center font-bold text-[#C55A3F] active:scale-90">-</button>
                 <span class="px-1 text-xs font-bold">⚔️${p.cmdDmg}</span>
-                <button onclick="adjustCmdDmg(${idx}, 1)" class="w-4 h-5 flex items-center justify-center font-bold text-green-700 active:scale-90">+</button>
+                <button onclick="adjustCmdDmg(${idx}, 1)" class="w-4 h-5 flex items-center justify-center font-bold text-[#689F77] active:scale-90">+</button>
               </div>
 
               <!-- Stepper Veneno -->
-              <div class="flex items-center bg-white/90 border border-[#382414] px-1.5 py-0.5 rounded-sm" title="Contadores de Veneno (10 pierde)">
-                <button onclick="adjustPoison(${idx}, -1)" class="w-4 h-5 flex items-center justify-center font-bold text-red-700 active:scale-90">-</button>
+              <div class="flex items-center bg-[#251811] border border-[#5E402F] px-1.5 py-0.5 rounded text-[#F1E8D9]" title="Contadores de Veneno (10 pierde)">
+                <button onclick="adjustPoison(${idx}, -1)" class="w-4 h-5 flex items-center justify-center font-bold text-[#C55A3F] active:scale-90">-</button>
                 <span class="px-1 text-xs font-bold">☠️${p.poison}</span>
-                <button onclick="adjustPoison(${idx}, 1)" class="w-4 h-5 flex items-center justify-center font-bold text-green-700 active:scale-90">+</button>
+                <button onclick="adjustPoison(${idx}, 1)" class="w-4 h-5 flex items-center justify-center font-bold text-[#689F77] active:scale-90">+</button>
               </div>
 
-              <button onclick="adjustPlayerLife(${idx}, 5)" class="px-2 py-1 bg-white/80 border border-[#382414] font-bold" title="Sumar 5 vidas">+5</button>
+              <button onclick="adjustPlayerLife(${idx}, 5)" class="px-2 py-1 bg-[#251811] text-[#CBBDA8] hover:text-white border border-[#5E402F] rounded font-bold" title="Sumar 5 vidas">+5</button>
             </div>
           </div>
         `).join("")}
       </div>
 
       <!-- Herramientas Casuales de Mesa: D20, Moneda, Quién Empieza -->
-      <div class="tavern-box bg-[#FFF9EE] p-3.5 mb-4">
-        <div class="flex items-center justify-between mb-2">
-          <span class="font-serif-tavern text-base text-[#382414] font-bold">🎲 Utilidades de Mesa de Pip:</span>
-          ${state.lastDiceRoll ? `<span class="font-mono-code text-xs bg-[#F29F38] text-[#2B1810] px-2 py-0.5 border border-[#382414] font-bold">${state.lastDiceRoll}</span>` : ""}
+      <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 mb-4 rounded-xl shadow-md">
+        <div class="flex items-center justify-between mb-2.5">
+          <span class="font-serif-tavern text-base text-[#F1E8D9] font-bold">🎲 Utilidades de Mesa de Pip:</span>
+          ${state.lastDiceRoll ? `<span class="font-mono-code text-xs bg-[#251811] text-[#E5A93C] px-2 py-0.5 border border-[#5E402F] rounded font-bold">${state.lastDiceRoll}</span>` : ""}
         </div>
         <div class="grid grid-cols-3 gap-2">
-          <button onclick="rollCasualD20()" class="tavern-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#2B1810] text-xs py-2.5 font-bold font-sans">
+          <button onclick="rollCasualD20()" class="tavern-btn tavern-btn-wood hover:tavern-btn-terracotta text-[#F1E8D9] text-xs py-2.5 font-bold font-sans rounded-xl">
             🎲 LANZAR D20
           </button>
-          <button onclick="flipCasualCoin()" class="tavern-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#2B1810] text-xs py-2.5 font-bold font-sans">
+          <button onclick="flipCasualCoin()" class="tavern-btn tavern-btn-wood hover:tavern-btn-terracotta text-[#F1E8D9] text-xs py-2.5 font-bold font-sans rounded-xl">
             🪙 MONEDA
           </button>
-          <button onclick="pickRandomStarter()" class="tavern-btn bg-[#ECE0C8] hover:bg-[#F29F38] text-[#2B1810] text-xs py-2.5 font-bold font-sans">
+          <button onclick="pickRandomStarter()" class="tavern-btn tavern-btn-wood hover:tavern-btn-terracotta text-[#F1E8D9] text-xs py-2.5 font-bold font-sans rounded-xl">
             🎯 ¿QUIÉN SALE?
           </button>
         </div>
       </div>
 
       <!-- Atajo directo: Pedir a la Mesa sin salir de la partida -->
-      <div class="tavern-box bg-[#FFEDD5] border-2 border-[#EA580C] p-3.5 flex items-center justify-between gap-3">
+      <div class="tavern-box bg-[#38261C] border border-[#C55A3F] p-4 rounded-xl flex items-center justify-between gap-3 shadow-md">
         <div>
-          <div class="font-serif-tavern text-base text-[#92400E] font-bold">🍕 ¿Hambre o sed en ${state.tableCode}?</div>
-          <p class="font-sans text-xs text-[#2B1810]">Pide bebidas o comida sin pausar tu partida con los amigos.</p>
+          <div class="font-serif-tavern text-base text-[#E5A93C] font-bold">🍕 ¿Hambre o sed en ${state.tableCode}?</div>
+          <p class="font-sans text-xs text-[#CBBDA8]">Pide bebidas o comida sin pausar tu partida con los amigos.</p>
         </div>
-        <button onclick="switchPwaTab('mesa')" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3.5 py-2 shrink-0 font-bold">
+        <button onclick="switchPwaTab('mesa')" class="tavern-btn tavern-btn-herb text-white text-xs px-4 py-2 shrink-0 font-bold rounded-xl shadow">
           🍺 PEDIR A MESA
         </button>
       </div>
@@ -1741,13 +1741,13 @@
       ${renderMascotHeaderBanner("vespera")}
 
       <!-- Tarot del Planeswalker (3 Cartas Místicas) -->
-      <div class="tavern-box bg-[#2E1065] text-[#FBF6EB] border-3 border-[#7C3AED] p-4 mb-4">
+      <div class="tavern-box bg-[#2D1629] text-[#F1E8D9] border-2 border-[#A2412A] p-4 mb-4 rounded-2xl shadow-xl">
         <div class="flex items-center justify-between mb-2.5">
           <div>
-            <span class="font-serif-tavern text-xl text-[#FDE047] font-bold">🔮 El Tarot del Planeswalker</span>
-            <p class="font-sans text-xs text-[#E9D5FF] mt-0.5">Toca cada carta arcana para revelar el destino de tus partidas:</p>
+            <span class="font-serif-tavern text-xl text-[#E5A93C] font-bold">🔮 El Tarot del Planeswalker</span>
+            <p class="font-sans text-xs text-[#CBBDA8] mt-0.5">Toca cada carta arcana para revelar el destino de tus partidas:</p>
           </div>
-          <button onclick="shuffleNewTarotSpread()" class="tavern-btn bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs px-3 py-1.5 font-bold">
+          <button onclick="shuffleNewTarotSpread()" class="tavern-btn tavern-btn-wood text-[#F1E8D9] text-xs px-3 py-1.5 font-bold rounded-xl">
             🔄 BARAJAR
           </button>
         </div>
@@ -1755,17 +1755,17 @@
         <div class="grid grid-cols-3 gap-2.5 my-3.5">
           ${state.tarotSpread.map((card, idx) => `
             <div onclick="revealTarotCard(${idx})" class="cursor-pointer">
-              <div class="text-center font-sans text-[11px] text-[#C084FC] mb-1 truncate font-bold">${card.positionMeaning}</div>
-              <div class="aspect-[63/88] rounded border-2 ${card.revealed ? "border-[#FDE047]" : "border-[#C084FC]"} overflow-hidden relative bg-[#1E1B4B] shadow-md transition-transform hover:scale-105">
+              <div class="text-center font-sans text-[11px] text-[#E5A93C] mb-1 truncate font-bold">${card.positionMeaning}</div>
+              <div class="aspect-[63/88] rounded-xl border-2 ${card.revealed ? "border-[#E5A93C]" : "border-[#A2412A]"} overflow-hidden relative bg-[#1E0F1C] shadow-md transition-transform hover:scale-105">
                 ${card.revealed ? `
                   <img src="${card.img}" alt="${card.cardName}" class="w-full h-full object-cover"/>
                   <div class="absolute inset-x-0 bottom-0 bg-black/85 p-1 text-center">
-                    <span class="font-serif-tavern text-xs text-[#FDE047] block font-bold">${card.arcanaTitle}</span>
+                    <span class="font-serif-tavern text-xs text-[#E5A93C] block font-bold">${card.arcanaTitle}</span>
                   </div>
                 ` : `
-                  <div class="w-full h-full flex flex-col items-center justify-center p-2 text-center bg-gradient-to-b from-[#4C1D95] to-[#1E1B4B]">
+                  <div class="w-full h-full flex flex-col items-center justify-center p-2 text-center bg-gradient-to-b from-[#3D1E3A] to-[#1E0F1C]">
                     <span class="text-3xl mb-1 animate-pulse">🦉</span>
-                    <span class="font-sans text-[11px] text-[#FDE047] font-bold uppercase tracking-wider">Tocar</span>
+                    <span class="font-sans text-[11px] text-[#E5A93C] font-bold uppercase tracking-wider">Tocar</span>
                   </div>
                 `}
               </div>
@@ -1776,14 +1776,14 @@
         <!-- Lectura del Oráculo -->
         <div class="space-y-2.5 mt-3.5">
           ${state.tarotSpread.filter(c => c.revealed).map(c => `
-            <div class="bg-[#1E1B4B] border-2 border-[#7C3AED] p-3 rounded-sm shadow-[2px_2px_0_#1E1B4B]">
+            <div class="bg-[#1E0F1C] border border-[#A2412A] p-3.5 rounded-xl shadow-sm">
               <div class="flex items-center justify-between">
-                <span class="font-serif-tavern text-base text-[#FDE047] font-bold">${c.arcanaTitle} — ${c.cardName}</span>
-                <span class="font-mono-code text-xs text-[#38BDF8] font-bold">Maná: ${c.luckyColor}</span>
+                <span class="font-serif-tavern text-base text-[#E5A93C] font-bold">${c.arcanaTitle} — ${c.cardName}</span>
+                <span class="font-mono-code text-xs text-[#689F77] font-bold">Maná: ${c.luckyColor}</span>
               </div>
-              <p class="font-sans text-xs text-[#F3E8FF] mt-1.5 leading-relaxed">${c.reading}</p>
+              <p class="font-sans text-xs text-[#F1E8D9] mt-1.5 leading-relaxed">${c.reading}</p>
               ${c.rewardText ? `
-                <div class="mt-2 bg-[#FEF08A] text-[#2B1810] p-2.5 border-2 border-[#F59E0B] font-mono-code text-xs font-bold rounded-sm">
+                <div class="mt-2.5 bg-[#442E22] text-[#E5A93C] p-2.5 border border-[#C55A3F] font-mono-code text-xs font-bold rounded-lg">
                   ${c.rewardText}
                 </div>
               ` : ""}
@@ -1791,7 +1791,7 @@
           `).join("")}
 
           ${!allRevealed ? `
-            <button onclick="revealAllTarotCards()" class="w-full tavern-btn bg-[#FDE047] text-[#2E1065] text-xs py-2.5 font-bold shadow-[2px_2px_0_#2E1065]">
+            <button onclick="revealAllTarotCards()" class="w-full tavern-btn tavern-btn-terracotta text-white text-xs py-2.5 font-bold rounded-xl shadow-md">
               ✨ REVELAR LAS 3 CARTAS DEL DESTINO
             </button>
           ` : ""}
@@ -1799,24 +1799,24 @@
       </div>
 
       <!-- Simulador de Sobre de la Fortuna (Mystery Pack Opener) -->
-      <div class="tavern-box bg-[#FFF9EE] p-3.5">
+      <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-xl shadow-md">
         <div class="flex items-center justify-between mb-2">
           <div>
-            <h4 class="font-serif-tavern text-xl text-[#382414] font-bold">🎁 Sobre Misterioso de la Taberna</h4>
-            <p class="font-sans text-xs text-[#6B5443]">Rasga un sobre virtual para probar tu suerte antes de comprar en vitrina.</p>
+            <h4 class="font-serif-tavern text-xl text-[#F1E8D9] font-bold">🎁 Sobre Misterioso de la Taberna</h4>
+            <p class="font-sans text-xs text-[#CBBDA8]">Rasga un sobre virtual para probar tu suerte antes de comprar en vitrina.</p>
           </div>
-          <button onclick="openLuckyBoosterPack()" class="tavern-btn bg-[#F29F38] text-[#2B1810] text-xs px-3.5 py-2 font-bold shrink-0">
+          <button onclick="openLuckyBoosterPack()" class="tavern-btn tavern-btn-terracotta text-white text-xs px-4 py-2 font-bold shrink-0 rounded-xl shadow">
             ⚡ RASGAR SOBRE
           </button>
         </div>
 
         ${state.boosterOpened ? `
-          <div class="grid grid-cols-3 gap-2.5 mt-3 pt-3 border-t-2 border-[#382414]">
+          <div class="grid grid-cols-3 gap-2.5 mt-3 pt-3 border-t border-[#5E402F]">
             ${state.boosterCards.map(bc => `
-              <div class="bg-[#ECE0C8] border-2 border-[#382414] p-1.5 text-center cursor-pointer rounded-sm shadow-[1px_1px_0_#382414] hover:scale-102 transition-transform" onclick="triggerCardSlideOut('${bc.id}', null)">
-                <img src="${bc.image}" class="w-full aspect-[63/88] object-cover border border-[#382414] rounded-xs" alt="${bc.name}"/>
-                <div class="font-sans text-xs text-[#2B1810] truncate mt-1 font-bold">${bc.name}</div>
-                <div class="font-mono-code text-xs text-[#B45309] font-bold">$${bc.priceUsd.toFixed(2)}</div>
+              <div class="bg-[#251811] border border-[#5E402F] p-2 text-center cursor-pointer rounded-lg shadow-sm hover:border-[#C55A3F] transition-all" onclick="triggerCardSlideOut('${bc.id}', null)">
+                <img src="${bc.image}" class="w-full aspect-[63/88] object-cover border border-[#5E402F] rounded" alt="${bc.name}"/>
+                <div class="font-sans text-xs text-[#F1E8D9] truncate mt-1 font-bold">${bc.name}</div>
+                <div class="font-mono-code text-xs text-[#E5A93C] font-bold mt-0.5">$${bc.priceUsd.toFixed(2)}</div>
               </div>
             `).join("")}
           </div>
