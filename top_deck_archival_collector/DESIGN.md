@@ -1,204 +1,144 @@
----
-name: Top Deck Archival Collector
-colors:
-  surface: '#fff9ee'
-  surface-dim: '#e2d9c4'
-  surface-bright: '#fff9ee'
-  surface-container-lowest: '#ffffff'
-  surface-container-low: '#fcf3dd'
-  surface-container: '#f6edd7'
-  surface-container-high: '#f0e8d2'
-  surface-container-highest: '#ebe2cc'
-  on-surface: '#1f1b0e'
-  on-surface-variant: '#50443d'
-  inverse-surface: '#353022'
-  inverse-on-surface: '#f9f0da'
-  outline: '#82746b'
-  outline-variant: '#d4c3b9'
-  surface-tint: '#7c5638'
-  primary: '#311701'
-  on-primary: '#ffffff'
-  primary-container: '#4a2b11'
-  on-primary-container: '#bf916f'
-  inverse-primary: '#efbc98'
-  secondary: '#904d00'
-  on-secondary: '#ffffff'
-  secondary-container: '#fe9836'
-  on-secondary-container: '#693600'
-  tertiary: '#341500'
-  on-tertiary: '#ffffff'
-  tertiary-container: '#532600'
-  on-tertiary-container: '#d8874e'
-  error: '#ba1a1a'
-  on-error: '#ffffff'
-  error-container: '#ffdad6'
-  on-error-container: '#93000a'
-  primary-fixed: '#ffdcc4'
-  primary-fixed-dim: '#efbc98'
-  on-primary-fixed: '#2f1501'
-  on-primary-fixed-variant: '#623f23'
-  secondary-fixed: '#ffdcc2'
-  secondary-fixed-dim: '#ffb77c'
-  on-secondary-fixed: '#2e1500'
-  on-secondary-fixed-variant: '#6d3900'
-  tertiary-fixed: '#ffdcc7'
-  tertiary-fixed-dim: '#ffb787'
-  on-tertiary-fixed: '#311300'
-  on-tertiary-fixed-variant: '#723600'
-  background: '#fff9ee'
-  on-background: '#1f1b0e'
-  surface-variant: '#ebe2cc'
-typography:
-  display:
-    fontFamily: EB Garamond
-    fontSize: 3.5rem
-    fontWeight: '600'
-    lineHeight: '1.1'
-  headline-lg:
-    fontFamily: EB Garamond
-    fontSize: 2.5rem
-    fontWeight: '600'
-    lineHeight: '1.2'
-  headline-lg-mobile:
-    fontFamily: EB Garamond
-    fontSize: 1.875rem
-    fontWeight: '600'
-    lineHeight: '1.25'
-  headline-md:
-    fontFamily: EB Garamond
-    fontSize: 2rem
-    fontWeight: '500'
-    lineHeight: '1.3'
-  headline-sm:
-    fontFamily: EB Garamond
-    fontSize: 1.5rem
-    fontWeight: '500'
-    lineHeight: '1.35'
-  title:
-    fontFamily: Manrope
-    fontSize: 1.125rem
-    fontWeight: '700'
-    lineHeight: '1.4'
-  body-lg:
-    fontFamily: Manrope
-    fontSize: 1.125rem
-    fontWeight: '400'
-    lineHeight: '1.6'
-  body-md:
-    fontFamily: Manrope
-    fontSize: 0.9375rem
-    fontWeight: '400'
-    lineHeight: '1.5'
-  body-sm:
-    fontFamily: Manrope
-    fontSize: 0.8125rem
-    fontWeight: '400'
-    lineHeight: '1.45'
-  label-lg:
-    fontFamily: Manrope
-    fontSize: 0.875rem
-    fontWeight: '600'
-    lineHeight: '1.2'
-  label-md:
-    fontFamily: Manrope
-    fontSize: 0.75rem
-    fontWeight: '700'
-    lineHeight: '1.2'
-  label-sm:
-    fontFamily: Manrope
-    fontSize: 0.6875rem
-    fontWeight: '600'
-    lineHeight: '1.2'
-rounded:
-  sm: 0.125rem
-  DEFAULT: 0.25rem
-  md: 0.375rem
-  lg: 0.5rem
-  xl: 0.75rem
-  full: 9999px
-spacing:
-  gutter: 1.25rem
-  gutter-mobile: 0.75rem
-  margin: 2rem
-  margin-mobile: 1rem
-  space-xs: 0.25rem
-  space-sm: 0.5rem
-  space-md: 1rem
-  space-lg: 1.5rem
-  space-xl: 2.5rem
----
+# Organic Coffee & Botany — Style Reference
 
-## Brand & Style
+Playful but organic aesthetic on a deep roasted canvas
 
-This design system establishes an archival, high-end collector environment tailored for Magic: The Gathering competitive players, collectors, and 3D digital binder exploration. It balances tactile vintage warmth—reminiscent of bespoke leather folios, antique wood playtables, and archival parchment—with luminous modern UI precision.
+**Theme:** dark / warm
 
-The style unites subtle physical metaphors with crisp typography:
-- **Atmosphere:** Luminous parchment warmth (`#F7EED8`), grounded by deep heirloom chocolate wood (`#4A2B11`) and gilded amber accents (`#E68523`).
-- **Design Philosophy:** Tactile archival elegance meets clean catalog utility. Digital surfaces avoid clinical white backdrops, substituting them with warm parchment tiers that prevent eye fatigue during long browsing sessions and make trading card artwork pop with high contrast.
-- **Emotional Resonance:** Prestige, authenticity, collector reverence, and competitive focus.
+Source measurements are normalized; roles and recommendations are interpreted. Font summary lists are independent, not paired by position. HTML examples are reconstructions, not source components.
 
-## Colors
+This interface treats the page like a cozy, modern organic catalog: a deep roasted brown canvas, chunky rounded display type, and saturated terracotta that reads as 'action' or 'highlight' the moment it appears. Body copy stays calm in soft parchment tones so the Terracotta and Botanical Green can do all the emotional work — terracotta for primary actions and display headings, green for interactive links, success states, and secondary actions. Components are pill-shaped or chunky-rounded with thick 2px borders, giving every button the feel of a premium, tactile sticker pressed onto the dark canvas.
 
-The palette directly honors the vintage brand emblem, translating natural parchment, warm amber gilding, and dark chocolate wood into semantic roles:
+## Tokens — Colors
 
-- **Primary (`#4A2B11`):** Deep chocolate brown / aged oak. Serves as high-contrast body typography, structural dividers, dark binder leather trims, and foundational interactive states.
-- **Secondary (`#E68523`):** Warm amber orange / burnished gold. Deployed for primary actions, mythic/rare highlights, card foil reflections, and active 3D viewing controls.
-- **Tertiary (`#8C4A15`):** Warm mahogany. Utilized for secondary badges, hover states on amber actions, and vintage rule outlines.
-- **Neutral Canvas (`#F7EED8`):** Archival warm parchment. Provides the core canvas background, layered with lighter parchment ivory (`#FDFBF7`) for elevated card sleeves and container wells (`#EFE0C2`, `#F3E5C8`) for structural framing.
+| Name | Value | Token | Role |
+| :--- | :--- | :--- | :--- |
+| Dark Roast | `#2C1E16` | `--color-dark-roast` | Page canvas, main background, negative space |
+| Mocha Brown | `#3E2723` | `--color-mocha-brown` | Elevated surfaces, cards, footer background band |
+| Clay Terracotta | `#C55A3F` | `--color-clay-terracotta` | Primary CTA fill, main display headings, active states |
+| Brick Terracotta | `#A2412A` | `--color-brick-terracotta` | Darker terracotta for borders, hover states, or subtle deep accents |
+| Botanical Green | `#4A7C59` | `--color-botanical-green` | Secondary CTAs, text accent for links, success tags |
+| Fresh Sage | `#689F77` | `--color-fresh-sage` | Soft green wash for highlights, active navigation labels |
+| Parchment White | `#F1E8D9` | `--color-parchment-white` | Hero headings, primary body copy, button text on Terracotta |
+| Latte Gray | `#BCAAA4` | `--color-latte-gray` | Muted body paragraphs, secondary descriptive text — recedes softly |
+| Cocoa Gray | `#795548` | `--color-cocoa-gray` | Disabled or low-emphasis nav labels, subtle UI borders |
 
-## Typography
+## Tokens — Typography
 
-The typography couples the intellectual romance of `EB Garamond` with the clean, modern engineering of `Manrope`:
+### display-face
+Display headlines for section titles — a custom rounded display face that gives the brand its friendly voice. Substitute with 'Recoleta', 'Fraunces', or 'Nunito Black' at matching weight. `letter-spacing: -0.0200em` · `--font-display`
 
-- **EB Garamond (Editorial Serif):** Used for large titles, collection names, card set headers, and showcase quotes. It honors historical printing traditions and fantasy worldbuilding.
-- **Manrope (Geometric Modern Grotesque):** Used for all data-dense UI, card condition grading (NM, LP, MP), pricing grids, mana symbols, rules text, and binder toolbars. It ensures instant legibility at fractional sizes on mobile viewports.
-- **Rhythm & Optical Balance:** Display headings use tightened line heights and generous letter spacing, while small uppercase labels use tracking (`letter-spacing: 0.06em`) for precise card meta tags.
+- Weights: 700, 800
+- Sizes: 48px, 64px
+- Line height: 1.20
+- Letter spacing: -0.0200em
+- Role: Display headlines for section titles.
 
-## Layout & Spacing
+### body-sans
+Body paragraphs and nav links at 17px/500 — a geometric sans that stays readable while letting weight 700 carry emphasis. Substitute with 'Inter', 'Quicksand', or 'Nunito Sans' · `--font-body-sans`
 
-The layout is built around a structured 12-column responsive grid engineered for card collectors:
-
-- **Desktop (1024px+):** 12 columns, 2rem margins, 1.25rem gutters. Facilitates 3x3 binder pocket spreads (standard 9-pocket MTG binder view) with contextual side drawers for pricing and metadata.
-- **Tablet (768px - 1023px):** 8 columns, 1.5rem margins, 1rem gutters. Translates binder pages into 2x2 or continuous 4-across gallery views.
-- **Mobile (< 768px):** 4 columns, 1rem margins, 0.75rem gutters. Employs horizontal thumb-swipe carousels for binder spreads and 2-column stacked card search results.
-- **Collector Rhythm:** Space tokens (`space-xs` through `space-xl`) govern pocket margins and padding, ensuring card borders stay optically balanced within digital binder sleeves.
-
-## Elevation & Depth
-
-Visual hierarchy uses warm tonal parchment stratification accented by diffused, amber-chocolate ambient drop shadows:
-
-- **Level 0 (Base Canvas):** `#F7EED8` (Warm Parchment). Unshadowed, tactile foundational field.
-- **Level 1 (Pockets & Binder Pages):** `#F3E5C8` bounded by hairline strokes (`rgba(74, 43, 17, 0.12)`). Embedded inset shadow (`inset 0 1px 3px rgba(74, 43, 17, 0.08)`) simulating recessed card sleeves.
-- **Level 2 (Cards & Floating Tiles):** Crisp `#FDFBF7` parchment surface with a soft, warm ambient shadow (`0 4px 12px -2px rgba(74, 43, 17, 0.10), 0 2px 6px -1px rgba(74, 43, 17, 0.06)`).
-- **Level 3 (Interactive Modals & 3D Viewer Overlays):** Ambient elevated drop shadow (`0 16px 32px -4px rgba(74, 43, 17, 0.18)`), framed by a 1px solid mahogany border (`#8C4A15` at 20% opacity).
-- **3D Binder Depth:** 3D viewport canvas uses subtle radial illumination centered behind the binder spine, fading outward to a darker warm tone (`#E5D4B2`) to emphasize the volumetric 3D folio.
-
-## Shapes
-
-The design system adopts **Soft (Level 1)** roundedness to echo the refined, die-cut corners of physical MTG cards and archival display folios:
-
-- **Base Components (Inputs, Buttons, Badges):** `0.25rem` (4px) corner radius. Delivers clean, structured geometry that honors papercraft edges without sharp digital harshness.
-- **Cards & Sleeves:** `0.5rem` (8px, `rounded-lg`) matching the exact physical die-cut curvature of Magic: The Gathering trading cards.
-- **Modals & Binder Covers:** `0.75rem` (12px, `rounded-xl`) reflecting thick archival binder corners with leather-stitched profiles.
+- Weights: 500, 700
+- Sizes: 13px, 14px, 15px, 17px, 19px, 32px
+- Line height: 1.15 to 1.47
+- Letter spacing: normal (0.0530em on uppercase nav)
+- Role: Body paragraphs, nav links, and subheadings.
 
 ## Components
 
-### Buttons
-- **Primary:** Background in `#E68523` (amber orange), text in white, with a subtle bottom bevel border (`#8C4A15`). On hover, shifts to `#8C4A15` with an elevated warm glow.
-- **Secondary:** Surface `#F3E5C8` bordered with `#4A2B11` (1.5px), typography in `#4A2B11`. Hover fills with `#EFE0C2`.
-- **Ghost / Utility:** Transparent fill, `#4A2B11` text, hover receives a faint amber tint (`rgba(230, 133, 35, 0.1)`).
+### Primary CTA Button
+- **Role:** Filled terracotta button for 'Get started' and top-of-page conversion
+- **Specs:** Fill `#C55A3F`, text `#F1E8D9` (Parchment), body-sans 700 at 15px uppercase with 0.0530em tracking, 12px border-radius, 16px horizontal padding. Sits directly on the Dark Roast canvas.
 
-### Cards & 3D Binder Pockets
-- **Card Sleeves:** Recessed `#F3E5C8` containers with 1px border (`rgba(74, 43, 17, 0.14)`).
-- **Active / Foil Cards:** Overlaid with a subtle holographic spectral sheen effect on hover, accompanied by a 2px amber accent outline (`#E68523`) indicating selection.
+### Outlined Secondary Button
+- **Role:** Secondary CTA below primary on hero
+- **Specs:** Transparent fill, text in `#4A7C59` (Botanical Green), body-sans 700 at 14px, 12px border-radius, 16px horizontal padding, 2px solid border in `#4A7C59` or `#795548`.
 
-### Chips & Badges
-- **Condition Tags (NM, EX, VG):** Pill shape with 0.25rem radius. `#4A2B11` dark wood background with `#F7EED8` typography, or translucent parchment fill with bold status-colored borders (Mint: Forest Moss, Played: Aged Ochre).
-- **Set & Rarity Badges:** Gilded amber accents with high-contrast chocolate brown text.
+### Nav Pill
+- **Role:** Selector in top header
+- **Specs:** Transparent fill, text in `#BCAAA4` at 15px uppercase with 0.0530em tracking, 12px border-radius, 10px vertical and 16px horizontal padding, 2px solid border in `#795548`.
 
-### Form Inputs & Search
-- **Text Inputs:** `#FDFBF7` fill, 1px `#8C4A15` border (30% opacity), inset shadow. Focus triggers a 2px `#E68523` focus ring with no harsh browser outline.
-- **Checkboxes & Radios:** Soft-cornered squares, checked state filled with `#4A2B11` and an amber-accented mark.
+### Section Headline
+- **Role:** Display heading for marketing sections
+- **Specs:** display-face 700 at 48-64px, line-height 1.2, letter-spacing -0.0200em, color `#C55A3F` (Clay Terracotta).
 
-### 3D Binder Controls
-- Floating parchment HUD dock (`#FDFBF7` with 90% opacity and 12px backdrop-blur) pinned to the bottom viewport. Contains page-flip tabs, zoom controls, and foil toggle switch styled in dark chocolate brass.
+### Hero Headline
+- **Role:** Opening page headline above CTA
+- **Specs:** body-sans 700 at 32px, color `#F1E8D9` (Parchment White). Stays beautifully soft and legible so the Terracotta CTA below it carries the color weight.
+
+### Body Paragraph
+- **Role:** Marketing body text in sections
+- **Specs:** body-sans 500 at 17px, line-height 1.18, color `#F1E8D9` (Parchment White) for main text, or `#BCAAA4` (Latte Gray) for secondary text. Recedes elegantly into the dark background.
+
+### Footer / Section Background
+- **Role:** Full-width band at bottom or alternating sections
+- **Specs:** `#3E2723` (Mocha Brown) fill, `#F1E8D9` and `#689F77` text labels, generous 48px vertical padding.
+
+## Do's and Don'ts
+
+### Do
+- Use `#C55A3F` (Clay Terracotta) for primary actions and major section headings to draw the eye warmly.
+- Maintain the chunky, friendly feel with 12px border-radius on all interactive elements.
+- Use `#F1E8D9` (Parchment White) for main body copy and hero text. Es el tono perfecto para leer cómodamente sobre `#2C1E16` (Dark Roast) sin el brillo molesto del blanco puro.
+- Use `#4A7C59` (Botanical Green) exclusively for interactive links, soft success states, and secondary outlined CTAs.
+
+### Don't
+- Don't use pure black (`#000000`) or pure white (`#FFFFFF`). They are too harsh for this organic theme. Always use Dark Roast and Parchment White.
+- Don't put dark text on the Dark Roast background. Paragraphs must stay in Parchment White or Latte Gray.
+- Don't lose the thick borders. Even in dark mode, a 2px border in `#795548` (Cocoa Gray) gives elements that physical, tactile feel.
+
+## Quick Start
+
+### CSS Custom Properties
+
+```css
+:root {
+  /* Colors - Base */
+  --color-dark-roast: #2C1E16;
+  --color-mocha-brown: #3E2723;
+  
+  /* Colors - Accents */
+  --color-clay-terracotta: #C55A3F;
+  --color-brick-terracotta: #A2412A;
+  --color-botanical-green: #4A7C59;
+  --color-fresh-sage: #689F77;
+  
+  /* Colors - Typography & UI */
+  --color-parchment-white: #F1E8D9;
+  --color-latte-gray: #BCAAA4;
+  --color-cocoa-gray: #795548;
+
+  /* Typography — Font Families */
+  --font-display: 'Fraunces', 'Recoleta', 'Cinzel', serif;
+  --font-body-sans: 'Quicksand', 'Manrope', 'Inter', sans-serif;
+
+  /* Spacing & Shapes */
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --radius-xl: 12px;
+}
+```
+
+### Tailwind v4
+
+```css
+@theme {
+  /* Colors */
+  --color-dark-roast: #2C1E16;
+  --color-mocha-brown: #3E2723;
+  --color-clay-terracotta: #C55A3F;
+  --color-brick-terracotta: #A2412A;
+  --color-botanical-green: #4A7C59;
+  --color-fresh-sage: #689F77;
+  --color-parchment-white: #F1E8D9;
+  --color-latte-gray: #BCAAA4;
+  --color-cocoa-gray: #795548;
+
+  /* Typography */
+  --font-display: 'Fraunces', 'Recoleta', 'Cinzel', serif;
+  --font-body-sans: 'Quicksand', 'Manrope', 'Inter', sans-serif;
+
+  /* Border Radius */
+  --radius-xl: 12px;
+}
+```

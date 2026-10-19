@@ -3,47 +3,76 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Top Deck TCG — Bóveda &amp; Taberna de Fantasía (Tienda 3D &amp; PWA)</title>
+  <title>Top Deck TCG — Bóveda &amp; Taberna de Fantasía (Organic Coffee &amp; Botany)</title>
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#2C1E16">
 
-  <!-- Google Fonts: Cinzel + EB Garamond + Quicksand + Manrope + Space Mono + Press Start 2P -->
+  <!-- Google Fonts: Fraunces (Display) + Quicksand & Manrope (Body Sans) + Space Mono & Cinzel -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&family=Quicksand:wght@500;600;700&family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;1,9..144,700&family=Manrope:wght@500;600;700;800&family=Quicksand:wght@500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS CDN with Custom Theme Config -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-roast': '#2C1E16',
+            'mocha-brown': '#3E2723',
+            'clay-terracotta': '#C55A3F',
+            'brick-terracotta': '#A2412A',
+            'botanical-green': '#4A7C59',
+            'fresh-sage': '#689F77',
+            'parchment-white': '#F1E8D9',
+            'latte-gray': '#BCAAA4',
+            'cocoa-gray': '#795548'
+          },
+          fontFamily: {
+            display: ['Fraunces', 'Cinzel', 'serif'],
+            'body-sans': ['Quicksand', 'Manrope', 'sans-serif'],
+            mono: ['Space Mono', 'monospace']
+          },
+          borderRadius: {
+            xl: '12px',
+            '2xl': '16px',
+            '3xl': '20px'
+          }
+        }
+      }
+    };
+  </script>
 
-  <!-- Fantasy Tavern Stylesheet -->
+  <!-- Organic Coffee & Botany Stylesheet -->
   <link rel="stylesheet" href="css/demo.css">
 </head>
-<body class="selection:bg-[#C55A3F] selection:text-[#F1E8D9]">
+<body class="bg-dark-roast text-parchment-white selection:bg-clay-terracotta selection:text-parchment-white">
 
   <!-- ========================================================================
        TOP ANNOUNCEMENT BAR (TICKER DE LA TABERNA)
        ======================================================================== -->
-  <header class="bg-[#1E140E] text-[#CBBDA8] py-2 px-4 border-b border-[#5E402F] overflow-hidden text-xs font-mono-code">
+  <header class="bg-[#1E140E] text-latte-gray py-2 px-4 border-b-2 border-cocoa-gray overflow-hidden text-xs font-mono">
     <div class="flex items-center space-x-8 animate-ticker">
       <span class="inline-flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-[#E5A93C] animate-pulse"></span>
-        <strong class="text-[#F1E8D9]">TABERNA TOPDECK ABIERTA:</strong> +27,000 cartas de Magic: The Gathering sincronizadas en vivo con Scryfall API
+        <span class="w-2 h-2 rounded-full bg-clay-terracotta animate-pulse"></span>
+        <strong class="text-parchment-white">BÓVEDA TOPDECK TCG:</strong> +27,000 cartas de Magic: The Gathering sincronizadas en vivo con Scryfall API
       </span>
       <span>•</span>
       <span class="inline-flex items-center gap-2">
-        <span class="text-[#689F77]">🛡️</span>
-        <span>Fundas Dragon Shield doradas de cortesía en cada pedido</span>
+        <span class="text-fresh-sage">🛡️</span>
+        <span>Fundas Dragon Shield de cortesía en cada pedido de la taberna</span>
       </span>
       <span>•</span>
       <span class="inline-flex items-center gap-2">
-        <span class="text-[#E5A93C]">📦</span>
+        <span class="text-clay-terracotta">📦</span>
         <span>Despacho seguro en cofre rígido y camión expreso a toda Colombia</span>
       </span>
       <span>•</span>
       <span class="inline-flex items-center gap-2">
-        <span class="text-[#C55A3F]">🦊</span>
-        <span>Dexter: Tu asistente gremial con filtros por color, tipo y sinergias</span>
+        <span class="text-botanical-green">🦊</span>
+        <span>Dexter: Tu archivista gremial con filtros por maná, tipo y sinergias</span>
       </span>
     </div>
   </header>
@@ -51,36 +80,36 @@
   <!-- ========================================================================
        TOP DECK TAVERN NAVIGATION BAR
        ======================================================================== -->
-  <nav class="sticky top-0 z-40 bg-[#251811]/95 backdrop-blur-md border-b border-[#5E402F] px-4 md:px-8 py-3.5 shadow-lg">
+  <nav class="sticky top-0 z-40 bg-dark-roast/95 backdrop-blur-md border-b-2 border-cocoa-gray px-4 md:px-8 py-3.5 shadow-lg">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
       <!-- Brand Logo & Identity -->
       <a class="flex items-center gap-3.5 group" href="#">
-        <div class="w-12 h-12 bg-[#38261C] border border-[#E5A93C]/40 shadow-md flex items-center justify-center p-1.5 rounded-xl group-hover:border-[#E5A93C] transition-all">
+        <div class="w-12 h-12 bg-mocha-brown border-2 border-cocoa-gray shadow-md flex items-center justify-center p-1.5 rounded-xl group-hover:border-clay-terracotta transition-all">
           <img alt="Top Deck Logo" class="w-full h-full object-contain"
                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkdiEWUQPno7swEO78yHJsjV-wHx785OBu8xuLnW68dUO7se10TJRqjjm_rcWahKqi87PRJRGe3Cj_Mz94DbTwGvOCZjGm-CnSdDUZzyXOqs3rru8lsTCJvBhFY4nbaXlScCZ8q7GvHfaTefRHF2KB-OGL0Ryd64onx0sD85oloI8521RCEK8u_dfENe3UePDRHoT-89_aBK3EZtUgjTlSQ0Kq_gqmEAIBizOnrDKT7JrbcxiPobCPijGpgNOIOZpyQ">
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-serif-tavern text-2xl md:text-3xl text-[#F1E8D9] font-bold tracking-tight">TOP DECK</span>
-            <span class="font-mono-code text-[10px] bg-[#C55A3F] text-[#F1E8D9] px-2 py-0.5 rounded-md font-bold">TCG VAULT</span>
+            <span class="font-display text-2xl md:text-3xl text-parchment-white font-bold tracking-tight">TOP DECK</span>
+            <span class="font-body-sans text-[11px] bg-clay-terracotta text-parchment-white px-2 py-0.5 rounded-xl font-bold tracking-wider uppercase">TCG VAULT</span>
           </div>
-          <span class="text-[11px] font-bold text-[#CBBDA8] tracking-wider uppercase block font-sans">
-            Taberna de Fantasía • Competitivo &amp; Coleccionismo
+          <span class="text-[12px] font-bold text-latte-gray tracking-wider uppercase block font-body-sans">
+            Organic Coffee &amp; Botany • Competitivo &amp; Coleccionismo
           </span>
         </div>
       </a>
 
       <!-- Center: Dual Experience Switcher (Web Virtual vs PWA Presencial) -->
-      <div class="flex items-center gap-1.5 bg-[#1E140E] p-1.5 border border-[#5E402F] rounded-xl shadow-inner">
+      <div class="flex items-center gap-1.5 bg-mocha-brown p-1.5 border-2 border-cocoa-gray rounded-xl shadow-inner">
         <button id="switchBtnWeb" onclick="switchPlatform('web')"
-          class="tavern-btn tavern-btn-terracotta text-xs sm:text-sm px-4 sm:px-5 py-2 font-bold rounded-lg shadow-md">
+          class="nav-pill active text-xs sm:text-sm px-4 sm:px-5 py-2 font-bold rounded-xl shadow-md">
           <span>💻</span>
           <span class="hidden sm:inline">1. TIENDA VIRTUAL (WEB 3D)</span>
           <span class="sm:hidden">1. WEB 3D</span>
         </button>
         <button id="switchBtnPwa" onclick="switchPlatform('pwa')"
-          class="tavern-btn tavern-btn-wood text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-lg text-[#CBBDA8] hover:text-[#F1E8D9]">
+          class="nav-pill text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-xl text-latte-gray hover:text-parchment-white">
           <span>📱</span>
           <span class="hidden sm:inline">2. COMPAÑERO EN MESA (PWA)</span>
           <span class="sm:hidden">2. PWA LOCAL</span>
@@ -90,11 +119,11 @@
       <!-- Quick Actions: Cart / Loot Binder -->
       <div class="flex items-center gap-3">
         <button onclick="openPersonalBinderCart()"
-          class="tavern-btn tavern-btn-herb text-xs sm:text-sm px-4 py-2 font-bold rounded-xl shadow-lg">
+          class="btn-secondary text-xs sm:text-sm px-4 py-2 font-bold rounded-xl shadow-lg">
           <span class="text-base">🎒</span>
           <span class="hidden md:inline">MI BARAJA</span>
-          <span id="headerCartCount" class="bg-[#1E140E] text-[#F1E8D9] px-2 py-0.5 rounded-md text-xs font-mono-code font-bold">0</span>
-          <span id="headerCartTotal" class="hidden lg:inline text-xs font-mono-code text-[#E5A93C] font-bold">($0.00)</span>
+          <span id="headerCartCount" class="bg-dark-roast text-parchment-white px-2 py-0.5 rounded-lg text-xs font-mono font-bold">0</span>
+          <span id="headerCartTotal" class="hidden lg:inline text-xs font-mono text-fresh-sage font-bold">($0.00)</span>
         </button>
       </div>
 
@@ -104,44 +133,44 @@
   <!-- ========================================================================
        PLATAFORMA 1: WEB VIRTUAL (EXPERIENCIA INMERSIVA 3D DE TABERNA)
        ======================================================================== -->
-  <main id="platformWebView" class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-10">
+  <main id="platformWebView" class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-12">
 
-    <!-- HERO SECTION: Atmospheric Fantasy Tavern & Dexter The Fox Wizard -->
-    <section class="tavern-box bg-[#38261C] border-[#5E402F] rounded-2xl p-6 md:p-10 relative overflow-hidden">
-      <!-- Ambient warm lantern glow overlay -->
-      <div class="absolute -top-24 -right-24 w-96 h-96 bg-[#E5A93C]/10 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- HERO SECTION: Organic Coffee & Botany — Hero Canvas -->
+    <section class="tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-2xl p-6 md:p-10 relative overflow-hidden">
+      <!-- Ambient warm terracotta glow overlay -->
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-clay-terracotta/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
 
         <!-- Left Column: Copy & Value Proposition -->
-        <div class="lg:col-span-7 space-y-4 max-w-2xl">
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#442E22] border border-[#C55A3F] rounded-full shadow-sm">
-            <span class="text-xs font-mono-code font-bold text-[#E5A93C]">✦ SANTUARIO GREMIAL TCG</span>
-            <span class="text-xs text-[#CBBDA8]">• La magia del local en tu pantalla</span>
+        <div class="lg:col-span-7 space-y-5 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-dark-roast border-2 border-clay-terracotta rounded-xl shadow-sm">
+            <span class="text-xs font-mono font-bold text-clay-terracotta">✦ SANTUARIO GREMIAL TCG</span>
+            <span class="text-xs text-latte-gray font-body-sans">• La magia del local en tu pantalla</span>
           </div>
 
-          <h1 class="font-serif-tavern text-3xl sm:text-4xl lg:text-5xl text-[#F1E8D9] leading-[1.18] font-bold">
-            La Bóveda Digital que se Hojea como una <span class="text-[#E5A93C] underline decoration-[#C55A3F] decoration-wavy">Carpeta Real</span>
+          <h1 class="hero-headline font-body-sans font-bold text-2xl sm:text-3xl md:text-[32px] text-parchment-white leading-tight">
+            La Bóveda Digital que se Hojea como una <span class="text-clay-terracotta underline decoration-brick-terracotta decoration-2">Carpeta Real</span>
           </h1>
 
-          <p class="text-sm md:text-base text-[#CBBDA8] leading-relaxed font-sans">
+          <p class="body-paragraph text-parchment-white text-base md:text-[17px] leading-relaxed font-body-sans">
             Transmite toda la calidez y magia del local físico de <strong>TopDeck</strong>. Explora catálogos sincronizados en vivo con <strong>Scryfall API</strong> (+27,000 cartas de Magic), manipula cartas en <strong>3D táctil con grosor real</strong> y foil holográfico, y despacha tus compras enfundadas con lacre oficial.
           </p>
 
           <!-- CTAs -->
-          <div class="flex flex-wrap gap-3 pt-2">
-            <a class="tavern-btn tavern-btn-herb px-5 py-3 font-bold rounded-xl text-sm shadow-md flex items-center gap-2"
+          <div class="flex flex-wrap gap-3.5 pt-2">
+            <a class="btn-primary tavern-btn-terracotta text-sm"
                href="#carpetasSection">
               <span>📖</span>
               <span>HOJEAR CARPETA</span>
             </a>
-            <a class="tavern-btn tavern-btn-wood px-5 py-3 font-bold rounded-xl text-sm flex items-center gap-2"
+            <a class="btn-secondary tavern-btn-herb text-sm"
                href="#selladoSection">
               <span>📦</span>
               <span>PRODUCTO SELLADO</span>
             </a>
             <button onclick="switchPlatform('pwa')"
-              class="tavern-btn tavern-btn-amber px-5 py-3 font-bold rounded-xl text-sm flex items-center gap-2 text-[#2C1E16]">
+              class="nav-pill text-sm">
               <span>📱</span>
               <span>APP PWA DE MESA</span>
             </button>
@@ -150,33 +179,33 @@
 
         <!-- Right Column: Dexter The Fox Wizard (RPG Tavern Dialogue) -->
         <div class="lg:col-span-5 flex flex-col items-center">
-          <div class="rpg-window p-5 bg-[#442E22] border-2 border-[#C55A3F] rounded-2xl w-full relative">
+          <div class="rpg-window p-5 bg-dark-roast border-2 border-clay-terracotta rounded-2xl w-full relative shadow-xl">
             <div class="flex items-start gap-4">
               <!-- Dexter's Official Portrait -->
-              <div class="w-20 h-24 sm:w-24 sm:h-28 bg-[#2C1E16] border-2 border-[#E5A93C] rounded-xl shadow-lg shrink-0 overflow-hidden relative">
+              <div class="w-20 h-24 sm:w-24 sm:h-28 bg-mocha-brown border-2 border-clay-terracotta rounded-xl shadow-lg shrink-0 overflow-hidden relative">
                 <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw"
                      alt="Dexter El Zorro Mago" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-[#1E140E]/90 text-[#E5A93C] font-mono-code text-[9px] text-center py-0.5 font-bold">DEXTER</span>
+                <span class="absolute bottom-0 inset-x-0 bg-dark-roast/90 text-clay-terracotta font-mono text-[9px] text-center py-0.5 font-bold">DEXTER</span>
               </div>
 
               <!-- Dialogue Speech Bubble -->
               <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between mb-1">
-                  <span id="dexterSpeechBadge" class="font-mono-code text-[10px] bg-[#C55A3F] text-[#F1E8D9] px-2 py-0.5 rounded font-bold">
+                  <span id="dexterSpeechBadge" class="font-body-sans text-[11px] bg-clay-terracotta text-parchment-white px-2.5 py-0.5 rounded-lg font-bold uppercase tracking-wider">
                     🦊 ARCHIVISTA GREMIAL
                   </span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#4A7C59] animate-ping" title="En línea"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-botanical-green animate-ping" title="En línea"></span>
                 </div>
-                <h4 class="font-serif-tavern text-lg font-bold text-[#E5A93C]">"¡Saludos, caminante de planos!"</h4>
-                <p id="dexterSpeechText" class="text-xs text-[#F1E8D9] leading-relaxed mt-1 font-sans">
+                <h4 class="font-display text-lg font-bold text-clay-terracotta">"¡Saludos, caminante de planos!"</h4>
+                <p id="dexterSpeechText" class="text-sm text-parchment-white leading-relaxed mt-1 font-body-sans">
                   Soy Dexter, el guardián de la taberna. Dime qué carta buscas o filtra por maná y sinergias abajo. Deslizaré las cartas de los bolsillos para que las toques en 3D.
                 </p>
               </div>
             </div>
 
             <!-- Quick Dexter Synergy Shortcuts -->
-            <div class="mt-4 pt-3 border-t border-[#5E402F]">
-              <span class="text-xs font-bold text-[#CBBDA8] uppercase tracking-wider block mb-2 font-sans">
+            <div class="mt-4 pt-3.5 border-t-2 border-cocoa-gray">
+              <span class="text-xs font-bold text-latte-gray uppercase tracking-wider block mb-2 font-body-sans">
                 ⚡ Sinergias Estratégicas para tu Mazo:
               </span>
               <div id="dexterSynergyPills" class="flex flex-wrap gap-1.5">
@@ -190,15 +219,15 @@
     </section>
 
     <!-- ========================================================================
-         SECTION: TCG FOLDER-TAB SELECTOR (COMPONENTE DE PESTAÑAS 21ST.DEV)
+         SECTION 2: TCG FOLDER-TAB SELECTOR (COMPONENTE DE PESTAÑAS 21ST.DEV)
          ======================================================================== -->
-    <section id="carpetasSection" class="space-y-4">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-[#5E402F] pb-3">
+    <section id="carpetasSection" class="space-y-4 pt-2">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b-2 border-cocoa-gray pb-3">
         <div>
-          <span class="font-mono-code text-xs text-[#E5A93C] uppercase font-bold tracking-wider">✦ SELECCIONA TU COLECCIÓN</span>
-          <h2 class="font-serif-tavern text-2xl md:text-3xl text-[#F1E8D9] mt-0.5 font-bold">Carpetas por TCG (Binder Vault)</h2>
+          <span class="font-mono text-xs text-fresh-sage uppercase font-bold tracking-wider">✦ SELECCIONA TU COLECCIÓN</span>
+          <h2 class="section-headline font-display font-bold text-3xl md:text-5xl text-clay-terracotta mt-0.5 tracking-tight">Carpetas por TCG (Binder Vault)</h2>
         </div>
-        <p class="text-xs md:text-sm text-[#CBBDA8] max-w-md font-sans">
+        <p class="body-paragraph-muted text-sm md:text-base text-latte-gray max-w-md font-body-sans">
           Cambia de carpeta de colección. Cada juego cuenta con sus cartas singles, expansiones y sellado oficial.
         </p>
       </div>
@@ -206,76 +235,76 @@
       <!-- THE FOLDER COMPONENT (21st.dev style tabs) -->
       <div class="pt-2">
         <!-- Tab Headers Bar -->
-        <div class="flex items-end gap-1.5 px-2 overflow-x-auto no-scrollbar border-b-2 border-[#5E402F]" id="folderTabs">
+        <div class="flex items-end gap-1.5 px-2 overflow-x-auto no-scrollbar border-b-2 border-cocoa-gray" id="folderTabs">
           <!-- Tab 1: Magic: The Gathering (Active por defecto) -->
           <button class="folder-tab text-xs sm:text-sm px-5 sm:px-6 py-2.5 flex items-center gap-2 active">
-            <span class="w-3 h-3 rounded-full bg-[#E5A93C] inline-block border border-[#2C1E16]"></span>
+            <span class="w-3 h-3 rounded-full bg-clay-terracotta inline-block border border-dark-roast"></span>
             <span>MAGIC: THE GATHERING</span>
-            <span class="bg-[#2C1E16] text-[#E5A93C] font-mono-code text-[10px] px-1.5 py-0.5 rounded font-bold ml-1">+27,000</span>
+            <span class="bg-dark-roast text-clay-terracotta font-mono text-[10px] px-2 py-0.5 rounded font-bold ml-1">+27,000</span>
           </button>
           <!-- Tab 2: Pokémon TCG -->
           <button onclick="window.showTavernToast('La demo para TopDeck está enfocada en Magic: The Gathering.', 'ℹ️')"
                   class="folder-tab text-xs sm:text-sm px-5 sm:px-6 py-2.5 flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-[#F3C05B] inline-block border border-[#2C1E16]"></span>
+            <span class="w-3 h-3 rounded-full bg-fresh-sage inline-block border border-dark-roast"></span>
             <span>POKÉMON TCG</span>
-            <span class="bg-[#2C1E16]/80 text-[#CBBDA8] font-mono-code text-[10px] px-1.5 py-0.5 rounded ml-1">4,150</span>
+            <span class="bg-dark-roast/80 text-latte-gray font-mono text-[10px] px-2 py-0.5 rounded ml-1">4,150</span>
           </button>
           <!-- Tab 3: One Piece Card Game -->
           <button onclick="window.showTavernToast('La demo para TopDeck está enfocada en Magic: The Gathering.', 'ℹ️')"
                   class="folder-tab text-xs sm:text-sm px-5 sm:px-6 py-2.5 flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-[#C55A3F] inline-block border border-[#2C1E16]"></span>
+            <span class="w-3 h-3 rounded-full bg-clay-terracotta inline-block border border-dark-roast"></span>
             <span>ONE PIECE CG</span>
-            <span class="bg-[#2C1E16]/80 text-[#CBBDA8] font-mono-code text-[10px] px-1.5 py-0.5 rounded ml-1">1,890</span>
+            <span class="bg-dark-roast/80 text-latte-gray font-mono text-[10px] px-2 py-0.5 rounded ml-1">1,890</span>
           </button>
           <!-- Tab 4: Yu-Gi-Oh! -->
           <button onclick="window.showTavernToast('La demo para TopDeck está enfocada en Magic: The Gathering.', 'ℹ️')"
                   class="folder-tab text-xs sm:text-sm px-5 sm:px-6 py-2.5 flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-[#9333EA] inline-block border border-[#2C1E16]"></span>
+            <span class="w-3 h-3 rounded-full bg-brick-terracotta inline-block border border-dark-roast"></span>
             <span>YU-GI-OH!</span>
-            <span class="bg-[#2C1E16]/80 text-[#CBBDA8] font-mono-code text-[10px] px-1.5 py-0.5 rounded ml-1">2,340</span>
+            <span class="bg-dark-roast/80 text-latte-gray font-mono text-[10px] px-2 py-0.5 rounded ml-1">2,340</span>
           </button>
         </div>
 
         <!-- Folder Main Content Container (Interior de la Carpeta) -->
-        <div class="bg-[#38261C] border-2 border-[#5E402F] shadow-2xl p-4 sm:p-6 md:p-8 rounded-b-2xl relative -mt-[2px] z-10">
+        <div class="bg-mocha-brown border-2 border-cocoa-gray shadow-2xl p-4 sm:p-6 md:p-8 rounded-b-2xl relative -mt-[2px] z-10">
 
           <!-- Dexter Live Assistant Advice Banner -->
-          <div class="bg-[#2C1E16] border border-[#C55A3F] rounded-xl p-3.5 mb-4 shadow-md flex items-center gap-3.5">
-            <div class="w-12 h-12 rounded-xl bg-[#251811] border-2 border-[#E5A93C] overflow-hidden shrink-0 shadow-md relative">
+          <div class="bg-dark-roast border-2 border-clay-terracotta rounded-xl p-3.5 mb-4 shadow-md flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-xl bg-mocha-brown border-2 border-clay-terracotta overflow-hidden shrink-0 shadow-md relative">
               <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw"
                    alt="Dexter El Zorro Mago" class="w-full h-full object-cover">
-              <span class="absolute bottom-0 inset-x-0 bg-[#1E140E]/90 text-[#E5A93C] font-mono-code text-[8px] text-center font-bold">DEXTER</span>
+              <span class="absolute bottom-0 inset-x-0 bg-dark-roast/90 text-clay-terracotta font-mono text-[8px] text-center font-bold">DEXTER</span>
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2 flex-wrap">
-                <span id="dexterLiveHintTopic" class="font-mono-code text-[10px] bg-[#C55A3F] text-white px-2 py-0.5 rounded font-bold">
+                <span id="dexterLiveHintTopic" class="font-body-sans text-[11px] bg-clay-terracotta text-parchment-white px-2.5 py-0.5 rounded-lg font-bold uppercase tracking-wider">
                   🦊 ASISTENTE ARCHIVISTA DEXTER
                 </span>
-                <span class="text-xs text-[#E5A93C] font-bold font-sans">• Conexión en vivo Scryfall API (+27,000 cartas MTG)</span>
+                <span class="text-xs text-fresh-sage font-bold font-body-sans">• Conexión en vivo Scryfall API (+27,000 cartas MTG)</span>
               </div>
-              <p id="dexterLiveHintText" class="text-xs text-[#F1E8D9] font-sans mt-1 leading-snug">
+              <p id="dexterLiveHintText" class="text-sm text-parchment-white font-body-sans mt-1 leading-snug">
                 "¡Saludos! Escribe cualquier carta en el buscador o toca una sinergia. Yo consultaré Scryfall en vivo y pondré las cartas en tu carpeta para que las toques en 3D."
               </p>
             </div>
           </div>
 
           <!-- Live Scryfall Search & Advanced Filter Console -->
-          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-3 sm:p-4 mb-6 shadow-inner space-y-3">
+          <div class="bg-dark-roast border-2 border-cocoa-gray rounded-xl p-3 sm:p-4 mb-6 shadow-inner space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <!-- Search bar with Scryfall Live connection -->
-              <div class="flex-1 min-w-[260px] relative flex items-center bg-[#38261C] border border-[#5E402F] rounded-xl shadow-sm focus-within:border-[#C55A3F] transition-colors">
-                <span class="pl-3.5 pr-1 text-[#CBBDA8] text-sm select-none">🔍</span>
+              <div class="flex-1 min-w-[260px] relative flex items-center bg-mocha-brown border-2 border-cocoa-gray rounded-xl shadow-sm focus-within:border-clay-terracotta transition-colors">
+                <span class="pl-3.5 pr-1 text-latte-gray text-sm select-none">🔍</span>
                 <input id="vaultSearchInput" type="text"
                   oninput="window.onVaultSearchInput(this.value)"
                   onkeydown="if(event.key==='Enter') window.executeVaultSearch()"
                   placeholder="Busca cualquier carta (ej. Sol Ring, Sheoldred, Atraxa, Black Lotus)..."
-                  class="w-full bg-transparent px-2.5 py-2.5 text-xs md:text-sm font-sans text-[#F1E8D9] focus:outline-none placeholder-[#9E8C78] font-semibold">
+                  class="w-full bg-transparent px-2.5 py-2.5 text-xs md:text-sm font-body-sans text-parchment-white focus:outline-none placeholder-latte-gray/60 font-semibold">
                 <button id="clearSearchBtn" onclick="window.resetVaultSearch()"
-                  class="hidden px-2 text-[#9E8C78] hover:text-[#F1E8D9] text-xs font-bold transition-colors">
+                  class="hidden px-2 text-latte-gray hover:text-parchment-white text-xs font-bold transition-colors">
                   ✕
                 </button>
                 <button onclick="window.executeVaultSearch()"
-                  class="tavern-btn tavern-btn-terracotta text-white text-xs px-3.5 py-1.5 m-1 rounded-lg font-bold shrink-0 shadow">
+                  class="btn-primary tavern-btn-terracotta text-xs px-3.5 py-1.5 m-1 rounded-lg font-bold shrink-0 shadow">
                   BUSCAR
                 </button>
               </div>
@@ -284,7 +313,7 @@
               <div class="w-44 sm:w-48">
                 <select id="vaultTypeSelect"
                   onchange="window.changeCardTypeFilter(this.value)"
-                  class="w-full bg-[#38261C] border border-[#5E402F] text-xs font-sans font-bold text-[#F1E8D9] py-2.5 px-3 rounded-xl shadow-sm focus:outline-none focus:border-[#C55A3F]">
+                  class="w-full bg-mocha-brown border-2 border-cocoa-gray text-xs font-body-sans font-bold text-parchment-white py-2.5 px-3 rounded-xl shadow-sm focus:outline-none focus:border-clay-terracotta">
                   <option value="">TODOS LOS TIPOS</option>
                   <option value="creature">CRIATURAS</option>
                   <option value="instant">INSTANTÁNEOS</option>
@@ -297,66 +326,66 @@
               </div>
 
               <!-- Scryfall Live Sync Status Badge -->
-              <div id="scryfallLiveStatus" class="flex items-center gap-1.5 px-3 py-2 bg-[#4A7C59]/20 border border-[#4A7C59] text-xs font-mono-code text-[#689F77] rounded-xl font-bold">
-                <span class="w-2 h-2 rounded-full bg-[#4A7C59] animate-ping"></span>
+              <div id="scryfallLiveStatus" class="flex items-center gap-1.5 px-3 py-2 bg-botanical-green/15 border-2 border-botanical-green text-xs font-mono text-fresh-sage rounded-xl font-bold">
+                <span class="w-2 h-2 rounded-full bg-botanical-green animate-ping"></span>
                 <span>SCRYFALL LIVE</span>
               </div>
             </div>
 
             <!-- Quick Suggestions from Dexter -->
             <div class="flex items-center gap-2 flex-wrap pt-1 text-xs">
-              <span class="font-sans font-bold text-[#CBBDA8] text-[11px]">Sugerencias de Dexter:</span>
-              <button onclick="window.quickSearchDexter('Sol Ring')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Sol Ring</button>
-              <button onclick="window.quickSearchDexter('Sheoldred, the Apocalypse')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Sheoldred</button>
-              <button onclick="window.quickSearchDexter('Atraxa, Praetors\' Voice')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Atraxa</button>
-              <button onclick="window.quickSearchDexter('The One Ring')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">The One Ring</button>
-              <button onclick="window.quickSearchDexter('Counterspell')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Counterspell</button>
-              <button onclick="window.quickSearchDexter('Black Lotus')" class="px-2 py-0.5 bg-[#38261C] hover:bg-[#4E3528] text-[#E5A93C] rounded border border-[#5E402F] font-mono-code text-[11px] font-bold cursor-pointer">Black Lotus</button>
+              <span class="font-body-sans font-bold text-latte-gray text-[12px]">Sugerencias de Dexter:</span>
+              <button onclick="window.quickSearchDexter('Sol Ring')" class="px-2.5 py-1 bg-mocha-brown hover:bg-dark-roast text-clay-terracotta rounded-lg border-2 border-cocoa-gray hover:border-clay-terracotta font-mono text-[11px] font-bold cursor-pointer transition-colors">Sol Ring</button>
+              <button onclick="window.quickSearchDexter('Sheoldred, the Apocalypse')" class="px-2.5 py-1 bg-mocha-brown hover:bg-dark-roast text-clay-terracotta rounded-lg border-2 border-cocoa-gray hover:border-clay-terracotta font-mono text-[11px] font-bold cursor-pointer transition-colors">Sheoldred</button>
+              <button onclick="window.quickSearchDexter('Atraxa, Praetors\' Voice')" class="px-2.5 py-1 bg-mocha-brown hover:bg-dark-roast text-clay-terracotta rounded-lg border-2 border-cocoa-gray hover:border-clay-terracotta font-mono text-[11px] font-bold cursor-pointer transition-colors">Atraxa</button>
+              <button onclick="window.quickSearchDexter('The One Ring')" class="px-2.5 py-1 bg-mocha-brown hover:bg-dark-roast text-clay-terracotta rounded-lg border-2 border-cocoa-gray hover:border-clay-terracotta font-mono text-[11px] font-bold cursor-pointer transition-colors">The One Ring</button>
+              <button onclick="window.quickSearchDexter('Counterspell')" class="px-2.5 py-1 bg-mocha-brown hover:bg-dark-roast text-clay-terracotta rounded-lg border-2 border-cocoa-gray hover:border-clay-terracotta font-mono text-[11px] font-bold cursor-pointer transition-colors">Counterspell</button>
+              <button onclick="window.quickSearchDexter('Black Lotus')" class="px-2.5 py-1 bg-mocha-brown hover:bg-dark-roast text-clay-terracotta rounded-lg border-2 border-cocoa-gray hover:border-clay-terracotta font-mono text-[11px] font-bold cursor-pointer transition-colors">Black Lotus</button>
             </div>
 
             <!-- Mana Color Identity Filter Bar -->
-            <div class="flex flex-wrap items-center justify-between gap-3 pt-2.5 border-t border-[#5E402F]">
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2.5 border-t-2 border-cocoa-gray">
               <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-[#CBBDA8] uppercase tracking-wider font-sans">🔮 Identidad de Maná:</span>
+                <span class="text-xs font-bold text-latte-gray uppercase tracking-wider font-body-sans">🔮 Identidad de Maná:</span>
                 <div id="manaColorFilterBar" class="flex items-center gap-1.5">
                   <!-- Injected via JavaScript -->
                 </div>
               </div>
               <button onclick="resetAllVaultFilters()"
-                class="tavern-btn tavern-btn-wood text-xs px-3 py-1.5 rounded-lg text-[#CBBDA8] hover:text-[#F1E8D9]">
+                class="nav-pill text-xs px-3 py-1.5 rounded-lg text-latte-gray hover:text-parchment-white">
                 🔄 Limpiar Filtros
               </button>
             </div>
           </div>
 
           <!-- THE ARCHIVAL LEATHER BINDER SPREAD -->
-          <div class="binder-leather-wrap border-2 border-[#5E402F] rounded-2xl p-3 sm:p-5 shadow-2xl relative">
+          <div class="binder-leather-wrap border-2 border-cocoa-gray rounded-2xl p-3 sm:p-5 shadow-2xl relative">
 
             <!-- Binder Sub-header: Navigation & Page Counts -->
-            <div class="bg-[#38261C] border border-[#5E402F] rounded-xl px-4 py-2.5 mb-4 flex flex-wrap items-center justify-between gap-3 shadow-md">
+            <div class="bg-mocha-brown border-2 border-cocoa-gray rounded-xl px-4 py-2.5 mb-4 flex flex-wrap items-center justify-between gap-3 shadow-md">
               <div class="flex items-center gap-2.5">
-                <span class="text-xs font-bold bg-[#2C1E16] px-3 py-1 border border-[#5E402F] rounded-lg text-[#E5A93C] font-mono-code">
+                <span class="text-xs font-bold bg-dark-roast px-3 py-1 border-2 border-cocoa-gray rounded-lg text-clay-terracotta font-mono">
                   📖 CARPETA 9-POCKET ULTRA•PRO
                 </span>
-                <span id="binderTotalCountLabel" class="text-xs text-[#CBBDA8] font-bold font-sans">
+                <span id="binderTotalCountLabel" class="text-xs text-latte-gray font-bold font-body-sans">
                   CARGANDO CARTAS...
                 </span>
               </div>
-              <div class="flex items-center gap-2 font-sans font-bold text-xs">
-                <button onclick="changeBinderPage(-1)" class="tavern-btn tavern-btn-wood px-3 py-1.5 rounded-lg">
+              <div class="flex items-center gap-2 font-body-sans font-bold text-xs">
+                <button onclick="changeBinderPage(-1)" class="nav-pill px-3 py-1.5 rounded-lg">
                   ◀ PÁG ANT
                 </button>
-                <span id="binderPageIndicator" class="bg-[#2C1E16] border border-[#5E402F] text-[#F1E8D9] px-3 py-1.5 rounded-lg font-mono-code text-xs">
+                <span id="binderPageIndicator" class="bg-dark-roast border-2 border-cocoa-gray text-parchment-white px-3 py-1.5 rounded-lg font-mono text-xs">
                   PÁG 01 / 01
                 </span>
-                <button onclick="changeBinderPage(1)" class="tavern-btn tavern-btn-terracotta px-3 py-1.5 rounded-lg">
+                <button onclick="changeBinderPage(1)" class="btn-primary tavern-btn-terracotta px-3.5 py-1.5 rounded-lg">
                   PÁG SIG ▶
                 </button>
               </div>
             </div>
 
             <!-- Double Page Spread Grid (9 Archival Recessed Pockets) -->
-            <div id="binderPocketGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4 bg-[#1E140E] p-3 sm:p-5 border border-[#442E22] rounded-xl shadow-inner min-h-[580px]">
+            <div id="binderPocketGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4 bg-[#1E140E] p-3 sm:p-5 border-2 border-cocoa-gray rounded-xl shadow-inner min-h-[580px]">
               <!-- Injected via JavaScript (9 Pockets) -->
             </div>
           </div>
@@ -369,120 +398,120 @@
          SECTION 3: PRODUCTO SELLADO & PRE-ORDENES OFICIALES
          ======================================================================== -->
     <section id="selladoSection" class="space-y-6 pt-4">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-[#5E402F] pb-3">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b-2 border-cocoa-gray pb-3">
         <div>
-          <span class="font-mono-code text-xs text-[#E5A93C] uppercase font-bold tracking-wider">✦ EXPANSIONES &amp; CAJAS OFICIALES WPN</span>
-          <h2 class="font-serif-tavern text-2xl md:text-3xl text-[#F1E8D9] mt-0.5 font-bold">Producto Sellado &amp; Accesorios</h2>
+          <span class="font-mono text-xs text-fresh-sage uppercase font-bold tracking-wider">✦ EXPANSIONES &amp; CAJAS OFICIALES WPN</span>
+          <h2 class="section-headline font-display font-bold text-3xl md:text-5xl text-clay-terracotta mt-0.5 tracking-tight">Producto Sellado &amp; Accesorios</h2>
         </div>
-        <p class="text-xs md:text-sm text-[#CBBDA8] max-w-md font-sans">
+        <p class="body-paragraph-muted text-sm md:text-base text-latte-gray max-w-md font-body-sans">
           Play Booster Boxes, Bundles, Mazos de Commander y Protectores Dragon Shield listos para envío inmediato a todo el país.
         </p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <!-- Product 1: Duskmourn Play Booster Box -->
-        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-[#E5A93C] transition-all shadow-md group">
-          <div class="relative bg-[#251811] border border-[#5E402F] rounded-xl p-4 text-center overflow-hidden">
-            <span class="absolute top-2.5 right-2.5 bg-[#C55A3F] text-white font-mono-code text-[9px] px-2 py-0.5 rounded font-bold shadow">NUEVO</span>
+        <div class="tavern-card bg-mocha-brown border-2 border-cocoa-gray p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-clay-terracotta transition-all shadow-md group">
+          <div class="relative bg-dark-roast border-2 border-cocoa-gray rounded-xl p-4 text-center overflow-hidden">
+            <span class="absolute top-2.5 right-2.5 bg-clay-terracotta text-parchment-white font-mono text-[9px] px-2 py-0.5 rounded font-bold shadow">NUEVO</span>
             <div class="h-36 flex flex-col items-center justify-center text-center">
               <span class="text-3xl mb-2">📦</span>
-              <span class="font-serif-tavern text-sm text-[#F1E8D9] font-bold">DUSKMOURN: HOUSE OF HORROR</span>
-              <span class="text-xs text-[#CBBDA8] font-mono-code mt-1">Play Booster Box (36 Sobres)</span>
+              <span class="font-display text-sm text-parchment-white font-bold">DUSKMOURN: HOUSE OF HORROR</span>
+              <span class="text-xs text-latte-gray font-mono mt-1">Play Booster Box (36 Sobres)</span>
             </div>
           </div>
           <div>
-            <span class="font-mono-code text-[10px] text-[#E5A93C] font-bold uppercase tracking-wider block">MAGIC: THE GATHERING</span>
-            <h3 class="font-serif-tavern text-base text-[#F1E8D9] mt-0.5 font-bold">Caja Sellada Play Booster</h3>
-            <p class="text-xs text-[#CBBDA8] mt-1 font-sans leading-relaxed">Caja sellada oficial WPN con carta Buy-a-Box Foil promocional incluida.</p>
+            <span class="font-mono text-[10px] text-fresh-sage font-bold uppercase tracking-wider block">MAGIC: THE GATHERING</span>
+            <h3 class="font-display text-base text-parchment-white mt-0.5 font-bold">Caja Sellada Play Booster</h3>
+            <p class="text-xs text-latte-gray mt-1 font-body-sans leading-relaxed">Caja sellada oficial WPN con carta Buy-a-Box Foil promocional incluida.</p>
           </div>
-          <div class="pt-3 border-t border-[#5E402F] flex items-center justify-between">
+          <div class="pt-3 border-t-2 border-cocoa-gray flex items-center justify-between">
             <div>
-              <span class="font-mono-code text-base font-bold text-[#E5A93C]">$145.00 USD</span>
-              <span class="block text-[11px] text-[#CBBDA8] font-mono-code">≈ $609,000 COP</span>
+              <span class="font-mono text-base font-bold text-clay-terracotta">$145.00 USD</span>
+              <span class="block text-[11px] text-latte-gray font-mono">≈ $609,000 COP</span>
             </div>
             <button onclick="window.addSealedProductToCart('Duskmourn Play Booster Box (36 Sobres)', 145.00, 609000, 'https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg', 'Caja Sellada MTG')"
-              class="tavern-btn tavern-btn-terracotta text-white font-sans text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
+              class="btn-primary tavern-btn-terracotta text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
               <span>+ AÑADIR</span>
             </button>
           </div>
         </div>
 
         <!-- Product 2: Pokémon Stellar Crown -->
-        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-[#E5A93C] transition-all shadow-md group">
-          <div class="relative bg-[#251811] border border-[#5E402F] rounded-xl p-4 text-center overflow-hidden">
-            <span class="absolute top-2.5 right-2.5 bg-[#E5A93C] text-[#2C1E16] font-mono-code text-[9px] px-2 py-0.5 rounded font-bold shadow">HOT</span>
+        <div class="tavern-card bg-mocha-brown border-2 border-cocoa-gray p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-clay-terracotta transition-all shadow-md group">
+          <div class="relative bg-dark-roast border-2 border-cocoa-gray rounded-xl p-4 text-center overflow-hidden">
+            <span class="absolute top-2.5 right-2.5 bg-clay-terracotta text-parchment-white font-mono text-[9px] px-2 py-0.5 rounded font-bold shadow">HOT</span>
             <div class="h-36 flex flex-col items-center justify-center text-center">
               <span class="text-3xl mb-2">⚡</span>
-              <span class="font-serif-tavern text-sm text-[#F1E8D9] font-bold">STELLAR CROWN BOOSTER</span>
-              <span class="text-xs text-[#CBBDA8] font-mono-code mt-1">Display Oficial (36 Sobres)</span>
+              <span class="font-display text-sm text-parchment-white font-bold">STELLAR CROWN BOOSTER</span>
+              <span class="text-xs text-latte-gray font-mono mt-1">Display Oficial (36 Sobres)</span>
             </div>
           </div>
           <div>
-            <span class="font-mono-code text-[10px] text-[#F3C05B] font-bold uppercase tracking-wider block">POKÉMON TCG</span>
-            <h3 class="font-serif-tavern text-base text-[#F1E8D9] mt-0.5 font-bold">Scarlet &amp; Violet: Stellar Crown</h3>
-            <p class="text-xs text-[#CBBDA8] mt-1 font-sans leading-relaxed">Incluye oportunidades de Terapagos ex y Pokémon Stellar Tera hiper raros.</p>
+            <span class="font-mono text-[10px] text-fresh-sage font-bold uppercase tracking-wider block">POKÉMON TCG</span>
+            <h3 class="font-display text-base text-parchment-white mt-0.5 font-bold">Scarlet &amp; Violet: Stellar Crown</h3>
+            <p class="text-xs text-latte-gray mt-1 font-body-sans leading-relaxed">Incluye oportunidades de Terapagos ex y Pokémon Stellar Tera hiper raros.</p>
           </div>
-          <div class="pt-3 border-t border-[#5E402F] flex items-center justify-between">
+          <div class="pt-3 border-t-2 border-cocoa-gray flex items-center justify-between">
             <div>
-              <span class="font-mono-code text-base font-bold text-[#E5A93C]">$129.99 USD</span>
-              <span class="block text-[11px] text-[#CBBDA8] font-mono-code">≈ $545,900 COP</span>
+              <span class="font-mono text-base font-bold text-clay-terracotta">$129.99 USD</span>
+              <span class="block text-[11px] text-latte-gray font-mono">≈ $545,900 COP</span>
             </div>
             <button onclick="window.addSealedProductToCart('Pokémon Stellar Crown Booster Display (36 Sobres)', 129.99, 545900, 'https://images.pokemontcg.io/sv7/133_hires.png', 'Caja Sellada Pokémon')"
-              class="tavern-btn tavern-btn-terracotta text-white font-sans text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
+              class="btn-primary tavern-btn-terracotta text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
               <span>+ AÑADIR</span>
             </button>
           </div>
         </div>
 
         <!-- Product 3: One Piece OP-08 Two Legends -->
-        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-[#E5A93C] transition-all shadow-md group">
-          <div class="relative bg-[#251811] border border-[#5E402F] rounded-xl p-4 text-center overflow-hidden">
-            <span class="absolute top-2.5 right-2.5 bg-[#4A7C59] text-white font-mono-code text-[9px] px-2 py-0.5 rounded font-bold shadow">PRE-ORDEN</span>
+        <div class="tavern-card bg-mocha-brown border-2 border-cocoa-gray p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-clay-terracotta transition-all shadow-md group">
+          <div class="relative bg-dark-roast border-2 border-cocoa-gray rounded-xl p-4 text-center overflow-hidden">
+            <span class="absolute top-2.5 right-2.5 bg-botanical-green text-parchment-white font-mono text-[9px] px-2 py-0.5 rounded font-bold shadow">PRE-ORDEN</span>
             <div class="h-36 flex flex-col items-center justify-center text-center">
               <span class="text-3xl mb-2">🏴‍☠️</span>
-              <span class="font-serif-tavern text-sm text-[#F1E8D9] font-bold">OP-08 TWO LEGENDS</span>
-              <span class="text-xs text-[#CBBDA8] font-mono-code mt-1">Booster Box Oficial (24 Sobres)</span>
+              <span class="font-display text-sm text-parchment-white font-bold">OP-08 TWO LEGENDS</span>
+              <span class="text-xs text-latte-gray font-mono mt-1">Booster Box Oficial (24 Sobres)</span>
             </div>
           </div>
           <div>
-            <span class="font-mono-code text-[10px] text-[#C55A3F] font-bold uppercase tracking-wider block">ONE PIECE CARD GAME</span>
-            <h3 class="font-serif-tavern text-base text-[#F1E8D9] mt-0.5 font-bold">Two Legends [OP-08]</h3>
-            <p class="text-xs text-[#CBBDA8] mt-1 font-sans leading-relaxed">Con los codiciados líderes Silvers Rayleigh y Edward Newgate en arte alterno.</p>
+            <span class="font-mono text-[10px] text-clay-terracotta font-bold uppercase tracking-wider block">ONE PIECE CARD GAME</span>
+            <h3 class="font-display text-base text-parchment-white mt-0.5 font-bold">Two Legends [OP-08]</h3>
+            <p class="text-xs text-latte-gray mt-1 font-body-sans leading-relaxed">Con los codiciados líderes Silvers Rayleigh y Edward Newgate en arte alterno.</p>
           </div>
-          <div class="pt-3 border-t border-[#5E402F] flex items-center justify-between">
+          <div class="pt-3 border-t-2 border-cocoa-gray flex items-center justify-between">
             <div>
-              <span class="font-mono-code text-base font-bold text-[#E5A93C]">$118.00 USD</span>
-              <span class="block text-[11px] text-[#CBBDA8] font-mono-code">≈ $495,600 COP</span>
+              <span class="font-mono text-base font-bold text-clay-terracotta">$118.00 USD</span>
+              <span class="block text-[11px] text-latte-gray font-mono">≈ $495,600 COP</span>
             </div>
             <button onclick="window.addSealedProductToCart('One Piece OP-08 Two Legends Booster Box (24 Sobres)', 118.00, 495600, 'https://en.onepiece-cardgame.com/images/cardlist/card/OP08-118.png', 'Caja Sellada One Piece')"
-              class="tavern-btn tavern-btn-terracotta text-white font-sans text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
+              class="btn-primary tavern-btn-terracotta text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
               <span>+ AÑADIR</span>
             </button>
           </div>
         </div>
 
         <!-- Product 4: Dragon Shield Dual Matte Sleeves -->
-        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-[#E5A93C] transition-all shadow-md group">
-          <div class="relative bg-[#251811] border border-[#5E402F] rounded-xl p-4 text-center overflow-hidden">
-            <span class="absolute top-2.5 right-2.5 bg-[#4A7C59] text-white font-mono-code text-[9px] px-2 py-0.5 rounded font-bold shadow">ACCESORIO</span>
+        <div class="tavern-card bg-mocha-brown border-2 border-cocoa-gray p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-clay-terracotta transition-all shadow-md group">
+          <div class="relative bg-dark-roast border-2 border-cocoa-gray rounded-xl p-4 text-center overflow-hidden">
+            <span class="absolute top-2.5 right-2.5 bg-botanical-green text-parchment-white font-mono text-[9px] px-2 py-0.5 rounded font-bold shadow">ACCESORIO</span>
             <div class="h-36 flex flex-col items-center justify-center text-center">
               <span class="text-3xl mb-2">🛡️</span>
-              <span class="font-serif-tavern text-sm text-[#F1E8D9] font-bold">DRAGON SHIELD DUAL MATTE</span>
-              <span class="text-xs text-[#CBBDA8] font-mono-code mt-1">100 Fundas de Torneo</span>
+              <span class="font-display text-sm text-parchment-white font-bold">DRAGON SHIELD DUAL MATTE</span>
+              <span class="text-xs text-latte-gray font-mono mt-1">100 Fundas de Torneo</span>
             </div>
           </div>
           <div>
-            <span class="font-mono-code text-[10px] text-[#689F77] font-bold uppercase tracking-wider block">PROTECCIÓN GREMIAL</span>
-            <h3 class="font-serif-tavern text-base text-[#F1E8D9] mt-0.5 font-bold">Dragon Shield Dual Matte</h3>
-            <p class="text-xs text-[#CBBDA8] mt-1 font-sans leading-relaxed">Interior negro opaco reglamentario para torneos competitivos de todo TCG.</p>
+            <span class="font-mono text-[10px] text-fresh-sage font-bold uppercase tracking-wider block">PROTECCIÓN GREMIAL</span>
+            <h3 class="font-display text-base text-parchment-white mt-0.5 font-bold">Dragon Shield Dual Matte</h3>
+            <p class="text-xs text-latte-gray mt-1 font-body-sans leading-relaxed">Interior negro opaco reglamentario para torneos competitivos de todo TCG.</p>
           </div>
-          <div class="pt-3 border-t border-[#5E402F] flex items-center justify-between">
+          <div class="pt-3 border-t-2 border-cocoa-gray flex items-center justify-between">
             <div>
-              <span class="font-mono-code text-base font-bold text-[#E5A93C]">$13.50 USD</span>
-              <span class="block text-[11px] text-[#CBBDA8] font-mono-code">≈ $56,700 COP</span>
+              <span class="font-mono text-base font-bold text-clay-terracotta">$13.50 USD</span>
+              <span class="block text-[11px] text-latte-gray font-mono">≈ $56,700 COP</span>
             </div>
             <button onclick="window.addSealedProductToCart('Dragon Shield Dual Matte Sleeves (100 CT)', 13.50, 56700, 'https://cards.scryfall.io/large/front/d/a/da20235d-6c17-48f8-a152-64e9e03d3f9e.jpg', 'Accesorios')"
-              class="tavern-btn tavern-btn-terracotta text-white font-sans text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
+              class="btn-primary tavern-btn-terracotta text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
               <span>+ AÑADIR</span>
             </button>
           </div>
@@ -494,19 +523,19 @@
          SECTION 4: BUYLIST GREMIAL & TORNEOS EN TABERNA (COMUNIDAD)
          ======================================================================== -->
     <section id="torneosSection" class="space-y-6 pt-4">
-      <div class="tavern-box bg-[#38261C] border border-[#5E402F] rounded-2xl p-6 md:p-8 space-y-6 shadow-xl">
-        <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-[#5E402F] gap-4">
+      <div class="tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-2xl p-6 md:p-8 space-y-6 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b-2 border-cocoa-gray gap-4">
           <div>
             <div class="flex items-center gap-2.5">
-              <span class="font-serif-tavern text-2xl md:text-3xl font-bold text-[#F1E8D9]">🏆 Torneos en Taberna &amp; Ligas TCG</span>
-              <span class="bg-[#C55A3F] text-white font-mono-code text-[10px] px-2.5 py-0.5 rounded-full font-bold animate-pulse">EN VIVO</span>
+              <span class="section-headline font-display text-2xl md:text-3xl font-bold text-clay-terracotta">🏆 Torneos en Taberna &amp; Ligas TCG</span>
+              <span class="bg-clay-terracotta text-parchment-white font-mono text-[10px] px-2.5 py-0.5 rounded-full font-bold animate-pulse">EN VIVO</span>
             </div>
-            <p class="text-xs md:text-sm text-[#CBBDA8] mt-1 font-sans max-w-2xl">
+            <p class="body-paragraph-muted text-xs md:text-sm text-latte-gray mt-1 font-body-sans max-w-2xl">
               Participa en nuestras noches de Commander, Friday Night Magic, Liga Pokémon y torneos clasificatorios oficiales de One Piece y Yu-Gi-Oh! con mesas reglamentarias y jueces certificados DCI.
             </p>
           </div>
           <button onclick="switchPlatform('pwa')"
-            class="tavern-btn tavern-btn-herb text-xs sm:text-sm px-5 py-2.5 rounded-xl font-bold shrink-0 shadow-md">
+            class="btn-secondary tavern-btn-herb text-xs sm:text-sm px-5 py-2.5 rounded-xl font-bold shrink-0 shadow-md">
             <span>📱</span>
             <span>VER PAIRINGS EN VIVO EN PWA</span>
           </button>
@@ -515,97 +544,97 @@
         <!-- 4 Tournaments Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <!-- MTG -->
-          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-[#E5A93C] transition-colors">
+          <div class="bg-dark-roast border-2 border-cocoa-gray rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-clay-terracotta transition-colors">
             <div>
               <div class="flex items-center justify-between">
-                <span class="font-mono-code text-[9px] bg-[#E5A93C] text-[#2C1E16] px-2 py-0.5 rounded font-bold">MAGIC: MTG</span>
-                <span class="font-mono-code text-[10px] font-bold text-[#C55A3F]">POZO $250</span>
+                <span class="font-mono text-[9px] bg-clay-terracotta text-parchment-white px-2 py-0.5 rounded font-bold">MAGIC: MTG</span>
+                <span class="font-mono text-[10px] font-bold text-fresh-sage">POZO $250</span>
               </div>
-              <h4 class="font-serif-tavern text-base font-bold text-[#F1E8D9] mt-2">Friday Night Magic</h4>
-              <p class="text-xs text-[#CBBDA8] font-sans mt-1 leading-snug">Formato Modern &amp; Commander Multiplayer con promos retro foil oficiales WPN.</p>
+              <h4 class="font-display text-base font-bold text-parchment-white mt-2">Friday Night Magic</h4>
+              <p class="text-xs text-latte-gray font-body-sans mt-1 leading-snug">Formato Modern &amp; Commander Multiplayer con promos retro foil oficiales WPN.</p>
             </div>
-            <div class="pt-2.5 border-t border-[#5E402F] flex items-center justify-between font-mono-code text-xs">
-              <span class="text-[#F1E8D9] font-bold">VIERNES 19:00</span>
-              <span class="text-[#689F77] font-bold">8 CUPOS</span>
+            <div class="pt-2.5 border-t-2 border-cocoa-gray flex items-center justify-between font-mono text-xs">
+              <span class="text-parchment-white font-bold">VIERNES 19:00</span>
+              <span class="text-fresh-sage font-bold">8 CUPOS</span>
             </div>
           </div>
 
           <!-- One Piece -->
-          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-[#E5A93C] transition-colors">
+          <div class="bg-dark-roast border-2 border-cocoa-gray rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-clay-terracotta transition-colors">
             <div>
               <div class="flex items-center justify-between">
-                <span class="font-mono-code text-[9px] bg-[#C55A3F] text-white px-2 py-0.5 rounded font-bold">ONE PIECE</span>
-                <span class="font-mono-code text-[10px] font-bold text-[#E5A93C]">WINNER PACK</span>
+                <span class="font-mono text-[9px] bg-clay-terracotta text-parchment-white px-2 py-0.5 rounded font-bold">ONE PIECE</span>
+                <span class="font-mono text-[10px] font-bold text-fresh-sage">WINNER PACK</span>
               </div>
-              <h4 class="font-serif-tavern text-base font-bold text-[#F1E8D9] mt-2">OP-08 Store Tournament</h4>
-              <p class="text-xs text-[#CBBDA8] font-sans mt-1 leading-snug">Torneo suizo a 4 rondas con carta dorada Shanks Champion para el ganador.</p>
+              <h4 class="font-display text-base font-bold text-parchment-white mt-2">OP-08 Store Tournament</h4>
+              <p class="text-xs text-latte-gray font-body-sans mt-1 leading-snug">Torneo suizo a 4 rondas con carta dorada Shanks Champion para el ganador.</p>
             </div>
-            <div class="pt-2.5 border-t border-[#5E402F] flex items-center justify-between font-mono-code text-xs">
-              <span class="text-[#F1E8D9] font-bold">SÁBADO 16:00</span>
-              <span class="text-[#689F77] font-bold">14 CUPOS</span>
+            <div class="pt-2.5 border-t-2 border-cocoa-gray flex items-center justify-between font-mono text-xs">
+              <span class="text-parchment-white font-bold">SÁBADO 16:00</span>
+              <span class="text-fresh-sage font-bold">14 CUPOS</span>
             </div>
           </div>
 
           <!-- Pokemon -->
-          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-[#E5A93C] transition-colors">
+          <div class="bg-dark-roast border-2 border-cocoa-gray rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-clay-terracotta transition-colors">
             <div>
               <div class="flex items-center justify-between">
-                <span class="font-mono-code text-[9px] bg-[#F3C05B] text-[#2C1E16] px-2 py-0.5 rounded font-bold">POKÉMON TCG</span>
-                <span class="font-mono-code text-[10px] font-bold text-[#689F77]">PREMIO BOOSTER</span>
+                <span class="font-mono text-[9px] bg-botanical-green text-parchment-white px-2 py-0.5 rounded font-bold">POKÉMON TCG</span>
+                <span class="font-mono text-[10px] font-bold text-fresh-sage">PREMIO BOOSTER</span>
               </div>
-              <h4 class="font-serif-tavern text-base font-bold text-[#F1E8D9] mt-2">Liga Stellar Crown</h4>
-              <p class="text-xs text-[#CBBDA8] font-sans mt-1 leading-snug">Formato Estándar oficial Play! Pokémon con puntos clasificatorios mundiales.</p>
+              <h4 class="font-display text-base font-bold text-parchment-white mt-2">Liga Stellar Crown</h4>
+              <p class="text-xs text-latte-gray font-body-sans mt-1 leading-snug">Formato Estándar oficial Play! Pokémon con puntos clasificatorios mundiales.</p>
             </div>
-            <div class="pt-2.5 border-t border-[#5E402F] flex items-center justify-between font-mono-code text-xs">
-              <span class="text-[#F1E8D9] font-bold">DOMINGO 14:00</span>
-              <span class="text-[#689F77] font-bold">10 CUPOS</span>
+            <div class="pt-2.5 border-t-2 border-cocoa-gray flex items-center justify-between font-mono text-xs">
+              <span class="text-parchment-white font-bold">DOMINGO 14:00</span>
+              <span class="text-fresh-sage font-bold">10 CUPOS</span>
             </div>
           </div>
 
           <!-- Yugioh -->
-          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-[#E5A93C] transition-colors">
+          <div class="bg-dark-roast border-2 border-cocoa-gray rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-clay-terracotta transition-colors">
             <div>
               <div class="flex items-center justify-between">
-                <span class="font-mono-code text-[9px] bg-[#9333EA] text-white px-2 py-0.5 rounded font-bold">YU-GI-OH!</span>
-                <span class="font-mono-code text-[10px] font-bold text-[#C55A3F]">PLAYMAT OTS</span>
+                <span class="font-mono text-[9px] bg-brick-terracotta text-parchment-white px-2 py-0.5 rounded font-bold">YU-GI-OH!</span>
+                <span class="font-mono text-[10px] font-bold text-fresh-sage">PLAYMAT OTS</span>
               </div>
-              <h4 class="font-serif-tavern text-base font-bold text-[#F1E8D9] mt-2">OTS Local Tournament</h4>
-              <p class="text-xs text-[#CBBDA8] font-sans mt-1 leading-snug">Torneo oficial Avanzado con sobres OTS Pack de participación para cada duelista.</p>
+              <h4 class="font-display text-base font-bold text-parchment-white mt-2">OTS Local Tournament</h4>
+              <p class="text-xs text-latte-gray font-body-sans mt-1 leading-snug">Torneo oficial Avanzado con sobres OTS Pack de participación para cada duelista.</p>
             </div>
-            <div class="pt-2.5 border-t border-[#5E402F] flex items-center justify-between font-mono-code text-xs">
-              <span class="text-[#F1E8D9] font-bold">SÁBADO 11:00</span>
-              <span class="text-[#689F77] font-bold">6 CUPOS</span>
+            <div class="pt-2.5 border-t-2 border-cocoa-gray flex items-center justify-between font-mono text-xs">
+              <span class="text-parchment-white font-bold">SÁBADO 11:00</span>
+              <span class="text-fresh-sage font-bold">6 CUPOS</span>
             </div>
           </div>
         </div>
 
         <!-- Buylist Gremial Banner -->
-        <div class="bg-[#251811] border border-[#C55A3F] rounded-xl p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-inner">
+        <div class="bg-dark-roast border-2 border-clay-terracotta rounded-xl p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-inner">
           <div class="flex items-center gap-3.5">
-            <div class="w-12 h-12 bg-[#38261C] border border-[#E5A93C] rounded-xl flex items-center justify-center text-2xl shrink-0 shadow">
+            <div class="w-12 h-12 bg-mocha-brown border-2 border-clay-terracotta rounded-xl flex items-center justify-center text-2xl shrink-0 shadow">
               💰
             </div>
             <div>
-              <h4 class="font-serif-tavern text-lg font-bold text-[#E5A93C]">Buylist Gremial: ¡Compramos tus Cartas Singles!</h4>
-              <p class="text-xs text-[#CBBDA8] font-sans mt-0.5 leading-relaxed">
-                Pagamos el <strong class="text-[#F1E8D9]">80% en Efectivo Inmediato</strong> o el <strong class="text-[#E5A93C]">100% en Crédito de Tienda</strong> sobre valor de mercado TCGPlayer para canjear por producto sellado o singles de la bóveda.
+              <h4 class="font-display text-lg font-bold text-clay-terracotta">Buylist Gremial: ¡Compramos tus Cartas Singles!</h4>
+              <p class="text-xs text-latte-gray font-body-sans mt-0.5 leading-relaxed">
+                Pagamos el <strong class="text-parchment-white">80% en Efectivo Inmediato</strong> o el <strong class="text-clay-terracotta">100% en Crédito de Tienda</strong> sobre valor de mercado TCGPlayer para canjear por producto sellado o singles de la bóveda.
               </p>
             </div>
           </div>
           <button onclick="window.showTavernToast('Acércate al mostrador o habla con Dexter para cotizar tu carpeta en minutos.', '💰')"
-            class="tavern-btn tavern-btn-amber text-xs sm:text-sm px-5 py-2.5 rounded-xl font-bold shrink-0 shadow-md">
+            class="btn-primary tavern-btn-terracotta text-xs sm:text-sm px-5 py-2.5 rounded-xl font-bold shrink-0 shadow-md">
             <span>COTIZAR MI COLECCIÓN</span>
           </button>
         </div>
 
         <!-- Sede Footer -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-[#5E402F] text-xs font-sans text-[#CBBDA8]">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t-2 border-cocoa-gray text-xs font-body-sans text-latte-gray">
           <div class="flex items-center gap-2">
             <span>📍</span>
             <span><strong>SEDE FÍSICA:</strong> Risaralda - Pereira • Salón de Gremio TopDeck • Mesas Climatizadas &amp; Jueces DCI</span>
           </div>
           <button onclick="window.showTavernToast('¡Cupo reservado con éxito! Recibirás confirmación en el Salón de Gremio.', '🏆')"
-            class="tavern-btn tavern-btn-wood px-4 py-2 rounded-lg font-bold text-xs text-[#F1E8D9]">
+            class="nav-pill px-4 py-2 rounded-xl font-bold text-xs text-parchment-white">
             <span>RESERVAR CUPO PARA HOY ▶</span>
           </button>
         </div>
@@ -620,29 +649,29 @@
   <section id="platformPwaView" class="hidden flex-1 max-w-3xl w-full mx-auto px-3 sm:px-4 py-6">
 
     <!-- En-Tavern Header Banner (Diario del Gremio) -->
-    <div class="tavern-box bg-[#38261C] p-4 mb-4 border border-[#5E402F] rounded-2xl shadow-lg">
+    <div class="tavern-box bg-mocha-brown p-4 mb-4 border-2 border-cocoa-gray rounded-2xl shadow-lg">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <div class="w-11 h-11 bg-[#442E22] border border-[#E5A93C]/40 rounded-xl p-1 flex items-center justify-center text-2xl shrink-0">
+          <div class="w-11 h-11 bg-dark-roast border-2 border-clay-terracotta rounded-xl p-1 flex items-center justify-center text-2xl shrink-0 shadow">
             🍻
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="font-serif-tavern text-xl font-bold text-[#F1E8D9]">El Tabernero de TopDeck</span>
-              <span class="font-mono-code text-[10px] bg-[#4A7C59] text-white px-2 py-0.5 rounded-full font-bold">LOCAL EN VIVO</span>
+              <span class="font-display text-xl font-bold text-parchment-white">El Tabernero de TopDeck</span>
+              <span class="font-body-sans text-[10px] bg-botanical-green text-parchment-white px-2 py-0.5 rounded-full font-bold">LOCAL EN VIVO</span>
             </div>
-            <p class="text-xs text-[#CBBDA8] font-sans">Compañero interactivo de mesa para jugadores físicos en el local.</p>
+            <p class="text-xs text-latte-gray font-body-sans">Compañero interactivo de mesa para jugadores físicos en el local.</p>
           </div>
         </div>
         <div class="text-right">
-          <span class="font-mono-code text-[10px] bg-[#2C1E16] border border-[#5E402F] text-[#E5A93C] px-2.5 py-1 rounded-lg block font-bold">MESA #04</span>
-          <span class="text-[10px] text-[#689F77] font-bold font-mono-code">CONECTADO</span>
+          <span class="font-mono text-[10px] bg-dark-roast border-2 border-cocoa-gray text-clay-terracotta px-2.5 py-1 rounded-xl block font-bold">MESA #04</span>
+          <span class="text-[10px] text-fresh-sage font-bold font-mono">CONECTADO</span>
         </div>
       </div>
     </div>
 
     <!-- PWA Section Navigation Tabs (5 Secciones con Mascotas) -->
-    <div id="pwaBottomNavBar" class="grid grid-cols-5 gap-1.5 mb-4 bg-[#241811] p-1.5 border border-[#5E402F] rounded-2xl shadow-md">
+    <div id="pwaBottomNavBar" class="grid grid-cols-5 gap-1.5 mb-4 bg-mocha-brown p-1.5 border-2 border-cocoa-gray rounded-2xl shadow-md">
       <!-- Injected via JavaScript -->
     </div>
 
@@ -657,20 +686,20 @@
        MODAL: INSPECTOR 3D DE CARTAS (RPG DIALOG & GROSOR FÍSICO MTG)
        ======================================================================== -->
   <div id="cardInspector3DModal" class="fixed inset-0 z-50 bg-[#120B07]/85 backdrop-blur-md items-center justify-center p-2 sm:p-4 overflow-y-auto hidden">
-    <div class="rpg-window max-w-4xl w-full relative overflow-hidden flex flex-col lg:flex-row my-auto border-2 border-[#C55A3F] rounded-2xl shadow-2xl bg-[#38261C]">
+    <div class="rpg-window max-w-4xl w-full relative overflow-hidden flex flex-col lg:flex-row my-auto border-2 border-clay-terracotta rounded-2xl shadow-2xl bg-mocha-brown">
 
       <!-- Close Button -->
       <button onclick="close3DCardInspector()"
-              class="absolute top-3 right-3 z-40 w-8 h-8 bg-[#C55A3F] hover:bg-[#A2412A] text-white font-bold text-sm rounded-lg flex items-center justify-center cursor-pointer shadow-md transition-all active:scale-95"
+              class="absolute top-3 right-3 z-40 w-8 h-8 bg-clay-terracotta hover:bg-brick-terracotta text-parchment-white font-bold text-sm rounded-xl flex items-center justify-center cursor-pointer shadow-md transition-all active:scale-95"
               title="Cerrar ventana">
         ✕
       </button>
 
       <!-- LEFT COLUMN: 3D CARD STAGE -->
-      <div class="w-full lg:w-1/2 bg-[#2C1E16] p-4 sm:p-6 flex flex-col items-center justify-between border-b lg:border-b-0 lg:border-r border-[#5E402F] relative">
+      <div class="w-full lg:w-1/2 bg-dark-roast p-4 sm:p-6 flex flex-col items-center justify-between border-b-2 lg:border-b-0 lg:border-r-2 border-cocoa-gray relative">
         <div class="w-full flex items-center justify-between mb-2 z-10">
-          <span class="font-mono-code text-[10px] bg-[#442E22] border border-[#5E402F] text-[#E5A93C] px-2 py-0.5 rounded font-bold">GROSOR FÍSICO MTG</span>
-          <span class="text-xs text-[#CBBDA8] font-bold font-sans">INSPECCIÓN HOLOGRÁFICA 3D</span>
+          <span class="font-mono text-[10px] bg-mocha-brown border-2 border-cocoa-gray text-clay-terracotta px-2.5 py-0.5 rounded-lg font-bold">GROSOR FÍSICO MTG</span>
+          <span class="text-xs text-latte-gray font-bold font-body-sans">INSPECCIÓN HOLOGRÁFICA 3D</span>
         </div>
 
         <!-- Interactive 3D Card Stage -->
@@ -692,14 +721,14 @@
 
         <!-- 3D Controls -->
         <div class="w-full space-y-2 mt-2 z-10">
-          <p class="text-center text-xs text-[#CBBDA8] font-bold font-sans">
+          <p class="text-center text-xs text-latte-gray font-bold font-body-sans">
             🕹️ Arrastra con el mouse o dedo para rotar 360°
           </p>
           <div class="flex gap-2">
-            <button onclick="flip3DCardInspector()" class="tavern-btn tavern-btn-wood flex-1 py-2 text-xs font-bold rounded-xl">
+            <button onclick="flip3DCardInspector()" class="nav-pill flex-1 py-2 text-xs font-bold rounded-xl">
               🔄 VOLTEAR AL REVERSO
             </button>
-            <button id="toggleFoil3DBtn" onclick="toggleFoilHoloSheen()" class="tavern-btn tavern-btn-amber px-4 py-2 text-xs font-bold rounded-xl">
+            <button id="toggleFoil3DBtn" onclick="toggleFoilHoloSheen()" class="btn-primary tavern-btn-terracotta px-4 py-2 text-xs font-bold rounded-xl">
               ✨ FOIL ON
             </button>
           </div>
@@ -707,44 +736,44 @@
       </div>
 
       <!-- RIGHT COLUMN: STATS, RULES & CART ACTION -->
-      <div class="w-full lg:w-1/2 p-5 sm:p-6 flex flex-col justify-between bg-[#38261C] text-[#F1E8D9]">
+      <div class="w-full lg:w-1/2 p-5 sm:p-6 flex flex-col justify-between bg-mocha-brown text-parchment-white">
         <div>
           <!-- Set & Title -->
-          <div class="border-b border-[#5E402F] pb-3">
+          <div class="border-b-2 border-cocoa-gray pb-3">
             <div class="flex items-center justify-between mb-1">
-              <span id="inspectCardSet" class="font-mono-code text-xs text-[#E5A93C] font-bold uppercase tracking-wider">
+              <span id="inspectCardSet" class="font-mono text-xs text-fresh-sage font-bold uppercase tracking-wider">
                 EXPANSIÓN MTG
               </span>
               <div id="inspectCardMana" class="flex items-center gap-1"></div>
             </div>
-            <h2 id="inspectCardName" class="font-serif-tavern text-2xl sm:text-3xl text-[#F1E8D9] font-bold leading-tight">
+            <h2 id="inspectCardName" class="font-display text-2xl sm:text-3xl text-clay-terracotta font-bold leading-tight">
               Nombre de la Carta
             </h2>
-            <p id="inspectCardType" class="text-xs font-bold text-[#CBBDA8] mt-0.5 font-sans uppercase">
+            <p id="inspectCardType" class="text-xs font-bold text-latte-gray mt-0.5 font-body-sans uppercase">
               Tipo de Carta
             </p>
           </div>
 
           <!-- Oracle Rules Box -->
-          <div class="my-3.5 bg-[#2C1E16] border border-[#5E402F] rounded-xl p-3 relative shadow-inner">
-            <span class="bg-[#C55A3F] text-[#F1E8D9] font-mono-code text-[9px] px-2 py-0.5 rounded-full absolute -top-2.5 right-3 font-bold">
+          <div class="my-3.5 bg-dark-roast border-2 border-cocoa-gray rounded-xl p-3 relative shadow-inner">
+            <span class="bg-clay-terracotta text-parchment-white font-mono text-[9px] px-2 py-0.5 rounded-full absolute -top-2.5 right-3 font-bold">
               ORACLE RULES
             </span>
-            <p id="inspectCardOracle" class="font-mono-code text-xs text-[#F1E8D9] leading-relaxed max-h-32 overflow-y-auto pr-1">
+            <p id="inspectCardOracle" class="font-mono text-xs text-parchment-white leading-relaxed max-h-32 overflow-y-auto pr-1">
               Texto de reglas de la carta...
             </p>
           </div>
 
           <!-- Dexter's Advice Box in 3D Modal -->
-          <div class="my-3 bg-[#2C1E16] border border-[#C55A3F] rounded-xl p-3 flex items-start gap-3 shadow-inner">
-            <div class="w-10 h-10 rounded-xl bg-[#251811] border border-[#E5A93C] overflow-hidden shrink-0 shadow relative">
+          <div class="my-3 bg-dark-roast border-2 border-clay-terracotta rounded-xl p-3 flex items-start gap-3 shadow-inner">
+            <div class="w-10 h-10 rounded-xl bg-mocha-brown border-2 border-clay-terracotta overflow-hidden shrink-0 shadow relative">
               <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw"
                    alt="Dexter" class="w-full h-full object-cover">
-              <span class="absolute bottom-0 inset-x-0 bg-[#1E140E]/90 text-[#E5A93C] font-mono-code text-[7px] text-center font-bold">DEXTER</span>
+              <span class="absolute bottom-0 inset-x-0 bg-dark-roast/90 text-clay-terracotta font-mono text-[7px] text-center font-bold">DEXTER</span>
             </div>
             <div class="flex-1 min-w-0">
-              <span class="font-mono-code text-[10px] text-[#E5A93C] font-bold block uppercase tracking-wider">🦊 CONSEJO DE DEXTER:</span>
-              <p id="inspectDexterTip" class="text-xs text-[#F1E8D9] font-sans mt-0.5 leading-relaxed italic">
+              <span class="font-body-sans text-[10px] text-clay-terracotta font-bold block uppercase tracking-wider">🦊 CONSEJO DE DEXTER:</span>
+              <p id="inspectDexterTip" class="text-xs text-parchment-white font-body-sans mt-0.5 leading-relaxed italic">
                 Excelente adición para tu carpeta de colección o mazo de torneo.
               </p>
             </div>
@@ -755,20 +784,20 @@
 
           <!-- Condition Selector (NM, LP, MP) -->
           <div class="mb-3">
-            <label class="block text-xs font-bold text-[#CBBDA8] uppercase tracking-wider mb-1.5 font-sans">
+            <label class="block text-xs font-bold text-latte-gray uppercase tracking-wider mb-1.5 font-body-sans">
               Condición Física en Bóveda:
             </label>
             <div class="flex gap-2">
               <button id="condBtn-NM" onclick="setInspectCondition('NM')"
-                class="tavern-btn flex-1 py-1.5 text-xs bg-[#C55A3F] text-[#F1E8D9] font-bold rounded-lg">
+                class="btn-primary flex-1 py-1.5 text-xs text-center rounded-lg">
                 NM (Near Mint)
               </button>
               <button id="condBtn-LP" onclick="setInspectCondition('LP')"
-                class="tavern-btn flex-1 py-1.5 text-xs bg-[#2C1E16] text-[#CBBDA8] border border-[#5E402F] font-bold rounded-lg">
+                class="nav-pill flex-1 py-1.5 text-xs text-center rounded-lg">
                 LP (Lightly Played)
               </button>
               <button id="condBtn-MP" onclick="setInspectCondition('MP')"
-                class="tavern-btn flex-1 py-1.5 text-xs bg-[#2C1E16] text-[#CBBDA8] border border-[#5E402F] font-bold rounded-lg">
+                class="nav-pill flex-1 py-1.5 text-xs text-center rounded-lg">
                 MP (Played)
               </button>
             </div>
@@ -776,22 +805,22 @@
         </div>
 
         <!-- Pricing & Action Button -->
-        <div class="pt-3.5 border-t border-[#5E402F] mt-2">
+        <div class="pt-3.5 border-t-2 border-cocoa-gray mt-2">
           <div class="flex items-end justify-between mb-3">
             <div>
-              <span class="text-[10px] font-bold text-[#CBBDA8] uppercase font-sans">Precio de Mercado:</span>
-              <div id="inspectPriceUsd" class="font-mono-code text-xl sm:text-2xl font-bold text-[#E5A93C]">$0.00 USD</div>
+              <span class="text-[10px] font-bold text-latte-gray uppercase font-body-sans">Precio de Mercado:</span>
+              <div id="inspectPriceUsd" class="font-mono text-xl sm:text-2xl font-bold text-clay-terracotta">$0.00 USD</div>
             </div>
             <div class="text-right">
-              <span id="inspectStockBadge" class="font-mono-code text-[10px] bg-[#4A7C59]/20 border border-[#4A7C59] text-[#689F77] px-2 py-0.5 rounded font-bold">
+              <span id="inspectStockBadge" class="font-mono text-[10px] bg-botanical-green/20 border-2 border-botanical-green text-fresh-sage px-2 py-0.5 rounded font-bold">
                 EN BÓVEDA
               </span>
-              <div id="inspectPriceCop" class="text-xs font-mono-code font-bold text-[#F1E8D9] mt-1">$0 COP</div>
+              <div id="inspectPriceCop" class="text-xs font-mono font-bold text-parchment-white mt-1">$0 COP</div>
             </div>
           </div>
 
           <button onclick="addInspectedCardToCart()"
-            class="tavern-btn tavern-btn-herb w-full py-3 text-sm font-bold rounded-xl shadow-lg flex items-center justify-center gap-2">
+            class="btn-primary tavern-btn-terracotta w-full py-3.5 text-sm font-bold rounded-xl shadow-lg flex items-center justify-center gap-2">
             <span>🎒</span>
             <span>AÑADIR A MI BARAJA / COMPRAR</span>
           </button>
@@ -805,45 +834,45 @@
        MODAL: MI BARAJA & CHECKOUT ANIMADO (ENFUNDADO + DECKBOX + CAMIÓN)
        ======================================================================== -->
   <div id="personalBinderCartModal" class="fixed inset-0 z-50 bg-[#120B07]/85 backdrop-blur-md items-center justify-center p-3 sm:p-4 overflow-y-auto hidden">
-    <div class="rpg-window max-w-3xl w-full relative overflow-hidden my-auto border-2 border-[#C55A3F] rounded-2xl shadow-2xl bg-[#38261C]">
+    <div class="rpg-window max-w-3xl w-full relative overflow-hidden my-auto border-2 border-clay-terracotta rounded-2xl shadow-2xl bg-mocha-brown">
 
       <!-- Header Cart -->
-      <div class="bg-[#2C1E16] border-b border-[#5E402F] p-4 flex items-center justify-between">
+      <div class="bg-dark-roast border-b-2 border-cocoa-gray p-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <span class="text-2xl">🎒</span>
           <div>
-            <h3 class="font-serif-tavern text-xl font-bold text-[#F1E8D9]">Mi Carpeta de Baraja</h3>
-            <span class="text-xs text-[#CBBDA8] font-sans">Cartas seleccionadas listas para enfundar y despachar</span>
+            <h3 class="font-display text-xl font-bold text-parchment-white">Mi Carpeta de Baraja</h3>
+            <span class="text-xs text-latte-gray font-body-sans">Cartas seleccionadas listas para enfundar y despachar</span>
           </div>
         </div>
         <button onclick="closePersonalBinderCart()"
-                class="w-8 h-8 bg-[#C55A3F] hover:bg-[#A2412A] text-white font-bold rounded-lg flex items-center justify-center cursor-pointer shadow-md">
+                class="w-8 h-8 bg-clay-terracotta hover:bg-brick-terracotta text-parchment-white font-bold rounded-xl flex items-center justify-center cursor-pointer shadow-md">
           ✕
         </button>
       </div>
 
       <!-- Content View -->
-      <div id="personalBinderCartContent" class="p-4 sm:p-6 bg-[#38261C]">
+      <div id="personalBinderCartContent" class="p-4 sm:p-6 bg-mocha-brown">
         <div id="personalBinderCartGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-h-72 overflow-y-auto p-1">
           <!-- Injected via JavaScript -->
         </div>
 
-        <div id="personalBinderCartSummary" class="mt-4 pt-4 border-t border-[#5E402F] flex flex-wrap items-center justify-between gap-3">
+        <div id="personalBinderCartSummary" class="mt-4 pt-4 border-t-2 border-cocoa-gray flex flex-wrap items-center justify-between gap-3">
           <!-- Total and Checkout button -->
         </div>
       </div>
 
       <!-- Animated Packaging Stage (Sleeve -> Deckbox -> Truck) -->
-      <div id="checkoutAnimationStage" class="p-4 sm:p-6 bg-[#2C1E16] hidden">
+      <div id="checkoutAnimationStage" class="p-4 sm:p-6 bg-dark-roast hidden">
         <div class="text-center mb-3">
-          <div class="w-full bg-[#38261C] border border-[#5E402F] h-3.5 p-0.5 rounded-full mb-2 overflow-hidden">
-            <div id="checkoutAnimProgressBar" class="bg-[#4A7C59] h-full rounded-full transition-all duration-500" style="width: 25%"></div>
+          <div class="w-full bg-mocha-brown border-2 border-cocoa-gray h-4 p-0.5 rounded-full mb-2 overflow-hidden">
+            <div id="checkoutAnimProgressBar" class="bg-botanical-green h-full rounded-full transition-all duration-500" style="width: 25%"></div>
           </div>
-          <h4 id="checkoutAnimStepTitle" class="font-serif-tavern text-xl font-bold text-[#E5A93C]">PASO 1/3: ENFUNDANDO EN DRAGON SHIELD...</h4>
-          <p id="checkoutAnimStepDesc" class="text-xs text-[#CBBDA8] font-sans mt-0.5">Protegiendo tus cartas con fundas de torneo oficiales de la taberna.</p>
+          <h4 id="checkoutAnimStepTitle" class="font-display text-xl font-bold text-clay-terracotta">PASO 1/3: ENFUNDANDO EN DRAGON SHIELD...</h4>
+          <p id="checkoutAnimStepDesc" class="text-xs text-latte-gray font-body-sans mt-0.5">Protegiendo tus cartas con fundas de torneo oficiales de la taberna.</p>
         </div>
 
-        <div id="checkoutAnimVisualCanvas" class="min-h-[220px] bg-[#38261C] border border-[#5E402F] rounded-2xl flex items-center justify-center p-4 relative overflow-hidden">
+        <div id="checkoutAnimVisualCanvas" class="min-h-[220px] bg-mocha-brown border-2 border-cocoa-gray rounded-2xl flex items-center justify-center p-4 relative overflow-hidden">
           <!-- Injected via JavaScript Animation -->
         </div>
       </div>
@@ -855,31 +884,32 @@
   <div id="tavernToastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- ========================================================================
-       FOOTER (TAVERN SANCTUARY & ORIGINAL STITCH PROTOTYPE LINKS)
+       FOOTER (MOCHA BROWN BAND & STITCH PROTOTYPE REFERENCE LINKS)
+       Role: Full-width band with #3E2723 (Mocha Brown) fill, #F1E8D9 and #689F77 labels, 48px vertical padding
        ======================================================================== -->
-  <footer class="bg-[#1E140E] border-t border-[#5E402F] py-8 px-4 md:px-8 mt-12 text-[#CBBDA8]">
+  <footer class="bg-mocha-brown border-t-2 border-cocoa-gray py-12 px-4 md:px-8 mt-16 text-parchment-white">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-[#38261C] border border-[#E5A93C]/40 rounded-xl p-1 flex items-center justify-center">
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 bg-dark-roast border-2 border-cocoa-gray rounded-xl p-1.5 flex items-center justify-center shadow">
           <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkdiEWUQPno7swEO78yHJsjV-wHx785OBu8xuLnW68dUO7se10TJRqjjm_rcWahKqi87PRJRGe3Cj_Mz94DbTwGvOCZjGm-CnSdDUZzyXOqs3rru8lsTCJvBhFY4nbaXlScCZ8q7GvHfaTefRHF2KB-OGL0Ryd64onx0sD85oloI8521RCEK8u_dfENe3UePDRHoT-89_aBK3EZtUgjTlSQ0Kq_gqmEAIBizOnrDKT7JrbcxiPobCPijGpgNOIOZpyQ"
                alt="TopDeck Emblem" class="w-full h-full object-contain">
         </div>
         <div>
-          <div class="font-serif-tavern text-lg font-bold text-[#F1E8D9]">Top Deck TCG — Bóveda &amp; Taberna de Fantasía</div>
-          <div class="text-xs font-sans text-[#9E8C78]">Demo interactiva desarrollada por MetaLevel • Magic: The Gathering Edition</div>
+          <div class="font-display text-xl font-bold text-parchment-white">Top Deck TCG — Organic Coffee &amp; Botany</div>
+          <div class="text-xs font-body-sans text-latte-gray">Bóveda Digital &amp; Compañero de Mesa • Magic: The Gathering Edition</div>
         </div>
       </div>
 
       <!-- Links to original Stitch base prototypes -->
-      <div class="flex flex-wrap items-center gap-2 text-xs font-mono-code">
-        <span class="text-[#E5A93C] font-bold">PROTOTIPOS BASE:</span>
-        <a href="./top_deck_landing_page_retro_tcg_vault_caqui_carpetas_con_pesta_as/code.html" class="underline hover:text-[#F1E8D9]">01. Landing</a>
-        <span>•</span>
-        <a href="./top_deck_edici_n_retro_pixelcraft_caqui_beige/code.html" class="underline hover:text-[#F1E8D9]">02. Bóveda 3D</a>
-        <span>•</span>
-        <a href="./top_deck_perfil_de_jugador_mazos_de_torneo/code.html" class="underline hover:text-[#F1E8D9]">03. Perfil &amp; Mazos</a>
-        <span>•</span>
-        <a href="./top_deck_archival_collector/DESIGN.md" class="underline hover:text-[#F1E8D9]">DESIGN.md</a>
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <span class="text-fresh-sage font-bold">PROTOTIPOS BASE:</span>
+        <a href="./top_deck_landing_page_retro_tcg_vault_caqui_carpetas_con_pesta_as/code.html" class="underline text-fresh-sage hover:text-parchment-white">01. Landing</a>
+        <span class="text-cocoa-gray">•</span>
+        <a href="./top_deck_edici_n_retro_pixelcraft_caqui_beige/code.html" class="underline text-fresh-sage hover:text-parchment-white">02. Bóveda 3D</a>
+        <span class="text-cocoa-gray">•</span>
+        <a href="./top_deck_perfil_de_jugador_mazos_de_torneo/code.html" class="underline text-fresh-sage hover:text-parchment-white">03. Perfil &amp; Mazos</a>
+        <span class="text-cocoa-gray">•</span>
+        <a href="./DESIGN.md" class="underline text-fresh-sage hover:text-parchment-white">DESIGN.md</a>
       </div>
     </div>
   </footer>

@@ -1,46 +1,71 @@
 /* ==========================================================================
-   TOP DECK TCG — FANTASY TAVERN (ANIME / RPG) DESIGN SYSTEM
-   Basado en la skill de UI Taberna de Fantasía (Anime/RPG):
-   - Paleta: Café Oscuro Tostado (#2C1E16) + Terracota (#C55A3F) + Verde Botánica (#4A7C59)
-   - Texto: Blanco Pergamino (#F1E8D9)
-   - Acentos: Luz de Farol Ámbar (#E5A93C)
-   - Geometría: Esquinas redondeadas (12px - 18px), sombras cálidas difusas
+   ORGANIC COFFEE & BOTANY — STYLE REFERENCE DESIGN SYSTEM
+   Dark / Warm organic catalog aesthetic on a deep roasted canvas.
+   Tokens from DESIGN.md:
+   - Dark Roast: #2C1E16 (Canvas & main background)
+   - Mocha Brown: #3E2723 (Cards, elevated surfaces & footer)
+   - Clay Terracotta: #C55A3F (Primary CTA fill, main display headings)
+   - Brick Terracotta: #A2412A (Hover, dark borders & accents)
+   - Botanical Green: #4A7C59 (Secondary CTAs, links, success tags)
+   - Fresh Sage: #689F77 (Highlights & active navigation)
+   - Parchment White: #F1E8D9 (Hero headings, primary body copy)
+   - Latte Gray: #BCAAA4 (Muted paragraphs & secondary text)
+   - Cocoa Gray: #795548 (Thick 2px tactile UI borders)
    ========================================================================== */
 
 :root {
-  /* Paleta Base Taberna */
-  --bg-tavern-base: #2C1E16;
+  /* Colors - Base */
+  --color-dark-roast: #2C1E16;
+  --color-mocha-brown: #3E2723;
+  
+  /* Colors - Accents */
+  --color-clay-terracotta: #C55A3F;
+  --color-brick-terracotta: #A2412A;
+  --color-botanical-green: #4A7C59;
+  --color-fresh-sage: #689F77;
+  
+  /* Colors - Typography & UI */
+  --color-parchment-white: #F1E8D9;
+  --color-latte-gray: #BCAAA4;
+  --color-cocoa-gray: #795548;
+
+  /* Typography — Font Families */
+  --font-display: 'Fraunces', 'Cinzel', 'EB Garamond', serif;
+  --font-body-sans: 'Quicksand', 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Mono', 'JetBrains Mono', monospace;
+
+  /* Spacing & Shapes */
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --radius-xl: 12px;
+
+  /* Compatibility & Semantic Aliases */
+  --bg-tavern-base: var(--color-dark-roast);
   --bg-tavern-base-dark: #1E140E;
-  --bg-tavern-surface: #38261C;
-  --bg-tavern-card: #442E22;
-  --bg-tavern-elevated: #4E3528;
+  --bg-tavern-surface: var(--color-mocha-brown);
+  --bg-tavern-card: #34201A;
+  --bg-tavern-elevated: #442B23;
   --bg-tavern-recessed: #22160F;
 
-  /* Bordes de Madera y Ladrillo */
-  --border-tavern: #5E402F;
-  --border-tavern-light: #7A533E;
-  --border-terracotta: #C55A3F;
+  --border-tavern: var(--color-cocoa-gray);
+  --border-terracotta: var(--color-clay-terracotta);
+  --border-brick: var(--color-brick-terracotta);
 
-  /* Acentos Principales */
-  --color-terracotta: #C55A3F;
-  --color-terracotta-dark: #A2412A;
-  --color-terracotta-light: #D96F54;
-  --color-herb-green: #4A7C59;
-  --color-herb-green-dark: #386144;
-  --color-herb-green-light: #689F77;
+  --color-terracotta: var(--color-clay-terracotta);
+  --color-terracotta-dark: var(--color-brick-terracotta);
+  --color-herb-green: var(--color-botanical-green);
+  --color-herb-green-light: var(--color-fresh-sage);
   --color-lantern-amber: #E5A93C;
-  --color-lantern-bright: #F3C05B;
-  --color-wine: #C84630;
 
-  /* Texto Pergamino */
-  --text-parchment: #F1E8D9;
-  --text-parchment-muted: #CBBDA8;
-  --text-parchment-dim: #9E8C78;
+  --text-parchment: var(--color-parchment-white);
+  --text-parchment-muted: var(--color-latte-gray);
+  --text-parchment-dim: var(--color-cocoa-gray);
 
-  /* Sombras de Farol Cálidas */
-  --shadow-lantern-sm: 0 4px 12px rgba(10, 5, 2, 0.45), 0 0 8px rgba(229, 169, 60, 0.05);
-  --shadow-lantern: 0 10px 25px -5px rgba(10, 5, 2, 0.65), 0 0 16px rgba(229, 169, 60, 0.08);
-  --shadow-lantern-lg: 0 20px 40px -10px rgba(10, 5, 2, 0.85), 0 0 25px rgba(229, 169, 60, 0.14);
+  --shadow-organic-sm: 0 4px 12px rgba(10, 5, 2, 0.35);
+  --shadow-organic: 0 8px 24px -4px rgba(10, 5, 2, 0.55);
+  --shadow-organic-lg: 0 16px 36px -6px rgba(10, 5, 2, 0.75);
 }
 
 * {
@@ -48,165 +73,271 @@
 }
 
 body {
-  background-color: var(--bg-tavern-base);
+  background-color: var(--color-dark-roast);
   background-image:
-    radial-gradient(ellipse at 50% 0%, rgba(229, 169, 60, 0.09) 0%, transparent 65%),
-    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    radial-gradient(ellipse at 50% 0%, rgba(197, 90, 63, 0.08) 0%, transparent 65%),
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
   background-size: 100% 100%, 32px 32px, 32px 32px;
   background-attachment: fixed;
-  color: var(--text-parchment);
-  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--color-parchment-white);
+  font-family: var(--font-body-sans);
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Tipografía de Fantasía Anime/RPG */
-.font-serif-tavern,
-h1, h2, h3 {
-  font-family: 'Cinzel', 'EB Garamond', Georgia, serif;
-  color: var(--text-parchment);
-  letter-spacing: -0.01em;
+/* ==========================================================================
+   TYPOGRAPHY CLASSES
+   ========================================================================== */
+
+.font-display {
+  font-family: var(--font-display);
 }
 
-.font-pixel {
-  font-family: 'Press Start 2P', monospace;
+.font-body-sans {
+  font-family: var(--font-body-sans);
 }
 
 .font-mono-code {
-  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
+}
+
+/* Section Headline: display-face 700 at 48-64px, line-height 1.2, letter-spacing -0.0200em, color #C55A3F */
+.section-headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4.5vw, 48px);
+  line-height: 1.20;
+  letter-spacing: -0.0200em;
+  color: var(--color-clay-terracotta);
+}
+
+/* Hero Headline: body-sans 700 at 32px, color #F1E8D9 */
+.hero-headline {
+  font-family: var(--font-body-sans);
+  font-weight: 700;
+  font-size: clamp(24px, 3.5vw, 32px);
+  line-height: 1.25;
+  color: var(--color-parchment-white);
+}
+
+/* Body Paragraphs: body-sans 500 at 17px, line-height 1.18 - 1.47, color #F1E8D9 */
+.body-paragraph {
+  font-family: var(--font-body-sans);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--color-parchment-white);
+}
+
+.body-paragraph-muted {
+  font-family: var(--font-body-sans);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.42;
+  color: var(--color-latte-gray);
 }
 
 /* ==========================================================================
-   COMPONENTES DE TABERNA ANIME / RPG (REDONDEADOS Y CÁLIDOS)
+   COMPONENTS SPECIFIED IN DESIGN.MD
    ========================================================================== */
 
-.tavern-box {
-  background-color: var(--bg-tavern-surface);
-  border: 1.5px solid var(--border-tavern);
-  border-radius: 18px;
-  box-shadow: var(--shadow-lantern);
-  color: var(--text-parchment);
+/* 1. Primary CTA Button
+   Fill #C55A3F, text #F1E8D9, body-sans 700 at 15px uppercase with 0.0530em tracking,
+   12px border-radius, 16px horizontal padding. Sits directly on Dark Roast. */
+.btn-primary,
+.tavern-btn-terracotta {
+  background-color: var(--color-clay-terracotta);
+  color: var(--color-parchment-white);
+  font-family: var(--font-body-sans);
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.0530em;
+  border-radius: var(--radius-xl);
+  padding: 10px 16px;
+  border: 2px solid var(--color-brick-terracotta);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 4px 14px rgba(197, 90, 63, 0.35);
+  transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-primary:hover:not(:disabled),
+.tavern-btn-terracotta:hover:not(:disabled) {
+  background-color: var(--color-brick-terracotta);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(197, 90, 63, 0.5);
+  color: var(--color-parchment-white);
+}
+
+.btn-primary:active:not(:disabled),
+.tavern-btn-terracotta:active:not(:disabled) {
+  transform: translateY(1px);
+  filter: brightness(0.95);
+}
+
+/* 2. Outlined Secondary Button
+   Transparent fill, text in #4A7C59 (Botanical Green), body-sans 700 at 14px,
+   12px border-radius, 16px horizontal padding, 2px solid border in #4A7C59 or #795548. */
+.btn-secondary,
+.tavern-btn-herb {
+  background-color: transparent;
+  color: var(--color-botanical-green);
+  font-family: var(--font-body-sans);
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: var(--radius-xl);
+  padding: 10px 16px;
+  border: 2px solid var(--color-botanical-green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-secondary:hover:not(:disabled),
+.tavern-btn-herb:hover:not(:disabled) {
+  background-color: rgba(74, 124, 89, 0.15);
+  border-color: var(--color-fresh-sage);
+  color: var(--color-fresh-sage);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active:not(:disabled),
+.tavern-btn-herb:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* 3. Nav Pill
+   Transparent fill, text in #BCAAA4 at 15px uppercase with 0.0530em tracking,
+   12px border-radius, 10px vertical and 16px horizontal padding, 2px solid border in #795548. */
+.nav-pill,
+.tavern-btn-wood {
+  background-color: transparent;
+  color: var(--color-latte-gray);
+  font-family: var(--font-body-sans);
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.0530em;
+  border-radius: var(--radius-xl);
+  padding: 10px 16px;
+  border: 2px solid var(--color-cocoa-gray);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.nav-pill:hover:not(:disabled),
+.tavern-btn-wood:hover:not(:disabled) {
+  color: var(--color-parchment-white);
+  border-color: var(--color-clay-terracotta);
+  background-color: rgba(197, 90, 63, 0.12);
+  transform: translateY(-1px);
+}
+
+.nav-pill.active {
+  background-color: var(--color-clay-terracotta) !important;
+  color: var(--color-parchment-white) !important;
+  border-color: var(--color-brick-terracotta) !important;
+  box-shadow: 0 4px 14px rgba(197, 90, 63, 0.35);
+}
+
+/* Amber highlight button */
+.tavern-btn-amber {
+  background-color: var(--color-clay-terracotta);
+  color: var(--color-parchment-white);
+  border: 2px solid var(--color-brick-terracotta);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-body-sans);
+  font-weight: 700;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px rgba(197, 90, 63, 0.35);
+  transition: all 0.15s ease;
+}
+
+.tavern-btn-amber:hover {
+  background-color: var(--color-brick-terracotta);
+  transform: translateY(-1px);
+}
+
+/* 4. Elevated Surfaces & Cards (Mocha Brown #3E2723 with 2px Cocoa Gray #795548 border) */
+.tavern-box,
+.surface-mocha {
+  background-color: var(--color-mocha-brown);
+  border: 2px solid var(--color-cocoa-gray);
+  border-radius: 16px;
+  box-shadow: var(--shadow-organic);
+  color: var(--color-parchment-white);
 }
 
 .tavern-card {
   background-color: var(--bg-tavern-card);
-  border: 1.5px solid var(--border-tavern);
+  border: 2px solid var(--color-cocoa-gray);
   border-radius: 14px;
-  box-shadow: var(--shadow-lantern-sm);
-  color: var(--text-parchment);
+  box-shadow: var(--shadow-organic-sm);
+  color: var(--color-parchment-white);
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .tavern-card:hover {
   transform: translateY(-2px);
-  border-color: var(--color-lantern-amber);
-  box-shadow: 0 12px 24px -4px rgba(10, 5, 2, 0.7), 0 0 18px rgba(229, 169, 60, 0.15);
+  border-color: var(--color-clay-terracotta);
+  box-shadow: 0 10px 24px -4px rgba(10, 5, 2, 0.65), 0 0 14px rgba(197, 90, 63, 0.18);
 }
 
-/* Botones con estilo Anime/RPG Menu */
-.tavern-btn {
-  border-radius: 12px;
-  transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
-  cursor: pointer;
-  user-select: none;
-  font-family: 'Manrope', sans-serif;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.tavern-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-  filter: brightness(1.08);
-}
-
-.tavern-btn:active:not(:disabled) {
-  transform: translateY(1px);
-  filter: brightness(0.95);
-}
-
-/* Variantes de Botones de Taberna */
-.tavern-btn-herb {
-  background-color: var(--color-herb-green);
-  color: var(--text-parchment);
-  border: 1px solid rgba(104, 159, 119, 0.35);
-  box-shadow: 0 4px 14px rgba(74, 124, 89, 0.35);
-}
-
-.tavern-btn-herb:hover:not(:disabled) {
-  background-color: var(--color-herb-green-dark);
-  box-shadow: 0 6px 18px rgba(74, 124, 89, 0.5);
-}
-
-.tavern-btn-terracotta {
-  background-color: var(--color-terracotta);
-  color: var(--text-parchment);
-  border: 1px solid rgba(217, 111, 84, 0.35);
-  box-shadow: 0 4px 14px rgba(197, 90, 63, 0.35);
-}
-
-.tavern-btn-terracotta:hover:not(:disabled) {
-  background-color: var(--color-terracotta-dark);
-  box-shadow: 0 6px 18px rgba(197, 90, 63, 0.5);
-}
-
-.tavern-btn-wood {
-  background-color: var(--bg-tavern-card);
-  color: var(--text-parchment);
-  border: 1.5px solid var(--border-tavern);
-  box-shadow: var(--shadow-lantern-sm);
-}
-
-.tavern-btn-wood:hover:not(:disabled) {
-  background-color: var(--bg-tavern-elevated);
-  border-color: var(--color-terracotta);
-}
-
-.tavern-btn-amber {
-  background-color: var(--color-lantern-amber);
-  color: var(--bg-tavern-base-dark);
-  border: 1px solid rgba(243, 192, 91, 0.5);
-  box-shadow: 0 4px 14px rgba(229, 169, 60, 0.35);
-}
-
-/* Ventana de Diálogo RPG (Anime/Visual Novel) */
+/* RPG Dialogue Window */
 .rpg-window {
   background: var(--bg-tavern-card);
-  border: 2px solid var(--border-terracotta);
+  border: 2px solid var(--color-clay-terracotta);
   border-radius: 18px;
-  box-shadow: var(--shadow-lantern-lg), 0 0 20px rgba(197, 90, 63, 0.12);
+  box-shadow: var(--shadow-organic-lg);
 }
 
 /* ==========================================================================
-   PESTAÑAS DE CARPETA (FOLDER TABS 21ST.DEV ESTILO ANIME / TABERNA)
+   21ST.DEV FOLDER TABS (ORGANIC BOTANY TAVERN)
    ========================================================================== */
 
 .folder-tab {
   position: relative;
-  border-top: 2px solid var(--border-tavern);
-  border-left: 2px solid var(--border-tavern);
-  border-right: 2px solid var(--border-tavern);
+  border-top: 2px solid var(--color-cocoa-gray);
+  border-left: 2px solid var(--color-cocoa-gray);
+  border-right: 2px solid var(--color-cocoa-gray);
   border-bottom: none;
   border-radius: 12px 12px 0 0;
   cursor: pointer;
   transition: all 0.18s ease-out;
   user-select: none;
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body-sans);
   font-weight: 700;
   background-color: var(--bg-tavern-card);
-  color: var(--text-parchment-muted);
+  color: var(--color-latte-gray);
 }
 
 .folder-tab.active {
-  background-color: var(--bg-tavern-surface) !important;
-  color: var(--text-parchment) !important;
-  border-top: 3px solid var(--color-terracotta);
-  border-left-color: var(--border-tavern);
-  border-right-color: var(--border-tavern);
+  background-color: var(--color-mocha-brown) !important;
+  color: var(--color-parchment-white) !important;
+  border-top: 3px solid var(--color-clay-terracotta);
+  border-left-color: var(--color-cocoa-gray);
+  border-right-color: var(--color-cocoa-gray);
   transform: translateY(2px);
   z-index: 20;
   box-shadow: 0 -4px 14px rgba(197, 90, 63, 0.25);
@@ -215,34 +346,25 @@ h1, h2, h3 {
 .folder-tab:not(.active):hover {
   transform: translateY(-2px);
   background-color: var(--bg-tavern-elevated);
-  color: var(--text-parchment);
+  color: var(--color-parchment-white);
 }
 
 /* ==========================================================================
-   CARPETA DE TABERNA & BOLSILLOS ARCHIVAL (9-POCKET BINDER)
+   BINDER LEATHER WRAP & RECESSED 9-POCKETS
    ========================================================================== */
 
 .binder-leather-wrap {
   background: linear-gradient(145deg, #382419, #2D1C13);
-  border: 2px solid var(--border-tavern);
+  border: 2px solid var(--color-cocoa-gray);
   border-radius: 20px;
-  box-shadow: var(--shadow-lantern-lg);
+  box-shadow: var(--shadow-organic-lg);
   padding: 1rem;
   position: relative;
 }
 
-.binder-ring {
-  width: 24px;
-  height: 12px;
-  background: #A67C52;
-  border: 2px solid #5A3E2A;
-  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.3), 1px 2px 4px rgba(0,0,0,0.5);
-  border-radius: 4px;
-}
-
 .binder-pocket {
   background-color: var(--bg-tavern-recessed);
-  border: 1.5px solid var(--border-tavern);
+  border: 2px solid var(--color-cocoa-gray);
   border-radius: 14px;
   padding: 10px;
   position: relative;
@@ -252,17 +374,12 @@ h1, h2, h3 {
 
 .binder-pocket:hover {
   transform: translateY(-4px);
-  border-color: var(--color-lantern-amber);
-  box-shadow: 0 10px 22px -4px rgba(0, 0, 0, 0.7), 0 0 15px rgba(229, 169, 60, 0.2);
-}
-
-.pocket-card-inner {
-  position: relative;
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border-color: var(--color-clay-terracotta);
+  box-shadow: 0 10px 22px -4px rgba(0, 0, 0, 0.7), 0 0 15px rgba(197, 90, 63, 0.2);
 }
 
 /* ==========================================================================
-   ANIMACIÓN FÍSICA SLIDE-OUT (LA CARTA SALE DE LA FUNDA)
+   SLIDE-OUT ANIMATION (CARD OUT OF SLEEVE)
    ========================================================================== */
 
 @keyframes slideOutOfSleeve {
@@ -288,7 +405,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   INSPECTOR 3D: CARTA CON GROSOR REAL MTG & TEXTURAS TÁCTILES
+   3D CARD INSPECTOR (TACTILE 360° MTG CARDBOARD)
    ========================================================================== */
 
 .stage-3d-perspective {
@@ -319,7 +436,6 @@ h1, h2, h3 {
   transform: rotateY(180deg);
 }
 
-/* Borde físico MTG (Grosor de cartón tricapa de 0.3mm) */
 .card-mesh-3d::after {
   content: "";
   position: absolute;
@@ -330,7 +446,6 @@ h1, h2, h3 {
   transform: translateZ(-1px);
 }
 
-/* Efecto Holográfico Foil de Taberna */
 .card-foil-overlay {
   position: absolute;
   inset: 0;
@@ -362,7 +477,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   ANIMACIÓN CINEMÁTICA DE CHECKOUT (DRAGON SHIELD -> DECKBOX -> CAMIÓN)
+   CHECKOUT PACKAGING ANIMATIONS (SLEEVE -> BOX -> TRUCK)
    ========================================================================== */
 
 @keyframes sleeveInAnim {
@@ -397,7 +512,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   UTILIDADES & SCROLLBAR
+   SCROLLBAR & TICKER
    ========================================================================== */
 
 .no-scrollbar::-webkit-scrollbar {
@@ -413,17 +528,16 @@ h1, h2, h3 {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-tavern-base-dark);
+  background: var(--color-dark-roast);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-tavern);
+  background: var(--color-cocoa-gray);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-terracotta);
+  background: var(--color-clay-terracotta);
 }
 
-/* Ticker animado de la taberna */
 @keyframes tickerSlide {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
