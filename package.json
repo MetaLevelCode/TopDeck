@@ -1,0 +1,16 @@
+{
+  "name": "topdeck-tcg",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Top Deck TCG — Vault & Tavern",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
