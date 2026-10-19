@@ -779,6 +779,25 @@
     window.close3DCardInspector();
     window.showTavernToast(`¡"${state.inspectedCard.name}" deslizada dentro de Tu Carpeta Personal!`, "📖");
   };
+  window.addInspectedCardToCart = window.addInspectedCardToBinderCart;
+
+  window.addSealedProductToCart = function (productName, priceUsd, priceCop, img, category) {
+    state.cart.push({
+      id: "sealed-" + Date.now(),
+      name: productName,
+      mana_cost: "",
+      type_line: category || "Producto Sellado WPN",
+      set_name: "TopDeck Oficial",
+      image: img,
+      finalPriceUsd: priceUsd,
+      finalPriceCop: priceCop,
+      selectedCondition: "NUEVO SELLADO",
+      selectedFoil: false,
+      cartItemId: "cart-sealed-" + Date.now()
+    });
+    updateCartBadges();
+    window.showTavernToast(`¡"${productName}" añadido a tu Baraja!`, "📦");
+  };
 
   window.removeFromBinderCart = function (index) {
     state.cart.splice(index, 1);

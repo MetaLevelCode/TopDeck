@@ -129,16 +129,21 @@
           </p>
 
           <!-- CTAs -->
-          <div class="flex flex-wrap gap-3.5 pt-2">
-            <a class="tavern-btn tavern-btn-herb px-6 py-3 font-bold rounded-xl text-sm shadow-md flex items-center gap-2"
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a class="tavern-btn tavern-btn-herb px-5 py-3 font-bold rounded-xl text-sm shadow-md flex items-center gap-2"
                href="#carpetasSection">
               <span>📖</span>
-              <span>HOJEAR CARPETA DE COLECCIÓN</span>
+              <span>HOJEAR CARPETA</span>
+            </a>
+            <a class="tavern-btn tavern-btn-wood px-5 py-3 font-bold rounded-xl text-sm flex items-center gap-2"
+               href="#selladoSection">
+              <span>📦</span>
+              <span>PRODUCTO SELLADO</span>
             </a>
             <button onclick="switchPlatform('pwa')"
-              class="tavern-btn tavern-btn-wood px-5 py-3 font-bold rounded-xl text-sm">
+              class="tavern-btn tavern-btn-amber px-5 py-3 font-bold rounded-xl text-sm flex items-center gap-2 text-[#2C1E16]">
               <span>📱</span>
-              <span>VER APP PWA DE MESA</span>
+              <span>APP PWA DE MESA</span>
             </button>
           </div>
         </div>
@@ -356,6 +361,253 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 3: PRODUCTO SELLADO & PRE-ORDENES OFICIALES
+         ======================================================================== -->
+    <section id="selladoSection" class="space-y-6 pt-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-[#5E402F] pb-3">
+        <div>
+          <span class="font-mono-code text-xs text-[#E5A93C] uppercase font-bold tracking-wider">✦ EXPANSIONES &amp; CAJAS OFICIALES WPN</span>
+          <h2 class="font-serif-tavern text-2xl md:text-3xl text-[#F1E8D9] mt-0.5 font-bold">Producto Sellado &amp; Accesorios</h2>
+        </div>
+        <p class="text-xs md:text-sm text-[#CBBDA8] max-w-md font-sans">
+          Play Booster Boxes, Bundles, Mazos de Commander y Protectores Dragon Shield listos para envío inmediato a todo el país.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Product 1: Duskmourn Play Booster Box -->
+        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-[#E5A93C] transition-all shadow-md group">
+          <div class="relative bg-[#251811] border border-[#5E402F] rounded-xl p-4 text-center overflow-hidden">
+            <span class="absolute top-2.5 right-2.5 bg-[#C55A3F] text-white font-mono-code text-[9px] px-2 py-0.5 rounded font-bold shadow">NUEVO</span>
+            <div class="h-36 flex flex-col items-center justify-center text-center">
+              <span class="text-3xl mb-2">📦</span>
+              <span class="font-serif-tavern text-sm text-[#F1E8D9] font-bold">DUSKMOURN: HOUSE OF HORROR</span>
+              <span class="text-xs text-[#CBBDA8] font-mono-code mt-1">Play Booster Box (36 Sobres)</span>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono-code text-[10px] text-[#E5A93C] font-bold uppercase tracking-wider block">MAGIC: THE GATHERING</span>
+            <h3 class="font-serif-tavern text-base text-[#F1E8D9] mt-0.5 font-bold">Caja Sellada Play Booster</h3>
+            <p class="text-xs text-[#CBBDA8] mt-1 font-sans leading-relaxed">Caja sellada oficial WPN con carta Buy-a-Box Foil promocional incluida.</p>
+          </div>
+          <div class="pt-3 border-t border-[#5E402F] flex items-center justify-between">
+            <div>
+              <span class="font-mono-code text-base font-bold text-[#E5A93C]">$145.00 USD</span>
+              <span class="block text-[11px] text-[#CBBDA8] font-mono-code">≈ $609,000 COP</span>
+            </div>
+            <button onclick="window.addSealedProductToCart('Duskmourn Play Booster Box (36 Sobres)', 145.00, 609000, 'https://cards.scryfall.io/large/front/1/6/160e1186-87de-4d24-8217-061033bf9e12.jpg', 'Caja Sellada MTG')"
+              class="tavern-btn tavern-btn-terracotta text-white font-sans text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
+              <span>+ AÑADIR</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 2: Pokémon Stellar Crown -->
+        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-[#E5A93C] transition-all shadow-md group">
+          <div class="relative bg-[#251811] border border-[#5E402F] rounded-xl p-4 text-center overflow-hidden">
+            <span class="absolute top-2.5 right-2.5 bg-[#E5A93C] text-[#2C1E16] font-mono-code text-[9px] px-2 py-0.5 rounded font-bold shadow">HOT</span>
+            <div class="h-36 flex flex-col items-center justify-center text-center">
+              <span class="text-3xl mb-2">⚡</span>
+              <span class="font-serif-tavern text-sm text-[#F1E8D9] font-bold">STELLAR CROWN BOOSTER</span>
+              <span class="text-xs text-[#CBBDA8] font-mono-code mt-1">Display Oficial (36 Sobres)</span>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono-code text-[10px] text-[#F3C05B] font-bold uppercase tracking-wider block">POKÉMON TCG</span>
+            <h3 class="font-serif-tavern text-base text-[#F1E8D9] mt-0.5 font-bold">Scarlet &amp; Violet: Stellar Crown</h3>
+            <p class="text-xs text-[#CBBDA8] mt-1 font-sans leading-relaxed">Incluye oportunidades de Terapagos ex y Pokémon Stellar Tera hiper raros.</p>
+          </div>
+          <div class="pt-3 border-t border-[#5E402F] flex items-center justify-between">
+            <div>
+              <span class="font-mono-code text-base font-bold text-[#E5A93C]">$129.99 USD</span>
+              <span class="block text-[11px] text-[#CBBDA8] font-mono-code">≈ $545,900 COP</span>
+            </div>
+            <button onclick="window.addSealedProductToCart('Pokémon Stellar Crown Booster Display (36 Sobres)', 129.99, 545900, 'https://images.pokemontcg.io/sv7/133_hires.png', 'Caja Sellada Pokémon')"
+              class="tavern-btn tavern-btn-terracotta text-white font-sans text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
+              <span>+ AÑADIR</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 3: One Piece OP-08 Two Legends -->
+        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-[#E5A93C] transition-all shadow-md group">
+          <div class="relative bg-[#251811] border border-[#5E402F] rounded-xl p-4 text-center overflow-hidden">
+            <span class="absolute top-2.5 right-2.5 bg-[#4A7C59] text-white font-mono-code text-[9px] px-2 py-0.5 rounded font-bold shadow">PRE-ORDEN</span>
+            <div class="h-36 flex flex-col items-center justify-center text-center">
+              <span class="text-3xl mb-2">🏴‍☠️</span>
+              <span class="font-serif-tavern text-sm text-[#F1E8D9] font-bold">OP-08 TWO LEGENDS</span>
+              <span class="text-xs text-[#CBBDA8] font-mono-code mt-1">Booster Box Oficial (24 Sobres)</span>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono-code text-[10px] text-[#C55A3F] font-bold uppercase tracking-wider block">ONE PIECE CARD GAME</span>
+            <h3 class="font-serif-tavern text-base text-[#F1E8D9] mt-0.5 font-bold">Two Legends [OP-08]</h3>
+            <p class="text-xs text-[#CBBDA8] mt-1 font-sans leading-relaxed">Con los codiciados líderes Silvers Rayleigh y Edward Newgate en arte alterno.</p>
+          </div>
+          <div class="pt-3 border-t border-[#5E402F] flex items-center justify-between">
+            <div>
+              <span class="font-mono-code text-base font-bold text-[#E5A93C]">$118.00 USD</span>
+              <span class="block text-[11px] text-[#CBBDA8] font-mono-code">≈ $495,600 COP</span>
+            </div>
+            <button onclick="window.addSealedProductToCart('One Piece OP-08 Two Legends Booster Box (24 Sobres)', 118.00, 495600, 'https://en.onepiece-cardgame.com/images/cardlist/card/OP08-118.png', 'Caja Sellada One Piece')"
+              class="tavern-btn tavern-btn-terracotta text-white font-sans text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
+              <span>+ AÑADIR</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 4: Dragon Shield Dual Matte Sleeves -->
+        <div class="tavern-box bg-[#38261C] border border-[#5E402F] p-4 rounded-2xl flex flex-col justify-between space-y-3.5 hover:border-[#E5A93C] transition-all shadow-md group">
+          <div class="relative bg-[#251811] border border-[#5E402F] rounded-xl p-4 text-center overflow-hidden">
+            <span class="absolute top-2.5 right-2.5 bg-[#4A7C59] text-white font-mono-code text-[9px] px-2 py-0.5 rounded font-bold shadow">ACCESORIO</span>
+            <div class="h-36 flex flex-col items-center justify-center text-center">
+              <span class="text-3xl mb-2">🛡️</span>
+              <span class="font-serif-tavern text-sm text-[#F1E8D9] font-bold">DRAGON SHIELD DUAL MATTE</span>
+              <span class="text-xs text-[#CBBDA8] font-mono-code mt-1">100 Fundas de Torneo</span>
+            </div>
+          </div>
+          <div>
+            <span class="font-mono-code text-[10px] text-[#689F77] font-bold uppercase tracking-wider block">PROTECCIÓN GREMIAL</span>
+            <h3 class="font-serif-tavern text-base text-[#F1E8D9] mt-0.5 font-bold">Dragon Shield Dual Matte</h3>
+            <p class="text-xs text-[#CBBDA8] mt-1 font-sans leading-relaxed">Interior negro opaco reglamentario para torneos competitivos de todo TCG.</p>
+          </div>
+          <div class="pt-3 border-t border-[#5E402F] flex items-center justify-between">
+            <div>
+              <span class="font-mono-code text-base font-bold text-[#E5A93C]">$13.50 USD</span>
+              <span class="block text-[11px] text-[#CBBDA8] font-mono-code">≈ $56,700 COP</span>
+            </div>
+            <button onclick="window.addSealedProductToCart('Dragon Shield Dual Matte Sleeves (100 CT)', 13.50, 56700, 'https://cards.scryfall.io/large/front/d/a/da20235d-6c17-48f8-a152-64e9e03d3f9e.jpg', 'Accesorios')"
+              class="tavern-btn tavern-btn-terracotta text-white font-sans text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1 shadow">
+              <span>+ AÑADIR</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 4: BUYLIST GREMIAL & TORNEOS EN TABERNA (COMUNIDAD)
+         ======================================================================== -->
+    <section id="torneosSection" class="space-y-6 pt-4">
+      <div class="tavern-box bg-[#38261C] border border-[#5E402F] rounded-2xl p-6 md:p-8 space-y-6 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-[#5E402F] gap-4">
+          <div>
+            <div class="flex items-center gap-2.5">
+              <span class="font-serif-tavern text-2xl md:text-3xl font-bold text-[#F1E8D9]">🏆 Torneos en Taberna &amp; Ligas TCG</span>
+              <span class="bg-[#C55A3F] text-white font-mono-code text-[10px] px-2.5 py-0.5 rounded-full font-bold animate-pulse">EN VIVO</span>
+            </div>
+            <p class="text-xs md:text-sm text-[#CBBDA8] mt-1 font-sans max-w-2xl">
+              Participa en nuestras noches de Commander, Friday Night Magic, Liga Pokémon y torneos clasificatorios oficiales de One Piece y Yu-Gi-Oh! con mesas reglamentarias y jueces certificados DCI.
+            </p>
+          </div>
+          <button onclick="switchPlatform('pwa')"
+            class="tavern-btn tavern-btn-herb text-xs sm:text-sm px-5 py-2.5 rounded-xl font-bold shrink-0 shadow-md">
+            <span>📱</span>
+            <span>VER PAIRINGS EN VIVO EN PWA</span>
+          </button>
+        </div>
+
+        <!-- 4 Tournaments Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- MTG -->
+          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-[#E5A93C] transition-colors">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="font-mono-code text-[9px] bg-[#E5A93C] text-[#2C1E16] px-2 py-0.5 rounded font-bold">MAGIC: MTG</span>
+                <span class="font-mono-code text-[10px] font-bold text-[#C55A3F]">POZO $250</span>
+              </div>
+              <h4 class="font-serif-tavern text-base font-bold text-[#F1E8D9] mt-2">Friday Night Magic</h4>
+              <p class="text-xs text-[#CBBDA8] font-sans mt-1 leading-snug">Formato Modern &amp; Commander Multiplayer con promos retro foil oficiales WPN.</p>
+            </div>
+            <div class="pt-2.5 border-t border-[#5E402F] flex items-center justify-between font-mono-code text-xs">
+              <span class="text-[#F1E8D9] font-bold">VIERNES 19:00</span>
+              <span class="text-[#689F77] font-bold">8 CUPOS</span>
+            </div>
+          </div>
+
+          <!-- One Piece -->
+          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-[#E5A93C] transition-colors">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="font-mono-code text-[9px] bg-[#C55A3F] text-white px-2 py-0.5 rounded font-bold">ONE PIECE</span>
+                <span class="font-mono-code text-[10px] font-bold text-[#E5A93C]">WINNER PACK</span>
+              </div>
+              <h4 class="font-serif-tavern text-base font-bold text-[#F1E8D9] mt-2">OP-08 Store Tournament</h4>
+              <p class="text-xs text-[#CBBDA8] font-sans mt-1 leading-snug">Torneo suizo a 4 rondas con carta dorada Shanks Champion para el ganador.</p>
+            </div>
+            <div class="pt-2.5 border-t border-[#5E402F] flex items-center justify-between font-mono-code text-xs">
+              <span class="text-[#F1E8D9] font-bold">SÁBADO 16:00</span>
+              <span class="text-[#689F77] font-bold">14 CUPOS</span>
+            </div>
+          </div>
+
+          <!-- Pokemon -->
+          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-[#E5A93C] transition-colors">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="font-mono-code text-[9px] bg-[#F3C05B] text-[#2C1E16] px-2 py-0.5 rounded font-bold">POKÉMON TCG</span>
+                <span class="font-mono-code text-[10px] font-bold text-[#689F77]">PREMIO BOOSTER</span>
+              </div>
+              <h4 class="font-serif-tavern text-base font-bold text-[#F1E8D9] mt-2">Liga Stellar Crown</h4>
+              <p class="text-xs text-[#CBBDA8] font-sans mt-1 leading-snug">Formato Estándar oficial Play! Pokémon con puntos clasificatorios mundiales.</p>
+            </div>
+            <div class="pt-2.5 border-t border-[#5E402F] flex items-center justify-between font-mono-code text-xs">
+              <span class="text-[#F1E8D9] font-bold">DOMINGO 14:00</span>
+              <span class="text-[#689F77] font-bold">10 CUPOS</span>
+            </div>
+          </div>
+
+          <!-- Yugioh -->
+          <div class="bg-[#2C1E16] border border-[#5E402F] rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-md hover:border-[#E5A93C] transition-colors">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="font-mono-code text-[9px] bg-[#9333EA] text-white px-2 py-0.5 rounded font-bold">YU-GI-OH!</span>
+                <span class="font-mono-code text-[10px] font-bold text-[#C55A3F]">PLAYMAT OTS</span>
+              </div>
+              <h4 class="font-serif-tavern text-base font-bold text-[#F1E8D9] mt-2">OTS Local Tournament</h4>
+              <p class="text-xs text-[#CBBDA8] font-sans mt-1 leading-snug">Torneo oficial Avanzado con sobres OTS Pack de participación para cada duelista.</p>
+            </div>
+            <div class="pt-2.5 border-t border-[#5E402F] flex items-center justify-between font-mono-code text-xs">
+              <span class="text-[#F1E8D9] font-bold">SÁBADO 11:00</span>
+              <span class="text-[#689F77] font-bold">6 CUPOS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buylist Gremial Banner -->
+        <div class="bg-[#251811] border border-[#C55A3F] rounded-xl p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-inner">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 bg-[#38261C] border border-[#E5A93C] rounded-xl flex items-center justify-center text-2xl shrink-0 shadow">
+              💰
+            </div>
+            <div>
+              <h4 class="font-serif-tavern text-lg font-bold text-[#E5A93C]">Buylist Gremial: ¡Compramos tus Cartas Singles!</h4>
+              <p class="text-xs text-[#CBBDA8] font-sans mt-0.5 leading-relaxed">
+                Pagamos el <strong class="text-[#F1E8D9]">80% en Efectivo Inmediato</strong> o el <strong class="text-[#E5A93C]">100% en Crédito de Tienda</strong> sobre valor de mercado TCGPlayer para canjear por producto sellado o singles de la bóveda.
+              </p>
+            </div>
+          </div>
+          <button onclick="window.showTavernToast('Acércate al mostrador o habla con Dexter para cotizar tu carpeta en minutos.', '💰')"
+            class="tavern-btn tavern-btn-amber text-xs sm:text-sm px-5 py-2.5 rounded-xl font-bold shrink-0 shadow-md">
+            <span>COTIZAR MI COLECCIÓN</span>
+          </button>
+        </div>
+
+        <!-- Sede Footer -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-[#5E402F] text-xs font-sans text-[#CBBDA8]">
+          <div class="flex items-center gap-2">
+            <span>📍</span>
+            <span><strong>SEDE FÍSICA:</strong> Risaralda - Pereira • Salón de Gremio TopDeck • Mesas Climatizadas &amp; Jueces DCI</span>
+          </div>
+          <button onclick="window.showTavernToast('¡Cupo reservado con éxito! Recibirás confirmación en el Salón de Gremio.', '🏆')"
+            class="tavern-btn tavern-btn-wood px-4 py-2 rounded-lg font-bold text-xs text-[#F1E8D9]">
+            <span>RESERVAR CUPO PARA HOY ▶</span>
+          </button>
         </div>
       </div>
     </section>
