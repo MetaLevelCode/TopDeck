@@ -604,13 +604,251 @@ body {
 }
 
 /* ==========================================================================
-   LORE DECKSTER — FRAMER-STYLE STORYTELLING & GRIMORIO READER
+   LORE DECKSTER — 2-PAGE PHYSICAL BOOK SPREAD WITH 3D PAGE-TURN ANIMATION
    ========================================================================== */
 
-.lore-stage-fade {
-  opacity: 0.55;
-  transform: scale(0.985);
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+.book-stage-perspective {
+  perspective: 2400px;
+  perspective-origin: 50% 50%;
+}
+
+.book-spread-container {
+  position: relative;
+  width: 100%;
+  max-width: 1120px;
+  min-height: 580px;
+  margin: 0 auto;
+  border-radius: 20px;
+  background: #180D08;
+  padding: 16px 20px;
+  box-shadow:
+    0 26px 60px -15px rgba(0, 0, 0, 0.9),
+    0 0 0 4px #4E342E,
+    inset 0 0 35px rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  user-select: none;
+}
+
+/* Stitched leather outer rim */
+.book-cover-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 2px dashed #795548;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Silk Ribbon Bookmark hanging from the spine */
+.book-spine-ribbon {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 64px;
+  background: linear-gradient(135deg, #C55A3F 0%, #A2412A 100%);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+  z-index: 35;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-spine-ribbon:hover {
+  transform: translateX(-50%) translateY(6px);
+}
+
+.book-spine-ribbon::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 10px solid #180D08;
+}
+
+/* The 2-Page Spread Body */
+.book-pages-wrapper {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #2E1D16;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(10, 5, 2, 0.6);
+  transform-style: preserve-3d;
+}
+
+/* Left & Right Pages */
+.book-half-page {
+  position: relative;
+  padding: 32px 36px 36px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #2F1E17;
+  background-image:
+    radial-gradient(circle at 100% 50%, rgba(20, 10, 5, 0.3) 0%, transparent 45%),
+    linear-gradient(rgba(241, 232, 217, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 28px 28px;
+  overflow: hidden;
+  min-height: 520px;
+}
+
+.book-half-page-left {
+  border-right: 1px solid rgba(121, 85, 72, 0.4);
+  box-shadow: inset -18px 0 28px -10px rgba(10, 5, 2, 0.6);
+}
+
+.book-half-page-right {
+  border-left: 1px solid rgba(121, 85, 72, 0.4);
+  box-shadow: inset 18px 0 28px -10px rgba(10, 5, 2, 0.6);
+}
+
+/* Spine Crease down the middle */
+.book-spine-gutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 36px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to right,
+    rgba(15, 8, 4, 0.75) 0%,
+    rgba(25, 14, 8, 0.25) 30%,
+    rgba(10, 5, 2, 0.85) 50%,
+    rgba(25, 14, 8, 0.25) 70%,
+    rgba(15, 8, 4, 0.75) 100%
+  );
+  z-index: 25;
+  pointer-events: none;
+}
+
+/* Dog-ear Curled Corners for tactile interaction */
+.book-corner-curl {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  z-index: 30;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  opacity: 0.75;
+}
+
+.book-corner-curl:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.book-corner-curl-top-right {
+  top: 0;
+  right: 0;
+  background: linear-gradient(135deg, transparent 50%, rgba(197, 90, 63, 0.45) 50%, rgba(241, 232, 217, 0.25) 100%);
+  border-bottom-left-radius: 8px;
+}
+
+.book-corner-curl-bottom-right {
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(45deg, transparent 50%, rgba(197, 90, 63, 0.45) 50%, rgba(241, 232, 217, 0.25) 100%);
+  border-top-left-radius: 8px;
+}
+
+.book-corner-curl-bottom-left {
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-45deg, transparent 50%, rgba(197, 90, 63, 0.45) 50%, rgba(241, 232, 217, 0.25) 100%);
+  border-top-right-radius: 8px;
+}
+
+/* 3D Flipping Page Sheet */
+.book-flipping-leaf {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 28;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.book-flipping-leaf.flip-forward {
+  right: 0;
+  transform-origin: left center;
+}
+
+.book-flipping-leaf.flip-backward {
+  left: 0;
+  transform-origin: right center;
+}
+
+.book-leaf-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  padding: 32px 36px;
+  background-color: #2F1E17;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.book-leaf-face-back {
+  transform: rotateY(180deg);
+}
+
+/* Realistic 3D Page Turn Keyframes with shadow play */
+@keyframes turnPageForward {
+  0% {
+    transform: rotateY(0deg);
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+  }
+  45% {
+    filter: drop-shadow(-20px 20px 35px rgba(0,0,0,0.8));
+  }
+  100% {
+    transform: rotateY(-180deg);
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+  }
+}
+
+@keyframes turnPageBackward {
+  0% {
+    transform: rotateY(0deg);
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+  }
+  45% {
+    filter: drop-shadow(20px 20px 35px rgba(0,0,0,0.8));
+  }
+  100% {
+    transform: rotateY(180deg);
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+  }
+}
+
+.animating-forward {
+  visibility: visible !important;
+  animation: turnPageForward 0.62s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animating-backward {
+  visibility: visible !important;
+  animation: turnPageBackward 0.62s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.lore-drop-cap {
+  font-family: var(--font-display);
+  text-shadow: 2px 2px 0px rgba(10, 5, 2, 0.6);
 }
 
 .lore-timeline-pill {
@@ -622,33 +860,23 @@ body {
   transform: scale(0.96);
 }
 
-.lore-drop-cap {
-  font-family: var(--font-display);
-  text-shadow: 2px 2px 0px rgba(10, 5, 2, 0.5);
-}
-
-.lore-reader-parchment {
-  background-color: #271A13;
-  background-image:
-    radial-gradient(ellipse at 50% 0%, rgba(197, 90, 63, 0.09) 0%, transparent 70%),
-    radial-gradient(ellipse at 50% 100%, rgba(74, 124, 89, 0.06) 0%, transparent 65%);
-}
-
-#loreReaderScrollContainer::-webkit-scrollbar {
-  width: 8px;
-}
-
-#loreReaderScrollContainer::-webkit-scrollbar-track {
-  background: var(--color-dark-roast);
-  border-left: 1px solid var(--color-cocoa-gray);
-}
-
-#loreReaderScrollContainer::-webkit-scrollbar-thumb {
-  background: var(--color-cocoa-gray);
-  border-radius: 4px;
-}
-
-#loreReaderScrollContainer::-webkit-scrollbar-thumb:hover {
-  background: var(--color-clay-terracotta);
+/* Mobile responsive single page fallback */
+@media (max-width: 767px) {
+  .book-pages-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .book-half-page-left {
+    display: none;
+  }
+  .book-half-page {
+    padding: 24px 20px;
+    min-height: 480px;
+  }
+  .book-spine-gutter {
+    display: none;
+  }
+  .book-flipping-leaf {
+    display: none;
+  }
 }
 

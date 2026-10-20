@@ -1,5 +1,5 @@
 // ==========================================================================
-// TOP DECK TCG — IMMERSIVE LORE & SAGA CONTROLLER (FRAMER-STYLE STORYTELLING)
+// TOP DECK TCG — 2-PAGE OPEN PHYSICAL BOOK LORE ENGINE WITH 3D PAGE-TURN
 // Official lore from https://www.topdeck.shop/blogs/lore
 // Chapters: Preámbulo #1, #2, #3, #4 and Acto I — Domar el Corcel
 // ==========================================================================
@@ -396,215 +396,474 @@ window.TOPDECK_LORE_CHAPTERS = [
 (function () {
   const chapters = window.TOPDECK_LORE_CHAPTERS;
 
-  let activeIndex = 0;
-  let readerFontSize = 17;
+  let currentChapterIndex = 0;
+  let currentSpreadIndex = 0;
+  let isFlipping = false;
   let isAudioPlaying = false;
   let audioCtx = null;
-  let noiseNode = null;
   let droneOsc = null;
   let gainNode = null;
 
   // --------------------------------------------------------------------------
-  // RENDER TIMELINE PILLS
+  // BUILD SPREADS FOR EACH CHAPTER
+  // Spread 0: Left = Frontispiece illustration & meta, Right = Story start
+  // Spread 1..N: Left = text paragraphs, Right = text paragraphs
   // --------------------------------------------------------------------------
-  function renderLoreTimeline() {
+  function buildChapterSpreads(chapter) {
+    const paras = chapter.paragraphs;
+    const spreads = [];
+
+    // Spread 0: Frontispiece + Opening paragraphs (first 4)
+    spreads.push({
+      spreadIndex: 0,
+      leftType: "frontispiece",
+      rightType: "opening",
+      leftData: {
+        image: chapter.image,
+        title: chapter.title,
+        act: chapter.act,
+        chapterNum: chapter.chapterNum,
+        date: chapter.date,
+        readTime: chapter.readTime,
+        characters: chapter.characters,
+        quote: chapter.highlightQuote
+      },
+      rightData: {
+        subtitle: chapter.subtitle,
+        title: chapter.title,
+        paragraphs: paras.slice(0, 4),
+        hasDropCap: true
+      }
+    });
+
+    // Subsequent spreads (4 paragraphs per page keeps text large & legible)
+    let rem = paras.slice(4);
+    const CHUNK_SIZE = 4;
+    while (rem.length > 0) {
+      const leftParas = rem.slice(0, CHUNK_SIZE);
+      rem = rem.slice(CHUNK_SIZE);
+      const rightParas = rem.slice(0, CHUNK_SIZE);
+      rem = rem.slice(CHUNK_SIZE);
+
+      spreads.push({
+        spreadIndex: spreads.length,
+        leftType: "text",
+        rightType: "text",
+        leftData: {
+          paragraphs: leftParas,
+          hasDropCap: false
+        },
+        rightData: {
+          paragraphs: rightParas,
+          hasDropCap: false,
+          isFinal: rem.length === 0
+        }
+      });
+    }
+
+    return spreads;
+  }
+
+  // Pre-generate spreads for all chapters
+  const allChapterSpreads = chapters.map(c => buildChapterSpreads(c));
+
+  // --------------------------------------------------------------------------
+  // PROCEDURAL PAGE TURN SOUND (WEB AUDIO API)
+  // Generates physical paper swoosh/rustle. 100% offline, zero latency.
+  // --------------------------------------------------------------------------
+  function playPageRustleSound() {
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+
+      const duration = 0.16; // 160ms paper turn
+      const bufferSize = Math.floor(ctx.sampleRate * duration);
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = buffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        const decay = Math.pow(1 - (i / bufferSize), 2.2);
+        output[i] = (Math.random() * 2 - 1) * decay;
+      }
+
+      const whiteNoise = ctx.createBufferSource();
+      whiteNoise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = "bandpass";
+      filter.frequency.setValueAtTime(1600, ctx.currentTime);
+      filter.Q.setValueAtTime(1.8, ctx.currentTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+      whiteNoise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      whiteNoise.start();
+      setTimeout(() => ctx.close(), 250);
+    } catch (e) {
+      // AudioContext unavailable
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // HTML GENERATORS FOR LEFT & RIGHT PAGES
+  // --------------------------------------------------------------------------
+  function generateLeftPageHTML(spread, chapter, pageNum, totalPages) {
+    if (spread.leftType === "frontispiece") {
+      const d = spread.leftData;
+      return `
+        <!-- Top Running Header -->
+        <div class="flex items-center justify-between border-b border-cocoa-gray/50 pb-2.5 text-[11px] font-mono text-fresh-sage font-bold">
+          <span>TOP DECK • CRÓNICAS</span>
+          <span>✦ ${d.act.toUpperCase()}</span>
+        </div>
+
+        <!-- Framed Frontispiece Artwork -->
+        <div class="my-auto py-2 space-y-3">
+          <div class="relative rounded-xl overflow-hidden border-2 border-cocoa-gray shadow-xl aspect-[16/10] bg-dark-roast group">
+            <img src="${d.image}" alt="${d.title}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-roast/80 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-2 bg-dark-roast/90 border border-cocoa-gray text-parchment-white font-mono text-[9px] px-2 py-0.5 rounded font-bold">
+              ${d.date} • ${d.readTime}
+            </span>
+          </div>
+
+          <!-- Highlight Quote Box -->
+          <div class="bg-dark-roast/70 border-l-4 border-clay-terracotta p-3 rounded-r-lg">
+            <span class="text-[9px] font-mono text-clay-terracotta font-bold uppercase block mb-0.5">📜 EXTRACTO:</span>
+            <p class="font-display italic text-xs text-parchment-white leading-relaxed line-clamp-3">
+              ${d.quote}
+            </p>
+          </div>
+
+          <!-- Character chips -->
+          <div class="flex flex-wrap gap-1 pt-1">
+            ${d.characters.map(c => `
+              <span class="text-[10px] font-mono font-bold bg-dark-roast border border-cocoa-gray text-parchment-white px-2 py-0.5 rounded">
+                ${c}
+              </span>
+            `).join("")}
+          </div>
+        </div>
+
+        <!-- Bottom Page Footer -->
+        <div class="flex items-center justify-between border-t border-cocoa-gray/50 pt-2 text-[11px] font-mono text-latte-gray font-bold">
+          <span>Página ${pageNum}</span>
+          <span class="text-[10px] text-latte-gray/60">Grimorio de Deckster</span>
+        </div>
+      `;
+    }
+
+    // Standard story text on left page
+    const d = spread.leftData;
+    return `
+      <!-- Top Running Header -->
+      <div class="flex items-center justify-between border-b border-cocoa-gray/50 pb-2.5 text-[11px] font-mono text-fresh-sage font-bold">
+        <span>TOP DECK</span>
+        <span>${chapter.act.toUpperCase()} • ${chapter.title.slice(0, 24)}...</span>
+      </div>
+
+      <!-- Story Paragraphs -->
+      <div class="my-auto py-2 space-y-3 font-body-sans text-xs sm:text-[13px] leading-relaxed text-parchment-white">
+        ${d.paragraphs.map(p => {
+          const isDialogue = p.startsWith("—") || p.startsWith("-") || p.startsWith("«") || p.startsWith('"');
+          if (isDialogue) {
+            return `
+              <div class="pl-3 border-l-2 border-clay-terracotta bg-dark-roast/40 py-1 rounded-r">
+                <p class="font-display italic text-parchment-white">${p}</p>
+              </div>
+            `;
+          }
+          return `<p>${p}</p>`;
+        }).join("")}
+      </div>
+
+      <!-- Bottom Page Footer -->
+      <div class="flex items-center justify-between border-t border-cocoa-gray/50 pt-2 text-[11px] font-mono text-latte-gray font-bold">
+        <span>Página ${pageNum}</span>
+        <span class="text-[10px] text-latte-gray/60">${pageNum} / ${totalPages}</span>
+      </div>
+    `;
+  }
+
+  function generateRightPageHTML(spread, chapter, pageNum, totalPages) {
+    if (spread.rightType === "opening") {
+      const d = spread.rightData;
+      return `
+        <!-- Top Running Header -->
+        <div class="flex items-center justify-between border-b border-cocoa-gray/50 pb-2.5 text-[11px] font-mono text-clay-terracotta font-bold">
+          <span>CAPÍTULO ${chapter.chapterNum}</span>
+          <span>LORE DECKSTER</span>
+        </div>
+
+        <!-- Opening Header & Paragraphs -->
+        <div class="my-auto py-2 space-y-3 font-body-sans text-xs sm:text-[13px] leading-relaxed text-parchment-white">
+          <div class="border-b border-cocoa-gray/40 pb-2 mb-2">
+            <h3 class="font-display font-extrabold text-lg sm:text-xl text-clay-terracotta leading-tight">
+              ${d.title}
+            </h3>
+            <p class="font-display italic text-xs text-latte-gray mt-0.5">
+              ${d.subtitle}
+            </p>
+          </div>
+
+          ${d.paragraphs.map((p, idx) => {
+            if (idx === 0) {
+              const first = p.charAt(0);
+              const rest = p.slice(1);
+              return `
+                <p class="leading-relaxed">
+                  <span class="lore-drop-cap float-left text-3xl sm:text-4xl font-display font-bold text-clay-terracotta pr-2 leading-none">${first}</span>${rest}
+                </p>
+              `;
+            }
+            const isDialogue = p.startsWith("—") || p.startsWith("-") || p.startsWith("«") || p.startsWith('"');
+            if (isDialogue) {
+              return `
+                <div class="pl-3 border-l-2 border-clay-terracotta bg-dark-roast/40 py-1 rounded-r">
+                  <p class="font-display italic text-parchment-white">${p}</p>
+                </div>
+              `;
+            }
+            return `<p>${p}</p>`;
+          }).join("")}
+        </div>
+
+        <!-- Bottom Page Footer -->
+        <div class="flex items-center justify-between border-t border-cocoa-gray/50 pt-2 text-[11px] font-mono text-latte-gray font-bold">
+          <span class="text-[10px] text-latte-gray/60">Pasa la página ▶</span>
+          <span>Página ${pageNum}</span>
+        </div>
+      `;
+    }
+
+    // Standard story text on right page
+    const d = spread.rightData;
+    return `
+      <!-- Top Running Header -->
+      <div class="flex items-center justify-between border-b border-cocoa-gray/50 pb-2.5 text-[11px] font-mono text-clay-terracotta font-bold">
+        <span>${chapter.act.toUpperCase()}</span>
+        <span>LORE DECKSTER</span>
+      </div>
+
+      <!-- Story Paragraphs -->
+      <div class="my-auto py-2 space-y-3 font-body-sans text-xs sm:text-[13px] leading-relaxed text-parchment-white">
+        ${d.paragraphs.map(p => {
+          const isDialogue = p.startsWith("—") || p.startsWith("-") || p.startsWith("«") || p.startsWith('"');
+          if (isDialogue) {
+            return `
+              <div class="pl-3 border-l-2 border-clay-terracotta bg-dark-roast/40 py-1 rounded-r">
+                <p class="font-display italic text-parchment-white">${p}</p>
+              </div>
+            `;
+          }
+          return `<p>${p}</p>`;
+        }).join("")}
+
+        ${d.isFinal ? `
+          <div class="text-center pt-3 select-none">
+            <span class="text-clay-terracotta font-display text-sm tracking-widest block mb-1">✦ ✦ ✦</span>
+            <span class="text-[10px] font-mono font-bold text-fresh-sage bg-dark-roast px-2 py-0.5 rounded border border-cocoa-gray">
+              FIN DEL CAPÍTULO ${chapter.chapterNum}
+            </span>
+          </div>
+        ` : ""}
+      </div>
+
+      <!-- Bottom Page Footer -->
+      <div class="flex items-center justify-between border-t border-cocoa-gray/50 pt-2 text-[11px] font-mono text-latte-gray font-bold">
+        <span class="text-[10px] text-latte-gray/60">${d.isFinal ? "Fin del Capítulo" : "Pasa la página ▶"}</span>
+        <span>Página ${pageNum}</span>
+      </div>
+    `;
+  }
+
+  // --------------------------------------------------------------------------
+  // RENDER SPREAD TO BOOK
+  // --------------------------------------------------------------------------
+  function renderBookSpread(direction = "none") {
+    const chapter = chapters[currentChapterIndex];
+    const spreads = allChapterSpreads[currentChapterIndex];
+    const spread = spreads[currentSpreadIndex];
+
+    const totalPages = spreads.length * 2;
+    const leftPageNum = currentSpreadIndex * 2 + 1;
+    const rightPageNum = currentSpreadIndex * 2 + 2;
+
+    const leftContainer = document.getElementById("bookStaticLeftPage");
+    const rightContainer = document.getElementById("bookStaticRightPage");
+    const leafContainer = document.getElementById("bookFlippingLeaf");
+    const leafFront = document.getElementById("bookLeafFront");
+    const leafBack = document.getElementById("bookLeafBack");
+
+    if (!leftContainer || !rightContainer) return;
+
+    const newLeftHTML = generateLeftPageHTML(spread, chapter, leftPageNum, totalPages);
+    const newRightHTML = generateRightPageHTML(spread, chapter, rightPageNum, totalPages);
+
+    // Update header badges & counters
+    updateBookControls(chapter, spreads, currentSpreadIndex, totalPages);
+
+    if (direction === "none" || !leafContainer || !leafFront || !leafBack) {
+      leftContainer.innerHTML = newLeftHTML;
+      rightContainer.innerHTML = newRightHTML;
+      isFlipping = false;
+      return;
+    }
+
+    // 3D PAGE TURN ANIMATION
+    playPageRustleSound();
+
+    if (direction === "next") {
+      // Leaf flips from right to left
+      leafContainer.className = "book-flipping-leaf flip-forward";
+      leafFront.innerHTML = rightContainer.innerHTML; // old right page
+      leafBack.innerHTML = newLeftHTML;               // new left page
+      rightContainer.innerHTML = newRightHTML;        // new right page revealed underneath
+
+      // Trigger 3D keyframe animation
+      void leafContainer.offsetWidth; // force reflow
+      leafContainer.classList.add("animating-forward");
+
+      setTimeout(() => {
+        leftContainer.innerHTML = newLeftHTML;
+        leafContainer.className = "book-flipping-leaf";
+        leafContainer.classList.remove("animating-forward");
+        isFlipping = false;
+      }, 620);
+    } else if (direction === "prev") {
+      // Leaf flips from left to right
+      leafContainer.className = "book-flipping-leaf flip-backward";
+      leafFront.innerHTML = leftContainer.innerHTML;  // old left page
+      leafBack.innerHTML = newRightHTML;              // new right page
+      leftContainer.innerHTML = newLeftHTML;          // new left page revealed underneath
+
+      void leafContainer.offsetWidth; // force reflow
+      leafContainer.classList.add("animating-backward");
+
+      setTimeout(() => {
+        rightContainer.innerHTML = newRightHTML;
+        leafContainer.className = "book-flipping-leaf";
+        leafContainer.classList.remove("animating-backward");
+        isFlipping = false;
+      }, 620);
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // CONTROLS & TIMELINE SYNC
+  // --------------------------------------------------------------------------
+  function updateBookControls(chapter, spreads, spreadIdx, totalPages) {
+    // Spread indicator
+    const spreadLabel = document.getElementById("bookSpreadIndicator");
+    if (spreadLabel) {
+      spreadLabel.textContent = `Páginas ${spreadIdx * 2 + 1}-${spreadIdx * 2 + 2} de ${totalPages} • Cap. ${chapter.chapterNum}`;
+    }
+
+    // Header counter
+    const stageCounter = document.getElementById("loreStageCounter");
+    if (stageCounter) {
+      stageCounter.textContent = `CAPÍTULO ${chapter.chapterNum} DE 0${chapters.length}`;
+    }
+
+    // Timeline progress bar
+    const progressEl = document.getElementById("loreSagaProgressBar");
+    if (progressEl) {
+      const overallPct = Math.round(((currentChapterIndex + 1) / chapters.length) * 100);
+      progressEl.style.width = `${overallPct}%`;
+    }
+
+    // Highlight timeline pill
+    renderTimelinePills();
+  }
+
+  function renderTimelinePills() {
     const container = document.getElementById("loreTimelinePills");
     if (!container) return;
 
     container.innerHTML = chapters.map((c, idx) => {
-      const isActive = idx === activeIndex;
+      const isActive = idx === currentChapterIndex;
       return `
-        <button onclick="window.selectLoreChapter(${idx})"
+        <button onclick="window.jumpToLoreChapter(${idx})"
                 id="lorePill-${idx}"
                 class="lore-timeline-pill flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all border-2 ${
                   isActive
                     ? "bg-clay-terracotta text-parchment-white border-parchment-white shadow-lg scale-105"
-                    : "bg-dark-roast text-latte-gray border-cocoa-gray hover:border-clay-terracotta hover:text-parchment-white"
+                    : "bg-dark-roast text-latte-gray border-cocoa-gray hover:border-clay-terracotta hover:text-parchment-white cursor-pointer"
                 }">
           <span class="w-2 h-2 rounded-full ${isActive ? "bg-parchment-white animate-ping" : "bg-cocoa-gray"}"></span>
           <span>${c.chapterNum} • ${c.act}</span>
         </button>
       `;
     }).join("");
-
-    // Update Progress bar
-    const progressEl = document.getElementById("loreSagaProgressBar");
-    if (progressEl) {
-      const pct = Math.round(((activeIndex + 1) / chapters.length) * 100);
-      progressEl.style.width = `${pct}%`;
-    }
   }
 
   // --------------------------------------------------------------------------
-  // SELECT CHAPTER WITH FRAMER-STYLE SPRING TRANSITION
+  // PUBLIC ACTIONS (NEXT PAGE, PREV PAGE, JUMP CHAPTER)
   // --------------------------------------------------------------------------
-  window.selectLoreChapter = function (index) {
-    if (index < 0 || index >= chapters.length) return;
-    activeIndex = index;
-    const c = chapters[activeIndex];
+  window.nextBookPage = function () {
+    if (isFlipping) return;
+    const spreads = allChapterSpreads[currentChapterIndex];
 
-    // Update timeline pills
-    renderLoreTimeline();
-
-    // Stage Elements
-    const imgEl = document.getElementById("loreStageImg");
-    const actBadge = document.getElementById("loreStageActBadge");
-    const dateBadge = document.getElementById("loreStageDate");
-    const readTimeBadge = document.getElementById("loreStageReadTime");
-    const titleEl = document.getElementById("loreStageTitle");
-    const subtitleEl = document.getElementById("loreStageSubtitle");
-    const synopsisEl = document.getElementById("loreStageSynopsis");
-    const quoteEl = document.getElementById("loreStageQuote");
-    const charsContainer = document.getElementById("loreStageCharacters");
-    const stageCounter = document.getElementById("loreStageCounter");
-
-    // Trigger smooth transition
-    const stageCard = document.getElementById("loreStageCard");
-    if (stageCard) {
-      stageCard.classList.add("lore-stage-fade");
-      setTimeout(() => stageCard.classList.remove("lore-stage-fade"), 300);
-    }
-
-    if (imgEl) {
-      imgEl.src = c.image;
-      imgEl.alt = c.title;
-    }
-    if (actBadge) actBadge.textContent = `✦ ${c.act.toUpperCase()} • CAPÍTULO ${c.chapterNum}`;
-    if (dateBadge) dateBadge.textContent = c.date;
-    if (readTimeBadge) readTimeBadge.textContent = c.readTime;
-    if (titleEl) titleEl.textContent = c.title;
-    if (subtitleEl) subtitleEl.textContent = c.subtitle;
-    if (synopsisEl) synopsisEl.textContent = c.synopsis;
-    if (quoteEl) quoteEl.textContent = c.highlightQuote;
-    if (stageCounter) stageCounter.textContent = `CAPÍTULO ${c.chapterNum} DE 0${chapters.length}`;
-
-    if (charsContainer) {
-      charsContainer.innerHTML = c.characters.map(char => `
-        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-dark-roast border border-cocoa-gray text-parchment-white shadow-sm">
-          ${char}
-        </span>
-      `).join("");
+    if (currentSpreadIndex < spreads.length - 1) {
+      isFlipping = true;
+      currentSpreadIndex++;
+      renderBookSpread("next");
+    } else if (currentChapterIndex < chapters.length - 1) {
+      // Advance to next chapter
+      isFlipping = true;
+      currentChapterIndex++;
+      currentSpreadIndex = 0;
+      renderBookSpread("next");
+      window.showTavernToast(`Avanzando a ${chapters[currentChapterIndex].title}`, "📖");
+    } else {
+      window.showTavernToast("Has llegado al final de las crónicas disponibles.", "✨");
     }
   };
 
-  window.nextLoreChapter = function () {
-    const nextIdx = (activeIndex + 1) % chapters.length;
-    window.selectLoreChapter(nextIdx);
-  };
+  window.prevBookPage = function () {
+    if (isFlipping) return;
 
-  window.prevLoreChapter = function () {
-    const prevIdx = (activeIndex - 1 + chapters.length) % chapters.length;
-    window.selectLoreChapter(prevIdx);
-  };
-
-  // --------------------------------------------------------------------------
-  // IMMERSIVE GRIMORIO READER (MODAL)
-  // --------------------------------------------------------------------------
-  window.openLoreReader = function (index) {
-    if (typeof index === "number") {
-      window.selectLoreChapter(index);
-    }
-    const c = chapters[activeIndex];
-    const modal = document.getElementById("loreReaderModal");
-    if (!modal) return;
-
-    // Fill reader metadata
-    document.getElementById("loreReaderBreadcrumb").textContent = `${c.act} • Capítulo ${c.chapterNum} de 0${chapters.length}`;
-    document.getElementById("loreReaderDate").textContent = c.date;
-    document.getElementById("loreReaderReadTime").textContent = c.readTime;
-    document.getElementById("loreReaderTitle").textContent = c.title;
-    document.getElementById("loreReaderSubtitle").textContent = c.subtitle;
-    document.getElementById("loreReaderHeroImg").src = c.image;
-
-    // Format paragraphs
-    const contentEl = document.getElementById("loreReaderBody");
-    if (contentEl) {
-      contentEl.innerHTML = c.paragraphs.map((p, i) => {
-        const isDialogue = p.startsWith("—") || p.startsWith("-") || p.startsWith("«") || p.startsWith('"');
-        const isDropCap = i === 0;
-
-        if (isDropCap) {
-          const firstLetter = p.charAt(0);
-          const rest = p.slice(1);
-          return `
-            <p class="lore-p drop-cap-p text-parchment-white leading-relaxed mb-5" style="font-size: ${readerFontSize}px">
-              <span class="lore-drop-cap float-left text-4xl sm:text-5xl font-display font-extrabold text-clay-terracotta pr-2.5 pt-0.5 leading-none">${firstLetter}</span>${rest}
-            </p>
-          `;
-        }
-
-        if (isDialogue) {
-          return `
-            <div class="lore-dialogue my-4 pl-4 border-l-4 border-clay-terracotta bg-dark-roast/50 py-2 pr-3 rounded-r-xl">
-              <p class="font-display italic text-parchment-white leading-relaxed" style="font-size: ${readerFontSize}px">
-                ${p}
-              </p>
-            </div>
-          `;
-        }
-
-        return `
-          <p class="lore-p text-parchment-white/95 leading-relaxed mb-5 font-body-sans" style="font-size: ${readerFontSize}px">
-            ${p}
-          </p>
-        `;
-      }).join("");
-    }
-
-    // Scroll to top of reader container
-    const scrollContainer = document.getElementById("loreReaderScrollContainer");
-    if (scrollContainer) scrollContainer.scrollTop = 0;
-
-    // Reveal modal
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-    document.body.style.overflow = "hidden";
-
-    // Track scroll progress
-    if (scrollContainer) {
-      scrollContainer.onscroll = () => {
-        const total = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-        const current = scrollContainer.scrollTop;
-        const pct = total > 0 ? Math.min(100, Math.round((current / total) * 100)) : 0;
-        const bar = document.getElementById("loreReadingProgressBar");
-        if (bar) bar.style.width = `${pct}%`;
-      };
+    if (currentSpreadIndex > 0) {
+      isFlipping = true;
+      currentSpreadIndex--;
+      renderBookSpread("prev");
+    } else if (currentChapterIndex > 0) {
+      // Go back to previous chapter (last spread)
+      isFlipping = true;
+      currentChapterIndex--;
+      currentSpreadIndex = allChapterSpreads[currentChapterIndex].length - 1;
+      renderBookSpread("prev");
+      window.showTavernToast(`Regresando a ${chapters[currentChapterIndex].title}`, "📖");
     }
   };
 
-  window.closeLoreReader = function () {
-    const modal = document.getElementById("loreReaderModal");
-    if (!modal) return;
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-    document.body.style.overflow = "";
+  window.jumpToLoreChapter = function (chapterIdx) {
+    if (isFlipping) return;
+    if (chapterIdx < 0 || chapterIdx >= chapters.length) return;
+
+    const direction = chapterIdx > currentChapterIndex ? "next" : (chapterIdx < currentChapterIndex ? "prev" : "none");
+    currentChapterIndex = chapterIdx;
+    currentSpreadIndex = 0;
+    isFlipping = direction !== "none";
+    renderBookSpread(direction);
   };
 
-  window.adjustReaderFontSize = function (delta) {
-    readerFontSize = Math.max(14, Math.min(23, readerFontSize + delta));
-    const paragraphs = document.querySelectorAll("#loreReaderBody .lore-p, #loreReaderBody .lore-dialogue p");
-    paragraphs.forEach(p => p.style.fontSize = `${readerFontSize}px`);
-    const sizeDisplay = document.getElementById("loreReaderFontSizeDisplay");
-    if (sizeDisplay) sizeDisplay.textContent = `${readerFontSize}px`;
-  };
-
-  window.readNextChapterInModal = function () {
-    window.nextLoreChapter();
-    window.openLoreReader();
-  };
-
-  window.readPrevChapterInModal = function () {
-    window.prevLoreChapter();
-    window.openLoreReader();
+  window.bookmarkCurrentBookPage = function () {
+    const chapter = chapters[currentChapterIndex];
+    window.showTavernToast(`🔖 Marcador guardado: ${chapter.title} (Pág. ${currentSpreadIndex * 2 + 1})`, "🔖");
   };
 
   // --------------------------------------------------------------------------
   // PROCEDURAL WEB AUDIO API ATMOSPHERE (WARM TAVERN DRONE & CRACKLE)
-  // No external sound files needed. 100% offline, zero latency.
   // --------------------------------------------------------------------------
   window.toggleLoreAmbientAudio = function () {
     const btn = document.getElementById("loreAudioToggleBtn");
-    const modalBtn = document.getElementById("loreAudioToggleModalBtn");
 
     if (isAudioPlaying) {
       if (audioCtx) {
@@ -613,7 +872,6 @@ window.TOPDECK_LORE_CHAPTERS = [
       }
       isAudioPlaying = false;
       if (btn) btn.innerHTML = "<span>🔇</span><span>AMBIENTE MÍSTICO</span>";
-      if (modalBtn) modalBtn.innerHTML = "<span>🔇</span><span>Música OFF</span>";
       window.showTavernToast("Ambiente sonoro pausado.", "🔇");
       return;
     }
@@ -622,17 +880,14 @@ window.TOPDECK_LORE_CHAPTERS = [
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       audioCtx = new AudioContext();
 
-      // Master Gain
       gainNode = audioCtx.createGain();
-      gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gainNode.gain.setValueAtTime(0.07, audioCtx.currentTime);
       gainNode.connect(audioCtx.destination);
 
-      // Low Warm Drone Oscillator (65.4Hz / C2 warmth)
       droneOsc = audioCtx.createOscillator();
       droneOsc.type = "triangle";
-      droneOsc.frequency.setValueAtTime(65.4, audioCtx.currentTime);
+      droneOsc.frequency.setValueAtTime(65.4, audioCtx.currentTime); // C2
 
-      // Gentle filter
       const filter = audioCtx.createBiquadFilter();
       filter.type = "lowpass";
       filter.frequency.setValueAtTime(320, audioCtx.currentTime);
@@ -641,12 +896,12 @@ window.TOPDECK_LORE_CHAPTERS = [
       filter.connect(gainNode);
       droneOsc.start();
 
-      // Gentle Vinyl / Fireplace Crackle Buffer
+      // Subtle vinyl/hearth crackle
       const bufferSize = audioCtx.sampleRate * 2;
       const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const output = noiseBuffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
-        output[i] = (Math.random() < 0.003 ? (Math.random() * 2 - 1) * 0.4 : (Math.random() * 2 - 1) * 0.02);
+        output[i] = (Math.random() < 0.003 ? (Math.random() * 2 - 1) * 0.35 : (Math.random() * 2 - 1) * 0.02);
       }
 
       const whiteNoise = audioCtx.createBufferSource();
@@ -659,7 +914,7 @@ window.TOPDECK_LORE_CHAPTERS = [
       noiseFilter.Q.setValueAtTime(1.2, audioCtx.currentTime);
 
       const noiseGain = audioCtx.createGain();
-      noiseGain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+      noiseGain.gain.setValueAtTime(0.05, audioCtx.currentTime);
 
       whiteNoise.connect(noiseFilter);
       noiseFilter.connect(noiseGain);
@@ -668,8 +923,7 @@ window.TOPDECK_LORE_CHAPTERS = [
 
       isAudioPlaying = true;
       if (btn) btn.innerHTML = "<span class=\"animate-pulse text-fresh-sage\">🔊</span><span class=\"text-fresh-sage\">AMBIENTE ACTIVO</span>";
-      if (modalBtn) modalBtn.innerHTML = "<span class=\"animate-pulse text-fresh-sage\">🔊</span><span class=\"text-fresh-sage\">Ambiente ON</span>";
-      window.showTavernToast("Ambiente sonoro místico activado (fuego y misterio).", "🕯️");
+      window.showTavernToast("Ambiente sonoro de lectura activado.", "🕯️");
     } catch (e) {
       console.warn("AudioContext not allowed without user gesture", e);
     }
@@ -679,18 +933,18 @@ window.TOPDECK_LORE_CHAPTERS = [
   // INITIALIZE ON DOM READY
   // --------------------------------------------------------------------------
   document.addEventListener("DOMContentLoaded", () => {
-    renderLoreTimeline();
-    window.selectLoreChapter(0);
+    renderTimelinePills();
+    renderBookSpread("none");
 
-    // Keyboard navigation in modal
+    // Keyboard support for turning book pages
     document.addEventListener("keydown", (e) => {
-      const modal = document.getElementById("loreReaderModal");
-      const isModalOpen = modal && !modal.classList.contains("hidden");
+      // Ignore if user is typing in an input
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
 
-      if (isModalOpen) {
-        if (e.key === "Escape") window.closeLoreReader();
-        if (e.key === "ArrowRight") window.readNextChapterInModal();
-        if (e.key === "ArrowLeft") window.readPrevChapterInModal();
+      if (e.key === "ArrowRight" || e.key === "PageDown") {
+        window.nextBookPage();
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        window.prevBookPage();
       }
     });
   });

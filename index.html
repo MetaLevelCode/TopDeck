@@ -499,10 +499,10 @@
     </section>
 
     <!-- ======================================================================
-         SECTION 5: LORE DECKSTER — SAGA INMERSIVA ESTILO FRAMER (TOPDECK.SHOP)
-         Interactive 5-Chapter Storytelling Stage with Cinematic Reader
+         SECTION 5: LORE DECKSTER — LIBRO FÍSICO 2 PÁGINAS CON ANIMACIÓN 3D
+         Open 2-Page Book Experience with Interactive Page-Turn Animation
          ====================================================================== -->
-    <section id="loreSection" class="tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl space-y-6 relative overflow-hidden">
+    <section id="loreSection" class="tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-3xl p-4 sm:p-7 md:p-9 shadow-2xl space-y-6 relative overflow-hidden">
       <!-- Ambient background glow -->
       <div class="absolute -top-24 -left-24 w-96 h-96 bg-clay-terracotta/10 rounded-full blur-3xl pointer-events-none"></div>
       <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-botanical-green/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -512,15 +512,18 @@
         <div>
           <div class="flex items-center gap-2 flex-wrap mb-1">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-dark-roast border-2 border-clay-terracotta rounded-xl font-mono text-xs font-bold text-clay-terracotta shadow-sm">
-              🦊 LORE DECKSTER • HISTORIA OFICIAL TOPDECK
+              🦊 LORE DECKSTER • LIBRO DE CRÓNICAS TOPDECK
             </span>
             <span id="loreStageCounter" class="bg-dark-roast border border-cocoa-gray text-fresh-sage font-mono text-[11px] px-2.5 py-0.5 rounded-lg font-bold">
               CAPÍTULO 01 DE 05
             </span>
           </div>
           <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-parchment-white mt-1">
-            Las Crónicas del Zorro Mago
+            El Grimorio de las Crónicas
           </h2>
+          <p class="text-xs sm:text-sm text-latte-gray font-body-sans mt-0.5">
+            Lee la historia canónica de Top Deck como un libro abierto de dos páginas. Pasa las hojas haciendo clic o con las flechas del teclado.
+          </p>
         </div>
 
         <!-- Ambient sound button & Link to topdeck.shop/blogs/lore -->
@@ -538,7 +541,7 @@
         </div>
       </div>
 
-      <!-- Saga Progress Bar (Framer Style) -->
+      <!-- Saga Progress Bar -->
       <div class="w-full bg-dark-roast border-2 border-cocoa-gray h-3 rounded-full overflow-hidden p-0.5 relative z-10 shadow-inner">
         <div id="loreSagaProgressBar" class="h-full bg-gradient-to-r from-clay-terracotta via-fresh-sage to-botanical-green rounded-full transition-all duration-500" style="width: 20%"></div>
       </div>
@@ -546,108 +549,75 @@
       <!-- Timeline Chapter Selector Pills -->
       <div class="relative z-10">
         <span class="block text-xs font-mono font-bold text-latte-gray uppercase tracking-wider mb-2">
-          ✦ SELECCIONA EL CAPÍTULO DE LA SAGA:
+          ✦ SELECCIONA EL CAPÍTULO PARA ABRIR EL LIBRO:
         </span>
         <div id="loreTimelinePills" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
           <!-- Injected via JavaScript -->
         </div>
       </div>
 
-      <!-- Interactive Framer Story Stage Card -->
-      <div id="loreStageCard" class="bg-dark-roast border-2 border-cocoa-gray rounded-2xl p-5 sm:p-7 md:p-8 shadow-2xl relative z-10 transition-all duration-300">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <!-- THE 2-PAGE OPEN PHYSICAL BOOK STAGE -->
+      <div class="book-stage-perspective w-full py-3 relative z-10">
+        <div class="book-spread-container relative">
+          <!-- Stitched leather rim -->
+          <div class="book-cover-rim"></div>
 
-          <!-- Left Column: Cinematic Artwork Stage -->
-          <div class="lg:col-span-5 flex flex-col items-center">
-            <div class="relative rounded-2xl overflow-hidden border-2 border-cocoa-gray shadow-2xl w-full max-w-md group aspect-[4/3] bg-mocha-brown cursor-pointer"
-                 onclick="window.openLoreReader()">
-              <img id="loreStageImg"
-                   src="https://www.topdeck.shop/cdn/shop/articles/La_bruja_y_el_carruaje_magico.png?v=1771704556&width=1100"
-                   alt="Lore Deckster Artwork"
-                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-dark-roast/90 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+          <!-- Silk Bookmark Ribbon -->
+          <div onclick="window.bookmarkCurrentBookPage()" class="book-spine-ribbon" title="Guardar marcador de página"></div>
 
-              <!-- Floating Badges over artwork -->
-              <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                <span id="loreStageDate" class="bg-dark-roast/90 border border-cocoa-gray text-parchment-white font-mono text-[10px] px-2.5 py-1 rounded-md font-bold shadow backdrop-blur-sm">
-                  23 de enero de 2026
-                </span>
-                <span id="loreStageReadTime" class="bg-clay-terracotta text-parchment-white font-mono text-[10px] px-2.5 py-1 rounded-md font-bold shadow">
-                  4 min de lectura
-                </span>
-              </div>
-
-              <!-- Hover callout -->
-              <div class="absolute bottom-3 inset-x-3 text-center bg-dark-roast/95 border border-clay-terracotta py-2 rounded-xl text-xs font-bold text-parchment-white shadow-lg backdrop-blur-md opacity-90 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                <span>📖</span>
-                <span>Toca la ilustración para abrir el Grimorio</span>
-              </div>
+          <!-- Open Book Pages Container (Left Page | Crease | Right Page) -->
+          <div class="book-pages-wrapper relative" id="bookPagesWrapper">
+            <!-- Left Static Page -->
+            <div class="book-half-page book-half-page-left" id="bookStaticLeftPage" onclick="window.prevBookPage()" style="cursor: pointer;">
+              <!-- Injected via JavaScript -->
             </div>
+
+            <!-- Spine Center Gutter Crease Shadow -->
+            <div class="book-spine-gutter"></div>
+
+            <!-- Right Static Page -->
+            <div class="book-half-page book-half-page-right" id="bookStaticRightPage" onclick="window.nextBookPage()" style="cursor: pointer;">
+              <!-- Injected via JavaScript -->
+            </div>
+
+            <!-- 3D Flipping Page Leaf (Active during turnPage animation) -->
+            <div class="book-flipping-leaf" id="bookFlippingLeaf">
+              <div class="book-leaf-face" id="bookLeafFront"></div>
+              <div class="book-leaf-face book-leaf-face-back" id="bookLeafBack"></div>
+            </div>
+
+            <!-- Dog-ear Corner Curls for Click Feedback -->
+            <div onclick="window.prevBookPage()" class="book-corner-curl book-corner-curl-bottom-left" title="Página anterior (◀)"></div>
+            <div onclick="window.nextBookPage()" class="book-corner-curl book-corner-curl-top-right" title="Página siguiente (▶)"></div>
+            <div onclick="window.nextBookPage()" class="book-corner-curl book-corner-curl-bottom-right" title="Página siguiente (▶)"></div>
           </div>
-
-          <!-- Right Column: Narrative Details & Quote -->
-          <div class="lg:col-span-7 space-y-4">
-            <div class="flex items-center gap-2 flex-wrap">
-              <span id="loreStageActBadge" class="font-mono text-xs text-fresh-sage font-bold tracking-wider uppercase bg-mocha-brown border border-cocoa-gray px-3 py-1 rounded-lg">
-                ✦ PRÓLOGO • CAPÍTULO 01
-              </span>
-              <span class="text-latte-gray text-xs font-body-sans">• Historia canónica de la taberna</span>
-            </div>
-
-            <h3 id="loreStageTitle" class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-clay-terracotta leading-tight">
-              Preámbulo #1: Después de la guerra
-            </h3>
-
-            <p id="loreStageSubtitle" class="text-sm font-display italic text-parchment-white/90">
-              El misterio del cofre y las sombras de la Feria Mágica
-            </p>
-
-            <p id="loreStageSynopsis" class="body-paragraph text-latte-gray text-sm sm:text-base font-body-sans leading-relaxed">
-              Lupen y su compañero regresan a la Feria Mágica tras cruzar un portal dimensional, custodiando un misterioso cofre. Con cautela buscan una pista sobre el paradero del escurridizo Deckster, pero entre las luces apagadas del carnaval surge la enigmática Nélida.
-            </p>
-
-            <!-- Tavern Journal Entry Quote Card -->
-            <div class="bg-mocha-brown border-l-4 border-clay-terracotta p-4 rounded-r-xl relative shadow-inner space-y-1">
-              <span class="text-xs font-mono font-bold text-clay-terracotta uppercase tracking-wider block">📜 EXTRACTO DEL DIARIO:</span>
-              <p id="loreStageQuote" class="text-xs sm:text-sm text-parchment-white font-display italic leading-relaxed">
-                «¿Por fin tendremos una pista más clara para encontrar a Deckster? Con cautela, comienzan a abrir el cofre...»
-              </p>
-            </div>
-
-            <!-- Cast of characters in this chapter -->
-            <div class="pt-1">
-              <span class="text-[11px] font-mono font-bold text-latte-gray uppercase block mb-1.5">
-                ELENCO DEL CAPÍTULO:
-              </span>
-              <div id="loreStageCharacters" class="flex flex-wrap gap-1.5">
-                <!-- Injected via JavaScript -->
-              </div>
-            </div>
-
-            <!-- Stage Action Controls -->
-            <div class="pt-3 border-t-2 border-cocoa-gray flex flex-wrap items-center gap-3">
-              <button onclick="window.openLoreReader()"
-                      class="btn-primary tavern-btn-terracotta text-xs sm:text-sm px-6 py-3 font-bold rounded-xl shadow-xl flex items-center gap-2 cursor-pointer">
-                <span>📖</span>
-                <span>LEER CAPÍTULO COMPLETO EN MODO INMERSIVO</span>
-              </button>
-
-              <div class="flex items-center gap-2">
-                <button onclick="window.prevLoreChapter()" aria-label="Capítulo Anterior"
-                        class="nav-pill px-3.5 py-2.5 rounded-xl text-xs font-bold hover:text-parchment-white cursor-pointer">
-                  ◀ ANTERIOR
-                </button>
-                <button onclick="window.nextLoreChapter()" aria-label="Capítulo Siguiente"
-                        class="nav-pill px-3.5 py-2.5 rounded-xl text-xs font-bold hover:text-parchment-white cursor-pointer">
-                  SIGUIENTE ▶
-                </button>
-              </div>
-            </div>
-
-          </div>
-
         </div>
       </div>
+
+      <!-- Book Bottom Control Bar -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 border-t-2 border-cocoa-gray relative z-10">
+        <button onclick="window.prevBookPage()"
+                class="nav-pill text-xs sm:text-sm px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:text-parchment-white cursor-pointer w-full sm:w-auto justify-center shadow-md">
+          <span>◀</span>
+          <span>PÁGINA ANTERIOR</span>
+        </button>
+
+        <div class="flex items-center gap-2 font-mono text-xs text-parchment-white bg-dark-roast border-2 border-cocoa-gray px-4 py-2 rounded-xl shadow-inner">
+          <span class="text-clay-terracotta">📖</span>
+          <span id="bookSpreadIndicator" class="font-bold">Páginas 1-2 • Cargando libro...</span>
+        </div>
+
+        <button onclick="window.nextBookPage()"
+                class="btn-primary tavern-btn-terracotta text-xs sm:text-sm px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center">
+          <span>PÁGINA SIGUIENTE</span>
+          <span>▶</span>
+        </button>
+      </div>
+
+      <div class="text-center text-[11px] font-mono text-latte-gray/80 relative z-10">
+        💡 <em>Consejo: Haz clic directamente en la página izquierda o derecha para pasar la hoja, o usa las flechas ◀ ▶ de tu teclado.</em>
+      </div>
+
     </section>
 
     <!-- ======================================================================
@@ -1593,115 +1563,6 @@
         <div id="checkoutAnimVisualCanvas" class="min-h-[220px] bg-mocha-brown border-2 border-cocoa-gray rounded-2xl flex items-center justify-center p-4 relative overflow-hidden">
           <!-- Injected via JavaScript Animation -->
         </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ========================================================================
-       MODAL: GRIMORIO INMERSIVO DE LORE (LECTOR DE CAPÍTULOS TIPO FRAMER)
-       ======================================================================== -->
-  <div id="loreReaderModal" class="fixed inset-0 z-50 bg-[#120B07]/90 backdrop-blur-md items-center justify-center p-2 sm:p-4 overflow-y-auto hidden">
-    <div class="rpg-window max-w-4xl w-full max-h-[92vh] flex flex-col relative overflow-hidden my-auto border-2 border-clay-terracotta rounded-2xl shadow-2xl bg-mocha-brown text-parchment-white">
-
-      <!-- Sticky Top Reading Progress Bar -->
-      <div class="w-full bg-dark-roast h-1.5 overflow-hidden">
-        <div id="loreReadingProgressBar" class="bg-gradient-to-r from-clay-terracotta to-botanical-green h-full w-0 transition-all duration-150"></div>
-      </div>
-
-      <!-- Reader Top Bar (Title, Audio, Font Controls & Close) -->
-      <div class="bg-dark-roast border-b-2 border-cocoa-gray px-4 py-3 flex items-center justify-between gap-3 shrink-0">
-        <div class="flex items-center gap-2.5 min-w-0">
-          <span class="text-2xl">📜</span>
-          <div class="min-w-0">
-            <span id="loreReaderBreadcrumb" class="font-mono text-[10px] text-fresh-sage font-bold uppercase tracking-wider block truncate">
-              Prólogo • Capítulo 01 de 05
-            </span>
-            <h4 class="font-display text-sm sm:text-base font-bold text-parchment-white truncate">
-              El Grimorio de Deckster
-            </h4>
-          </div>
-        </div>
-
-        <!-- Controls: Font Resizer, Ambient Audio & Close -->
-        <div class="flex items-center gap-2 shrink-0">
-          <!-- Ambient Audio toggle in modal -->
-          <button id="loreAudioToggleModalBtn" onclick="window.toggleLoreAmbientAudio()"
-                  class="nav-pill hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold cursor-pointer">
-            <span>🔇</span>
-            <span>Música OFF</span>
-          </button>
-
-          <!-- Font Size Adjusters -->
-          <div class="flex items-center bg-mocha-brown border border-cocoa-gray rounded-lg p-0.5">
-            <button onclick="window.adjustReaderFontSize(-1)" class="w-7 h-7 flex items-center justify-center text-xs font-bold text-latte-gray hover:text-parchment-white rounded hover:bg-dark-roast cursor-pointer" title="Reducir letra">A-</button>
-            <span id="loreReaderFontSizeDisplay" class="w-9 text-center font-mono text-[11px] text-parchment-white">17px</span>
-            <button onclick="window.adjustReaderFontSize(1)" class="w-7 h-7 flex items-center justify-center text-xs font-bold text-latte-gray hover:text-parchment-white rounded hover:bg-dark-roast cursor-pointer" title="Aumentar letra">A+</button>
-          </div>
-
-          <!-- Close Button -->
-          <button onclick="window.closeLoreReader()"
-                  class="w-8 h-8 bg-clay-terracotta hover:bg-brick-terracotta text-parchment-white font-bold rounded-xl flex items-center justify-center cursor-pointer shadow-md transition-all active:scale-95"
-                  title="Cerrar Grimorio (Esc)">
-            ✕
-          </button>
-        </div>
-      </div>
-
-      <!-- Scrollable Manuscript Reader Body -->
-      <div id="loreReaderScrollContainer" class="flex-1 overflow-y-auto p-4 sm:p-8 md:p-10 lore-reader-parchment">
-        <div class="max-w-2xl mx-auto space-y-6">
-
-          <!-- Hero Chapter Image Banner -->
-          <div class="rounded-2xl overflow-hidden border-2 border-cocoa-gray shadow-2xl aspect-[16/9] w-full bg-dark-roast">
-            <img id="loreReaderHeroImg" src="" alt="Capítulo Ilustración" class="w-full h-full object-cover">
-          </div>
-
-          <!-- Chapter Header -->
-          <div class="text-center space-y-2 border-b-2 border-cocoa-gray pb-6">
-            <div class="flex items-center justify-center gap-2 text-xs font-mono text-fresh-sage">
-              <span id="loreReaderDate">23 de enero de 2026</span>
-              <span>•</span>
-              <span id="loreReaderReadTime">4 min de lectura</span>
-            </div>
-            <h2 id="loreReaderTitle" class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-clay-terracotta leading-tight">
-              Título del Capítulo
-            </h2>
-            <p id="loreReaderSubtitle" class="font-display italic text-base sm:text-lg text-latte-gray">
-              Subtítulo del Capítulo
-            </p>
-          </div>
-
-          <!-- Formatted Chapter Story Paragraphs -->
-          <div id="loreReaderBody" class="font-body-sans space-y-4">
-            <!-- Injected via JavaScript -->
-          </div>
-
-          <!-- End of Chapter Ornament -->
-          <div class="text-center pt-8 pb-4 text-clay-terracotta font-display text-xl select-none">
-            ✦ ✦ ✦
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Reader Bottom Bar (Navigation between chapters) -->
-      <div class="bg-dark-roast border-t-2 border-cocoa-gray px-4 py-3 flex items-center justify-between gap-3 shrink-0">
-        <button onclick="window.readPrevChapterInModal()"
-                class="nav-pill px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 hover:text-parchment-white cursor-pointer">
-          <span>◀</span>
-          <span>Capítulo Anterior</span>
-        </button>
-
-        <span class="text-xs font-mono text-latte-gray hidden sm:inline">
-          Usa las flechas ◀ ▶ del teclado para cambiar de capítulo
-        </span>
-
-        <button onclick="window.readNextChapterInModal()"
-                class="btn-primary tavern-btn-terracotta px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-md">
-          <span>Siguiente Capítulo</span>
-          <span>▶</span>
-        </button>
       </div>
 
     </div>
