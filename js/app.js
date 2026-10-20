@@ -2069,6 +2069,7 @@
       if (e.key === "Escape") {
         window.close3DCardInspector();
         window.closePersonalBinderCart();
+        if (window.closeLoreReader) window.closeLoreReader();
       }
     });
   });

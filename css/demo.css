@@ -602,3 +602,53 @@ body {
   background-color: var(--color-clay-terracotta);
   border-color: var(--color-parchment-white);
 }
+
+/* ==========================================================================
+   LORE DECKSTER — FRAMER-STYLE STORYTELLING & GRIMORIO READER
+   ========================================================================== */
+
+.lore-stage-fade {
+  opacity: 0.55;
+  transform: scale(0.985);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lore-timeline-pill {
+  white-space: nowrap;
+  user-select: none;
+}
+
+.lore-timeline-pill:active {
+  transform: scale(0.96);
+}
+
+.lore-drop-cap {
+  font-family: var(--font-display);
+  text-shadow: 2px 2px 0px rgba(10, 5, 2, 0.5);
+}
+
+.lore-reader-parchment {
+  background-color: #271A13;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(197, 90, 63, 0.09) 0%, transparent 70%),
+    radial-gradient(ellipse at 50% 100%, rgba(74, 124, 89, 0.06) 0%, transparent 65%);
+}
+
+#loreReaderScrollContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+#loreReaderScrollContainer::-webkit-scrollbar-track {
+  background: var(--color-dark-roast);
+  border-left: 1px solid var(--color-cocoa-gray);
+}
+
+#loreReaderScrollContainer::-webkit-scrollbar-thumb {
+  background: var(--color-cocoa-gray);
+  border-radius: 4px;
+}
+
+#loreReaderScrollContainer::-webkit-scrollbar-thumb:hover {
+  background: var(--color-clay-terracotta);
+}
+
