@@ -1949,6 +1949,110 @@
   window.toggleFoilHoloSheen = window.toggleInspectFoil;
 
   // ==========================================================================
+  // TOPDECK.SHOP HERO SLIDESHOW CONTROLLER (5 BANNERS INTERACTIVOS)
+  // ==========================================================================
+  let currentHeroSlide = 0;
+  const totalHeroSlides = 5;
+  let heroSlideInterval = null;
+
+  window.goToHeroSlide = function (index) {
+    currentHeroSlide = (index + totalHeroSlides) % totalHeroSlides;
+    updateHeroSlideUI();
+  };
+
+  window.nextHeroSlide = function () {
+    window.goToHeroSlide(currentHeroSlide + 1);
+  };
+
+  window.prevHeroSlide = function () {
+    window.goToHeroSlide(currentHeroSlide - 1);
+  };
+
+  function updateHeroSlideUI() {
+    for (let i = 0; i < totalHeroSlides; i++) {
+      const slide = document.getElementById(`heroSlide-${i}`);
+      const dot = document.getElementById(`heroDot-${i}`);
+      if (slide) {
+        if (i === currentHeroSlide) {
+          slide.classList.add("active");
+        } else {
+          slide.classList.remove("active");
+        }
+      }
+      if (dot) {
+        if (i === currentHeroSlide) {
+          dot.classList.add("active");
+        } else {
+          dot.classList.remove("active");
+        }
+      }
+    }
+  }
+
+  function startHeroSlideTimer() {
+    if (heroSlideInterval) clearInterval(heroSlideInterval);
+    heroSlideInterval = setInterval(() => {
+      window.nextHeroSlide();
+    }, 5500);
+  }
+
+  window.pauseHeroSlideTimer = function () {
+    if (heroSlideInterval) clearInterval(heroSlideInterval);
+  };
+
+  window.resumeHeroSlideTimer = function () {
+    startHeroSlideTimer();
+  };
+
+  // ==========================================================================
+  // FEATURED PRODUCT: THE CHRONICLES DECK (TOPDECK.SHOP)
+  // ==========================================================================
+  let chroniclesQty = 1;
+
+  window.adjustChroniclesQty = function (delta) {
+    chroniclesQty = Math.max(1, Math.min(10, chroniclesQty + delta));
+    const el = document.getElementById("chroniclesQtyDisplay");
+    if (el) el.textContent = chroniclesQty;
+  };
+
+  window.buyChroniclesDeck = function () {
+    const item = {
+      id: "chronicles-deck-" + Date.now(),
+      name: "THE CHRONICLES DECK: The Fallen & The Virtuous",
+      set: "CH01",
+      condition: "NM Sealed",
+      priceUsd: 28.50,
+      priceCop: 120000,
+      finalPriceCop: 120000 * chroniclesQty,
+      finalPriceUsd: 28.50 * chroniclesQty,
+      image: "https://www.topdeck.shop/cdn/shop/files/CH01-Tuck-01-EN_8f9ff6e9-b915-4b75-bdd7-955224807536.webp?v=1760571011&width=800",
+      selectedCondition: "Sealed",
+      selectedFoil: true,
+      isFoil: true,
+      qty: chroniclesQty
+    };
+    state.cart.push(item);
+    updateCartBadges();
+    window.showTavernToast(`¡${chroniclesQty}x The Chronicles Deck agregado a tu orden de la taberna!`, "📦");
+    window.openPersonalBinderCart();
+  };
+
+  // ==========================================================================
+  // NEWSLETTER SUBSCRIPTION HANDLER
+  // ==========================================================================
+  window.subscribeNewsletter = function (e) {
+    if (e) e.preventDefault();
+    const input = document.getElementById("newsletterEmailInput");
+    const email = input ? input.value.trim() : "";
+    if (!email || !email.includes("@")) {
+      window.showTavernToast("Por favor ingresa un correo electrónico válido.", "⚠️");
+      return;
+    }
+    if (input) input.value = "";
+    window.showTavernToast(`¡Bienvenido al gremio! Se enviaron las alertas a ${email}`, "📬");
+  };
+
+  // ==========================================================================
   // INITIALIZATION ON DOM READY
   // ==========================================================================
   document.addEventListener("DOMContentLoaded", () => {
@@ -1958,6 +2062,7 @@
     updateCartBadges();
     setup3DTactileStage();
     renderPwaCurrentSection();
+    startHeroSlideTimer();
 
     // Close modals with Escape key
     document.addEventListener("keydown", (e) => {

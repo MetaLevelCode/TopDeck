@@ -51,79 +51,96 @@
 <body class="bg-dark-roast text-parchment-white selection:bg-clay-terracotta selection:text-parchment-white">
 
   <!-- ========================================================================
-       TOP ANNOUNCEMENT BAR (TICKER DE LA TABERNA)
+       TOP ANNOUNCEMENT BAR (TOPDECK.SHOP OFFICIAL TICKER)
        ======================================================================== -->
-  <header class="bg-[#1E140E] text-latte-gray py-2 px-4 border-b-2 border-cocoa-gray overflow-hidden text-xs font-mono">
+  <header class="bg-[#1E140E] text-latte-gray py-2.5 px-4 border-b-2 border-cocoa-gray overflow-hidden text-xs font-mono">
     <div class="flex items-center space-x-8 animate-ticker">
       <span class="inline-flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-clay-terracotta animate-pulse"></span>
-        <strong class="text-parchment-white">BÓVEDA TOPDECK TCG:</strong> +27,000 cartas de Magic: The Gathering sincronizadas en vivo con Scryfall API
+        <strong class="text-parchment-white">🚚 ENVÍOS A TODO COLOMBIA:</strong> Despachos rápidos y seguros a nivel nacional desde Pereira
       </span>
-      <span>•</span>
+      <span class="text-cocoa-gray">•</span>
+      <span class="inline-flex items-center gap-2">
+        <span class="text-fresh-sage">🎲</span>
+        <strong class="text-fresh-sage">BIENVENIDO AL UNIVERSO DE LOS TCG:</strong> Encuentra todo referente a juegos coleccionables aquí 🎴
+      </span>
+      <span class="text-cocoa-gray">•</span>
+      <span class="inline-flex items-center gap-2">
+        <span class="text-clay-terracotta">🦊</span>
+        <span>Deckster: Tu archivista gremial con sincronización en vivo Scryfall API (+27,000 cartas)</span>
+      </span>
+      <span class="text-cocoa-gray">•</span>
       <span class="inline-flex items-center gap-2">
         <span class="text-fresh-sage">🛡️</span>
-        <span>Fundas Dragon Shield de cortesía en cada pedido de la taberna</span>
+        <span>Fundas Dragon Shield oficiales de cortesía en compras de singles</span>
       </span>
-      <span>•</span>
+      <span class="text-cocoa-gray">•</span>
       <span class="inline-flex items-center gap-2">
-        <span class="text-clay-terracotta">📦</span>
-        <span>Despacho seguro en cofre rígido y camión expreso a toda Colombia</span>
-      </span>
-      <span>•</span>
-      <span class="inline-flex items-center gap-2">
-        <span class="text-botanical-green">🦊</span>
-        <span>Dexter: Tu archivista gremial con filtros por maná, tipo y sinergias</span>
+        <span class="text-clay-terracotta">📍</span>
+        <span>Sede física en Pereira, Risaralda • Torneos semanales, cafetería y juego libre</span>
       </span>
     </div>
   </header>
 
   <!-- ========================================================================
-       TOP DECK TAVERN NAVIGATION BAR
+       TOP DECK OFFICIAL NAVIGATION BAR (TOPDECK.SHOP STYLE)
        ======================================================================== -->
-  <nav class="sticky top-0 z-40 bg-dark-roast/95 backdrop-blur-md border-b-2 border-cocoa-gray px-4 md:px-8 py-3.5 shadow-lg">
+  <nav class="sticky top-0 z-40 bg-dark-roast/95 backdrop-blur-md border-b-2 border-cocoa-gray px-4 md:px-8 py-3 shadow-lg">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
-      <!-- Brand Logo & Identity -->
-      <a class="flex items-center gap-3.5 group" href="#">
-        <div class="w-12 h-12 bg-mocha-brown border-2 border-cocoa-gray shadow-md flex items-center justify-center p-1.5 rounded-xl group-hover:border-clay-terracotta transition-all">
+      <!-- Brand Logo & Identity from topdeck.shop CDN -->
+      <a class="flex items-center gap-3 group" href="#">
+        <div class="w-12 h-12 bg-mocha-brown border-2 border-cocoa-gray shadow-md flex items-center justify-center p-1 rounded-xl group-hover:border-clay-terracotta transition-all">
           <img alt="Top Deck Logo" class="w-full h-full object-contain"
-               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkdiEWUQPno7swEO78yHJsjV-wHx785OBu8xuLnW68dUO7se10TJRqjjm_rcWahKqi87PRJRGe3Cj_Mz94DbTwGvOCZjGm-CnSdDUZzyXOqs3rru8lsTCJvBhFY4nbaXlScCZ8q7GvHfaTefRHF2KB-OGL0Ryd64onx0sD85oloI8521RCEK8u_dfENe3UePDRHoT-89_aBK3EZtUgjTlSQ0Kq_gqmEAIBizOnrDKT7JrbcxiPobCPijGpgNOIOZpyQ">
+               src="https://www.topdeck.shop/cdn/shop/files/logo_800_x_800_fondo_reducido.png?v=1651003954&width=300">
         </div>
         <div>
           <div class="flex items-center gap-2">
             <span class="font-display text-2xl md:text-3xl text-parchment-white font-bold tracking-tight">TOP DECK</span>
-            <span class="font-body-sans text-[11px] bg-clay-terracotta text-parchment-white px-2 py-0.5 rounded-xl font-bold tracking-wider uppercase">TCG VAULT</span>
+            <span class="font-body-sans text-[11px] bg-clay-terracotta text-parchment-white px-2 py-0.5 rounded-xl font-bold tracking-wider uppercase">OFICIAL</span>
           </div>
-          <span class="text-[12px] font-bold text-latte-gray tracking-wider uppercase block font-body-sans">
-            Organic Coffee &amp; Botany • Competitivo &amp; Coleccionismo
+          <span class="text-[11px] font-bold text-latte-gray tracking-wider uppercase block font-body-sans">
+            Juegos Coleccionables • Pereira, Colombia
           </span>
         </div>
       </a>
 
-      <!-- Center: Dual Experience Switcher (Web Virtual vs PWA Presencial) -->
-      <div class="flex items-center gap-1.5 bg-mocha-brown p-1.5 border-2 border-cocoa-gray rounded-xl shadow-inner">
-        <button id="switchBtnWeb" onclick="switchPlatform('web')"
-          class="nav-pill active text-xs sm:text-sm px-4 sm:px-5 py-2 font-bold rounded-xl shadow-md">
-          <span>💻</span>
-          <span class="hidden sm:inline">1. TIENDA VIRTUAL (WEB 3D)</span>
-          <span class="sm:hidden">1. WEB 3D</span>
-        </button>
-        <button id="switchBtnPwa" onclick="switchPlatform('pwa')"
-          class="nav-pill text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-xl text-latte-gray hover:text-parchment-white">
-          <span>📱</span>
-          <span class="hidden sm:inline">2. COMPAÑERO EN MESA (PWA)</span>
-          <span class="sm:hidden">2. PWA LOCAL</span>
-        </button>
+      <!-- Center: Main Navigation Categories from topdeck.shop -->
+      <div class="hidden xl:flex items-center gap-2 font-body-sans text-xs font-bold uppercase tracking-wide">
+        <a href="#heroSlideshowSection" class="px-3 py-1.5 text-latte-gray hover:text-parchment-white hover:bg-mocha-brown rounded-lg transition-colors">Destacados</a>
+        <a href="#tcgCategoriesSection" class="px-3 py-1.5 text-latte-gray hover:text-parchment-white hover:bg-mocha-brown rounded-lg transition-colors">Juegos TCG</a>
+        <a href="#featuredProductSection" class="px-3 py-1.5 text-latte-gray hover:text-parchment-white hover:bg-mocha-brown rounded-lg transition-colors">The Chronicles</a>
+        <a href="#carpetasSection" class="px-3 py-1.5 text-clay-terracotta hover:text-parchment-white hover:bg-mocha-brown rounded-lg transition-colors">Bóveda Singles</a>
+        <a href="#selladoSection" class="px-3 py-1.5 text-latte-gray hover:text-parchment-white hover:bg-mocha-brown rounded-lg transition-colors">Sellado</a>
+        <a href="#quienesSomosSection" class="px-3 py-1.5 text-latte-gray hover:text-parchment-white hover:bg-mocha-brown rounded-lg transition-colors">Quiénes Somos</a>
+        <a href="#reviewsSection" class="px-3 py-1.5 text-fresh-sage hover:text-parchment-white hover:bg-mocha-brown rounded-lg transition-colors">Reseñas ⭐</a>
       </div>
 
-      <!-- Quick Actions: Cart / Loot Binder -->
+      <!-- Right: Dual Experience Switcher + Cart -->
       <div class="flex items-center gap-3">
+        <!-- Dual Experience Switcher (Web Virtual vs PWA Presencial) -->
+        <div class="flex items-center gap-1 bg-mocha-brown p-1 border-2 border-cocoa-gray rounded-xl shadow-inner">
+          <button id="switchBtnWeb" onclick="switchPlatform('web')"
+            class="btn-primary text-xs px-3 sm:px-4 py-1.5 font-bold rounded-xl shadow-md">
+            <span>💻</span>
+            <span class="hidden sm:inline">TIENDA WEB</span>
+            <span class="sm:hidden">WEB</span>
+          </button>
+          <button id="switchBtnPwa" onclick="switchPlatform('pwa')"
+            class="nav-pill text-xs px-3 sm:px-4 py-1.5 rounded-xl text-latte-gray hover:text-parchment-white">
+            <span>📱</span>
+            <span class="hidden sm:inline">PWA EN MESA</span>
+            <span class="sm:hidden">PWA</span>
+          </button>
+        </div>
+
+        <!-- Quick Cart / Personal Binder Button -->
         <button onclick="openPersonalBinderCart()"
-          class="btn-secondary text-xs sm:text-sm px-4 py-2 font-bold rounded-xl shadow-lg">
+          class="btn-secondary text-xs sm:text-sm px-3.5 py-1.5 font-bold rounded-xl shadow-lg flex items-center gap-2">
           <span class="text-base">🎒</span>
-          <span class="hidden md:inline">MI BARAJA</span>
+          <span class="hidden sm:inline">MI ORDEN</span>
           <span id="headerCartCount" class="bg-dark-roast text-parchment-white px-2 py-0.5 rounded-lg text-xs font-mono font-bold">0</span>
-          <span id="headerCartTotal" class="hidden lg:inline text-xs font-mono text-fresh-sage font-bold">($0.00)</span>
+          <span id="headerCartTotal" class="hidden md:inline text-xs font-mono text-fresh-sage font-bold">($0 COP)</span>
         </button>
       </div>
 
@@ -131,87 +148,384 @@
   </nav>
 
   <!-- ========================================================================
-       PLATAFORMA 1: WEB VIRTUAL (EXPERIENCIA INMERSIVA 3D DE TABERNA)
+       PLATAFORMA 1: WEB VIRTUAL (LANDING PAGE DE TOPDECK.SHOP)
        ======================================================================== -->
-  <main id="platformWebView" class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-12">
+  <main id="platformWebView" class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 space-y-12">
 
-    <!-- HERO SECTION: Organic Coffee & Botany — Hero Canvas -->
-    <section class="tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-2xl p-6 md:p-10 relative overflow-hidden">
-      <!-- Ambient warm terracotta glow overlay -->
-      <div class="absolute -top-24 -right-24 w-96 h-96 bg-clay-terracotta/10 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- ======================================================================
+         SECTION 1: HERO SLIDESHOW (TOPDECK.SHOP 5 OFFICIAL BANNERS)
+         ====================================================================== -->
+    <section id="heroSlideshowSection" class="relative tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-3xl overflow-hidden shadow-2xl"
+             onmouseenter="pauseHeroSlideTimer()" onmouseleave="resumeHeroSlideTimer()">
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+      <div class="relative w-full min-h-[460px] md:min-h-[520px] lg:min-h-[560px] flex items-center overflow-hidden">
 
-        <!-- Left Column: Copy & Value Proposition -->
-        <div class="lg:col-span-7 space-y-5 max-w-2xl">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-dark-roast border-2 border-clay-terracotta rounded-xl shadow-sm">
-            <span class="text-xs font-mono font-bold text-clay-terracotta">✦ SANTUARIO GREMIAL TCG</span>
-            <span class="text-xs text-latte-gray font-body-sans">• La magia del local en tu pantalla</span>
-          </div>
-
-          <h1 class="hero-headline font-body-sans font-bold text-2xl sm:text-3xl md:text-[32px] text-parchment-white leading-tight">
-            La Bóveda Digital que se Hojea como una <span class="text-clay-terracotta underline decoration-brick-terracotta decoration-2">Carpeta Real</span>
-          </h1>
-
-          <p class="body-paragraph text-parchment-white text-base md:text-[17px] leading-relaxed font-body-sans">
-            Transmite toda la calidez y magia del local físico de <strong>TopDeck</strong>. Explora catálogos sincronizados en vivo con <strong>Scryfall API</strong> (+27,000 cartas de Magic), manipula cartas en <strong>3D táctil con grosor real</strong> y foil holográfico, y despacha tus compras enfundadas con lacre oficial.
-          </p>
-
-          <!-- CTAs -->
-          <div class="flex flex-wrap gap-3.5 pt-2">
-            <a class="btn-primary tavern-btn-terracotta text-sm"
-               href="#carpetasSection">
-              <span>📖</span>
-              <span>HOJEAR CARPETA</span>
-            </a>
-            <a class="btn-secondary tavern-btn-herb text-sm"
-               href="#selladoSection">
-              <span>📦</span>
-              <span>PRODUCTO SELLADO</span>
-            </a>
-            <button onclick="switchPlatform('pwa')"
-              class="nav-pill text-sm">
-              <span>📱</span>
-              <span>APP PWA DE MESA</span>
-            </button>
+        <!-- SLIDE 1: Los Mazos Legendarios 5Ds ya estan aqui (Yu-Gi-Oh!) -->
+        <div id="heroSlide-0" class="hero-slide active w-full h-full flex flex-col justify-end p-6 sm:p-10 md:p-14 z-10">
+          <div class="hero-slide-bg" style="background-image: linear-gradient(to top, rgba(30, 20, 14, 0.95) 15%, rgba(44, 30, 22, 0.65) 55%, rgba(44, 30, 22, 0.3) 100%), url('https://www.topdeck.shop/cdn/shop/files/legendary-5ds-deck-collection_88d4547f-81a7-4b62-a57e-e71e4d510280.webp?v=1764286537&width=1600');"></div>
+          <div class="relative z-20 max-w-2xl space-y-3.5">
+            <span class="inline-flex items-center gap-2 px-3 py-1 bg-clay-terracotta text-parchment-white font-mono text-xs font-bold rounded-xl uppercase tracking-wider shadow">
+              🐉 YU-GI-OH! TCG • LANZAMIENTO OFICIAL
+            </span>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-parchment-white leading-tight drop-shadow-md">
+              Los Mazos Legendarios 5D's ya están aquí
+            </h2>
+            <p class="body-paragraph text-latte-gray text-base md:text-lg font-body-sans leading-relaxed">
+              Y junto a ellos un montón de cartas staple indispensables para el juego competitivo moderno.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="#selladoSection" class="btn-primary text-sm font-bold shadow-lg">
+                <span>🛒</span>
+                <span>COMPRAR MAZOS 5D'S</span>
+              </a>
+              <a href="#carpetasSection" class="btn-secondary text-sm font-bold">
+                <span>📖</span>
+                <span>VER SINGLES YUGIOH</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        <!-- Right Column: Dexter The Fox Wizard (RPG Tavern Dialogue) -->
-        <div class="lg:col-span-5 flex flex-col items-center">
-          <div class="rpg-window p-5 bg-dark-roast border-2 border-clay-terracotta rounded-2xl w-full relative shadow-xl">
-            <div class="flex items-start gap-4">
-              <!-- Dexter's Official Portrait -->
-              <div class="w-20 h-24 sm:w-24 sm:h-28 bg-mocha-brown border-2 border-clay-terracotta rounded-xl shadow-lg shrink-0 overflow-hidden relative">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw"
-                     alt="Dexter El Zorro Mago" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-dark-roast/90 text-clay-terracotta font-mono text-[9px] text-center py-0.5 font-bold">DEXTER</span>
-              </div>
+        <!-- SLIDE 2: LA HISTORIA EN UN MAZO (The Chronicles Deck) -->
+        <div id="heroSlide-1" class="hero-slide w-full h-full flex flex-col justify-end p-6 sm:p-10 md:p-14 z-10">
+          <div class="hero-slide-bg" style="background-image: linear-gradient(to top, rgba(30, 20, 14, 0.95) 15%, rgba(44, 30, 22, 0.65) 55%, rgba(44, 30, 22, 0.3) 100%), url('https://www.topdeck.shop/cdn/shop/files/fallen.jpg?v=1760595313&width=1600');"></div>
+          <div class="relative z-20 max-w-2xl space-y-3.5">
+            <span class="inline-flex items-center gap-2 px-3 py-1 bg-botanical-green text-parchment-white font-mono text-xs font-bold rounded-xl uppercase tracking-wider shadow">
+              ✨ EDICIÓN DE COLECCIÓN • EN STOCK
+            </span>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-parchment-white leading-tight drop-shadow-md">
+              LA HISTORIA EN UN MAZO
+            </h2>
+            <p class="body-paragraph text-latte-gray text-base md:text-lg font-body-sans leading-relaxed">
+              Fallen &amp; The Virtuous ya está al alcance de tu mano. Descubre la narrativa completa de Albaz.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="#featuredProductSection" class="btn-primary text-sm font-bold shadow-lg">
+                <span>📦</span>
+                <span>REVISAR COLECCIÓN ($120.000 COP)</span>
+              </a>
+              <a href="#collageSection" class="btn-secondary text-sm font-bold">
+                <span>🎬</span>
+                <span>VER TRAILER DE HISTORIA</span>
+              </a>
+            </div>
+          </div>
+        </div>
 
-              <!-- Dialogue Speech Bubble -->
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center justify-between mb-1">
-                  <span id="dexterSpeechBadge" class="font-body-sans text-[11px] bg-clay-terracotta text-parchment-white px-2.5 py-0.5 rounded-lg font-bold uppercase tracking-wider">
-                    🦊 ARCHIVISTA GREMIAL
-                  </span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-botanical-green animate-ping" title="En línea"></span>
-                </div>
-                <h4 class="font-display text-lg font-bold text-clay-terracotta">"¡Saludos, caminante de planos!"</h4>
-                <p id="dexterSpeechText" class="text-sm text-parchment-white leading-relaxed mt-1 font-body-sans">
-                  Soy Dexter, el guardián de la taberna. Dime qué carta buscas o filtra por maná y sinergias abajo. Deslizaré las cartas de los bolsillos para que las toques en 3D.
-                </p>
-              </div>
+        <!-- SLIDE 3: ¡AMIGABLE, ASOMBROSO, ESPECTACULAR! (Spider-Man x MTG) -->
+        <div id="heroSlide-2" class="hero-slide w-full h-full flex flex-col justify-end p-6 sm:p-10 md:p-14 z-10">
+          <div class="hero-slide-bg" style="background-image: linear-gradient(to top, rgba(30, 20, 14, 0.95) 15%, rgba(44, 30, 22, 0.65) 55%, rgba(44, 30, 22, 0.3) 100%), url('https://www.topdeck.shop/cdn/shop/files/cover-1740785115425.jpg?v=1760654478&width=1600');"></div>
+          <div class="relative z-20 max-w-2xl space-y-3.5">
+            <span class="inline-flex items-center gap-2 px-3 py-1 bg-clay-terracotta text-parchment-white font-mono text-xs font-bold rounded-xl uppercase tracking-wider shadow">
+              🕸️ MAGIC: THE GATHERING • UNIVERSES BEYOND
+            </span>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-parchment-white leading-tight drop-shadow-md">
+              ¡AMIGABLE, ASOMBROSO, ESPECTACULAR!
+            </h2>
+            <p class="body-paragraph text-latte-gray text-base md:text-lg font-body-sans leading-relaxed">
+              Toda la colección de Spider-Man x Magic: The Gathering está disponible en la bóveda de TopDeck.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="#carpetasSection" class="btn-primary text-sm font-bold shadow-lg">
+                <span>🔮</span>
+                <span>EXPLORAR SINGLES EN VIVO</span>
+              </a>
+              <a href="#selladoSection" class="btn-secondary text-sm font-bold">
+                <span>📦</span>
+                <span>BOOSTER BOXES MTG</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: BT23 | Hacker's Slumber (Digimon Card Game) -->
+        <div id="heroSlide-3" class="hero-slide w-full h-full flex flex-col justify-end p-6 sm:p-10 md:p-14 z-10">
+          <div class="hero-slide-bg" style="background-image: linear-gradient(to top, rgba(30, 20, 14, 0.95) 15%, rgba(44, 30, 22, 0.65) 55%, rgba(44, 30, 22, 0.3) 100%), url('https://www.topdeck.shop/cdn/shop/files/mv.jpg?v=1760736014&width=1600');"></div>
+          <div class="relative z-20 max-w-2xl space-y-3.5">
+            <span class="inline-flex items-center gap-2 px-3 py-1 bg-botanical-green text-parchment-white font-mono text-xs font-bold rounded-xl uppercase tracking-wider shadow">
+              👾 DIGIMON CARD GAME • NUEVA EXPANSIÓN
+            </span>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-parchment-white leading-tight drop-shadow-md">
+              BT23 | Hacker's Slumber
+            </h2>
+            <p class="body-paragraph text-latte-gray text-base md:text-lg font-body-sans leading-relaxed">
+              La nueva colección de Digimon ya está aquí con arte alternativo de lujo y cartas secret rare.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <button onclick="window.showTavernToast('BT23 Digimon Card Game disponible para despacho nacional.', '👾')"
+                class="btn-primary text-sm font-bold shadow-lg">
+                <span>🛒</span>
+                <span>COMPRAR DIGIMON BT23</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 5: ÉL YA ESTÁ CARGANDO CON SU RESPONSABILIDAD (One Piece OP-13) -->
+        <div id="heroSlide-4" class="hero-slide w-full h-full flex flex-col justify-end p-6 sm:p-10 md:p-14 z-10">
+          <div class="hero-slide-bg" style="background-image: linear-gradient(to top, rgba(30, 20, 14, 0.95) 15%, rgba(44, 30, 22, 0.65) 55%, rgba(44, 30, 22, 0.3) 100%), url('https://www.topdeck.shop/cdn/shop/files/mv_541328b4-4753-44c1-b96b-ec83a5358a2c.webp?v=1761173654&width=1600');"></div>
+          <div class="relative z-20 max-w-2xl space-y-3.5">
+            <span class="inline-flex items-center gap-2 px-3 py-1 bg-clay-terracotta text-parchment-white font-mono text-xs font-bold rounded-xl uppercase tracking-wider shadow">
+              🏴‍☠️ ONE PIECE CARD GAME • PRE-ORDEN ABIERTA
+            </span>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-parchment-white leading-tight drop-shadow-md">
+              ÉL YA ESTÁ CARGANDO CON SU RESPONSABILIDAD
+            </h2>
+            <p class="body-paragraph text-latte-gray text-base md:text-lg font-body-sans leading-relaxed">
+              La nueva colección de One Piece [OP13] Carrying on His Will ya está aquí. Reserva tu cupo antes del sold out.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <button onclick="window.showTavernToast('Pre-orden de One Piece OP13 registrada. Cupo reservado.', '🏴‍☠️')"
+                class="btn-primary text-sm font-bold shadow-lg">
+                <span>⚡</span>
+                <span>PRE-ORDENAR OP-13</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Slideshow Navigation Arrows -->
+      <button onclick="prevHeroSlide()" aria-label="Diapositiva Anterior"
+        class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 bg-dark-roast/80 hover:bg-clay-terracotta text-parchment-white border-2 border-cocoa-gray rounded-full flex items-center justify-center transition-all shadow-xl backdrop-blur-sm cursor-pointer">
+        ❮
+      </button>
+      <button onclick="nextHeroSlide()" aria-label="Diapositiva Siguiente"
+        class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 bg-dark-roast/80 hover:bg-clay-terracotta text-parchment-white border-2 border-cocoa-gray rounded-full flex items-center justify-center transition-all shadow-xl backdrop-blur-sm cursor-pointer">
+        ❯
+      </button>
+
+      <!-- Carousel Dot Indicators -->
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5 bg-dark-roast/90 px-4 py-2 border-2 border-cocoa-gray rounded-full shadow-lg backdrop-blur-md">
+        <button onclick="goToHeroSlide(0)" id="heroDot-0" class="hero-dot active" aria-label="Slide 1"></button>
+        <button onclick="goToHeroSlide(1)" id="heroDot-1" class="hero-dot" aria-label="Slide 2"></button>
+        <button onclick="goToHeroSlide(2)" id="heroDot-2" class="hero-dot" aria-label="Slide 3"></button>
+        <button onclick="goToHeroSlide(3)" id="heroDot-3" class="hero-dot" aria-label="Slide 4"></button>
+        <button onclick="goToHeroSlide(4)" id="heroDot-4" class="hero-dot" aria-label="Slide 5"></button>
+      </div>
+
+    </section>
+
+    <!-- ======================================================================
+         SECTION 2: TCG CATEGORIES QUICK GRID (EXPLORAR POR JUEGO)
+         ====================================================================== -->
+    <section id="tcgCategoriesSection" class="space-y-4">
+      <div class="flex items-center justify-between border-b-2 border-cocoa-gray pb-2.5">
+        <div>
+          <span class="font-mono text-xs text-fresh-sage font-bold uppercase tracking-wider">✦ CATEGORÍAS PRINCIPALES</span>
+          <h2 class="font-display font-bold text-2xl md:text-3xl text-clay-terracotta mt-0.5">Explora tus Juegos Favoritos</h2>
+        </div>
+        <span class="text-xs text-latte-gray font-body-sans hidden sm:inline">Tienda física &amp; digital en Pereira</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
+        <a href="#carpetasSection" class="tavern-box bg-mocha-brown hover:bg-dark-roast border-2 border-cocoa-gray hover:border-clay-terracotta p-3 rounded-2xl flex flex-col items-center text-center transition-all group shadow-sm">
+          <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">🔮</span>
+          <span class="font-display text-xs font-bold text-parchment-white">Magic: MTG</span>
+          <span class="text-[10px] text-fresh-sage font-mono mt-0.5">Scryfall Live</span>
+        </a>
+        <a href="#carpetasSection" class="tavern-box bg-mocha-brown hover:bg-dark-roast border-2 border-cocoa-gray hover:border-fresh-sage p-3 rounded-2xl flex flex-col items-center text-center transition-all group shadow-sm">
+          <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">⚡</span>
+          <span class="font-display text-xs font-bold text-parchment-white">Pokémon JCC</span>
+          <span class="text-[10px] text-latte-gray font-mono mt-0.5">Stellar Crown</span>
+        </a>
+        <a href="#carpetasSection" class="tavern-box bg-mocha-brown hover:bg-dark-roast border-2 border-cocoa-gray hover:border-clay-terracotta p-3 rounded-2xl flex flex-col items-center text-center transition-all group shadow-sm">
+          <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">🏴‍☠️</span>
+          <span class="font-display text-xs font-bold text-parchment-white">One Piece</span>
+          <span class="text-[10px] text-clay-terracotta font-mono mt-0.5">OP-08 &amp; OP-13</span>
+        </a>
+        <a href="#featuredProductSection" class="tavern-box bg-mocha-brown hover:bg-dark-roast border-2 border-cocoa-gray hover:border-clay-terracotta p-3 rounded-2xl flex flex-col items-center text-center transition-all group shadow-sm">
+          <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">🐉</span>
+          <span class="font-display text-xs font-bold text-parchment-white">Yu-Gi-Oh!</span>
+          <span class="text-[10px] text-fresh-sage font-mono mt-0.5">Chronicles</span>
+        </a>
+        <button onclick="window.showTavernToast('Digimon Card Game disponible en tienda.', '👾')"
+          class="tavern-box bg-mocha-brown hover:bg-dark-roast border-2 border-cocoa-gray hover:border-clay-terracotta p-3 rounded-2xl flex flex-col items-center text-center transition-all group shadow-sm cursor-pointer">
+          <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">👾</span>
+          <span class="font-display text-xs font-bold text-parchment-white">Digimon</span>
+          <span class="text-[10px] text-latte-gray font-mono mt-0.5">BT23</span>
+        </button>
+        <button onclick="window.showTavernToast('Dragon Ball Fusion World disponible en tienda.', '💥')"
+          class="tavern-box bg-mocha-brown hover:bg-dark-roast border-2 border-cocoa-gray hover:border-clay-terracotta p-3 rounded-2xl flex flex-col items-center text-center transition-all group shadow-sm cursor-pointer">
+          <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">💥</span>
+          <span class="font-display text-xs font-bold text-parchment-white">Dragon Ball</span>
+          <span class="text-[10px] text-latte-gray font-mono mt-0.5">Fusion World</span>
+        </button>
+        <a href="#selladoSection" class="tavern-box bg-mocha-brown hover:bg-dark-roast border-2 border-cocoa-gray hover:border-botanical-green p-3 rounded-2xl flex flex-col items-center text-center transition-all group shadow-sm">
+          <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">🛡️</span>
+          <span class="font-display text-xs font-bold text-parchment-white">Accesorios</span>
+          <span class="text-[10px] text-fresh-sage font-mono mt-0.5">Dragon Shield</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 3: FEATURED PRODUCT (TOPDECK.SHOP — THE CHRONICLES DECK)
+         ====================================================================== -->
+    <section id="featuredProductSection" class="tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl relative overflow-hidden">
+      <!-- Glow decoration -->
+      <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-clay-terracotta/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+
+        <!-- Product Image Showcase -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative bg-dark-roast border-2 border-cocoa-gray rounded-2xl p-6 shadow-2xl max-w-sm w-full group">
+            <span class="absolute top-3 left-3 bg-clay-terracotta text-parchment-white font-mono text-[10px] px-2.5 py-1 rounded-xl font-bold uppercase shadow">
+              PRODUCTO DESTACADO
+            </span>
+            <div class="aspect-[4/5] overflow-hidden rounded-xl flex items-center justify-center p-4">
+              <img src="https://www.topdeck.shop/cdn/shop/files/CH01-Tuck-01-EN_8f9ff6e9-b915-4b75-bdd7-955224807536.webp?v=1760571011&width=800"
+                   alt="THE CHRONICLES DECK: The Fallen & The Virtuous"
+                   class="w-full h-full object-contain filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="text-center pt-2 border-t-2 border-cocoa-gray">
+              <span class="font-mono text-xs text-fresh-sage font-bold">✨ Empaque sellado de fábrica Tuck-box oficial</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Details & Cart Action -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-dark-roast border-2 border-clay-terracotta rounded-xl">
+            <span class="font-mono text-xs text-clay-terracotta font-bold">TOP DECK JUEGOS COLECCIONABLES</span>
+            <span class="text-cocoa-gray">•</span>
+            <span class="text-xs text-latte-gray font-body-sans">Konami Yu-Gi-Oh!</span>
+          </div>
+
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-parchment-white leading-tight">
+            THE CHRONICLES DECK: The Fallen &amp; The Virtuous
+          </h2>
+
+          <div class="flex items-baseline gap-3">
+            <span class="font-mono text-3xl sm:text-4xl font-extrabold text-clay-terracotta">
+              $120.000 COP
+            </span>
+            <span class="font-mono text-xs text-latte-gray bg-dark-roast px-2 py-0.5 rounded border border-cocoa-gray">
+              IVA Incluido
+            </span>
+            <span class="font-body-sans text-xs text-fresh-sage font-bold">
+              ✓ En Stock para Despacho Inmediato
+            </span>
+          </div>
+
+          <p class="body-paragraph text-latte-gray text-sm md:text-base leading-relaxed font-body-sans">
+            La historia más esperada del universo Yu-Gi-Oh! por fin completa en un solo mazo estructurado de colección. Incluye las cartas clave de Albaz, Ecclesia y los Dogmatika con acabados holográficos especiales.
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1">
+            <div class="bg-dark-roast border-2 border-cocoa-gray p-2.5 rounded-xl">
+              <span class="block text-[10px] text-latte-gray uppercase font-body-sans">Idioma</span>
+              <strong class="font-mono text-xs text-parchment-white">Inglés Oficial</strong>
+            </div>
+            <div class="bg-dark-roast border-2 border-cocoa-gray p-2.5 rounded-xl">
+              <span class="block text-[10px] text-latte-gray uppercase font-body-sans">Garantía</span>
+              <strong class="font-mono text-xs text-parchment-white">Sellado 100%</strong>
+            </div>
+            <div class="bg-dark-roast border-2 border-cocoa-gray p-2.5 rounded-xl col-span-2 sm:col-span-1">
+              <span class="block text-[10px] text-latte-gray uppercase font-body-sans">Origen</span>
+              <strong class="font-mono text-xs text-fresh-sage">Pereira, CO</strong>
+            </div>
+          </div>
+
+          <!-- Quantity Stepper & Buy Button -->
+          <div class="pt-3 flex flex-wrap items-center gap-4">
+            <div class="flex items-center bg-dark-roast border-2 border-cocoa-gray rounded-xl p-1 shadow-inner">
+              <button onclick="adjustChroniclesQty(-1)" class="w-9 h-9 text-clay-terracotta hover:bg-mocha-brown text-lg font-bold rounded-lg flex items-center justify-center transition-colors">-</button>
+              <span id="chroniclesQtyDisplay" class="w-10 text-center font-mono font-bold text-sm text-parchment-white">1</span>
+              <button onclick="adjustChroniclesQty(1)" class="w-9 h-9 text-fresh-sage hover:bg-mocha-brown text-lg font-bold rounded-lg flex items-center justify-center transition-colors">+</button>
             </div>
 
-            <!-- Quick Dexter Synergy Shortcuts -->
-            <div class="mt-4 pt-3.5 border-t-2 border-cocoa-gray">
-              <span class="text-xs font-bold text-latte-gray uppercase tracking-wider block mb-2 font-body-sans">
-                ⚡ Sinergias Estratégicas para tu Mazo:
-              </span>
-              <div id="dexterSynergyPills" class="flex flex-wrap gap-1.5">
-                <!-- Injected via JavaScript -->
-              </div>
+            <button onclick="buyChroniclesDeck()"
+              class="btn-primary text-sm sm:text-base px-6 py-3 font-bold rounded-xl shadow-xl flex items-center gap-2">
+              <span>🛒</span>
+              <span>COMPRAR AHORA (AGREGAR AL CARRITO)</span>
+            </button>
+          </div>
+
+          <p class="text-xs text-latte-gray font-body-sans pt-1">
+            * Los gastos de envío se calculan en la pantalla de pago. Empaque anti-impacto rígido garantizado por la taberna.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 4: COLLAGE — LA HISTORIA MÁS ALLÁ DE LAS CARTAS (ANIMATION)
+         ====================================================================== -->
+    <section id="collageSection" class="tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-cocoa-gray pb-4">
+        <div>
+          <span class="font-mono text-xs text-fresh-sage font-bold uppercase tracking-wider">✦ NARRATIVA &amp; LORE TOPDECK</span>
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-clay-terracotta mt-0.5">
+            La historia más allá de las cartas 🐲
+          </h2>
+        </div>
+        <p class="text-xs md:text-sm text-latte-gray font-body-sans max-w-md">
+          Conoce el trasfondo legendario que dio origen a The Chronicles: The Fallen &amp; The Virtuous.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- Banner Image -->
+        <div class="lg:col-span-6 overflow-hidden rounded-2xl border-2 border-cocoa-gray shadow-lg group">
+          <img src="https://www.topdeck.shop/cdn/shop/files/yu-gi-oh-card-game-the-chronicles.avif?v=1760595526&width=1200"
+               alt="Yu-Gi-Oh! Card Game The Chronicles"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+
+        <!-- Embedded YouTube Animation Video -->
+        <div class="lg:col-span-6 space-y-3">
+          <div class="aspect-video w-full rounded-2xl border-2 border-cocoa-gray overflow-hidden shadow-2xl bg-dark-roast">
+            <iframe class="w-full h-full"
+                    src="https://www.youtube.com/embed/T4ITsEq-x_M?enablejsapi=1"
+                    title="Yu-Gi-Oh! The Chronicles Animation"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+          </div>
+          <p class="text-xs text-latte-gray font-body-sans italic text-center">
+            Animación oficial de Konami The Chronicles — Vive la épica batalla de Albaz y Ecclesia.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 5: DEXTER ASSISTANT & HERO SEARCH VALUE PROPOSITION
+         ====================================================================== -->
+    <section class="tavern-box bg-dark-roast border-2 border-clay-terracotta rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+
+        <div class="lg:col-span-8 space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-mocha-brown border-2 border-clay-terracotta rounded-xl">
+            <span class="text-xs font-mono font-bold text-clay-terracotta">🦊 ARCHIVISTA GREMIAL DEXTER</span>
+            <span class="text-xs text-latte-gray font-body-sans">• Bóveda de Singles MTG en Vivo</span>
+          </div>
+          <h2 class="font-display font-bold text-2xl sm:text-3xl text-parchment-white">
+            ¿Buscas cartas individuales para tu mazo de Commander o Torneo?
+          </h2>
+          <p id="dexterSpeechText" class="body-paragraph text-latte-gray text-sm sm:text-base font-body-sans leading-relaxed">
+            Soy <strong>Dexter</strong>, el guardián de la taberna. Consulta más de 27,000 cartas sincronizadas al instante con Scryfall API. Desliza las cartas de los bolsillos para tocarlas en 3D táctil con grosor real de cartón.
+          </p>
+          <div class="pt-2">
+            <span class="text-xs font-bold text-latte-gray uppercase tracking-wider block mb-2 font-body-sans">
+              ⚡ Sinergias Estratégicas para tu Mazo:
+            </span>
+            <div id="dexterSynergyPills" class="flex flex-wrap gap-1.5">
+              <!-- Injected via JavaScript -->
             </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-4 flex justify-center">
+          <div class="w-32 h-40 sm:w-36 sm:h-44 bg-mocha-brown border-2 border-clay-terracotta rounded-2xl shadow-2xl p-2 relative overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw"
+                 alt="Dexter El Zorro Mago" class="w-full h-full object-cover rounded-xl">
+            <span class="absolute bottom-1 inset-x-2 bg-dark-roast/95 text-clay-terracotta font-mono text-[10px] text-center py-0.5 rounded font-bold border border-clay-terracotta/40">DEXTER</span>
           </div>
         </div>
 
@@ -641,6 +955,254 @@
       </div>
     </section>
 
+    <!-- ======================================================================
+         SECTION 5: RICH TEXT MISSION & STORY (TOPDECK.SHOP OFICIAL)
+         ====================================================================== -->
+    <section id="historiaSection" class="tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-3xl p-6 sm:p-10 md:p-12 shadow-xl relative overflow-hidden text-center max-w-5xl mx-auto space-y-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-dark-roast border-2 border-cocoa-gray rounded-full">
+        <span class="w-2.5 h-2.5 rounded-full bg-clay-terracotta"></span>
+        <span class="font-mono text-xs text-fresh-sage font-bold uppercase tracking-wider">✦ PASIÓN POR EL JUEGO • DESDE PEREIRA PARA TODA COLOMBIA</span>
+      </div>
+
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-parchment-white leading-tight">
+        Top Deck Juegos Coleccionables
+      </h2>
+
+      <p class="body-paragraph text-latte-gray text-base md:text-lg font-body-sans leading-relaxed max-w-3xl mx-auto">
+        En <strong class="text-parchment-white">Top Deck</strong> vivimos la pasión de los Trading Card Games tanto como tú. Nacimos en Pereira con el propósito de crear un verdadero punto de encuentro para la comunidad: un lugar donde encontrar las cartas más buscadas, probar tus mazos en torneos competitivos sancionados y acceder a las últimas novedades del mercado con la confianza de un producto 100% original, sellado de fábrica y despachado con la máxima protección anti-impacto a cualquier rincón del país.
+      </p>
+
+      <!-- 3 Feature Pillars -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 text-left">
+        <div class="bg-dark-roast border-2 border-cocoa-gray p-5 rounded-2xl space-y-2 hover:border-clay-terracotta transition-colors shadow-sm">
+          <div class="w-10 h-10 bg-mocha-brown border-2 border-clay-terracotta rounded-xl flex items-center justify-center text-xl shadow">
+            🛡️
+          </div>
+          <h3 class="font-display text-base font-bold text-parchment-white">Garantía de Autenticidad</h3>
+          <p class="text-xs text-latte-gray font-body-sans leading-relaxed">
+            Producto sellado oficial WPN, Konami, Bandai y The Pokémon Company directo de distribuidores autorizados. Cero réplicas ni sobres pesados.
+          </p>
+        </div>
+
+        <div class="bg-dark-roast border-2 border-cocoa-gray p-5 rounded-2xl space-y-2 hover:border-botanical-green transition-colors shadow-sm">
+          <div class="w-10 h-10 bg-mocha-brown border-2 border-botanical-green rounded-xl flex items-center justify-center text-xl shadow">
+            🚚
+          </div>
+          <h3 class="font-display text-base font-bold text-parchment-white">Envíos Rápidos &amp; Rígidos</h3>
+          <p class="text-xs text-latte-gray font-body-sans leading-relaxed">
+            Despachos diarios desde Pereira hacia Bogotá, Medellín, Cali, Barranquilla y todo el país en cajas rígidas y mangas protectoras anti-golpe.
+          </p>
+        </div>
+
+        <div class="bg-dark-roast border-2 border-cocoa-gray p-5 rounded-2xl space-y-2 hover:border-fresh-sage transition-colors shadow-sm">
+          <div class="w-10 h-10 bg-mocha-brown border-2 border-fresh-sage rounded-xl flex items-center justify-center text-xl shadow">
+            🤝
+          </div>
+          <h3 class="font-display text-base font-bold text-parchment-white">Comunidad &amp; Salón de Gremio</h3>
+          <p class="text-xs text-latte-gray font-body-sans leading-relaxed">
+            Espacios físicos con mesas climatizadas, buylist de cartas sueltas, asesoría experta con archivistas y torneos semanales con premios oficiales.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 6: VIDEO SHOWCASE — ¿QUIÉNES SOMOS? (SEDE FÍSICA PEREIRA)
+         ====================================================================== -->
+    <section id="quienesSomosSection" class="tavern-box bg-mocha-brown border-2 border-cocoa-gray rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-cocoa-gray pb-4">
+        <div>
+          <span class="font-mono text-xs text-fresh-sage font-bold uppercase tracking-wider">✦ NUESTRA SEDE EN PEREIRA</span>
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-clay-terracotta mt-0.5">
+            ¿Quiénes somos? Conoce la Casa de los Duelistas
+          </h2>
+        </div>
+        <p class="text-xs md:text-sm text-latte-gray font-body-sans max-w-md">
+          Más que una tienda, un hogar para la comunidad coleccionista y competitiva en Pereira, Risaralda.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Store Video Embed -->
+        <div class="lg:col-span-7">
+          <div class="aspect-video w-full rounded-2xl border-2 border-cocoa-gray overflow-hidden shadow-2xl bg-dark-roast relative group">
+            <iframe class="w-full h-full"
+                    src="https://www.youtube.com/embed/Tp2MpLeVoWk?enablejsapi=1"
+                    title="TopDeck ¿Quiénes somos? — Tienda física en Pereira"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <!-- Store Features & Atmosphere -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="space-y-2">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-dark-roast border border-cocoa-gray text-fresh-sage font-mono text-xs font-bold rounded-lg">
+              📍 PEREIRA, RISARALDA • COLOMBIA
+            </span>
+            <h3 class="font-display text-xl sm:text-2xl font-bold text-parchment-white">
+              Un santuario diseñado por jugadores para jugadores
+            </h3>
+            <p class="text-sm text-latte-gray font-body-sans leading-relaxed">
+              En nuestras instalaciones encontrarás vitrinas repletas de piezas codiciadas, mesas oficiales de torneo, zona de intercambio seguro y un ambiente cálido para compartir partidas inolvidables.
+            </p>
+          </div>
+
+          <div class="space-y-2.5 pt-1">
+            <div class="flex items-center gap-3 bg-dark-roast border-2 border-cocoa-gray p-3 rounded-xl">
+              <span class="text-xl">🎲</span>
+              <div>
+                <strong class="font-display text-sm text-parchment-white block">Mesas de Juego Libres &amp; Torneos</strong>
+                <span class="text-xs text-latte-gray font-body-sans">Commander, Modern, Standard, Yu-Gi-Oh! Avanzado y OP Card Game.</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 bg-dark-roast border-2 border-cocoa-gray p-3 rounded-xl">
+              <span class="text-xl">☕</span>
+              <div>
+                <strong class="font-display text-sm text-parchment-white block">Cafetería &amp; Snacks Orgánicos</strong>
+                <span class="text-xs text-latte-gray font-body-sans">Bebidas y café recién tostado mientras disfrutas de tus rondas de juego.</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 bg-dark-roast border-2 border-cocoa-gray p-3 rounded-xl">
+              <span class="text-xl">🏪</span>
+              <div>
+                <strong class="font-display text-sm text-parchment-white block">Atención en Mostrador &amp; Retiro en Tienda</strong>
+                <span class="text-xs text-latte-gray font-body-sans">Compra online y recoge sin costo de envío en nuestro local de Pereira.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 7: GOOGLE REVIEWS & TESTIMONIALS (OPINIONES REALES TOPDECK)
+         ====================================================================== -->
+    <section id="opinionesSection" class="tavern-box bg-dark-roast border-2 border-cocoa-gray rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-cocoa-gray pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-mono text-xs text-fresh-sage font-bold uppercase tracking-wider">✦ TESTIMONIOS VERIFICADOS</span>
+            <span class="bg-mocha-brown border border-cocoa-gray text-parchment-white font-mono text-[11px] px-2.5 py-0.5 rounded-full font-bold">⭐ 4.9 / 5.0 GOOGLE</span>
+          </div>
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-clay-terracotta mt-1">
+            Lo que Dice Nuestra Comunidad
+          </h2>
+        </div>
+        <p class="text-xs md:text-sm text-latte-gray font-body-sans max-w-md">
+          Opiniones reales de jugadores, duelistas y coleccionistas que confían en Top Deck día a día.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Review 1: Cristian Camilo Giraldo -->
+        <div class="bg-mocha-brown border-2 border-cocoa-gray hover:border-clay-terracotta p-6 rounded-2xl flex flex-col justify-between space-y-4 shadow-md transition-all group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center text-clay-terracotta text-sm tracking-wider">
+                ★★★★★
+              </div>
+              <span class="text-[10px] font-mono text-latte-gray bg-dark-roast px-2 py-0.5 rounded border border-cocoa-gray">Google Review</span>
+            </div>
+            <p class="font-body-sans text-sm text-parchment-white leading-relaxed italic">
+              "Excelente atención y variedad de productos. Los envíos llegan súper rápidos y muy bien protegidos con empaque rígido. La mejor tienda de TCG de Colombia sin duda alguna."
+            </p>
+          </div>
+          <div class="pt-3 border-t-2 border-cocoa-gray flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-dark-roast border-2 border-clay-terracotta flex items-center justify-center font-display font-bold text-clay-terracotta text-base shadow">
+              CG
+            </div>
+            <div>
+              <strong class="font-display text-sm text-parchment-white block">Cristian Camilo Giraldo</strong>
+              <span class="text-[11px] text-fresh-sage font-body-sans font-bold">✓ Cliente Verificado • Despacho Nacional</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2: Cristian David Galvis -->
+        <div class="bg-mocha-brown border-2 border-cocoa-gray hover:border-clay-terracotta p-6 rounded-2xl flex flex-col justify-between space-y-4 shadow-md transition-all group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center text-clay-terracotta text-sm tracking-wider">
+                ★★★★★
+              </div>
+              <span class="text-[10px] font-mono text-latte-gray bg-dark-roast px-2 py-0.5 rounded border border-cocoa-gray">Google Review</span>
+            </div>
+            <p class="font-body-sans text-sm text-parchment-white leading-relaxed italic">
+              "El mejor lugar en Pereira para jugar Commander y torneos de fin de semana. El ambiente de la taberna, la calidad humana del personal y la asesoría técnica son insuperables."
+            </p>
+          </div>
+          <div class="pt-3 border-t-2 border-cocoa-gray flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-dark-roast border-2 border-botanical-green flex items-center justify-center font-display font-bold text-fresh-sage text-base shadow">
+              DG
+            </div>
+            <div>
+              <strong class="font-display text-sm text-parchment-white block">Cristian David Galvis</strong>
+              <span class="text-[11px] text-fresh-sage font-body-sans font-bold">✓ Jugador de Torneo • Local Pereira</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3: David -->
+        <div class="bg-mocha-brown border-2 border-cocoa-gray hover:border-clay-terracotta p-6 rounded-2xl flex flex-col justify-between space-y-4 shadow-md transition-all group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center text-clay-terracotta text-sm tracking-wider">
+                ★★★★★
+              </div>
+              <span class="text-[10px] font-mono text-latte-gray bg-dark-roast px-2 py-0.5 rounded border border-cocoa-gray">Google Review</span>
+            </div>
+            <p class="font-body-sans text-sm text-parchment-white leading-relaxed italic">
+              "Gran catálogo de cartas sueltas y producto sellado oficial. Siempre compro mis fundas Dragon Shield y preventas de One Piece y MTG aquí. 100% recomendado."
+            </p>
+          </div>
+          <div class="pt-3 border-t-2 border-cocoa-gray flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-dark-roast border-2 border-fresh-sage flex items-center justify-center font-display font-bold text-parchment-white text-base shadow">
+              D
+            </div>
+            <div>
+              <strong class="font-display text-sm text-parchment-white block">David</strong>
+              <span class="text-[11px] text-fresh-sage font-body-sans font-bold">✓ Coleccionista TCG • Medellín</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION 8: NEWSLETTER & VIP ALERTS (ÚNETE AL GREMIO)
+         ====================================================================== -->
+    <section class="tavern-box bg-mocha-brown border-2 border-clay-terracotta rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
+      <div class="max-w-3xl mx-auto text-center space-y-4 relative z-10">
+        <span class="font-mono text-xs text-clay-terracotta font-bold uppercase tracking-wider bg-dark-roast px-3 py-1 rounded-full border border-clay-terracotta">
+          ⚡ NEWSLETTER GREMIAL TOPDECK
+        </span>
+        <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-parchment-white">
+          ¿No te quieres perder ninguna Pre-Orden ni Torneo?
+        </h2>
+        <p class="text-sm sm:text-base text-latte-gray font-body-sans max-w-xl mx-auto">
+          Recibe alertas inmediatas en tu correo cuando abramos preventas de Collector Boosters, cajas selladas de One Piece o nuevas fechas de Friday Night Magic.
+        </p>
+
+        <form onsubmit="window.subscribeNewsletter(event)" class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto pt-2">
+          <input id="newsletterEmailInput" type="email" required
+            placeholder="tu-correo@ejemplo.com"
+            class="w-full bg-dark-roast border-2 border-cocoa-gray rounded-xl px-4 py-3 text-sm text-parchment-white placeholder-latte-gray/60 font-body-sans focus:outline-none focus:border-clay-terracotta shadow-inner">
+          <button type="submit"
+            class="btn-primary tavern-btn-terracotta text-sm px-6 py-3 font-bold rounded-xl whitespace-nowrap shadow-xl w-full sm:w-auto cursor-pointer">
+            <span>SUSCRIBIRME ▶</span>
+          </button>
+        </form>
+        <span class="text-[11px] text-latte-gray font-body-sans block">
+          * Cero spam. Solo noticias importantes de lanzamientos, torneos y cupones de descuento.
+        </span>
+      </div>
+    </section>
+
   </main>
 
   <!-- ========================================================================
@@ -884,33 +1446,137 @@
   <div id="tavernToastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- ========================================================================
-       FOOTER (MOCHA BROWN BAND & STITCH PROTOTYPE REFERENCE LINKS)
+       FOOTER: ORGANIC COFFEE & BOTANY FULL-WIDTH STORE FOOTER
        Role: Full-width band with #3E2723 (Mocha Brown) fill, #F1E8D9 and #689F77 labels, 48px vertical padding
        ======================================================================== -->
-  <footer class="bg-mocha-brown border-t-2 border-cocoa-gray py-12 px-4 md:px-8 mt-16 text-parchment-white">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3.5">
-        <div class="w-11 h-11 bg-dark-roast border-2 border-cocoa-gray rounded-xl p-1.5 flex items-center justify-center shadow">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkdiEWUQPno7swEO78yHJsjV-wHx785OBu8xuLnW68dUO7se10TJRqjjm_rcWahKqi87PRJRGe3Cj_Mz94DbTwGvOCZjGm-CnSdDUZzyXOqs3rru8lsTCJvBhFY4nbaXlScCZ8q7GvHfaTefRHF2KB-OGL0Ryd64onx0sD85oloI8521RCEK8u_dfENe3UePDRHoT-89_aBK3EZtUgjTlSQ0Kq_gqmEAIBizOnrDKT7JrbcxiPobCPijGpgNOIOZpyQ"
-               alt="TopDeck Emblem" class="w-full h-full object-contain">
+  <footer class="bg-mocha-brown border-t-2 border-cocoa-gray pt-14 pb-10 px-4 sm:px-6 md:px-8 mt-16 text-parchment-white">
+    <div class="max-w-7xl mx-auto space-y-12">
+
+      <!-- Top 4 Columns Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+
+        <!-- Column 1: Store Brand & Info (5 cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="flex items-center gap-3.5">
+            <img src="https://www.topdeck.shop/cdn/shop/files/logo_800_x_800_fondo_reducido.png?v=1651003954&width=300"
+                 alt="TopDeck Logo Oficial"
+                 class="h-12 w-auto object-contain filter drop-shadow">
+            <div>
+              <span class="font-display font-extrabold text-xl text-parchment-white block leading-tight">TOP DECK</span>
+              <span class="text-[11px] font-mono text-clay-terracotta uppercase font-bold tracking-wider">Juegos Coleccionables</span>
+            </div>
+          </div>
+          <p class="text-xs sm:text-sm text-latte-gray font-body-sans leading-relaxed max-w-md">
+            Tu tienda especializada en juegos de cartas coleccionables, accesorios de protección y torneos oficiales. Nacidos en Pereira con envíos certificados y empaque rígido a todo el territorio colombiano.
+          </p>
+
+          <div class="space-y-1.5 text-xs text-latte-gray font-body-sans">
+            <div class="flex items-center gap-2">
+              <span class="text-clay-terracotta">📍</span>
+              <span><strong>Sede Física:</strong> Pereira, Risaralda • Colombia</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-fresh-sage">💬</span>
+              <span><strong>Atención WhatsApp:</strong> +57 (312) TopDeck • Lun a Sáb 10am - 8pm</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-fresh-sage">✉️</span>
+              <span><strong>Contacto:</strong> contacto@topdeck.shop</span>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="flex items-center gap-2.5 pt-1">
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="w-9 h-9 bg-dark-roast border-2 border-cocoa-gray hover:border-clay-terracotta rounded-xl flex items-center justify-center text-parchment-white transition-colors" title="Instagram">
+              📸
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="w-9 h-9 bg-dark-roast border-2 border-cocoa-gray hover:border-clay-terracotta rounded-xl flex items-center justify-center text-parchment-white transition-colors" title="Facebook">
+              📘
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="w-9 h-9 bg-dark-roast border-2 border-cocoa-gray hover:border-clay-terracotta rounded-xl flex items-center justify-center text-parchment-white transition-colors" title="YouTube">
+              ▶️
+            </a>
+            <a href="https://wa.me" target="_blank" rel="noopener" class="w-9 h-9 bg-dark-roast border-2 border-cocoa-gray hover:border-fresh-sage rounded-xl flex items-center justify-center text-fresh-sage transition-colors" title="WhatsApp">
+              💬
+            </a>
+          </div>
         </div>
-        <div>
-          <div class="font-display text-xl font-bold text-parchment-white">Top Deck TCG — Organic Coffee &amp; Botany</div>
-          <div class="text-xs font-body-sans text-latte-gray">Bóveda Digital &amp; Compañero de Mesa • Magic: The Gathering Edition</div>
+
+        <!-- Column 2: Colecciones TCG (2 cols) -->
+        <div class="lg:col-span-2 space-y-3">
+          <span class="font-mono text-xs font-bold text-clay-terracotta uppercase tracking-wider block">COLECCIONES TCG</span>
+          <ul class="space-y-2 text-xs font-body-sans text-latte-gray">
+            <li><a href="#carpetasSection" class="hover:text-parchment-white transition-colors">Magic: The Gathering</a></li>
+            <li><a href="#selladoSection" class="hover:text-parchment-white transition-colors">Pokémon JCC</a></li>
+            <li><a href="#selladoSection" class="hover:text-parchment-white transition-colors">One Piece Card Game</a></li>
+            <li><a href="#featuredProductSection" class="hover:text-parchment-white transition-colors">Yu-Gi-Oh! TCG</a></li>
+            <li><a href="#tcgCategoriesSection" class="hover:text-parchment-white transition-colors">Digimon Card Game</a></li>
+            <li><a href="#selladoSection" class="hover:text-parchment-white transition-colors">Dragon Shield Sleeves</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Experiencias & Gremio (3 cols) -->
+        <div class="lg:col-span-3 space-y-3">
+          <span class="font-mono text-xs font-bold text-clay-terracotta uppercase tracking-wider block">EXPERIENCIAS &amp; COMUNIDAD</span>
+          <ul class="space-y-2 text-xs font-body-sans text-latte-gray">
+            <li><a href="#carpetasSection" class="hover:text-parchment-white transition-colors">Bóveda de Singles Scryfall (+27k)</a></li>
+            <li><a href="javascript:void(0)" onclick="switchPlatform('pwa')" class="hover:text-parchment-white transition-colors">PWA Compañero en Mesa (5 Mascotas)</a></li>
+            <li><a href="#torneosSection" class="hover:text-parchment-white transition-colors">Torneos &amp; Ligas Semanales</a></li>
+            <li><a href="#torneosSection" class="hover:text-parchment-white transition-colors">Buylist (Compramos tus Singles)</a></li>
+            <li><a href="#quienesSomosSection" class="hover:text-parchment-white transition-colors">Nuestra Sede Física en Pereira</a></li>
+            <li><a href="#opinionesSection" class="hover:text-parchment-white transition-colors">Testimonios de la Comunidad</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Políticas & Seguridad (2 cols) -->
+        <div class="lg:col-span-2 space-y-3">
+          <span class="font-mono text-xs font-bold text-clay-terracotta uppercase tracking-wider block">GARANTÍA &amp; LEGAL</span>
+          <ul class="space-y-2 text-xs font-body-sans text-latte-gray">
+            <li><a href="javascript:void(0)" onclick="window.showTavernToast('Empaque rígido garantizado en todos los despachos.', '🛡️')" class="hover:text-parchment-white transition-colors">Políticas de Envío Rígido</a></li>
+            <li><a href="javascript:void(0)" onclick="window.showTavernToast('Garantía 100% de sellado oficial de fábrica.', '📦')" class="hover:text-parchment-white transition-colors">Garantía de Sellado</a></li>
+            <li><a href="javascript:void(0)" onclick="window.showTavernToast('Términos y condiciones del servicio TopDeck.', '⚖️')" class="hover:text-parchment-white transition-colors">Términos del Servicio</a></li>
+            <li><a href="javascript:void(0)" onclick="window.showTavernToast('Tus datos están protegidos bajo ley Habeas Data.', '🔒')" class="hover:text-parchment-white transition-colors">Tratamiento de Datos</a></li>
+            <li><a href="javascript:void(0)" onclick="window.showTavernToast('Preguntas frecuentes sobre pagos y reservas.', '❓')" class="hover:text-parchment-white transition-colors">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Payment Badges Bar -->
+      <div class="pt-6 border-t-2 border-cocoa-gray flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 flex-wrap text-xs text-latte-gray font-body-sans">
+          <span class="font-bold text-parchment-white">Métodos de Pago Aceptados en Colombia:</span>
+          <span class="px-2.5 py-1 bg-dark-roast border border-cocoa-gray rounded-md font-mono text-[11px] text-fresh-sage font-bold">PSE</span>
+          <span class="px-2.5 py-1 bg-dark-roast border border-cocoa-gray rounded-md font-mono text-[11px] text-fresh-sage font-bold">Bancolombia</span>
+          <span class="px-2.5 py-1 bg-dark-roast border border-cocoa-gray rounded-md font-mono text-[11px] text-fresh-sage font-bold">Nequi</span>
+          <span class="px-2.5 py-1 bg-dark-roast border border-cocoa-gray rounded-md font-mono text-[11px] text-fresh-sage font-bold">Wompi</span>
+          <span class="px-2.5 py-1 bg-dark-roast border border-cocoa-gray rounded-md font-mono text-[11px] text-latte-gray font-bold">Tarjetas de Crédito / Débito</span>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs font-mono text-fresh-sage">
+          <span>🔒 Checkout Seguro SSL 256-bit</span>
         </div>
       </div>
 
-      <!-- Links to original Stitch base prototypes -->
-      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
-        <span class="text-fresh-sage font-bold">PROTOTIPOS BASE:</span>
-        <a href="./top_deck_landing_page_retro_tcg_vault_caqui_carpetas_con_pesta_as/code.html" class="underline text-fresh-sage hover:text-parchment-white">01. Landing</a>
-        <span class="text-cocoa-gray">•</span>
-        <a href="./top_deck_edici_n_retro_pixelcraft_caqui_beige/code.html" class="underline text-fresh-sage hover:text-parchment-white">02. Bóveda 3D</a>
-        <span class="text-cocoa-gray">•</span>
-        <a href="./top_deck_perfil_de_jugador_mazos_de_torneo/code.html" class="underline text-fresh-sage hover:text-parchment-white">03. Perfil &amp; Mazos</a>
-        <span class="text-cocoa-gray">•</span>
-        <a href="./DESIGN.md" class="underline text-fresh-sage hover:text-parchment-white">DESIGN.md</a>
+      <!-- Bottom Prototype & Copyright Links -->
+      <div class="pt-6 border-t-2 border-cocoa-gray/60 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-body-sans text-latte-gray">
+        <div>
+          © 2026 <strong>Top Deck Juegos Coleccionables</strong>. Pereira, Risaralda. Todos los derechos reservados.
+        </div>
+
+        <!-- Prototipos Base Links -->
+        <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono">
+          <span class="text-clay-terracotta font-bold">PROTOTIPOS STITCH:</span>
+          <a href="./top_deck_landing_page_retro_tcg_vault_caqui_carpetas_con_pesta_as/code.html" class="underline text-fresh-sage hover:text-parchment-white">01. Landing</a>
+          <span class="text-cocoa-gray">•</span>
+          <a href="./top_deck_edici_n_retro_pixelcraft_caqui_beige/code.html" class="underline text-fresh-sage hover:text-parchment-white">02. Bóveda 3D</a>
+          <span class="text-cocoa-gray">•</span>
+          <a href="./top_deck_perfil_de_jugador_mazos_de_torneo/code.html" class="underline text-fresh-sage hover:text-parchment-white">03. Perfil &amp; Mazos</a>
+          <span class="text-cocoa-gray">•</span>
+          <a href="./DESIGN.md" class="underline text-fresh-sage hover:text-parchment-white">DESIGN.md</a>
+        </div>
       </div>
+
     </div>
   </footer>
 
