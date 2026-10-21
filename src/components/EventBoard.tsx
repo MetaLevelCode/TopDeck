@@ -4,7 +4,7 @@ import { TAVERN_EVENTS } from '../data/catalog';
 
 const AUTOPLAY_MS = 6000;
 
-/** The "Cuadro Mágico": tavern events inside the enchanted frame. Autoplay pauses on hover/focus and under reduced motion. */
+/** Tavern events, one notice at a time. Autoplay pauses on hover/focus and under reduced motion. */
 export function EventBoard() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -27,27 +27,13 @@ export function EventBoard() {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <div className="relative aspect-video">
-        {/* The frame's window is opaque in the artwork, so the notice is pinned on top of it. */}
-        <img
-          src="/img/cuadro-magico.webp"
-          alt=""
-          width={1400}
-          height={781}
-          loading="lazy"
-          className="pointer-events-none absolute inset-0 size-full"
-        />
-        <div className="absolute inset-x-[20.5%] inset-y-[22.5%] rounded-md bg-parchment-raised shadow-[inset_0_0_24px_rgba(56,36,20,0.12)]" />
-        <div
-          key={event.id}
-          className="rise absolute inset-x-[23%] inset-y-[26%] flex flex-col items-center justify-center gap-1 text-center sm:gap-2"
-          aria-live="polite"
-        >
-          <span className="text-[10px] font-extrabold text-moss-ink sm:text-xs">
+      <div className="panel grid min-h-44 place-items-center px-6 py-8">
+        <div key={event.id} className="rise flex flex-col items-center gap-2 text-center" aria-live="polite">
+          <span className="text-xs font-extrabold text-moss-ink">
             {event.tag} · {event.date}
           </span>
-          <h3 className="text-base leading-tight sm:text-2xl">{event.title}</h3>
-          <p className="hidden text-sm text-espresso-soft sm:block">{event.text}</p>
+          <h3 className="text-2xl leading-tight">{event.title}</h3>
+          <p className="text-sm text-espresso-soft">{event.text}</p>
         </div>
       </div>
 

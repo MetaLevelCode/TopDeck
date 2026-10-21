@@ -1,12 +1,13 @@
 // Self-check for the query builder and finish pricing. Run: npm run check
 import assert from 'node:assert/strict';
 import type { ScryfallCard } from '../types';
-import { DEFAULT_FILTERS, POPULAR_QUERY, buildScryfallQuery, cardPrice, pricedFinish } from './scryfall';
+import { DEFAULT_FILTERS, POPULAR_QUERY, buildScryfallQuery, cardPrice, correctWords, editDistance, pricedFinish } from './scryfall';
 
 const q = (patch: Partial<typeof DEFAULT_FILTERS>, text = '') => buildScryfallQuery({ ...DEFAULT_FILTERS, ...patch }, text).q;
 
 assert.equal(q({}), POPULAR_QUERY, 'no text and no filters opens on the popular query');
-assert.equal(q({}, '  sol ring '), 'sol ring');
+assert.equal(q({}, '  landfall '), '((landfall) or o:"landfall" or t:"landfall")', 'plain words search names, rules text and types');
+assert.equal(q({}, 'o:landfall c:g'), 'o:landfall c:g', 'Scryfall syntax passes through');
 assert.equal(q({ art: ['showcase'] }), 'frame:showcase', 'filters alone replace the popular query');
 assert.equal(
   q({ art: ['borderless', 'showcase'], finish: 'etched', artist: ' Rebecca "Guay" ' }, '!"Sol Ring"'),
@@ -24,5 +25,13 @@ assert.equal(pricedFinish(both), 'nonfoil');
 assert.equal(cardPrice(both, 'foil'), 3.5);
 assert.equal(pricedFinish(both, 'etched'), 'nonfoil', 'a missing preferred finish falls back to one with a price');
 assert.equal(cardPrice(card({ usd: null })), null);
+
+assert.equal(editDistance('lanfal', 'landfall'), 2);
+const vocab = ['landfall', 'flying', 'goblin', 'ward', 'scry'];
+assert.equal(correctWords('lanfal', vocab), 'landfall');
+assert.equal(correctWords('flyng goblim', vocab), 'flying goblin');
+assert.equal(correctWords('landfall', vocab), null, 'known words are left alone');
+assert.equal(correctWords('draw a card', vocab), null, 'short words are never "corrected"');
+assert.equal(correctWords('zzzzzzzz', vocab), null, 'nothing close enough means no change');
 
 console.log('scryfall.check: ok');

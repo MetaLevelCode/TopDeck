@@ -194,13 +194,13 @@ export function Landing({ onEnter, onSearch, onGoToProfile }: LandingProps) {
         {/* 3. HERO INFO BLOCK: up in the sky of the right-hand landscape, stacked like the logo. */}
         <div
           ref={heroRef}
-          className="absolute right-4 top-[max(5.5rem,12svh)] z-20 flex max-w-sm flex-col items-center text-center will-change-[transform,opacity] sm:right-10 sm:max-w-md md:right-16 lg:right-24"
+          className="absolute right-6 top-[max(7rem,18svh)] z-20 flex max-w-sm flex-col items-center text-center will-change-[transform,opacity] sm:right-16 sm:max-w-xl md:right-28 lg:right-40"
         >
           <h1 className="flex flex-col items-center">
-            <span className="font-serif text-xl font-bold italic text-espresso [text-shadow:0_1px_10px_rgba(255,253,249,0.9)] sm:text-2xl">
+            <span className="font-serif text-2xl font-bold italic text-espresso [text-shadow:0_1px_10px_rgba(255,253,249,0.9)] sm:text-4xl">
               Bienvenidos a
             </span>
-            <span className="wordmark whitespace-nowrap text-5xl leading-tight sm:text-6xl">TOP DECK</span>
+            <span className="wordmark whitespace-nowrap text-6xl leading-tight sm:text-7xl md:text-8xl">TOP DECK</span>
           </h1>
 
           <p className="mt-2 font-serif text-lg font-bold italic text-espresso [text-shadow:0_1px_10px_rgba(255,253,249,0.9)] sm:text-xl">

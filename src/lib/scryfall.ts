@@ -6,17 +6,6 @@ const API = 'https://api.scryfall.com';
 /** Commander staples, default view when entering with no active filters. */
 export const POPULAR_QUERY = 'format:commander';
 
-export const SUGGESTIONS = [
-  'Sol Ring',
-  'Cyclonic Rift',
-  'Mana Drain',
-  'The One Ring',
-  'Rhystic Study',
-  'Demonic Tutor',
-  'Smothering Tithe',
-  'Boseiju, Who Shelters All',
-];
-
 export interface CardFilters {
   game?: string;
   set?: string;
@@ -196,7 +185,7 @@ export function buildScryfallQuery(
   const sortOption = SORT_OPTIONS.find((s) => s.id === filters.sort) ?? SORT_OPTIONS[0];
 
   const text = search.trim();
-  if (text) parts.unshift(text);
+  if (text) parts.unshift(isSyntax(text) ? text : `((${text}) or o:"${text}" or t:"${text}")`);
 
   return {
     // With no text and no filters, open on Commander staples instead of the whole database.
@@ -228,6 +217,76 @@ export async function fetchCardPage(url: string, signal?: AbortSignal): Promise<
   if (!res.ok) throw new Error(`Scryfall respondió con error ${res.status}`);
   const json = (await res.json()) as { data: ScryfallCard[]; total_cards: number; next_page?: string };
   return { cards: json.data, total: json.total_cards, nextPage: json.next_page ?? null };
+}
+
+/** Text written in Scryfall's own syntax (`o:`, `!"…"`, `c>=2`…) goes through untouched. */
+export const isSyntax = (text: string) => /[:!"=<>()]/.test(text);
+
+let mechanics: Promise<string[]> | undefined;
+
+/** Every word Magic uses for mechanics and creatures (keywords, actions, ability words like landfall, types), fetched once per visit. */
+export function fetchMechanicWords(): Promise<string[]> {
+  mechanics ??= Promise.all(
+    ['keyword-abilities', 'keyword-actions', 'ability-words', 'creature-types'].map((c) =>
+      fetch(`${API}/catalog/${c}`).then((res) => (res.ok ? (res.json() as Promise<{ data: string[] }>) : Promise.reject(res.status))),
+    ),
+  )
+    .then((lists) => [...new Set(lists.flatMap((l) => l.data.flatMap((v) => v.toLowerCase().split(/\s+/))))].filter((w) => w.length > 2))
+    .catch(() => {
+      mechanics = undefined;
+      return [];
+    });
+  return mechanics;
+}
+
+/** Levenshtein distance: the fewest single-letter edits that turn `a` into `b`. */
+export function editDistance(a: string, b: string): number {
+  let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const row = [i];
+    for (let j = 1; j <= b.length; j++) {
+      row[j] = Math.min(prev[j] + 1, row[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    }
+    prev = row;
+  }
+  return prev[b.length];
+}
+
+/** Swaps each misspelt word (5+ letters) for the closest known word, one edit away for short words and two for long ones; `null` if nothing changed. */
+export function correctWords(text: string, vocab: readonly string[]): string | null {
+  let changed = false;
+  const words = text.split(/\s+/).map((word) => {
+    const w = word.toLowerCase();
+    // Four-letter words sit one edit away from too much (card → ward), so only longer ones get fixed.
+    if (w.length < 5 || vocab.includes(w)) return word;
+    const limit = w.length <= 5 ? 1 : 2;
+    let best: string | null = null;
+    let bestDistance = limit + 1;
+    for (const v of vocab) {
+      if (Math.abs(v.length - w.length) > limit) continue;
+      const d = editDistance(w, v);
+      if (d < bestDistance) [best, bestDistance] = [v, d];
+    }
+    if (!best) return word;
+    changed = true;
+    return best;
+  });
+  return changed ? words.join(' ') : null;
+}
+
+/** Scryfall's typo-tolerant name lookup ("jace belerin" → Jace Beleren); `null` when nothing is close enough. */
+export async function fuzzyCardName(text: string, signal?: AbortSignal): Promise<string | null> {
+  const res = await fetch(`${API}/cards/named?fuzzy=${encodeURIComponent(text)}`, { signal });
+  return res.ok ? ((await res.json()) as { name: string }).name : null;
+}
+
+/** For a search that found nothing: the typo fix that probably meant something — a mechanic word first, then a card name. */
+export async function rescueSearch(text: string, signal?: AbortSignal): Promise<{ text: string; exact: boolean } | null> {
+  if (!text.trim() || isSyntax(text)) return null;
+  const corrected = correctWords(text.trim(), await fetchMechanicWords());
+  if (corrected) return { text: corrected, exact: false };
+  const name = await fuzzyCardName(text, signal);
+  return name ? { text: name, exact: true } : null;
 }
 
 /** Up to 20 card names that start like `text`. Scryfall needs two characters; failures just mean no suggestions. */

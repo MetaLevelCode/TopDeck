@@ -8,6 +8,7 @@ import { TABS, useHashTab } from './lib/useHashTab';
 import type { TabId } from './lib/useHashTab';
 import { CartProvider } from './store/cart';
 import { DexterProvider, useDexter } from './store/dexter';
+import { SearchProvider } from './store/search';
 import { SessionProvider } from './store/session';
 import { CartasTab } from './tabs/CartasTab';
 import { PerfilTab } from './tabs/PerfilTab';
@@ -17,7 +18,7 @@ import { TiendaTab } from './tabs/TiendaTab';
  * The traditional site shown once the door is open: header, three tabs, footer.
  * A tab mounts the first time it is visited and then stays mounted (hidden), so searches and forms survive tab switches.
  */
-function Shell({ onExit, initialSearchQuery }: { onExit: () => void; initialSearchQuery?: string }) {
+function Shell({ onExit }: { onExit: () => void }) {
   const [tab, go] = useHashTab();
   const { say } = useDexter();
   const [visited, setVisited] = useState<ReadonlySet<TabId>>(() => new Set([tab]));
@@ -34,7 +35,7 @@ function Shell({ onExit, initialSearchQuery }: { onExit: () => void; initialSear
 
   const panels: Record<TabId, JSX.Element> = {
     tienda: <TiendaTab onNavigate={go} />,
-    cartas: <CartasTab initialQuery={initialSearchQuery} />,
+    cartas: <CartasTab />,
     perfil: <PerfilTab />,
   };
 
@@ -42,7 +43,7 @@ function Shell({ onExit, initialSearchQuery }: { onExit: () => void; initialSear
     <>
       <TavernBackdrop />
       <div className="fade-in flex min-h-svh flex-col">
-        <Header tab={tab} />
+        <Header tab={tab} onNavigate={go} />
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-16 pt-6 sm:pt-8">
           {TABS.map(({ id }) =>
             visited.has(id) ? (
@@ -66,7 +67,9 @@ export default function Tavern({ onExit, initialSearchQuery }: { onExit: () => v
     <DexterProvider>
       <SessionProvider>
         <CartProvider>
-          <Shell onExit={onExit} initialSearchQuery={initialSearchQuery} />
+          <SearchProvider initialQuery={initialSearchQuery}>
+            <Shell onExit={onExit} />
+          </SearchProvider>
         </CartProvider>
       </SessionProvider>
     </DexterProvider>

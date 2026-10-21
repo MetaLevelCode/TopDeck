@@ -4,18 +4,6 @@ export default {
   // Hover styles only apply on devices that can hover, so taps never leave a stuck :hover.
   future: { hoverOnlyWhenSupported: true },
   theme: {
-    // Esquinas casi rectas, como madera y papel: lo muy redondeado es lo que hacía ver la página genérica.
-    borderRadius: {
-      none: '0',
-      sm: '2px',
-      DEFAULT: '3px',
-      md: '3px',
-      lg: '4px',
-      xl: '4px',
-      '2xl': '6px',
-      '3xl': '8px',
-      full: '9999px',
-    },
     extend: {
       // DESIGN.md · Warm Parchment Lounge. Los tonos `ink` oscurecen el acento para que el texto pase AA (≥4.5:1) en todas las superficies.
       colors: {

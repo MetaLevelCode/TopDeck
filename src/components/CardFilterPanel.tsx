@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ChevronDown, Palette, RotateCcw, SlidersHorizontal, X } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { ChevronDown, Palette, SlidersHorizontal, X } from 'lucide-react';
 import {
   ART_OPTIONS,
   CARD_TYPES,
@@ -10,6 +11,7 @@ import {
   LANG_OPTIONS,
   POPULAR_SETS,
   RARITY_OPTIONS,
+  SORT_OPTIONS,
   fetchArtistNames,
 } from '../lib/scryfall';
 import type { CardFilters } from '../lib/scryfall';
@@ -27,6 +29,8 @@ interface CardFilterPanelProps {
   onToggle: () => void;
   /** Printings matching the current search, across every page. */
   totalCards?: number;
+  /** Shown left of the Filtros button. */
+  children?: ReactNode;
 }
 
 type ListKey = 'rarity' | 'color' | 'cardType' | 'art';
@@ -74,7 +78,7 @@ function ArtistFilter({ value, onCommit }: { value: string; onCommit: (artist: s
   );
 }
 
-export function CardFilterPanel({ filters, onChange, isOpen, onToggle, totalCards }: CardFilterPanelProps) {
+export function CardFilterPanel({ filters, onChange, isOpen, onToggle, totalCards, children }: CardFilterPanelProps) {
   const set = (patch: Partial<CardFilters>) => onChange({ ...filters, ...patch });
   const listOf = (key: ListKey) => (filters[key] ?? []) as string[];
   const toggle = (key: ListKey, id: string) => {
@@ -106,18 +110,18 @@ export function CardFilterPanel({ filters, onChange, isOpen, onToggle, totalCard
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-wrap items-center justify-between gap-2.5">
+      <div className="flex items-stretch gap-2">
+        {children}
         <button
           type="button"
           onClick={onToggle}
           aria-expanded={isOpen}
           aria-controls="catalog-filter-dropdown"
-          className={`btn btn-secondary px-3.5 py-2 text-xs sm:text-sm ${
-            isOpen || activeCount > 0 ? 'border-honey bg-honey-tint text-honey-ink' : ''
-          }`}
+          aria-label="Filtros y orden"
+          className={`btn btn-secondary shrink-0 px-3.5 ${isOpen || activeCount > 0 ? 'border-honey bg-honey-tint text-honey-ink' : ''}`}
         >
           <SlidersHorizontal className="size-4 text-honey-ink" aria-hidden="true" />
-          <span>Filtros</span>
+          <span className="hidden sm:inline">Filtros</span>
           {activeCount > 0 && (
             <span className="grid size-5 place-items-center rounded-full bg-honey text-[11px] font-extrabold tabular-nums text-espresso">
               {activeCount}
@@ -128,17 +132,6 @@ export function CardFilterPanel({ filters, onChange, isOpen, onToggle, totalCard
             aria-hidden="true"
           />
         </button>
-
-        {activeCount > 0 && (
-          <button
-            type="button"
-            onClick={handleReset}
-            className="flex items-center gap-1.5 text-xs font-bold text-espresso-soft transition-colors hover:text-honey-ink"
-          >
-            <RotateCcw className="size-3.5" aria-hidden="true" />
-            <span>Limpiar filtros ({activeCount})</span>
-          </button>
-        )}
       </div>
 
       {isOpen && (
@@ -207,6 +200,24 @@ export function CardFilterPanel({ filters, onChange, isOpen, onToggle, totalCard
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="space-y-1.5">
+              <label htmlFor="filter-sort-select" className={LABEL}>
+                Ordenar por
+              </label>
+              <select
+                id="filter-sort-select"
+                value={filters.sort ?? DEFAULT_FILTERS.sort}
+                onChange={(e) => set({ sort: e.target.value as CardFilters['sort'] })}
+                className="field py-2 text-xs"
+              >
+                {SORT_OPTIONS.map((opt) => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div className="space-y-1.5">
               <label htmlFor="filter-set-select" className={LABEL}>
                 Set / Edición

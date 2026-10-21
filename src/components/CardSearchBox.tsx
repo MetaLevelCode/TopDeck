@@ -90,15 +90,16 @@ export function CardSearchBox({ value, onChange, onSubmit, onPick }: CardSearchB
         }}
         onKeyDown={handleKeyDown}
         onBlur={() => setOpen(false)}
-        placeholder="Busca una carta: Sol Ring, Sheoldred, Lightning Bolt…"
+        placeholder="Busca cartas, mecánicas o tipos: Sol Ring, landfall, goblin…"
         autoComplete="off"
         autoCorrect="off"
         autoCapitalize="none"
         spellCheck={false}
         enterKeyHint="search"
-        className="field py-3 pl-10 pr-24 text-sm"
+        className="field py-2.5 pl-10 pr-3 text-sm sm:pr-24"
       />
-      <button type="submit" className="btn btn-primary btn-sm absolute bottom-1.5 right-1.5 top-1.5 px-4">
+      {/* Phones search with the keyboard's own search key, so the button only shows where there is room. */}
+      <button type="submit" className="btn btn-primary btn-sm absolute bottom-1.5 right-1.5 top-1.5 hidden px-4 sm:flex">
         Buscar
       </button>
 

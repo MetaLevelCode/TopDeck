@@ -1,25 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
-import { AlertCircle, ArrowDownUp, RefreshCw } from 'lucide-react';
+import { AlertCircle, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 import { CardDetailDialog } from '../components/CardDetailDialog';
 import { CardFilterPanel } from '../components/CardFilterPanel';
-import { CardSearchBox } from '../components/CardSearchBox';
 import { CardTile } from '../components/CardTile';
 import {
   DEFAULT_FILTERS,
-  SORT_OPTIONS,
-  SUGGESTIONS,
   buildScryfallQuery,
   cardStock,
   fetchCardPage,
+  rescueSearch,
   searchCards,
 } from '../lib/scryfall';
 import type { CardFilters, CardPage } from '../lib/scryfall';
-import { useDebouncedValue } from '../lib/useDebouncedValue';
 import { useDexter } from '../store/dexter';
+import { useSearch } from '../store/search';
 import type { ScryfallCard } from '../types';
 
-/** Results wait for typing to pause, so a search isn't fired on every keystroke. */
-const RESULTS_DELAY_MS = 400;
+/** Ten rows of the three-column grid per page. */
+const PAGE_SIZE = 30;
 
 const GAMES = [
   { id: 'mtg', label: 'Magic: The Gathering', active: true },
@@ -34,37 +32,20 @@ type Results =
   | ({ status: 'ready'; loadingMore: boolean; moreFailed: boolean } & CardPage)
   | { status: 'error'; message: string };
 
-/** `exact` is set when the name came from a suggestion: then every printing of that one card is shown. */
-type Query = { text: string; exact: boolean };
-
 const plural = (n: number, one: string, many: string) => `${n.toLocaleString('es-CO')} ${n === 1 ? one : many}`;
 
-export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
+export function CartasTab() {
   const { say } = useDexter();
-  const [input, setInput] = useState(initialQuery);
-  const [query, setQuery] = useState<Query>({ text: initialQuery.trim(), exact: false });
+  const { query, setQuery } = useSearch();
   const [filters, setFilters] = useState<CardFilters>(DEFAULT_FILTERS);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const [results, setResults] = useState<Results>({ status: 'loading' });
   const [selected, setSelected] = useState<ScryfallCard | null>(null);
-  // Aborting the current search also drops a "load more" still in flight for it.
+  const [page, setPage] = useState(0);
+  const resultsRef = useRef<HTMLElement>(null);
+  // Aborting the current search also drops a page fetch still in flight for it.
   const search = useRef<AbortController>();
-  const typed = useDebouncedValue(input.trim(), RESULTS_DELAY_MS);
-
-  const runSearch = (text: string, exact = false) =>
-    setQuery((prev) => (prev.text === text && (prev.exact || !exact) ? prev : { text, exact }));
-
-  useEffect(() => {
-    if (initialQuery) {
-      setInput(initialQuery);
-      setQuery({ text: initialQuery.trim(), exact: false });
-    }
-  }, [initialQuery]);
-
-  // The box drives the results once typing pauses; a picked name stays exact until its text changes.
-  useEffect(() => runSearch(typed), [typed]);
-
   useEffect(() => {
     const controller = new AbortController();
     search.current = controller;
@@ -72,8 +53,15 @@ export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
     const { q, order, dir } = buildScryfallQuery(filters, text);
 
     setResults({ status: 'loading' });
+    setPage(0);
     searchCards(q, order, dir, controller.signal)
-      .then((page) => {
+      .then(async (page) => {
+        // Nothing found for what was typed: try the likely typo fix once (a mechanic word, then a card name).
+        if (page.total === 0 && !query.exact && !query.typed) {
+          const fix = await rescueSearch(query.text, controller.signal).catch(() => null);
+          if (controller.signal.aborted) return;
+          if (fix) return setQuery({ ...fix, typed: query.text });
+        }
         setResults({ status: 'ready', loadingMore: false, moreFailed: false, ...page });
         if (page.total === 0) say('No hay cartas con esos filtros o nombre. Intenta ajustar la búsqueda.', 'angry');
         else if (query.exact) say(`${query.text}: ${plural(page.total, 'impresión', 'impresiones')} en el grimorio.`, 'smile');
@@ -88,20 +76,27 @@ export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
       });
 
     return () => controller.abort();
-  }, [query, filters, attempt, say]);
+  }, [query, filters, attempt, say, setQuery]);
 
-  const loadMore = () => {
-    if (results.status !== 'ready' || !results.nextPage || results.loadingMore) return;
+  const goToPage = (next: number) => {
+    if (results.status !== 'ready' || results.loadingMore) return;
+    const show = () => {
+      setPage(next);
+      resultsRef.current?.scrollIntoView({ block: 'start' });
+    };
+    // Scryfall serves 175 printings per request: follow next_page only when this page would come up short.
+    if (available.length >= (next + 1) * PAGE_SIZE || !results.nextPage) return show();
     const signal = search.current?.signal;
     setResults({ ...results, loadingMore: true, moreFailed: false });
     fetchCardPage(results.nextPage, signal)
-      .then((page) => {
+      .then((more) => {
         if (signal?.aborted) return;
         setResults((prev) =>
           prev.status === 'ready'
-            ? { ...prev, cards: [...prev.cards, ...page.cards], nextPage: page.nextPage, loadingMore: false }
+            ? { ...prev, cards: [...prev.cards, ...more.cards], nextPage: more.nextPage, loadingMore: false }
             : prev,
         );
+        show();
       })
       .catch(() => {
         if (signal?.aborted) return;
@@ -109,14 +104,12 @@ export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
       });
   };
 
-  const pickName = (name: string) => {
-    setInput(name);
-    runSearch(name, true);
-  };
-
   // shortcut: stock is simulated per card, so "only in stock" filters each loaded page here; move it to the inventory API once there is one.
   const cards = results.status === 'ready' ? results.cards : [];
-  const shown = filters.inStockOnly ? cards.filter((c) => cardStock(c) > 0) : cards;
+  const available = filters.inStockOnly ? cards.filter((c) => cardStock(c) > 0) : cards;
+  const shown = available.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+  const pageCount = results.status === 'ready' ? Math.max(1, Math.ceil(results.total / PAGE_SIZE)) : 1;
+  const hasNext = available.length > (page + 1) * PAGE_SIZE || (results.status === 'ready' && results.nextPage !== null);
   const prefer = filters.finish === 'all' ? undefined : filters.finish;
 
   return (
@@ -151,26 +144,6 @@ export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
       </header>
 
       <div className="space-y-3">
-        <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-          <CardSearchBox value={input} onChange={setInput} onSubmit={() => runSearch(input.trim())} onPick={pickName} />
-
-          <div className="flex items-center gap-1.5 self-end sm:self-auto">
-            <ArrowDownUp className="size-3.5 shrink-0 text-honey-ink" aria-hidden="true" />
-            <select
-              aria-label="Ordenar resultados"
-              value={filters.sort ?? 'edhrec'}
-              onChange={(e) => setFilters((prev) => ({ ...prev, sort: e.target.value as CardFilters['sort'] }))}
-              className="field py-2 pl-2.5 pr-8 text-xs font-bold"
-            >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt.id} value={opt.id}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
         <CardFilterPanel
           filters={filters}
           onChange={setFilters}
@@ -178,17 +151,6 @@ export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
           onToggle={() => setIsFilterOpen((prev) => !prev)}
           totalCards={results.status === 'ready' ? results.total : undefined}
         />
-
-        <div className="-mx-4 flex items-center gap-1.5 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
-          <span className="flex shrink-0 items-center gap-1 text-[11px] font-bold text-espresso-soft">
-            Populares:
-          </span>
-          {SUGGESTIONS.map((name) => (
-            <button key={name} type="button" className="chip shrink-0" onClick={() => pickName(name)}>
-              {name}
-            </button>
-          ))}
-        </div>
       </div>
 
       {results.status === 'loading' && (
@@ -216,7 +178,7 @@ export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
         </div>
       )}
 
-      {results.status === 'ready' && shown.length === 0 && (
+      {results.status === 'ready' && available.length === 0 && (
         <div className="panel flex flex-col items-center gap-3 py-16 text-center">
           <img src="/img/libro.webp" alt="" width={140} height={140} className="size-32 object-contain opacity-80" />
           <h3 className="text-lg">No se encontraron cartas con esos criterios</h3>
@@ -227,7 +189,6 @@ export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
             type="button"
             className="btn btn-primary mt-2"
             onClick={() => {
-              setInput('');
               setQuery({ text: '', exact: false });
               setFilters(DEFAULT_FILTERS);
             }}
@@ -238,9 +199,19 @@ export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
       )}
 
       {results.status === 'ready' && shown.length > 0 && (
-        <section aria-label="Resultados del catálogo" className="space-y-6">
+        <section ref={resultsRef} aria-label="Resultados del catálogo" className="scroll-mt-24 space-y-6">
+          {query.typed && (
+            <p className="text-sm text-espresso-soft">
+              No encontramos «{query.typed}». Te mostramos {query.exact ? 'la carta' : 'resultados para'}{' '}
+              <span className="font-serif font-bold italic text-espresso">«{query.text}»</span>.
+            </p>
+          )}
           <p className="text-sm text-espresso-soft" aria-live="polite">
-            Mostrando <span className="font-bold tabular-nums text-espresso">{shown.length.toLocaleString('es-CO')}</span> de{' '}
+            Mostrando{' '}
+            <span className="font-bold tabular-nums text-espresso">
+              {(page * PAGE_SIZE + 1).toLocaleString('es-CO')}–{(page * PAGE_SIZE + shown.length).toLocaleString('es-CO')}
+            </span>{' '}
+            de{' '}
             <span className="font-bold tabular-nums text-espresso">{plural(results.total, 'impresión', 'impresiones')}</span>
             {query.exact && (
               <>
@@ -256,23 +227,33 @@ export function CartasTab({ initialQuery = '' }: { initialQuery?: string }) {
             ))}
           </div>
 
-          {results.nextPage && (
-            <div className="flex flex-col items-center gap-2 pt-4">
-              <button
-                type="button"
-                className="btn btn-secondary px-8 py-3"
-                onClick={loadMore}
-                disabled={results.loadingMore}
-                aria-busy={results.loadingMore}
-              >
-                {results.loadingMore ? 'Cargando impresiones…' : 'Cargar más impresiones'}
-              </button>
+          {(page > 0 || hasNext) && (
+            <nav aria-label="Páginas de resultados" className="flex flex-col items-center gap-2 pt-4">
+              <div className="flex items-center gap-3">
+                <button type="button" className="btn btn-secondary" onClick={() => goToPage(page - 1)} disabled={page === 0 || results.loadingMore}>
+                  <ChevronLeft className="size-4" aria-hidden="true" />
+                  Anterior
+                </button>
+                <span className="text-sm font-bold tabular-nums text-espresso-soft" aria-live="polite">
+                  {results.loadingMore ? 'Cargando…' : `Página ${(page + 1).toLocaleString('es-CO')} de ${pageCount.toLocaleString('es-CO')}`}
+                </span>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => goToPage(page + 1)}
+                  disabled={!hasNext || results.loadingMore}
+                  aria-busy={results.loadingMore}
+                >
+                  Siguiente
+                  <ChevronRight className="size-4" aria-hidden="true" />
+                </button>
+              </div>
               {results.moreFailed && (
                 <p role="alert" className="text-xs font-semibold text-ember-ink">
                   No pudimos traer la siguiente página. Vuelve a intentarlo.
                 </p>
               )}
-            </div>
+            </nav>
           )}
         </section>
       )}

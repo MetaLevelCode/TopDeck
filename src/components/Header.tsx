@@ -3,23 +3,41 @@ import type { LucideIcon } from 'lucide-react';
 import { TABS } from '../lib/useHashTab';
 import type { TabId } from '../lib/useHashTab';
 import { useCart } from '../store/cart';
+import { useSearch } from '../store/search';
+import { CardSearchBox } from './CardSearchBox';
 
 const TAB_ICONS: Record<TabId, LucideIcon> = { tienda: Store, cartas: Search, perfil: User };
 
-export function Header({ tab }: { tab: TabId }) {
+export function Header({ tab, onNavigate }: { tab: TabId; onNavigate: (tab: TabId) => void }) {
   const { count, setOpen } = useCart();
+  const { input, setInput, submit, pick } = useSearch();
+  // Most visitors come to find one card: searching from any tab opens the results.
+  const toResults = () => onNavigate('cartas');
 
   return (
     <header className="sticky top-0 z-40 border-b border-espresso/10 bg-parchment/85 pt-[env(safe-area-inset-top)] backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-6xl items-stretch justify-between gap-4 px-4 sm:h-16">
-        <a href="#tienda" className="flex items-center" aria-label="TOP DECK, ir a la tienda">
-          {/* The logo, stacked like the sign: TOP centred over DECK. */}
-          <span aria-hidden="true" className="wordmark text-center text-[1.4rem] leading-[0.85] sm:text-[1.6rem]">
-            TOP
-            <br />
-            DECK
-          </span>
+      <div className="mx-auto flex h-16 max-w-6xl items-stretch gap-3 px-4 sm:gap-5">
+        <a href="#tienda" className="flex shrink-0 items-center" aria-label="TOP DECK, ir a la tienda">
+          <img src="/img/logo.webp" alt="" width={290} height={192} className="h-11 w-auto sm:h-12" />
         </a>
+
+        <div className="flex min-w-0 flex-1 items-center">
+          <CardSearchBox
+            value={input}
+            onChange={(text) => {
+              setInput(text);
+              if (text.trim()) toResults();
+            }}
+            onSubmit={() => {
+              submit();
+              toResults();
+            }}
+            onPick={(name) => {
+              pick(name);
+              toResults();
+            }}
+          />
+        </div>
 
         <nav aria-label="Principal" className="hidden items-stretch md:flex">
           {TABS.map(({ id, label }) => (
