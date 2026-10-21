@@ -590,7 +590,7 @@ export function PerfilTab() {
   };
 
   return (
-    <div className="space-y-8 text-ui-parchment">
+    <div className="space-y-8 text-espresso">
       {/* ====================================================================
           1. HERO / FICHA OFICIAL DEL DUELISTA (ESTILO TABERNA TOP DECK)
           ==================================================================== */}
@@ -601,8 +601,8 @@ export function PerfilTab() {
         <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12">
           {/* Avatar del Jugador con marco de Taberna */}
           <div className="flex flex-col items-center justify-center lg:col-span-4">
-            <div className="relative w-full max-w-[260px] overflow-hidden rounded-jrpg border-2 border-ui-cocoa bg-base-dark p-2 shadow-panel">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-lg border border-accent-clay/40 bg-base-dark">
+            <div className="relative w-full max-w-[260px] overflow-hidden rounded-xl border border-espresso/10 bg-parchment-well p-2 shadow-lift">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-lg border border-honey/40 bg-parchment-well">
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF8Fr-Ep6TTMcZfAPSz3jHNSwglKG-3yIXbintNVH1VurfFygzES3tiTDHz0Oe7YpIrXU0UfJYfo7BtvkkbNxStIvyx8pw-5MtT1sgWt0YHiqkGjJbwhWxVddNlOPUNHW9d0c22G0ne9NS2402z2htbnjjnltk_N2dV_95xHcONS0Uu3nSsZp450vDelNg0yLof0xrtfKPXH-sLUhIXyyCK0TKH3LomhQpRzYnbp4f9olyJnBl460_kVOktR24dt_Fw"
                   alt={`Retrato oficial de ${duelistName} en Taberna Top Deck`}
@@ -611,23 +611,23 @@ export function PerfilTab() {
                 />
 
                 {/* Badge Flotante "MVP" */}
-                <div className="absolute right-2 top-2 rounded-full border border-accent-clay bg-base-dark/90 px-2.5 py-0.5 font-display text-xs font-bold text-accent-clay shadow-sm backdrop-blur-sm">
+                <div className="absolute right-2 top-2 rounded border border-honey bg-parchment-well px-2.5 py-0.5 text-xs font-bold text-honey-ink shadow-sm backdrop-blur-sm">
                   ★ MVP
                 </div>
 
                 {/* Banner de Victoria 3-0 en la base */}
-                <div className="absolute inset-x-2 bottom-2 flex items-center justify-between rounded-md border border-ui-cocoa/60 bg-base-dark/95 px-2.5 py-1 text-xs backdrop-blur-sm">
-                  <span className="flex items-center gap-1.5 font-bold text-accent-sage">
-                    <Trophy className="size-3.5 text-accent-clay" aria-hidden="true" />
+                <div className="absolute inset-x-2 bottom-2 flex items-center justify-between rounded-md border border-espresso/10 bg-parchment-well px-2.5 py-1 text-xs backdrop-blur-sm">
+                  <span className="flex items-center gap-1.5 font-bold text-moss-ink">
+                    <Trophy className="size-3.5 text-honey-ink" aria-hidden="true" />
                     <span>Récord: 3 - 0</span>
                   </span>
-                  <span className="text-[11px] font-medium text-ui-latte">FNM Taberna</span>
+                  <span className="text-[11px] font-medium text-espresso-soft">FNM Taberna</span>
                 </div>
               </div>
 
               {/* Etiqueta de Folio Coleccionista */}
               <div className="mt-2 text-center">
-                <span className="text-xs font-bold tracking-wider text-ui-latte">
+                <span className="text-xs font-bold text-espresso-soft">
                   Retrato Oficial de Taberna #044
                 </span>
               </div>
@@ -639,17 +639,17 @@ export function PerfilTab() {
             <div>
               {/* Badges de Identidad */}
               <div className="mb-2 flex flex-wrap items-center gap-2">
-                <span className="rounded-full border border-accent-clay/60 bg-accent-clay/15 px-3 py-1 text-xs font-bold text-accent-clay">
+                <span className="rounded border border-honey/60 bg-honey/15 px-3 py-1 text-xs font-bold text-honey-ink">
                   Gremio Top Deck Gold
                 </span>
-                <span className="rounded-full border border-ui-cocoa bg-base-dark/70 px-3 py-1 text-xs font-bold text-ui-latte">
+                <span className="rounded border border-espresso/10 bg-parchment-well px-3 py-1 text-xs font-bold text-espresso-soft">
                   ID: {duelistId}
                 </span>
                 {user ? (
                   <button
                     type="button"
                     onClick={signOut}
-                    className="btn btn-secondary btn-sm py-1 text-xs text-red-400 hover:text-red-300"
+                    className="btn btn-secondary btn-sm py-1 text-xs text-ember-ink hover:text-ember"
                   >
                     Cerrar sesión ({user.name})
                   </button>
@@ -657,7 +657,7 @@ export function PerfilTab() {
                   <button
                     type="button"
                     onClick={() => setSessionModalOpen(true)}
-                    className="btn btn-secondary btn-sm py-1 text-xs text-ui-latte hover:text-ui-parchment"
+                    className="btn btn-secondary btn-sm py-1 text-xs text-espresso-soft hover:text-espresso"
                   >
                     Personalizar duelista
                   </button>
@@ -667,8 +667,8 @@ export function PerfilTab() {
               <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
                 {duelistName}
               </h1>
-              <p className="mt-1 flex flex-wrap items-center gap-2 text-sm text-ui-latte">
-                <span className="font-bold text-accent-clay">{duelistHandle}</span>
+              <p className="mt-1 flex flex-wrap items-center gap-2 text-sm text-espresso-soft">
+                <span className="font-bold text-honey-ink">{duelistHandle}</span>
                 <span>•</span>
                 <span>"Campeón de Taberna · Rango Mítico"</span>
               </p>
@@ -676,37 +676,37 @@ export function PerfilTab() {
 
             {/* Cuadrícula de Estadísticas Globales */}
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-              <div className="rounded-jrpg border border-ui-cocoa/50 bg-base-dark/70 p-3 text-center transition-transform hover:-translate-y-0.5">
-                <div className="text-xs font-bold text-ui-latte">Victorias</div>
-                <div className="font-display text-2xl font-extrabold text-ui-parchment">142</div>
-                <div className="text-[11px] font-bold text-accent-sage">+12 este mes</div>
+              <div className="rounded-xl border border-espresso/10 bg-parchment-well p-3 text-center transition-transform hover:-translate-y-0.5">
+                <div className="text-xs font-bold text-espresso-soft">Victorias</div>
+                <div className="font-display text-2xl font-extrabold text-espresso">142</div>
+                <div className="text-[11px] font-bold text-moss-ink">+12 este mes</div>
               </div>
 
-              <div className="rounded-jrpg border border-ui-cocoa/50 bg-base-dark/70 p-3 text-center transition-transform hover:-translate-y-0.5">
-                <div className="text-xs font-bold text-ui-latte">Winrate</div>
-                <div className="font-display text-2xl font-extrabold text-accent-clay">68.4%</div>
-                <div className="text-[11px] text-ui-latte/80">Global TCG</div>
+              <div className="rounded-xl border border-espresso/10 bg-parchment-well p-3 text-center transition-transform hover:-translate-y-0.5">
+                <div className="text-xs font-bold text-espresso-soft">Winrate</div>
+                <div className="font-display text-2xl font-extrabold text-honey-ink">68.4%</div>
+                <div className="text-[11px] text-espresso-mute">Global TCG</div>
               </div>
 
-              <div className="rounded-jrpg border border-ui-cocoa/50 bg-base-dark/70 p-3 text-center transition-transform hover:-translate-y-0.5">
-                <div className="text-xs font-bold text-ui-latte">Torneos</div>
-                <div className="font-display text-2xl font-extrabold text-ui-parchment">24</div>
-                <div className="text-[11px] text-ui-latte/80">Oficiales</div>
+              <div className="rounded-xl border border-espresso/10 bg-parchment-well p-3 text-center transition-transform hover:-translate-y-0.5">
+                <div className="text-xs font-bold text-espresso-soft">Torneos</div>
+                <div className="font-display text-2xl font-extrabold text-espresso">24</div>
+                <div className="text-[11px] text-espresso-mute">Oficiales</div>
               </div>
 
-              <div className="rounded-jrpg border border-ui-cocoa/50 bg-base-dark/70 p-3 text-center transition-transform hover:-translate-y-0.5">
-                <div className="text-xs font-bold text-ui-latte">Trofeos</div>
-                <div className="flex items-center justify-center gap-1 font-display text-2xl font-extrabold text-amber-400">
+              <div className="rounded-xl border border-espresso/10 bg-parchment-well p-3 text-center transition-transform hover:-translate-y-0.5">
+                <div className="text-xs font-bold text-espresso-soft">Trofeos</div>
+                <div className="flex items-center justify-center gap-1 font-display text-2xl font-extrabold text-honey-ink">
                   <span>7</span>
-                  <Trophy className="size-4 text-amber-400" aria-hidden="true" />
+                  <Trophy className="size-4 text-honey-ink" aria-hidden="true" />
                 </div>
-                <div className="text-[11px] font-bold text-amber-400">1er Puesto</div>
+                <div className="text-[11px] font-bold text-honey-ink">1er Puesto</div>
               </div>
 
-              <div className="col-span-2 rounded-jrpg border border-accent-clay/40 bg-accent-clay/10 p-3 text-center transition-transform hover:-translate-y-0.5 sm:col-span-1">
-                <div className="text-xs font-bold text-accent-clay">ELO Taberna</div>
-                <div className="font-display text-2xl font-extrabold text-ui-parchment">1845</div>
-                <div className="text-[11px] font-bold text-accent-clay">Top 3 Local</div>
+              <div className="col-span-2 rounded-xl border border-honey/40 bg-honey/10 p-3 text-center transition-transform hover:-translate-y-0.5 sm:col-span-1">
+                <div className="text-xs font-bold text-honey-ink">ELO Taberna</div>
+                <div className="font-display text-2xl font-extrabold text-espresso">1845</div>
+                <div className="text-[11px] font-bold text-honey-ink">Top 3 Local</div>
               </div>
             </div>
 
@@ -720,12 +720,12 @@ export function PerfilTab() {
               >
                 {copiedFeedback ? (
                   <>
-                    <Check className="size-4 text-accent-sage" aria-hidden="true" />
-                    <span className="text-accent-sage">¡Copiado al portapapeles!</span>
+                    <Check className="size-4 text-moss-ink" aria-hidden="true" />
+                    <span className="text-moss-ink">¡Copiado al portapapeles!</span>
                   </>
                 ) : (
                   <>
-                    <Share2 className="size-4 text-accent-clay" aria-hidden="true" />
+                    <Share2 className="size-4 text-honey-ink" aria-hidden="true" />
                     <span>Compartir ficha</span>
                   </>
                 )}
@@ -737,7 +737,7 @@ export function PerfilTab() {
                 className="btn btn-secondary btn-sm"
                 title="Importar mazo desde Moxfield o lista de texto"
               >
-                <Download className="size-4 text-accent-clay" aria-hidden="true" />
+                <Download className="size-4 text-honey-ink" aria-hidden="true" />
                 <span>Importar mazo</span>
               </button>
             </div>
@@ -770,7 +770,7 @@ export function PerfilTab() {
                   aria-hidden="true"
                 />
                 <span>{game.name}</span>
-                <span className="ml-1 rounded bg-base-dark/90 px-1.5 py-0.5 text-[11px] font-mono text-ui-parchment">
+                <span className="ml-1 rounded bg-parchment-well px-1.5 py-0.5 text-[11px] font-mono text-espresso">
                   {game.badge}
                 </span>
               </button>
@@ -782,92 +782,92 @@ export function PerfilTab() {
         <div className="panel p-5 sm:p-6">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             {/* 1. Win Rate Torneos */}
-            <div className="flex flex-col justify-between rounded-jrpg border border-ui-cocoa/50 bg-base-dark/60 p-4">
-              <div className="flex items-center justify-between text-xs font-bold text-ui-latte">
+            <div className="flex flex-col justify-between rounded-xl border border-espresso/10 bg-parchment-well p-4">
+              <div className="flex items-center justify-between text-xs font-bold text-espresso-soft">
                 <span>Win Rate Torneos</span>
-                <BarChart2 className="size-4 text-accent-clay" aria-hidden="true" />
+                <BarChart2 className="size-4 text-honey-ink" aria-hidden="true" />
               </div>
               <div className="my-3">
-                <span className="font-display text-2xl font-extrabold text-ui-parchment">
+                <span className="font-display text-2xl font-extrabold text-espresso">
                   {currentGame.winRate}
                 </span>
-                <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-base-mocha">
+                <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-parchment-raised">
                   <div
-                    className="h-full rounded-full bg-accent-clay transition-all duration-500"
+                    className="h-full rounded-full bg-honey transition-all duration-500"
                     style={{ width: `${currentGame.winRate}` }}
                   />
                 </div>
               </div>
-              <div className="text-xs text-ui-latte">{currentGame.totalGames}</div>
+              <div className="text-xs text-espresso-soft">{currentGame.totalGames}</div>
             </div>
 
             {/* 2. On Play / Draw */}
-            <div className="flex flex-col justify-between rounded-jrpg border border-ui-cocoa/50 bg-base-dark/60 p-4">
-              <div className="flex items-center justify-between text-xs font-bold text-ui-latte">
+            <div className="flex flex-col justify-between rounded-xl border border-espresso/10 bg-parchment-well p-4">
+              <div className="flex items-center justify-between text-xs font-bold text-espresso-soft">
                 <span>On Play / Draw</span>
-                <Dices className="size-4 text-accent-sage" aria-hidden="true" />
+                <Dices className="size-4 text-moss-ink" aria-hidden="true" />
               </div>
               <div className="my-3 space-y-1.5">
                 <div className="flex justify-between text-xs font-bold">
-                  <span className="text-ui-parchment">Play: {currentGame.playPercent}%</span>
-                  <span className="text-accent-clay">Draw: {currentGame.drawPercent}%</span>
+                  <span className="text-espresso">Play: {currentGame.playPercent}%</span>
+                  <span className="text-honey-ink">Draw: {currentGame.drawPercent}%</span>
                 </div>
-                <div className="flex h-2 w-full overflow-hidden rounded-full bg-base-mocha">
+                <div className="flex h-2 w-full overflow-hidden rounded-full bg-parchment-raised">
                   <div
-                    className="h-full bg-ui-parchment"
+                    className="h-full bg-espresso"
                     style={{ width: `${currentGame.playPercent}%` }}
                     title={`Play: ${currentGame.playPercent}%`}
                   />
                   <div
-                    className="h-full bg-accent-clay"
+                    className="h-full bg-honey"
                     style={{ width: `${100 - currentGame.playPercent}%` }}
                     title={`Draw: ${currentGame.drawPercent}%`}
                   />
                 </div>
               </div>
-              <div className="text-xs font-bold text-accent-sage">{currentGame.tacticalNote}</div>
+              <div className="text-xs font-bold text-moss-ink">{currentGame.tacticalNote}</div>
             </div>
 
             {/* 3. Matchups Favorables */}
-            <div className="flex flex-col justify-between rounded-jrpg border border-ui-cocoa/50 bg-base-dark/60 p-4">
-              <div className="flex items-center justify-between text-xs font-bold text-ui-latte">
+            <div className="flex flex-col justify-between rounded-xl border border-espresso/10 bg-parchment-well p-4">
+              <div className="flex items-center justify-between text-xs font-bold text-espresso-soft">
                 <span>Matchups Favorables</span>
-                <Shield className="size-4 text-accent-clay" aria-hidden="true" />
+                <Shield className="size-4 text-honey-ink" aria-hidden="true" />
               </div>
               <div className="my-2 space-y-1.5 text-xs">
                 {currentGame.matchups.map((m) => (
                   <div key={m.label} className="flex justify-between">
-                    <span className="text-ui-latte">{m.label}</span>
-                    <span className={`font-bold ${m.favorable ? 'text-accent-sage' : 'text-amber-400'}`}>
+                    <span className="text-espresso-soft">{m.label}</span>
+                    <span className={`font-bold ${m.favorable ? 'text-moss-ink' : 'text-honey-ink'}`}>
                       {m.wr}
                     </span>
                   </div>
                 ))}
               </div>
-              <div className="text-[11px] text-ui-latte/70">Meta Regional Bogotá</div>
+              <div className="text-[11px] text-espresso-mute">Meta Regional Bogotá</div>
             </div>
 
             {/* 4. Formatos Insignia */}
-            <div className="flex flex-col justify-between rounded-jrpg border border-ui-cocoa/50 bg-base-dark/60 p-4">
-              <div className="flex items-center justify-between text-xs font-bold text-ui-latte">
+            <div className="flex flex-col justify-between rounded-xl border border-espresso/10 bg-parchment-well p-4">
+              <div className="flex items-center justify-between text-xs font-bold text-espresso-soft">
                 <span>Formatos Insignia</span>
-                <BookOpen className="size-4 text-accent-clay" aria-hidden="true" />
+                <BookOpen className="size-4 text-honey-ink" aria-hidden="true" />
               </div>
               <div className="my-2 flex flex-wrap gap-1.5">
                 {currentGame.formats.map((fmt, idx) => (
                   <span
                     key={fmt}
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                    className={`rounded px-2.5 py-0.5 text-xs font-bold ${
                       idx === 0
-                        ? 'border border-accent-clay/40 bg-accent-clay/20 text-accent-clay'
-                        : 'border border-ui-cocoa bg-base-mocha text-ui-latte'
+                        ? 'border border-honey/40 bg-honey/20 text-honey-ink'
+                        : 'border border-espresso/10 bg-parchment-raised text-espresso-soft'
                     }`}
                   >
                     {fmt}
                   </span>
                 ))}
               </div>
-              <div className="text-xs font-bold text-accent-clay">
+              <div className="text-xs font-bold text-honey-ink">
                 {currentGame.activeDecksCount} mazos activos
               </div>
             </div>
@@ -883,19 +883,19 @@ export function PerfilTab() {
         <div className="panel flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-center">
           <div>
             <div className="flex items-center gap-2">
-              <Swords className="size-5 text-accent-clay" aria-hidden="true" />
+              <Swords className="size-5 text-honey-ink" aria-hidden="true" />
               <h2 className="text-xl font-extrabold sm:text-2xl">
                 Mis Mazos de Torneo
               </h2>
             </div>
-            <p className="mt-1 text-sm text-ui-latte">
+            <p className="mt-1 text-sm text-espresso-soft">
               Ranking oficial según victorias acumuladas en torneos sancionados y partidas de taberna.
             </p>
           </div>
 
           {/* Campo de búsqueda */}
           <div className="relative w-full sm:w-72">
-            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ui-latte" aria-hidden="true" />
+            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-espresso-soft" aria-hidden="true" />
             <input
               type="text"
               placeholder="Buscar por carta, formato..."
@@ -907,7 +907,7 @@ export function PerfilTab() {
               <button
                 type="button"
                 onClick={() => setDeckSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-ui-latte hover:text-ui-parchment"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-espresso-soft hover:text-espresso"
                 title="Limpiar búsqueda"
               >
                 <X className="size-4" aria-hidden="true" />
@@ -919,8 +919,8 @@ export function PerfilTab() {
         {/* Lista de Mazos */}
         <div className="grid grid-cols-1 gap-4">
           {filteredDecks.length === 0 ? (
-            <div className="panel p-8 text-center text-ui-latte">
-              <p className="text-base font-bold text-ui-parchment">
+            <div className="panel p-8 text-center text-espresso-soft">
+              <p className="text-base font-bold text-espresso">
                 No se encontraron mazos con «{deckSearchQuery}»
               </p>
               <button
@@ -938,28 +938,28 @@ export function PerfilTab() {
               const isBronze = deck.medal === 'bronze';
 
               const medalBorder = isGold
-                ? 'border-l-4 border-l-amber-400'
+                ? 'border-l-4 border-l-honey'
                 : isSilver
-                  ? 'border-l-4 border-l-slate-300'
+                  ? 'border-l-4 border-l-slate-400'
                   : isBronze
                     ? 'border-l-4 border-l-amber-700'
-                    : 'border-l-4 border-l-ui-cocoa';
+                    : 'border-l-4 border-l-espresso/15';
 
               return (
                 <article
                   key={deck.id}
-                  className={`panel ${medalBorder} relative p-5 transition-all duration-200 hover:border-accent-clay/60 sm:p-6`}
+                  className={`panel ${medalBorder} relative p-5 transition-all duration-200 hover:border-honey/60 sm:p-6`}
                 >
                   {/* Etiqueta de Medalla */}
                   {deck.medalLabel && (
                     <div className="mb-3 flex items-center gap-1.5 sm:hidden">
                       <span
-                        className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                        className={`rounded px-2.5 py-0.5 text-xs font-bold ${
                           isGold
-                            ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40'
+                            ? 'bg-honey-tint text-honey-ink border border-honey/50'
                             : isSilver
-                              ? 'bg-slate-300/20 text-slate-200 border border-slate-300/40'
-                              : 'bg-amber-700/20 text-amber-400 border border-amber-700/40'
+                              ? 'bg-slate-100 text-slate-600 border border-slate-400/40'
+                              : 'bg-amber-700/10 text-amber-800 border border-amber-700/40'
                         }`}
                       >
                         {deck.medalLabel}
@@ -970,66 +970,66 @@ export function PerfilTab() {
                   <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12">
                     {/* Miniatura / Carta Insignia */}
                     <div className="flex flex-col items-center lg:col-span-3">
-                      <div className="group relative aspect-[5/7] w-full max-w-[200px] overflow-hidden rounded-jrpg border-2 border-ui-cocoa bg-base-dark shadow-panel">
+                      <div className="group relative aspect-[5/7] w-full max-w-[200px] overflow-hidden rounded-xl border border-espresso/10 bg-parchment-well shadow-lift">
                         <img
                           src={deck.artUrl}
                           alt={deck.cardName}
                           className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
                           loading="lazy"
                         />
-                        <div className="absolute inset-x-0 bottom-0 border-t border-ui-cocoa/70 bg-base-dark/95 py-1 text-center text-xs font-bold text-ui-parchment backdrop-blur-sm">
+                        <div className="absolute inset-x-0 bottom-0 border-t border-espresso/10 bg-parchment-well py-1 text-center text-xs font-bold text-espresso backdrop-blur-sm">
                           {deck.cardName}
                         </div>
                         {deck.foilBadge && (
-                          <div className="absolute left-2 top-2 rounded-full border border-accent-clay bg-base-dark/90 px-2 py-0.5 text-[10px] font-bold text-accent-clay backdrop-blur-sm">
+                          <div className="absolute left-2 top-2 rounded border border-honey bg-parchment-well px-2 py-0.5 text-[10px] font-bold text-honey-ink backdrop-blur-sm">
                             {deck.foilBadge}
                           </div>
                         )}
                       </div>
-                      <span className="mt-2 text-xs font-bold text-ui-latte">{deck.roleSubtitle}</span>
+                      <span className="mt-2 text-xs font-bold text-espresso-soft">{deck.roleSubtitle}</span>
                     </div>
 
                     {/* Datos del Mazo y Estadísticas */}
                     <div className="space-y-3 lg:col-span-6">
                       <div>
                         <div className="mb-1.5 flex flex-wrap items-center gap-2">
-                          <span className="rounded-full border border-accent-clay bg-accent-clay/20 px-2.5 py-0.5 text-xs font-bold text-accent-clay">
+                          <span className="rounded border border-honey bg-honey/20 px-2.5 py-0.5 text-xs font-bold text-honey-ink">
                             Rank #{deck.rank}
                           </span>
-                          <span className="rounded-full border border-ui-cocoa bg-base-dark px-2.5 py-0.5 text-xs font-bold text-ui-latte">
+                          <span className="rounded border border-espresso/10 bg-parchment-well px-2.5 py-0.5 text-xs font-bold text-espresso-soft">
                             {deck.format}
                           </span>
-                          <span className="font-mono text-xs text-ui-latte/70">ID: #{deck.moxfieldId}</span>
+                          <span className="font-mono text-xs text-espresso-mute">ID: #{deck.moxfieldId}</span>
                         </div>
-                        <h3 className="text-xl font-extrabold text-ui-parchment transition-colors hover:text-accent-clay">
+                        <h3 className="text-xl font-extrabold text-espresso transition-colors hover:text-honey-ink">
                           {deck.name}
                         </h3>
-                        <p className="mt-1 text-sm text-ui-latte">{deck.strategy}</p>
+                        <p className="mt-1 text-sm text-espresso-soft">{deck.strategy}</p>
                       </div>
 
                       {/* Registro de Victorias */}
-                      <div className="flex flex-wrap items-center justify-between gap-3 rounded-jrpg border border-ui-cocoa/50 bg-base-dark/60 p-3.5">
+                      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-espresso/10 bg-parchment-well p-3.5">
                         <div>
-                          <div className="text-xs font-bold text-ui-latte">Récord de Taberna:</div>
-                          <div className="font-display text-lg font-extrabold text-ui-parchment">
+                          <div className="text-xs font-bold text-espresso-soft">Récord de Taberna:</div>
+                          <div className="font-display text-lg font-extrabold text-espresso">
                             {deck.record.wins} Victorias - {deck.record.losses} Derrotas
                           </div>
                         </div>
                         <div className="text-right">
-                          <span className="rounded-full border border-accent-sage/40 bg-accent-sage/15 px-3 py-1 font-display text-sm font-extrabold text-accent-sage">
+                          <span className="rounded border border-moss/40 bg-moss/15 px-3 py-1 font-display text-sm font-extrabold text-moss-ink">
                             {deck.winRate} Win Rate
                           </span>
                         </div>
                       </div>
 
                       {/* Último Torneo & Valor */}
-                      <div className="flex flex-wrap items-center justify-between border-t border-ui-cocoa/40 pt-2 text-xs text-ui-latte">
-                        <span className="flex items-center gap-1.5 font-bold text-ui-parchment">
-                          <Award className="size-4 text-accent-clay" aria-hidden="true" />
+                      <div className="flex flex-wrap items-center justify-between border-t border-espresso/10 pt-2 text-xs text-espresso-soft">
+                        <span className="flex items-center gap-1.5 font-bold text-espresso">
+                          <Award className="size-4 text-honey-ink" aria-hidden="true" />
                           <span>{deck.lastTournament.result}</span>
                         </span>
                         <span>
-                          Valor Vault: <strong className="font-bold text-accent-sage">{formatUSD(deck.vaultValueUsd)}</strong>
+                          Valor Vault: <strong className="font-bold text-moss-ink">{formatUSD(deck.vaultValueUsd)}</strong>
                         </span>
                       </div>
                     </div>
@@ -1056,7 +1056,7 @@ export function PerfilTab() {
                         }}
                         className="btn btn-secondary btn-sm w-full"
                       >
-                        <BarChart2 className="size-4 text-accent-clay" aria-hidden="true" />
+                        <BarChart2 className="size-4 text-honey-ink" aria-hidden="true" />
                         <span>Stats en torneo</span>
                       </button>
 
@@ -1077,12 +1077,12 @@ export function PerfilTab() {
                           onClick={() => setSideboardDeck(deck)}
                           className="btn btn-secondary btn-sm w-full"
                         >
-                          <SlidersHorizontal className="size-4 text-accent-clay" aria-hidden="true" />
+                          <SlidersHorizontal className="size-4 text-honey-ink" aria-hidden="true" />
                           <span>Sideboard Guide ({deck.sideboard.length})</span>
                         </button>
                       )}
 
-                      <span className="text-center text-[11px] text-ui-latte/70">
+                      <span className="text-center text-[11px] text-espresso-mute">
                         Sincronizado vía Moxfield API
                       </span>
                     </div>
@@ -1098,14 +1098,14 @@ export function PerfilTab() {
           4. HISTORIAL RECIENTE DE PARTIDAS DE TORNEO (MATCH LOG)
           ==================================================================== */}
       <section className="panel space-y-4 p-5 sm:p-6" aria-label="Historial de Partidas">
-        <div className="flex flex-col justify-between gap-2 border-b border-ui-cocoa/40 pb-3 sm:flex-row sm:items-center">
+        <div className="flex flex-col justify-between gap-2 border-b border-espresso/10 pb-3 sm:flex-row sm:items-center">
           <div className="flex items-center gap-2">
-            <History className="size-5 text-accent-clay" aria-hidden="true" />
+            <History className="size-5 text-honey-ink" aria-hidden="true" />
             <h2 className="text-lg font-extrabold sm:text-xl">
               Historial Reciente de Partidas (Match Log)
             </h2>
           </div>
-          <span className="text-xs text-ui-latte">
+          <span className="text-xs text-espresso-soft">
             Últimas {showFullHistory ? MATCH_LOG.length : 5} rondas sancionadas en Taberna Top Deck
           </span>
         </div>
@@ -1114,7 +1114,7 @@ export function PerfilTab() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs sm:text-sm">
             <thead>
-              <tr className="border-b border-ui-cocoa/60 text-xs font-bold uppercase tracking-wider text-ui-latte">
+              <tr className="border-b border-espresso/10 text-xs font-bold text-espresso-soft">
                 <th className="py-2.5 px-3">Fecha</th>
                 <th className="py-2.5 px-3">Torneo</th>
                 <th className="py-2.5 px-3">Mazo</th>
@@ -1123,24 +1123,24 @@ export function PerfilTab() {
                 <th className="py-2.5 px-3 text-right">Premio / ELO</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ui-cocoa/30">
+            <tbody className="divide-y divide-espresso/10">
               {(showFullHistory ? MATCH_LOG : MATCH_LOG.slice(0, 5)).map((match) => (
-                <tr key={match.id} className="transition-colors hover:bg-base-dark/40">
-                  <td className="py-3 px-3 font-bold text-ui-parchment">{match.date}</td>
+                <tr key={match.id} className="transition-colors hover:bg-parchment-well">
+                  <td className="py-3 px-3 font-bold text-espresso">{match.date}</td>
                   <td className="py-3 px-3">
-                    <span className="mr-1.5 rounded-full border border-ui-cocoa bg-base-dark px-2 py-0.5 text-xs font-bold text-accent-clay">
+                    <span className="mr-1.5 rounded border border-espresso/10 bg-parchment-well px-2 py-0.5 text-xs font-bold text-honey-ink">
                       {match.formatTag}
                     </span>
-                    <span className="text-ui-parchment">{match.tournament}</span>
+                    <span className="text-espresso">{match.tournament}</span>
                   </td>
-                  <td className="py-3 px-3 font-bold text-accent-sage">{match.deck}</td>
-                  <td className="py-3 px-3 text-ui-latte">{match.opponent}</td>
+                  <td className="py-3 px-3 font-bold text-moss-ink">{match.deck}</td>
+                  <td className="py-3 px-3 text-espresso-soft">{match.opponent}</td>
                   <td className="py-3 px-3 text-center">
                     <span
-                      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                      className={`inline-block rounded px-2.5 py-0.5 text-xs font-bold ${
                         match.isWin
-                          ? 'border border-accent-sage/40 bg-accent-sage/20 text-accent-sage'
-                          : 'border border-red-500/40 bg-red-500/20 text-red-300'
+                          ? 'border border-moss/40 bg-moss/20 text-moss-ink'
+                          : 'border border-ember/40 bg-ember/15 text-ember-ink'
                       }`}
                     >
                       {match.result}
@@ -1148,7 +1148,7 @@ export function PerfilTab() {
                   </td>
                   <td
                     className={`py-3 px-3 text-right font-bold ${
-                      match.isWin ? 'text-accent-sage' : 'text-red-400'
+                      match.isWin ? 'text-moss-ink' : 'text-ember-ink'
                     }`}
                   >
                     {match.prizeAndElo}
@@ -1160,7 +1160,7 @@ export function PerfilTab() {
         </div>
 
         {/* Toggle para ver más */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-xs text-ui-latte">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-xs text-espresso-soft">
           <span>
             Mostrando {showFullHistory ? MATCH_LOG.length : 5} de 142 partidas registradas
           </span>
@@ -1191,37 +1191,37 @@ export function PerfilTab() {
               type="button"
               onClick={() => setInspectDeck(null)}
               aria-label="Cerrar modal"
-              className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-ui-cocoa bg-base-dark text-ui-latte transition-colors hover:text-accent-clay active:scale-95"
+              className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-espresso/10 bg-parchment-well text-espresso-soft transition-colors hover:text-honey-ink active:scale-95"
             >
               <X className="size-4" aria-hidden="true" />
             </button>
 
-            <div className="border-b border-ui-cocoa/40 pb-3">
+            <div className="border-b border-espresso/10 pb-3">
               <div className="flex items-center gap-2">
-                <span className="rounded-full border border-accent-clay bg-accent-clay/20 px-2.5 py-0.5 text-xs font-bold text-accent-clay">
+                <span className="rounded border border-honey bg-honey/20 px-2.5 py-0.5 text-xs font-bold text-honey-ink">
                   {inspectDeck.format}
                 </span>
-                <span className="font-mono text-xs text-ui-latte">ID: #{inspectDeck.moxfieldId}</span>
+                <span className="font-mono text-xs text-espresso-soft">ID: #{inspectDeck.moxfieldId}</span>
               </div>
-              <h2 className="mt-1 text-2xl font-extrabold text-ui-parchment">{inspectDeck.name}</h2>
-              <p className="mt-1 text-sm text-ui-latte">{inspectDeck.strategy}</p>
+              <h2 className="mt-1 text-2xl font-extrabold text-espresso">{inspectDeck.name}</h2>
+              <p className="mt-1 text-sm text-espresso-soft">{inspectDeck.strategy}</p>
             </div>
 
             {/* Resumen de Rendimiento */}
             <div className="grid grid-cols-3 gap-3 text-center">
-              <div className="rounded-jrpg border border-ui-cocoa/50 bg-base-dark/70 p-3">
-                <div className="text-xs text-ui-latte">Win Rate</div>
-                <div className="font-display text-xl font-extrabold text-accent-sage">{inspectDeck.winRate}</div>
+              <div className="rounded-xl border border-espresso/10 bg-parchment-well p-3">
+                <div className="text-xs text-espresso-soft">Win Rate</div>
+                <div className="font-display text-xl font-extrabold text-moss-ink">{inspectDeck.winRate}</div>
               </div>
-              <div className="rounded-jrpg border border-ui-cocoa/50 bg-base-dark/70 p-3">
-                <div className="text-xs text-ui-latte">Partidas Oficiales</div>
-                <div className="font-display text-xl font-extrabold text-ui-parchment">
+              <div className="rounded-xl border border-espresso/10 bg-parchment-well p-3">
+                <div className="text-xs text-espresso-soft">Partidas Oficiales</div>
+                <div className="font-display text-xl font-extrabold text-espresso">
                   {inspectDeck.record.wins + inspectDeck.record.losses}
                 </div>
               </div>
-              <div className="rounded-jrpg border border-ui-cocoa/50 bg-base-dark/70 p-3">
-                <div className="text-xs text-ui-latte">Valor Vault</div>
-                <div className="font-display text-xl font-extrabold text-accent-clay">
+              <div className="rounded-xl border border-espresso/10 bg-parchment-well p-3">
+                <div className="text-xs text-espresso-soft">Valor Vault</div>
+                <div className="font-display text-xl font-extrabold text-honey-ink">
                   {formatUSD(inspectDeck.vaultValueUsd)}
                 </div>
               </div>
@@ -1232,23 +1232,23 @@ export function PerfilTab() {
               <div className="space-y-4 text-sm">
                 {inspectDeck.deckListPreview.commander && (
                   <div>
-                    <h4 className="mb-1 text-xs font-bold uppercase tracking-wider text-accent-clay">
+                    <h4 className="mb-1 text-xs font-bold text-honey-ink">
                       ★ Comandante / Motor Principal (1)
                     </h4>
-                    <p className="rounded-lg border border-accent-clay/40 bg-accent-clay/10 p-2.5 font-bold text-ui-parchment">
+                    <p className="rounded-lg border border-honey/40 bg-honey/10 p-2.5 font-bold text-espresso">
                       1x {inspectDeck.deckListPreview.commander}
                     </p>
                   </div>
                 )}
 
                 <div>
-                  <h4 className="mb-1 text-xs font-bold uppercase tracking-wider text-accent-sage">
+                  <h4 className="mb-1 text-xs font-bold text-moss-ink">
                     Criaturas Clave ({inspectDeck.deckListPreview.creatures.length})
                   </h4>
-                  <ul className="grid grid-cols-1 gap-1.5 rounded-lg border border-ui-cocoa/50 bg-base-dark/60 p-3 sm:grid-cols-2">
+                  <ul className="grid grid-cols-1 gap-1.5 rounded-lg border border-espresso/10 bg-parchment-well p-3 sm:grid-cols-2">
                     {inspectDeck.deckListPreview.creatures.map((c) => (
-                      <li key={c} className="flex items-center gap-2 text-ui-parchment">
-                        <span className="size-1.5 rounded-full bg-accent-sage" />
+                      <li key={c} className="flex items-center gap-2 text-espresso">
+                        <span className="size-1.5 rounded-full bg-moss" />
                         <span>{c}</span>
                       </li>
                     ))}
@@ -1256,13 +1256,13 @@ export function PerfilTab() {
                 </div>
 
                 <div>
-                  <h4 className="mb-1 text-xs font-bold uppercase tracking-wider text-accent-clay">
+                  <h4 className="mb-1 text-xs font-bold text-honey-ink">
                     Hechizos & Removals ({inspectDeck.deckListPreview.spells.length})
                   </h4>
-                  <ul className="grid grid-cols-1 gap-1.5 rounded-lg border border-ui-cocoa/50 bg-base-dark/60 p-3 sm:grid-cols-2">
+                  <ul className="grid grid-cols-1 gap-1.5 rounded-lg border border-espresso/10 bg-parchment-well p-3 sm:grid-cols-2">
                     {inspectDeck.deckListPreview.spells.map((s) => (
-                      <li key={s} className="flex items-center gap-2 text-ui-parchment">
-                        <span className="size-1.5 rounded-full bg-accent-clay" />
+                      <li key={s} className="flex items-center gap-2 text-espresso">
+                        <span className="size-1.5 rounded-full bg-honey" />
                         <span>{s}</span>
                       </li>
                     ))}
@@ -1271,13 +1271,13 @@ export function PerfilTab() {
 
                 {inspectDeck.deckListPreview.artifacts && (
                   <div>
-                    <h4 className="mb-1 text-xs font-bold uppercase tracking-wider text-ui-latte">
+                    <h4 className="mb-1 text-xs font-bold text-espresso-soft">
                       Artefactos & Aceleración ({inspectDeck.deckListPreview.artifacts.length})
                     </h4>
-                    <ul className="grid grid-cols-1 gap-1.5 rounded-lg border border-ui-cocoa/50 bg-base-dark/60 p-3 sm:grid-cols-2">
+                    <ul className="grid grid-cols-1 gap-1.5 rounded-lg border border-espresso/10 bg-parchment-well p-3 sm:grid-cols-2">
                       {inspectDeck.deckListPreview.artifacts.map((a) => (
-                        <li key={a} className="flex items-center gap-2 text-ui-parchment">
-                          <span className="size-1.5 rounded-full bg-ui-latte" />
+                        <li key={a} className="flex items-center gap-2 text-espresso">
+                          <span className="size-1.5 rounded-full bg-espresso-soft" />
                           <span>{a}</span>
                         </li>
                       ))}
@@ -1289,9 +1289,9 @@ export function PerfilTab() {
 
             {/* Cartas Faltantes */}
             {inspectDeck.missingCards && inspectDeck.missingCards.length > 0 && (
-              <div className="mt-2 rounded-jrpg border border-accent-clay/40 bg-accent-clay/10 p-4">
+              <div className="mt-2 rounded-xl border border-honey/40 bg-honey/10 p-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-accent-clay">
+                  <span className="text-xs font-bold text-honey-ink">
                     Cartas Faltantes en tu Colección ({inspectDeck.missingCards.length})
                   </span>
                   <button
@@ -1309,13 +1309,13 @@ export function PerfilTab() {
                   {inspectDeck.missingCards.map((m) => (
                     <div
                       key={m.id}
-                      className="flex items-center justify-between rounded-lg border border-ui-cocoa/50 bg-base-dark/80 p-2.5 text-xs"
+                      className="flex items-center justify-between rounded-lg border border-espresso/10 bg-parchment-well p-2.5 text-xs"
                     >
                       <div>
-                        <div className="font-bold text-ui-parchment">{m.name}</div>
-                        <div className="text-[11px] text-ui-latte">{m.set}</div>
+                        <div className="font-bold text-espresso">{m.name}</div>
+                        <div className="text-[11px] text-espresso-soft">{m.set}</div>
                       </div>
-                      <div className="font-bold text-accent-sage">{formatUSD(m.priceUsd)}</div>
+                      <div className="font-bold text-moss-ink">{formatUSD(m.priceUsd)}</div>
                     </div>
                   ))}
                 </div>
@@ -1337,15 +1337,15 @@ export function PerfilTab() {
               type="button"
               onClick={() => setStatsDeck(null)}
               aria-label="Cerrar modal"
-              className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-ui-cocoa bg-base-dark text-ui-latte transition-colors hover:text-accent-clay active:scale-95"
+              className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-espresso/10 bg-parchment-well text-espresso-soft transition-colors hover:text-honey-ink active:scale-95"
             >
               <X className="size-4" aria-hidden="true" />
             </button>
 
-            <h3 className="text-xl font-extrabold text-ui-parchment">
+            <h3 className="text-xl font-extrabold text-espresso">
               Stats en Torneo: {statsDeck.name}
             </h3>
-            <p className="text-xs text-ui-latte">
+            <p className="text-xs text-espresso-soft">
               Rendimiento registrado contra el metajuego regional en eventos competitivos.
             </p>
 
@@ -1353,20 +1353,20 @@ export function PerfilTab() {
               {statsDeck.statsByMatchup?.map((stat) => (
                 <div
                   key={stat.archetype}
-                  className="rounded-jrpg border border-ui-cocoa/50 bg-base-dark/70 p-3.5 text-xs"
+                  className="rounded-xl border border-espresso/10 bg-parchment-well p-3.5 text-xs"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-ui-parchment">{stat.archetype}</span>
-                    <span className="rounded-full border border-accent-sage/40 bg-accent-sage/20 px-2 py-0.5 font-bold text-accent-sage">
+                    <span className="font-bold text-espresso">{stat.archetype}</span>
+                    <span className="rounded border border-moss/40 bg-moss/20 px-2 py-0.5 font-bold text-moss-ink">
                       {stat.wr} WR
                     </span>
                   </div>
-                  <p className="mt-1 text-ui-latte">{stat.note}</p>
+                  <p className="mt-1 text-espresso-soft">{stat.note}</p>
                 </div>
               ))}
             </div>
 
-            <div className="border-t border-ui-cocoa/40 pt-3 text-right">
+            <div className="border-t border-espresso/10 pt-3 text-right">
               <button
                 type="button"
                 onClick={() => setStatsDeck(null)}
@@ -1391,15 +1391,15 @@ export function PerfilTab() {
               type="button"
               onClick={() => setSideboardDeck(null)}
               aria-label="Cerrar modal"
-              className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-ui-cocoa bg-base-dark text-ui-latte transition-colors hover:text-accent-clay active:scale-95"
+              className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-espresso/10 bg-parchment-well text-espresso-soft transition-colors hover:text-honey-ink active:scale-95"
             >
               <X className="size-4" aria-hidden="true" />
             </button>
 
-            <h3 className="text-xl font-extrabold text-ui-parchment">
+            <h3 className="text-xl font-extrabold text-espresso">
               Sideboard Guide: {sideboardDeck.name}
             </h3>
-            <p className="text-xs text-ui-latte">
+            <p className="text-xs text-espresso-soft">
               Configuración de 15 cartas de banquillo para partidas 2 y 3.
             </p>
 
@@ -1407,10 +1407,10 @@ export function PerfilTab() {
               {sideboardDeck.sideboard?.map((card) => (
                 <div
                   key={card}
-                  className="flex items-center justify-between rounded-lg border border-ui-cocoa/50 bg-base-dark/70 p-2.5 text-xs font-bold text-ui-parchment"
+                  className="flex items-center justify-between rounded-lg border border-espresso/10 bg-parchment-well p-2.5 text-xs font-bold text-espresso"
                 >
                   <span>{card}</span>
-                  <span className="rounded-full border border-ui-cocoa bg-base-mocha px-2 py-0.5 text-[11px] text-accent-clay">
+                  <span className="rounded border border-espresso/10 bg-parchment-raised px-2 py-0.5 text-[11px] text-honey-ink">
                     Banquillo
                   </span>
                 </div>
@@ -1441,19 +1441,19 @@ export function PerfilTab() {
             type="button"
             onClick={() => setImportModalOpen(false)}
             aria-label="Cerrar modal"
-            className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-ui-cocoa bg-base-dark text-ui-latte transition-colors hover:text-accent-clay active:scale-95"
+            className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-espresso/10 bg-parchment-well text-espresso-soft transition-colors hover:text-honey-ink active:scale-95"
           >
             <X className="size-4" aria-hidden="true" />
           </button>
 
-          <h3 className="text-xl font-extrabold text-ui-parchment">Importar Mazo de Torneo</h3>
-          <p className="text-xs text-ui-latte">
+          <h3 className="text-xl font-extrabold text-espresso">Importar Mazo de Torneo</h3>
+          <p className="text-xs text-espresso-soft">
             Pega una URL de Moxfield o Archidekt, o ingresa la lista de cartas en texto plano.
           </p>
 
           <div className="my-2 space-y-3">
             <div>
-              <label className="block text-xs font-bold text-ui-latte">
+              <label className="block text-xs font-bold text-espresso-soft">
                 Enlace de Moxfield / Archidekt
               </label>
               <input
@@ -1464,7 +1464,7 @@ export function PerfilTab() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-ui-latte">
+              <label className="block text-xs font-bold text-espresso-soft">
                 O pega la lista de cartas (MTGO / Arena)
               </label>
               <textarea
@@ -1511,18 +1511,18 @@ export function PerfilTab() {
             type="button"
             onClick={() => setSessionModalOpen(false)}
             aria-label="Cerrar modal"
-            className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-ui-cocoa bg-base-dark text-ui-latte transition-colors hover:text-accent-clay active:scale-95"
+            className="absolute right-4 top-4 grid size-8 place-items-center rounded-lg border border-espresso/10 bg-parchment-well text-espresso-soft transition-colors hover:text-honey-ink active:scale-95"
           >
             <X className="size-4" aria-hidden="true" />
           </button>
 
-          <h3 className="text-xl font-extrabold text-ui-parchment">Identidad de Duelista</h3>
-          <p className="text-xs text-ui-latte">
+          <h3 className="text-xl font-extrabold text-espresso">Identidad de Duelista</h3>
+          <p className="text-xs text-espresso-soft">
             Ingresa tu apodo o nombre de duelista para personalizar tu ficha en la taberna.
           </p>
 
           <div className="my-2">
-            <label className="block text-xs font-bold text-ui-latte">Nombre o Apodo</label>
+            <label className="block text-xs font-bold text-espresso-soft">Nombre o Apodo</label>
             <input
               type="text"
               required

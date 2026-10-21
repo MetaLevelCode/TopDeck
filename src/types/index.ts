@@ -47,6 +47,9 @@ export interface ScryfallCard {
   collector_number?: string;
   lang?: string;
   finishes?: string[];
+  /** e.g. `showcase`, `extendedart`, `etched`. */
+  frame_effects?: string[];
+  border_color?: string;
   colors?: string[];
   color_identity?: string[];
   legalities?: Record<string, string>;

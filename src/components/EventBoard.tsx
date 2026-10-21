@@ -28,18 +28,7 @@ export function EventBoard() {
       onBlur={() => setPaused(false)}
     >
       <div className="relative aspect-video">
-        <div className="absolute inset-x-[21.5%] inset-y-[24%] rounded-lg bg-base-dark/90" />
-        <div
-          key={event.id}
-          className="rise absolute inset-x-[23%] inset-y-[26%] flex flex-col items-center justify-center gap-1 text-center sm:gap-2"
-          aria-live="polite"
-        >
-          <span className="text-[10px] font-extrabold uppercase tracking-wider text-accent-sage sm:text-xs">
-            {event.tag} · {event.date}
-          </span>
-          <h3 className="text-base font-extrabold leading-tight sm:text-2xl">{event.title}</h3>
-          <p className="hidden text-sm text-ui-latte sm:block">{event.text}</p>
-        </div>
+        {/* The frame's window is opaque in the artwork, so the notice is pinned on top of it. */}
         <img
           src="/img/cuadro-magico.webp"
           alt=""
@@ -48,10 +37,22 @@ export function EventBoard() {
           loading="lazy"
           className="pointer-events-none absolute inset-0 size-full"
         />
+        <div className="absolute inset-x-[20.5%] inset-y-[22.5%] rounded-md bg-parchment-raised shadow-[inset_0_0_24px_rgba(56,36,20,0.12)]" />
+        <div
+          key={event.id}
+          className="rise absolute inset-x-[23%] inset-y-[26%] flex flex-col items-center justify-center gap-1 text-center sm:gap-2"
+          aria-live="polite"
+        >
+          <span className="text-[10px] font-extrabold text-moss-ink sm:text-xs">
+            {event.tag} · {event.date}
+          </span>
+          <h3 className="text-base leading-tight sm:text-2xl">{event.title}</h3>
+          <p className="hidden text-sm text-espresso-soft sm:block">{event.text}</p>
+        </div>
       </div>
 
       <div className="mt-1 flex items-center justify-center gap-1">
-        <button type="button" onClick={() => step(-1)} aria-label="Evento anterior" className="grid size-10 place-items-center text-ui-latte transition-colors hover:text-accent-clay active:scale-95">
+        <button type="button" onClick={() => step(-1)} aria-label="Evento anterior" className="grid size-10 place-items-center text-espresso-soft transition-colors hover:text-honey-ink active:scale-95">
           <ChevronLeft className="size-5" aria-hidden="true" />
         </button>
         {TAVERN_EVENTS.map((e, i) => (
@@ -65,12 +66,12 @@ export function EventBoard() {
           >
             <span
               className={`h-2 rounded-full transition-[width,background-color] duration-200 ease-out ${
-                i === index ? 'w-6 bg-accent-clay' : 'w-2 bg-ui-cocoa'
+                i === index ? 'w-6 bg-honey' : 'w-2 bg-espresso/20'
               }`}
             />
           </button>
         ))}
-        <button type="button" onClick={() => step(1)} aria-label="Evento siguiente" className="grid size-10 place-items-center text-ui-latte transition-colors hover:text-accent-clay active:scale-95">
+        <button type="button" onClick={() => step(1)} aria-label="Evento siguiente" className="grid size-10 place-items-center text-espresso-soft transition-colors hover:text-honey-ink active:scale-95">
           <ChevronRight className="size-5" aria-hidden="true" />
         </button>
       </div>

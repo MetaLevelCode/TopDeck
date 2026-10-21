@@ -9,7 +9,7 @@ import { ProductArt } from './ProductArt';
 type Status = 'idle' | 'paying' | 'done';
 
 const iconButton =
-  'grid size-8 place-items-center rounded-lg text-ui-latte transition-colors active:scale-95 hover:text-accent-clay';
+  'grid size-8 place-items-center rounded-lg text-espresso-soft transition-colors active:scale-95 hover:text-honey-ink';
 
 export function CartDrawer() {
   const { items, count, total, isOpen, setOpen, changeQuantity, remove, clear } = useCart();
@@ -37,7 +37,7 @@ export function CartDrawer() {
           particleCount: 80,
           spread: 70,
           origin: { y: 0.7 },
-          colors: ['#C55A3F', '#4A7C59', '#689F77', '#F1E8D9'],
+          colors: ['#F29F38', '#D97706', '#4A7C59', '#382414'],
         }),
       );
     }, 1200);
@@ -45,11 +45,11 @@ export function CartDrawer() {
 
   return (
     <Dialog open={isOpen} onClose={() => setOpen(false)} label="Morral" variant="drawer">
-      <div className="flex h-full flex-col border-l-2 border-ui-cocoa bg-base-mocha">
-        <header className="flex items-center justify-between gap-3 border-b-2 border-ui-cocoa px-5 py-4">
+      <div className="flex h-full flex-col border-l border-espresso/10 bg-parchment-raised">
+        <header className="flex items-center justify-between gap-3 border-b border-espresso/10 px-5 py-4">
           <div>
             <h2 className="text-lg font-extrabold leading-tight">Tu morral</h2>
-            <p className="text-xs text-ui-latte">
+            <p className="text-xs text-espresso-soft">
               {count} {count === 1 ? 'objeto' : 'objetos'}
             </p>
           </div>
@@ -61,9 +61,9 @@ export function CartDrawer() {
         <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-4">
           {status === 'done' ? (
             <div className="grid h-full place-content-center justify-items-center gap-3 text-center">
-              <CheckCircle2 className="size-14 text-accent-sage" aria-hidden="true" />
+              <CheckCircle2 className="size-14 text-moss-ink" aria-hidden="true" />
               <h3 className="text-xl font-extrabold">¡Pedido listo!</h3>
-              <p className="max-w-[16rem] text-sm text-ui-latte">
+              <p className="max-w-[16rem] text-sm text-espresso-soft">
                 Lo empacamos con sleeve, toploader y el sello de la taberna.
               </p>
               <button type="button" className="btn btn-primary mt-2" onClick={() => setOpen(false)}>
@@ -71,15 +71,15 @@ export function CartDrawer() {
               </button>
             </div>
           ) : items.length === 0 ? (
-            <div className="grid h-full place-content-center justify-items-center gap-2 text-center text-ui-latte">
-              <ShoppingBag className="size-12 text-ui-cocoa" aria-hidden="true" />
-              <p className="font-bold text-ui-parchment">Tu morral está vacío</p>
+            <div className="grid h-full place-content-center justify-items-center gap-2 text-center text-espresso-soft">
+              <ShoppingBag className="size-12 text-espresso-mute" aria-hidden="true" />
+              <p className="font-bold text-espresso">Tu morral está vacío</p>
               <p className="text-sm">Añade cartas o sellados para empezar.</p>
             </div>
           ) : (
             <ul className="space-y-3">
               {items.map((item) => (
-                <li key={item.id} className="flex items-center gap-3 rounded-jrpg border border-ui-cocoa/70 bg-base-dark/60 p-2.5">
+                <li key={item.id} className="flex items-center gap-3 rounded-xl border border-espresso/10 bg-parchment-well p-2.5">
                   {item.image ? (
                     <img src={item.image} alt="" width={48} height={67} className="h-16 w-12 rounded object-cover" />
                   ) : (
@@ -87,9 +87,9 @@ export function CartDrawer() {
                   )}
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-bold">{item.name}</p>
-                    {item.subtitle && <p className="truncate text-xs text-ui-latte">{item.subtitle}</p>}
+                    {item.subtitle && <p className="truncate text-xs text-espresso-soft">{item.subtitle}</p>}
                     <div className="mt-1.5 flex items-center justify-between gap-2">
-                      <div className="flex items-center rounded-lg border border-ui-cocoa/70">
+                      <div className="flex items-center rounded-lg border border-espresso/10">
                         <button
                           type="button"
                           className={iconButton}
@@ -110,7 +110,7 @@ export function CartDrawer() {
                           <Plus className="size-3.5" aria-hidden="true" />
                         </button>
                       </div>
-                      <span className="text-sm font-extrabold text-accent-sage">
+                      <span className="text-sm font-extrabold text-moss-ink">
                         {formatPrice(item.price * item.quantity)}
                       </span>
                     </div>
@@ -130,10 +130,10 @@ export function CartDrawer() {
         </div>
 
         {status !== 'done' && items.length > 0 && (
-          <footer className="border-t-2 border-ui-cocoa px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
+          <footer className="border-t border-espresso/10 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
             <p className="mb-3 flex items-baseline justify-between">
-              <span className="text-sm font-bold text-ui-latte">Total</span>
-              <span className="font-display text-2xl font-extrabold">{formatPrice(total)}</span>
+              <span className="text-sm font-bold text-espresso-soft">Total</span>
+              <span className="text-2xl font-extrabold tabular-nums">{formatPrice(total)}</span>
             </p>
             <div className="flex gap-3">
               <button type="button" className="btn btn-secondary" onClick={clear} disabled={status === 'paying'}>

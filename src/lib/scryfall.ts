@@ -1,7 +1,7 @@
 import type { ScryfallCard, ScryfallImageUris } from '../types';
 import { usdToCop } from './format';
 
-const SEARCH_URL = 'https://api.scryfall.com/cards/search';
+const API = 'https://api.scryfall.com';
 
 /** Commander staples, default view when entering with no active filters. */
 export const POPULAR_QUERY = 'format:commander';
@@ -24,11 +24,29 @@ export interface CardFilters {
   rarity?: string[];
   color?: string[];
   cardType?: string[];
-  finish?: 'all' | 'nonfoil' | 'foil';
+  finish?: 'all' | Finish;
+  /** Special frames; a printing matches if it has any of them. */
+  art?: ArtTreatment[];
+  artist?: string;
   lang?: string;
   inStockOnly?: boolean;
   sort?: 'edhrec' | 'usd-asc' | 'usd-desc' | 'name' | 'released';
 }
+
+export const DEFAULT_FILTERS: CardFilters = {
+  game: 'mtg',
+  set: '',
+  format: '',
+  rarity: [],
+  color: [],
+  cardType: [],
+  finish: 'all',
+  art: [],
+  artist: '',
+  lang: 'all',
+  inStockOnly: false,
+  sort: 'edhrec',
+};
 
 export const POPULAR_SETS = [
   { code: '', label: 'Todos los sets' },
@@ -53,16 +71,20 @@ export const COLOR_OPTIONS = [
   { id: 'B', label: 'Negro', symbol: 'B', colorCode: '#211E19', textCode: '#F1E8D9' },
   { id: 'R', label: 'Rojo', symbol: 'R', colorCode: '#D3202A', textCode: '#FFFFFF' },
   { id: 'G', label: 'Verde', symbol: 'G', colorCode: '#00733E', textCode: '#FFFFFF' },
-  { id: 'multicolor', label: 'Multicolor', symbol: 'M', colorCode: '#C55A3F', textCode: '#FFFFFF' },
+  { id: 'multicolor', label: 'Multicolor', symbol: 'M', colorCode: '#F29F38', textCode: '#382414' },
   { id: 'colorless', label: 'Incolora', symbol: 'C', colorCode: '#78716C', textCode: '#FFFFFF' },
 ] as const;
 
+/** Rarity colours as Magic prints them (mythic ember, rare gold, uncommon silver, common ink), legible on parchment. */
 export const RARITY_OPTIONS = [
-  { id: 'mythic', label: 'Mítica', border: 'border-amber-500/50', badge: 'bg-amber-500/15 text-amber-400' },
-  { id: 'rare', label: 'Rara', border: 'border-yellow-400/50', badge: 'bg-yellow-400/15 text-yellow-300' },
-  { id: 'uncommon', label: 'Infrecuente', border: 'border-slate-300/40', badge: 'bg-slate-300/15 text-slate-200' },
-  { id: 'common', label: 'Común', border: 'border-stone-500/30', badge: 'bg-stone-500/15 text-stone-300' },
+  { id: 'mythic', label: 'Mítica', dot: 'bg-ember', tone: 'border-ember/40 text-ember-ink' },
+  { id: 'rare', label: 'Rara', dot: 'bg-honey', tone: 'border-honey/60 text-honey-ink' },
+  { id: 'uncommon', label: 'Infrecuente', dot: 'bg-slate-400', tone: 'border-slate-400/50 text-slate-600' },
+  { id: 'common', label: 'Común', dot: 'bg-espresso', tone: 'border-espresso/20 text-espresso-soft' },
 ] as const;
+
+export const rarityTone = (rarity: string): string =>
+  RARITY_OPTIONS.find((r) => r.id === rarity)?.tone ?? 'border-espresso/20 text-espresso-soft';
 
 export const CARD_TYPES = [
   { id: 'creature', label: 'Criatura' },
@@ -85,11 +107,27 @@ export const FORMAT_OPTIONS = [
   { id: 'pauper', label: 'Pauper' },
 ] as const;
 
+export type Finish = 'nonfoil' | 'foil' | 'etched';
+
 export const FINISH_OPTIONS = [
   { id: 'all', label: 'Todos' },
   { id: 'nonfoil', label: 'No foil' },
   { id: 'foil', label: 'Foil' },
+  { id: 'etched', label: 'Foil etched' },
 ] as const;
+
+export const ART_OPTIONS = [
+  { id: 'showcase', label: 'Showcase', query: 'frame:showcase' },
+  { id: 'borderless', label: 'Borderless', query: 'border:borderless' },
+] as const;
+
+export type ArtTreatment = (typeof ART_OPTIONS)[number]['id'];
+
+/** Art treatments a printing has, in the order the filters list them. */
+export function cardArtLabels(card: ScryfallCard): string[] {
+  const has = { showcase: card.frame_effects?.includes('showcase'), borderless: card.border_color === 'borderless' };
+  return ART_OPTIONS.filter((a) => has[a.id]).map((a) => a.label);
+}
 
 export const LANG_OPTIONS = [
   { id: 'all', label: 'Todos los idiomas' },
@@ -112,13 +150,7 @@ export function buildScryfallQuery(
   search: string,
 ): { q: string; order: string; dir: string } {
   const parts: string[] = [];
-
-  const text = search.trim();
-  if (text) {
-    parts.push(text);
-  } else if (!filters.format && !filters.set) {
-    parts.push(POPULAR_QUERY);
-  }
+  const anyOf = (terms: string[]) => (terms.length > 1 ? `(${terms.join(' or ')})` : terms[0]);
 
   if (filters.set) {
     parts.push(`s:${filters.set}`);
@@ -129,11 +161,7 @@ export function buildScryfallQuery(
   }
 
   if (filters.rarity && filters.rarity.length > 0) {
-    if (filters.rarity.length === 1) {
-      parts.push(`r:${filters.rarity[0]}`);
-    } else {
-      parts.push(`(${filters.rarity.map((r) => `r:${r}`).join(' or ')})`);
-    }
+    parts.push(anyOf(filters.rarity.map((r) => `r:${r}`)));
   }
 
   if (filters.color && filters.color.length > 0) {
@@ -147,15 +175,18 @@ export function buildScryfallQuery(
   }
 
   if (filters.cardType && filters.cardType.length > 0) {
-    if (filters.cardType.length === 1) {
-      parts.push(`t:${filters.cardType[0]}`);
-    } else {
-      parts.push(`(${filters.cardType.map((t) => `t:${t}`).join(' or ')})`);
-    }
+    parts.push(anyOf(filters.cardType.map((t) => `t:${t}`)));
   }
 
-  if (filters.finish === 'foil') parts.push('is:foil');
-  if (filters.finish === 'nonfoil') parts.push('is:nonfoil');
+  if (filters.finish && filters.finish !== 'all') parts.push(`is:${filters.finish}`);
+
+  if (filters.art && filters.art.length > 0) {
+    parts.push(anyOf(ART_OPTIONS.filter((a) => filters.art?.includes(a.id)).map((a) => a.query)));
+  }
+
+  // Quotes inside the name would end the phrase early, so they are dropped.
+  const artist = filters.artist?.replace(/"/g, '').trim();
+  if (artist) parts.push(`a:"${artist}"`);
 
   if (filters.lang && filters.lang !== 'all') {
     parts.push(`lang:${filters.lang}`);
@@ -164,46 +195,87 @@ export function buildScryfallQuery(
   // Resolve sort order
   const sortOption = SORT_OPTIONS.find((s) => s.id === filters.sort) ?? SORT_OPTIONS[0];
 
+  const text = search.trim();
+  if (text) parts.unshift(text);
+
   return {
-    q: parts.join(' ').trim() || POPULAR_QUERY,
+    // With no text and no filters, open on Commander staples instead of the whole database.
+    q: parts.join(' ') || POPULAR_QUERY,
     order: sortOption.order,
     dir: sortOption.dir,
   };
 }
 
-/** Resolves to `[]` when Scryfall has no match (404); throws on any other failure. */
-export async function searchCards(
-  query: string,
-  order = 'edhrec',
-  dir = 'auto',
-  signal?: AbortSignal,
-): Promise<ScryfallCard[]> {
-  let url = `${SEARCH_URL}?q=${encodeURIComponent(query)}&order=${order}`;
-  if (dir !== 'auto') url += `&dir=${dir}`;
+export interface CardPage {
+  cards: ScryfallCard[];
+  /** Printings matching the whole query, across every page. */
+  total: number;
+  /** Scryfall's link to the following page (175 cards each), `null` on the last one. */
+  nextPage: string | null;
+}
 
+/** First page of every printing that matches (`unique=prints`), not one card per name. */
+export function searchCards(query: string, order = 'edhrec', dir = 'auto', signal?: AbortSignal): Promise<CardPage> {
+  const params = new URLSearchParams({ q: query, unique: 'prints', order });
+  if (dir !== 'auto') params.set('dir', dir);
+  return fetchCardPage(`${API}/cards/search?${params}`, signal);
+}
+
+/** Loads a search page by URL, so `next_page` links are followed as given. An empty page on no match (404); throws on any other failure. */
+export async function fetchCardPage(url: string, signal?: AbortSignal): Promise<CardPage> {
   const res = await fetch(url, { signal });
-  if (res.status === 404) return [];
+  if (res.status === 404) return { cards: [], total: 0, nextPage: null };
   if (!res.ok) throw new Error(`Scryfall respondió con error ${res.status}`);
-  const json = (await res.json()) as { data?: ScryfallCard[] };
-  return json.data ?? [];
+  const json = (await res.json()) as { data: ScryfallCard[]; total_cards: number; next_page?: string };
+  return { cards: json.data, total: json.total_cards, nextPage: json.next_page ?? null };
+}
+
+/** Up to 20 card names that start like `text`. Scryfall needs two characters; failures just mean no suggestions. */
+export async function autocompleteNames(text: string, signal?: AbortSignal): Promise<string[]> {
+  const q = text.trim();
+  if (q.length < 2) return [];
+  const res = await fetch(`${API}/cards/autocomplete?q=${encodeURIComponent(q)}`, { signal });
+  return res.ok ? ((await res.json()) as { data: string[] }).data : [];
+}
+
+let artistNames: Promise<string[]> | undefined;
+
+/** Every illustrator Scryfall knows (about 2,500 names), fetched once per visit. A failed fetch is retried next time. */
+export function fetchArtistNames(): Promise<string[]> {
+  artistNames ??= fetch(`${API}/catalog/artist-names`)
+    .then((res) => (res.ok ? (res.json() as Promise<{ data: string[] }>) : Promise.reject(res.status)))
+    .then((json) => json.data)
+    .catch(() => {
+      artistNames = undefined;
+      return [];
+    });
+  return artistNames;
 }
 
 export function cardImage(card: ScryfallCard, size: keyof ScryfallImageUris = 'normal'): string | undefined {
   return card.image_uris?.[size] ?? card.card_faces?.[0]?.image_uris?.[size];
 }
 
-/** Price in USD, or `null` when Scryfall has no market price for the card. */
-export function cardPrice(card: ScryfallCard, preferFoil = false): number | null {
-  const raw = preferFoil
-    ? card.prices.usd_foil ?? card.prices.usd
-    : card.prices.usd ?? card.prices.usd_foil;
-  const value = raw ? Number.parseFloat(raw) : Number.NaN;
-  return Number.isFinite(value) ? value : null;
+const PRICE_KEY = { nonfoil: 'usd', foil: 'usd_foil', etched: 'usd_etched' } as const;
+
+const usdFor = (card: ScryfallCard, finish: Finish) => Number.parseFloat(card.prices[PRICE_KEY[finish]] ?? '');
+
+/** The finish being sold: the preferred one when it has a price, else the first finish that does (etched-only cards price only as etched). */
+export function pricedFinish(card: ScryfallCard, prefer: Finish = 'nonfoil'): Finish | null {
+  return ([prefer, 'nonfoil', 'foil', 'etched'] as const).find((f) => Number.isFinite(usdFor(card, f))) ?? null;
+}
+
+export const finishLabel = (finish: Finish): string => FINISH_OPTIONS.find((f) => f.id === finish)?.label ?? finish;
+
+/** Price in USD of `pricedFinish`, or `null` when Scryfall has no market price for the printing. */
+export function cardPrice(card: ScryfallCard, prefer: Finish = 'nonfoil'): number | null {
+  const finish = pricedFinish(card, prefer);
+  return finish ? usdFor(card, finish) : null;
 }
 
 /** Price in COP calculated from USD, or null if unpriced. */
-export function cardPriceCOP(card: ScryfallCard, preferFoil = false): number | null {
-  const usd = cardPrice(card, preferFoil);
+export function cardPriceCOP(card: ScryfallCard, prefer: Finish = 'nonfoil'): number | null {
+  const usd = cardPrice(card, prefer);
   return usd !== null ? usdToCop(usd) : null;
 }
 
@@ -221,14 +293,6 @@ export function cardStock(card: ScryfallCard): number {
 /** Card condition convention (e.g. Near Mint NM). */
 export function cardCondition(_card: ScryfallCard): string {
   return 'Near Mint (NM)';
-}
-
-/** Finishes indicator matching DracoStore convention: e.g. "Foil", "No Foil", "Etched". */
-export function cardFinishesLabel(card: ScryfallCard): string {
-  if (card.finishes?.includes('etched')) return 'Etched';
-  if (card.finishes?.includes('foil') && !card.finishes?.includes('nonfoil')) return 'Foil';
-  if (card.finishes?.includes('foil')) return 'Foil';
-  return 'No Foil';
 }
 
 /** Language badge (e.g. "EN", "ES", "JA"). */

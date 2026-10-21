@@ -14,25 +14,25 @@ export function ProductCard({ product, index }: { product: SealedProduct; index:
   return (
     <article className="panel rise flex flex-col gap-3 p-3" style={{ '--i': Math.min(index, 8) } as CSSProperties}>
       <div className="relative">
-        <ProductArt game={product.game} category={product.category} label />
+        <ProductArt game={product.game} />
         {product.popular && (
-          <span className="absolute right-2 top-2 rounded-full bg-base-dark/85 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-accent-sage">
+          <span className="absolute right-2 top-2 rounded bg-parchment-well px-2 py-0.5 text-[10px] font-extrabold text-moss-ink">
             Favorito
           </span>
         )}
       </div>
 
       <div className="flex-1">
-        <p className="text-[11px] font-bold uppercase tracking-wider text-accent-sage">
+        <p className="text-[11px] font-bold text-moss-ink">
           {CATEGORY_LABEL[product.category]}
         </p>
         <h3 className="mt-1 line-clamp-3 text-sm font-bold leading-snug">{product.name}</h3>
       </div>
 
-      <div className="flex items-end justify-between gap-2 border-t border-ui-cocoa/60 pt-3">
+      <div className="flex items-end justify-between gap-2 border-t border-espresso/10 pt-3">
         <div>
-          <p className="font-display text-lg font-extrabold leading-none">{formatPrice(product.price)}</p>
-          <p className={`mt-1 text-[11px] font-bold ${lowStock || soldOut ? 'text-accent-clay' : 'text-ui-latte'}`}>
+          <p className="text-lg font-extrabold leading-none tabular-nums">{formatPrice(product.price)}</p>
+          <p className={`mt-1 text-[11px] font-bold ${lowStock || soldOut ? 'text-honey-ink' : 'text-espresso-soft'}`}>
             {soldOut ? 'Agotado' : lowStock ? `Quedan ${product.stock}` : 'En stock'}
           </p>
         </div>

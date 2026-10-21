@@ -11,8 +11,10 @@
   html {
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
-    color-scheme: dark;
-    scrollbar-color: theme('colors.ui.cocoa') theme('colors.base.dark');
+    color-scheme: light;
+    /* Caprasimo solo tiene un peso: nunca negrita ni cursiva falsas. */
+    font-synthesis: none;
+    scrollbar-color: theme('colors.espresso.mute') theme('colors.parchment.card');
     scrollbar-width: thin;
     /* Reserva el hueco de la barra: abrir un diálogo (overflow: hidden) no desplaza la página. */
     scrollbar-gutter: stable;
@@ -23,14 +25,14 @@
   }
 
   body {
-    @apply bg-base-dark font-body text-ui-parchment antialiased;
+    @apply bg-parchment font-body text-espresso antialiased;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply font-display;
+    @apply font-display font-normal;
   }
 
   button,
@@ -46,11 +48,11 @@
   }
 
   ::selection {
-    @apply bg-accent-clay text-ui-parchment;
+    @apply bg-honey/40 text-espresso;
   }
 
   :focus-visible {
-    outline: 2px solid theme('colors.accent.sage');
+    outline: 2px solid theme('colors.honey.DEFAULT');
     outline-offset: 2px;
   }
 
@@ -65,50 +67,56 @@
 }
 
 @layer components {
-  /* Superficie "JRPG": borde cacao + sombra dura inferior. */
+  /* Superficie en reposo: pergamino elevado, filo cálido y sombra ambiental. */
   .panel {
-    @apply rounded-jrpg border-2 border-ui-cocoa bg-base-mocha shadow-panel;
+    @apply rounded-2xl border border-espresso/15 bg-parchment-raised shadow-rest;
+  }
+  dialog .panel {
+    @apply border-parchment-line shadow-float;
+  }
+
+  /* Rótulo del logo: letras miel con contorno espresso, como el letrero de madera. */
+  .wordmark {
+    @apply font-display text-honey;
+    -webkit-text-stroke: 0.06em theme('colors.espresso.DEFAULT');
+    paint-order: stroke fill;
+    /* Canto grueso como el del logo. */
+    text-shadow: 0 0.1em 0 theme('colors.espresso.DEFAULT');
   }
 
   .btn {
-    @apply inline-flex select-none items-center justify-center gap-2 rounded-jrpg border-2 border-ui-cocoa px-4 py-2.5 font-display text-sm font-bold text-ui-parchment;
-    box-shadow: 0 3px 0 #1a120e;
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-lg border border-transparent px-4 py-2.5 font-body text-sm font-bold text-espresso;
     transition:
-      transform 150ms var(--ease-out),
-      box-shadow 150ms var(--ease-out),
+      transform 160ms var(--ease-out),
+      box-shadow 150ms ease,
       background-color 150ms ease;
   }
 
   .btn-primary {
-    @apply bg-accent-clay;
+    @apply bg-honey;
   }
   .btn-secondary {
-    @apply bg-base-mocha;
+    @apply border-espresso/10 bg-parchment-card;
   }
   .btn-green {
-    @apply bg-accent-botanical;
+    @apply bg-moss text-parchment-raised;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .btn:hover:not(:disabled) {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 0 #1a120e;
-    }
     .btn-primary:hover:not(:disabled) {
-      @apply bg-accent-brick;
+      @apply bg-honey-deep;
     }
     .btn-secondary:hover:not(:disabled) {
-      @apply bg-ui-cocoa/40;
+      @apply bg-parchment-deep;
     }
     .btn-green:hover:not(:disabled) {
-      @apply bg-accent-sage;
+      @apply bg-moss-ink;
     }
   }
 
-  /* Va después de :hover para ganar la cascada: el botón se hunde al pulsar. */
+  /* Va después de :hover para ganar la cascada: el botón cede al pulsar. */
   .btn:active:not(:disabled) {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 #1a120e;
+    transform: scale(0.97);
   }
 
   .btn:disabled {
@@ -119,16 +127,21 @@
     @apply px-3 py-1.5 text-xs;
   }
 
+  /* Campo hundido: se ilumina y gana el filo miel al enfocar, sin halo azul del navegador. */
   .field {
-    @apply w-full rounded-jrpg border-2 border-ui-cocoa bg-base-dark px-3.5 py-2.5 text-sm text-ui-parchment placeholder:text-ui-latte/60;
-    transition: border-color 150ms ease;
+    @apply w-full rounded-lg border border-espresso/15 bg-parchment-well px-3.5 py-2.5 text-sm text-espresso placeholder:text-espresso/50;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease;
   }
   .field:focus {
-    @apply border-accent-clay outline-none;
+    @apply border-honey bg-parchment-raised;
+    outline: 2px solid theme('colors.honey.DEFAULT');
+    outline-offset: 0;
   }
 
   .chip {
-    @apply inline-flex select-none items-center gap-1.5 rounded-full border border-ui-cocoa bg-base-dark/70 px-3 py-1.5 text-xs font-bold text-ui-latte;
+    @apply inline-flex select-none items-center gap-1.5 rounded border border-espresso/10 bg-parchment-sand px-3 py-1.5 text-xs font-bold text-espresso;
     transition:
       background-color 150ms ease,
       color 150ms ease,
@@ -139,34 +152,34 @@
     transform: scale(0.96);
   }
   .chip[aria-pressed='true'] {
-    @apply border-accent-brick bg-accent-clay text-ui-parchment;
+    @apply border-espresso bg-espresso text-parchment-raised;
   }
   @media (hover: hover) and (pointer: fine) {
     .chip:not([aria-pressed='true']):hover {
-      @apply border-accent-clay text-ui-parchment;
+      @apply border-honey;
     }
   }
 
   /* Enlace de pestaña con subrayado que crece desde el centro (solo transform). */
   .tab-link {
-    @apply relative flex items-center px-4 font-display text-sm font-bold text-ui-latte;
+    @apply relative flex items-center px-4 text-[15px] font-bold text-espresso-soft;
     transition: color 150ms ease;
   }
   .tab-link::after {
     content: '';
-    @apply absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-accent-clay;
+    @apply absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-honey;
     transform: scaleX(0);
     transition: transform 220ms var(--ease-out);
   }
   .tab-link[aria-current='page'] {
-    @apply text-ui-parchment;
+    @apply text-espresso;
   }
   .tab-link[aria-current='page']::after {
     transform: scaleX(1);
   }
   @media (hover: hover) and (pointer: fine) {
     .tab-link:hover {
-      @apply text-ui-parchment;
+      @apply text-espresso;
     }
   }
 }
@@ -198,7 +211,7 @@ dialog[open] {
   animation: pop 200ms var(--ease-out) both;
 }
 dialog::backdrop {
-  background: rgb(26 18 14 / 0.72);
+  background: rgb(56 36 20 / 0.45);
   backdrop-filter: blur(3px);
   animation: fade 200ms ease-out both;
 }
@@ -235,6 +248,19 @@ dialog.drawer[open] {
   }
 }
 
+/* Carta 3D del detalle: sigue al dedo sin retraso y al soltarla se asienta en la cara más cercana. */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 500ms var(--ease-out);
+}
+.card-3d[data-dragging] {
+  transition: none;
+}
+.card-3d > * {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 /* Movimiento reducido: se conserva el fundido, se quita el desplazamiento. */
 @media (prefers-reduced-motion: reduce) {
   .rise,
@@ -248,5 +274,9 @@ dialog.drawer[open] {
   .animate-bounce,
   .animate-pulse {
     animation: none;
+  }
+  /* Voltear cambia de cara al instante en vez de girar. */
+  .card-3d {
+    transition: none;
   }
 }

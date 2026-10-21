@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { BadgeCheck, Package, Sparkles, Swords } from 'lucide-react';
+import { BadgeCheck, Package, Swords } from 'lucide-react';
 import { DexterSprite } from '../components/Dexter';
 import { EventBoard } from '../components/EventBoard';
 import { ProductCard } from '../components/ProductCard';
@@ -36,17 +36,13 @@ export function TiendaTab({ onNavigate }: { onNavigate: (tab: TabId) => void }) 
     <div className="space-y-12">
       <section className="panel relative isolate overflow-hidden">
         <img src="/img/mesa.webp" alt="" width={1600} height={893} className="absolute inset-0 -z-20 size-full object-cover" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-base-dark via-base-dark/85 to-base-dark/30" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-parchment-raised via-parchment-raised/90 to-parchment-raised/20" />
         <div className="grid items-end px-6 sm:px-10 md:grid-cols-[1.3fr_1fr]">
           <div className="py-10 sm:py-14">
-            <span className="chip border-ui-cocoa text-accent-sage">
-              <Sparkles className="size-3.5 text-accent-clay" aria-hidden="true" />
-              Taberna y tienda de cartas
-            </span>
-            <h1 className="mt-4 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
-              Cartas, café y <span className="text-accent-clay">buena compañía.</span>
+            <h1 className="text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
+              Cartas, café y <span className="text-honey-ink">buena compañía.</span>
             </h1>
-            <p className="mt-3 max-w-md text-ui-latte">
+            <p className="mt-3 max-w-md text-espresso-soft">
               Singles de Magic, sellados de todos los juegos y una mesa siempre libre.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -77,14 +73,12 @@ export function TiendaTab({ onNavigate }: { onNavigate: (tab: TabId) => void }) 
         </div>
       </section>
 
-      <ul className="grid gap-3 sm:grid-cols-3">
+      <ul className="flex flex-wrap justify-center gap-x-8 gap-y-2 border-y border-espresso/15 py-3 text-sm">
         {PERKS.map(({ icon: Icon, title, text }) => (
-          <li key={title} className="flex items-center gap-3 rounded-jrpg border border-ui-cocoa/60 bg-base-dark/60 px-4 py-3">
-            <Icon className="size-6 shrink-0 text-accent-clay" aria-hidden="true" />
-            <p className="text-sm">
-              <span className="block font-bold">{title}</span>
-              <span className="text-ui-latte">{text}</span>
-            </p>
+          <li key={title} className="flex items-center gap-2">
+            <Icon className="size-4 shrink-0 text-honey-ink" aria-hidden="true" />
+            <span className="font-bold">{title}</span>
+            <span className="text-espresso-soft">· {text}</span>
           </li>
         ))}
       </ul>
@@ -92,7 +86,7 @@ export function TiendaTab({ onNavigate }: { onNavigate: (tab: TabId) => void }) 
       <section id="sellados" className="scroll-mt-24">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2 className="text-2xl font-extrabold sm:text-3xl">Sellados</h2>
-          <label className="flex items-center gap-2 text-xs font-bold text-ui-latte">
+          <label className="flex items-center gap-2 text-xs font-bold text-espresso-soft">
             Ordenar
             <select
               value={sort}
@@ -121,7 +115,7 @@ export function TiendaTab({ onNavigate }: { onNavigate: (tab: TabId) => void }) 
             ))}
           </div>
         ) : (
-          <p className="mt-8 text-center text-ui-latte">Todavía no tenemos sellados de este juego.</p>
+          <p className="mt-8 text-center text-espresso-soft">Todavía no tenemos sellados de este juego.</p>
         )}
       </section>
 

@@ -104,7 +104,7 @@ export function Landing({ onEnter, onSearch, onGoToProfile }: LandingProps) {
       className="relative"
       style={{ height: scrub ? `${TRACK_SVH}svh` : '100svh' }}
     >
-      <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden bg-base-dark">
+      <div ref={stageRef} className="sticky top-0 h-svh overflow-hidden bg-espresso">
         {/* Cinematic Video Layer */}
         <video
           ref={videoRef}
@@ -119,7 +119,7 @@ export function Landing({ onEnter, onSearch, onGoToProfile }: LandingProps) {
           tabIndex={-1}
           onError={() => setVideoFailed(true)}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(26,18,14,0.45))]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(56,36,20,0.4))]" />
 
         {/* 1. TOP HEADER (Search bar & Profile button) */}
         <header
@@ -133,7 +133,7 @@ export function Landing({ onEnter, onSearch, onGoToProfile }: LandingProps) {
             className="group relative w-full max-w-xs sm:max-w-sm md:max-w-md"
           >
             <Search
-              className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-ui-latte transition-colors group-focus-within:text-accent-clay"
+              className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-espresso-soft transition-colors group-focus-within:text-honey-ink"
               aria-hidden="true"
             />
             <input
@@ -145,7 +145,7 @@ export function Landing({ onEnter, onSearch, onGoToProfile }: LandingProps) {
               aria-label="Buscar cartas"
               autoComplete="off"
               enterKeyHint="search"
-              className="field rounded-jrpg border-2 border-ui-cocoa bg-base-dark/85 py-2 pl-10 pr-20 text-xs text-ui-parchment shadow-panel backdrop-blur-md transition-colors placeholder:text-ui-latte/70 focus:border-accent-clay sm:text-sm"
+              className="field bg-parchment-raised/90 py-2 pl-10 pr-20 text-xs shadow-lift backdrop-blur-md sm:text-sm"
             />
             <button
               type="submit"
@@ -159,11 +159,11 @@ export function Landing({ onEnter, onSearch, onGoToProfile }: LandingProps) {
           <button
             type="button"
             onClick={onGoToProfile}
-            className="btn btn-secondary btn-sm flex shrink-0 items-center gap-1.5 rounded-jrpg border-2 border-ui-cocoa bg-base-dark/85 px-3.5 py-2 shadow-panel backdrop-blur-md"
+            className="btn btn-secondary btn-sm shrink-0 bg-parchment-raised/90 px-3.5 py-2 shadow-lift backdrop-blur-md"
             aria-label="Ir a perfil"
           >
-            <User className="size-4 text-accent-clay" aria-hidden="true" />
-            <span className="hidden font-display font-bold sm:inline">Perfil</span>
+            <User className="size-4 text-honey-ink" aria-hidden="true" />
+            <span className="hidden sm:inline">Perfil</span>
           </button>
         </header>
 
@@ -191,30 +191,33 @@ export function Landing({ onEnter, onSearch, onGoToProfile }: LandingProps) {
           }}
         />
 
-        {/* 3. HERO INFO BLOCK (Framed in the right-hand landscape area where the red arrow points) */}
+        {/* 3. HERO INFO BLOCK: up in the sky of the right-hand landscape, stacked like the logo. */}
         <div
           ref={heroRef}
-          className="absolute right-4 top-[46%] z-20 flex max-w-sm -translate-y-1/2 flex-col items-start will-change-[transform,opacity] sm:right-10 sm:max-w-md sm:items-end sm:text-right md:right-16 lg:right-24"
+          className="absolute right-4 top-[max(5.5rem,12svh)] z-20 flex max-w-sm flex-col items-center text-center will-change-[transform,opacity] sm:right-10 sm:max-w-md md:right-16 lg:right-24"
         >
-          <h1 className="font-extrabold leading-none tracking-tight text-ui-parchment text-5xl [text-shadow:0_4px_24px_rgba(26,18,14,0.95)] sm:text-6xl md:text-7xl">
-            TOP DECK
+          <h1 className="flex flex-col items-center">
+            <span className="font-serif text-xl font-bold italic text-espresso [text-shadow:0_1px_10px_rgba(255,253,249,0.9)] sm:text-2xl">
+              Bienvenidos a
+            </span>
+            <span className="wordmark whitespace-nowrap text-5xl leading-tight sm:text-6xl">TOP DECK</span>
           </h1>
 
-          <p className="mt-3 font-semibold text-ui-parchment text-base [text-shadow:0_2px_12px_rgba(26,18,14,0.9)] sm:text-xl">
+          <p className="mt-2 font-serif text-lg font-bold italic text-espresso [text-shadow:0_1px_10px_rgba(255,253,249,0.9)] sm:text-xl">
             Competitividad y coleccionismo
           </p>
 
           <button
             type="button"
-            className="btn btn-primary mt-6 px-7 py-3 text-base shadow-panel"
+            className="btn btn-primary mt-6 px-7 py-3 text-base shadow-lift"
             onClick={scrub ? glideToEnd : onEnter}
           >
             Entrar a TOP DECK
           </button>
 
           {scrub && (
-            <p className="mt-4 flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-ui-latte [text-shadow:0_1px_8px_rgba(26,18,14,0.95)]">
-              <ChevronDown className="size-4 animate-bounce text-accent-clay" aria-hidden="true" />
+            <p className="mt-4 flex items-center gap-1.5 text-xs font-bold text-espresso [text-shadow:0_1px_10px_rgba(255,253,249,0.9)]">
+              <ChevronDown className="size-4 animate-bounce text-honey-ink" aria-hidden="true" />
               Desliza para entrar a TOP DECK
             </p>
           )}
@@ -225,7 +228,7 @@ export function Landing({ onEnter, onSearch, onGoToProfile }: LandingProps) {
           <p
             ref={captionRef}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-[22%] px-8 text-center font-display font-semibold italic text-ui-parchment opacity-0 will-change-[transform,opacity] text-2xl [text-shadow:0_2px_18px_rgba(26,18,14,0.9)] sm:text-4xl"
+            className="pointer-events-none absolute inset-x-0 top-[22%] px-8 text-center font-serif text-2xl font-bold italic text-parchment-raised opacity-0 will-change-[transform,opacity] [text-shadow:0_2px_18px_rgba(56,36,20,0.9)] sm:text-4xl"
           >
             Siempre hay una mesa libre.
           </p>
@@ -234,7 +237,7 @@ export function Landing({ onEnter, onSearch, onGoToProfile }: LandingProps) {
         {/* Ambient Darkening Veil for seamless handoff to tavern interior */}
         <div
           ref={veilRef}
-          className="pointer-events-none absolute inset-0 bg-base-dark opacity-0 will-change-[opacity]"
+          className="pointer-events-none absolute inset-0 bg-parchment opacity-0 will-change-[opacity]"
         />
       </div>
     </section>
